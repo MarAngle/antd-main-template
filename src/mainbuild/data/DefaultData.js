@@ -1,5 +1,5 @@
 import _func from '@/maindata/func/index'
-import ExtraData from './ExtraData'
+import ExtraData from './../mod/ExtraData'
 
 class DefaultData {
   constructor (initdata = {}) {
