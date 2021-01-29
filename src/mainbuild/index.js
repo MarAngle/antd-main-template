@@ -22,6 +22,7 @@ import StatusDataItem from './mod/StatusDataItem'
 import UpdateData from './mod/UpdateData'
 
 import ListData from './main/ListData'
+import option from './option'
 // // -----
 // const _data = require.context('./data', false, /\.js$/)
 // const _mod = require.context('./mod', false, /\.js$/)
@@ -80,5 +81,6 @@ export {
   StatusData,
   StatusDataItem,
   UpdateData,
-  ListData
+  ListData,
+  option
 }

@@ -54,7 +54,7 @@ export const asyncRouterMap = [
           {
             path: '/list/home',
             name: 'ListHome',
-            component: () => import('@/page/list/home/index'),
+            component: () => import('@/mainpage/list/home/index'),
             meta: { title: '列表', keepAlive: false, permission: ['dashboard'] }
           }
         ]
