@@ -66,8 +66,11 @@ class DefaultData {
   resetExtra () {
     this.module.extra.reset()
   }
+  _getPrintInfo (content) {
+    return `${this._selfName()}:${content}`
+  }
   _printInfo (content, type = 'error') {
-    console[type](`${this._selfName()}:${content}`)
+    console[type](this._getPrintInfo(content))
   }
   _selfName () {
     return `[CLASS:${this.constructor.name}-${this.name}/${this.prop}]`
