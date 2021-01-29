@@ -38,7 +38,7 @@ let maindata = new ListData({
         originfrom: 'local',
         mod: {
           list: {
-            width: 50
+            width: 70
           }
         }
       },
