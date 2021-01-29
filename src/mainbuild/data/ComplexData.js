@@ -1,8 +1,8 @@
 import Vue from 'vue'
 import _func from '@/maindata/func/index'
 import BaseData from './BaseData'
-import DictionaryList from './DictionaryList'
-import InterfaceData from './InterfaceData'
+import DictionaryList from './../mod/DictionaryList'
+import InterfaceData from './../mod/InterfaceData'
 import option from './../option'
 
 class ComplexData extends BaseData {

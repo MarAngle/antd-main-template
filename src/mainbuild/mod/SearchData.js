@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import _func from '@/maindata/func/index'
-import ComplexData from './ComplexData'
+import ComplexData from './../data/ComplexData'
 
 class SearchData extends ComplexData {
   constructor (initdata) {

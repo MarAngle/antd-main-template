@@ -1,6 +1,6 @@
 import _func from '@/maindata/func/index'
 import DefaultData from './DefaultData'
-import OptionData from './OptionData'
+import OptionData from './../mod/OptionData'
 
 // 本地选择器数据格式化
 class SelectList extends DefaultData {
