@@ -1,5 +1,5 @@
 import Vue from 'vue'
-import './mod/index'
+// import './mod/index'
 
 const _mainviews = require.context('./data', false, /\.vue$/)
 

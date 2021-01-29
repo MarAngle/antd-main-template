@@ -28,7 +28,7 @@
   <div class="mainpage" >
     <div class="mainpagein">
       <a-spin :spinning="loadStatus == 'loading'">
-        <LocalFormViewModel
+        <!-- <LocalFormViewModel
           v-if="maindata.searchdata.show"
           :layout="'inline'"
           :form="maindata.searchdata.mod.edit.form"
@@ -42,7 +42,7 @@
               <span class="hightext">{{ maindata.data.requestTimes }}次</span>
             </span>
           </template>
-        </LocalFormViewModel>
+        </LocalFormViewModel> -->
         <LocalTableList :maindata="maindata" :mainlist="mainlist" @onPage="onPage" >
           <template slot="_index" slot-scope="slotProps">
             <span class="menulist">

@@ -22,10 +22,7 @@ import './utils/filter' // global filter
 import './global.less' // global style
 
 // -----MAIN START-----
-import './maindata/build/index'
-import _func from './maindata/func/index'
-Vue.prototype._func = _func
-
+import './maindata/index'
 // -----MAIN END-----
 
 Vue.config.productionTip = false
