@@ -5,30 +5,8 @@ import DictionaryList from './DictionaryList'
 import InterfaceData from './InterfaceData'
 import option from './../option'
 
-const instruction = {
-  main: `复杂数据结构`,
-  build: {
-    initdata: {
-      option: `选项设置数据`,
-      dictionary: `字典数据`
-    }
-  },
-  data: {
-    dictionary: {
-      id: {
-        prop: `唯一识别符字段`,
-        data: `唯一识别符数据 --- 暂时没用到`
-      },
-      data: `字典的保存位置`
-    },
-    temp: {
-      edit: `{}编辑页面的赋值操作 --- 根据情况确认是否删除`
-    }
-  }
-}
-
 class ComplexData extends BaseData {
-  constructor(initdata = {}) {
+  constructor (initdata = {}) {
     super(initdata)
     this.data = {
       list: [],
@@ -43,7 +21,7 @@ class ComplexData extends BaseData {
     this.mod = {}
     this._initComplexData(initdata)
   }
-  _initComplexData({
+  _initComplexData ({
     option,
     origindata,
     dictionary,
@@ -57,7 +35,7 @@ class ComplexData extends BaseData {
     this._initComplexDataLife()
   }
   // 加载生命周期函数
-  _initComplexDataLife() {
+  _initComplexDataLife () {
     this.setLifeData({
       type: 'reseted',
       func: () => {
@@ -66,10 +44,10 @@ class ComplexData extends BaseData {
     })
   }
   // 加载源数据
-  _initOrigindata(origindata) {
+  _initOrigindata (origindata) {
     if (origindata) {
       this.origindata = origindata
-      this.getData = function() {
+      this.getData = function () {
         return new Promise((resolve, reject) => {
           this.formatData(this.origindata)
           resolve({ status: 'success' })
@@ -78,7 +56,7 @@ class ComplexData extends BaseData {
     }
   }
   // 加载布局设置项
-  _initLayout(layout) {
+  _initLayout (layout) {
     if (!layout) {
       layout = {
         default: {
@@ -95,11 +73,11 @@ class ComplexData extends BaseData {
     this.layout = new InterfaceData(layout)
   }
   // 加载设置选项
-  _initComplexDataOption(option) {
+  _initComplexDataOption (option) {
     if (option) {}
   }
   // 设置字典列表
-  _initDictionary(dictionaryData) {
+  _initDictionary (dictionaryData) {
     if (dictionaryData) {
       if (dictionaryData.constructor === DictionaryList) {
         this.dictionary = dictionaryData
@@ -112,7 +90,7 @@ class ComplexData extends BaseData {
       }
     }
   }
-  analyzeDictionaryData(dictionaryData) {
+  analyzeDictionaryData (dictionaryData) {
     return dictionaryData
   }
   /**
@@ -122,7 +100,7 @@ class ComplexData extends BaseData {
    *    @param {*} mod 默认取prop，此值主要用途为从字典mod中的哪个prop作为基准进行判断
    * @param {*} rebuild 重新构建判断值
    */
-  buildModData(prop, payload = {}, rebuild) {
+  buildModData (prop, payload = {}, rebuild) {
     if (this.mod[prop] && !rebuild) {
       // 此处考虑重置数据
     } else {
@@ -146,7 +124,7 @@ class ComplexData extends BaseData {
    * @param {*} dictionary 字典列表构建参数
    * @param {*} payload :type 字典构建类型
    */
-  rebuildDictionary(dictionaryData, payload = {}) {
+  rebuildDictionary (dictionaryData, payload = {}) {
     if (dictionaryData) {
       if (dictionaryData.constructor === DictionaryList) {
         this.dictionary = dictionaryData
@@ -161,15 +139,15 @@ class ComplexData extends BaseData {
     }
   }
   // 设置字典唯一值
-  setIdData(data) {
+  setIdData (data) {
     this.dictionary.setIdData(data)
   }
   // 获取字典唯一值
-  getIdData() {
+  getIdData () {
     return this.dictionary.getIdData()
   }
   // 生成基本的form表单数据，(originitemtype对应change或者设置的formatType=change时作为初始值参与构建)
-  buildModFormData(modlist, type, originitem) {
+  buildModFormData (modlist, type, originitem) {
     let targetForm = this.mod[type].form
     for (let n in modlist) {
       let ditem = modlist[n]
@@ -182,7 +160,7 @@ class ComplexData extends BaseData {
     targetForm.num++
   }
   // 根据状态获取form对应的初始值（创建和编辑）
-  resetFormData(modlist, type, originitem) {
+  resetFormData (modlist, type, originitem) {
     let targetForm = this.mod.edit.form
     for (let n in modlist) {
       let ditem = modlist[n]
@@ -195,7 +173,7 @@ class ComplexData extends BaseData {
     targetForm.num++
   }
   // 获取字典对象
-  getDitem(data, act) {
+  getDitem (data, act) {
     return this.dictionary.getItem(data, act)
   }
   // 编辑对象函数 创建和编辑，对应的函数需要在外部methods里面定义
@@ -219,7 +197,7 @@ class ComplexData extends BaseData {
   }
 
   // 并在编辑的时候添加上ID字段
-  setPostDataId(postdata, targetitem) {
+  setPostDataId (postdata, targetitem) {
     this.dictionary.setPostDataId(postdata, targetitem)
   }
   // 根据本地数据格式以及mod列表格式化为后端需要的数据格式
@@ -227,23 +205,23 @@ class ComplexData extends BaseData {
     return this.dictionary.getPostData(tempdata, modlist, type)
   }
   // 根据源数据格式化对象
-  formatItem(originitem, type = 'list', option) {
+  formatItem (originitem, type = 'list', option) {
     return this.dictionary.formatItem(originitem, type, option)
   }
   // 根据源数据更新数据
-  updateItem(targetitem, originitem, type = 'info', option) {
+  updateItem (targetitem, originitem, type = 'info', option) {
     return this.dictionary.updateItem(targetitem, originitem, type, option)
   }
   // 格式化列表数据
-  formatListData(targetlist, originlist, type, option) {
+  formatListData (targetlist, originlist, type, option) {
     this.dictionary.formatListData(targetlist, originlist, type, option)
   }
   // 格式化列表数据
-  formatTreeData(targetlist, originlist, type, option) {
+  formatTreeData (targetlist, originlist, type, option) {
     this.dictionary.formatTreeData(targetlist, originlist, type, option)
   }
   // 格式化独立数据
-  formatItemData(originitem, targetitem, type, option = {}) {
+  formatItemData (originitem, targetitem, type, option = {}) {
     if (!option.type) {
       option.type = 'add'
     }
@@ -251,7 +229,7 @@ class ComplexData extends BaseData {
     _func.updateData(targetitem, item, option)
   }
   // 获取基本数据模板
-  getDataTemplate(mod = 'list') {
+  getDataTemplate (mod = 'list') {
     let data = this.updateItem({}, {}, mod)
     return data
   }
@@ -263,7 +241,7 @@ class ComplexData extends BaseData {
     return this.dictionary.getModList(mod)
   }
   // 根据字典列表返回页面需要的数据列表
-  getPageList(mod, modlist, payload = {}) {
+  getPageList (mod, modlist, payload = {}) {
     return this.dictionary.getPageList(mod, modlist, payload)
   }
 
@@ -313,24 +291,17 @@ class ComplexData extends BaseData {
   }
 
   // 重置data.current
-  resetDataCurrent() {
+  resetDataCurrent () {
     this.data.current = this.getDataTemplate()
   }
   // 重置data.list
-  resetDataList() {
+  resetDataList () {
     _func.clearArray(this.data.list)
   }
   // 重置回调
-  resetComplexData() {
+  resetComplexData () {
     this.resetDataList()
     this.resetDataCurrent()
-  }
-
-  _getInstruction() {
-    return {
-      self: instruction,
-      origin: super._getInstruction()
-    }
   }
 }
 
