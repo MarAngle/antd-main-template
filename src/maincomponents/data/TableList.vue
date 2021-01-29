@@ -2,15 +2,13 @@
 
 </style>
 <template>
-  <div :class="'local-main-TableList local-main-TableList-' + tableLine">
+  <div :class="'local-main-TableList'">
     <a-table
-      size="middle"
-      :row-selection="rowSelection"
+      :size="size"
       :rowKey="maindata.dictionary.getIdProp()"
-      :columns="mainlist"
+      :columns="columnList"
       :dataSource="currentListData"
       :pagination="false"
-      :scroll="{ x: width }"
       :customRow="customRow"
       :customHeaderRow="customHeaderRow"
     >
@@ -27,11 +25,47 @@ export default {
   },
   props: {
     maindata: {
+      // ListData的实例
       type: Object,
       required: true
+    },
+    columnList: {
+      // 定制列配置
+      type: Array,
+      required: true
+    },
+    listData: {
+      // 定制列表数据
+      type: Array,
+      required: false
+    },
+    paginationData: {
+      // 定制分页器
+      type: Object,
+      required: false
+    },
+    size: {
+      type: String,
+      required: false,
+      default: 'default' // default / middle / small
+    },
+    customRow: {
+      type: Function,
+      required: false
+    },
+    customHeaderRow: {
+      type: Function,
+      required: false
     }
   },
   computed: {
+    currentListData () {
+      if (this.listData) {
+        return this.listData
+      } else {
+        return this.maindata.data.list
+      }
+    }
   },
   methods: {
   }

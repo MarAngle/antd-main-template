@@ -1,9 +1,6 @@
 import _func from '@/maindata/func/index'
 import { ListData } from '@/mainbuild/index'
 
-let preurl = ''
-// preurl = 'https://gateway-dev.wuzheng.com.cn/vehicle/info/'
-
 let maindata = new ListData({
   name: '终端信息管理',
   prop: 'terminalinfolist',
@@ -307,14 +304,10 @@ let maindata = new ListData({
         let postdata = this.getSearch()
         postdata.pageSize = this.getPageData('size')
         postdata.pageNo = this.getPageData('page')
-        postdata.agreement = _func.BASE_DATA.agreement
+        postdata.agreement = 'GB17691'
         this.setExtra('lastPost', postdata)
-        let url = _func.getWuzhengUrl('terminal/info/page', {
-          pre: preurl,
-          type: 'vehicle_info'
-        })
         _func.get({
-          url: url,
+          url: 'vehicle/info/terminal/info/page',
           query: postdata,
           token: 'default'
         }).then(res => {
@@ -331,13 +324,9 @@ let maindata = new ListData({
     },
     buildItem: function ({ postdata, targetitem, index }) {
       return new Promise((resolve, reject) => {
-        let url = _func.getWuzhengUrl('terminal/info/create', {
-          pre: preurl,
-          type: 'vehicle_info'
-        })
-        postdata.agreement = _func.BASE_DATA.agreement
+        postdata.agreement = 'GB17691'
         _func.post({
-          url: url,
+          url: 'vehicle/info/terminal/info/create',
           data: postdata,
           token: 'default'
         }).then(res => {
@@ -350,13 +339,9 @@ let maindata = new ListData({
     },
     getRequestTimes: function (postdata) {
       return new Promise((resolve, reject) => {
-        postdata.agreement = _func.BASE_DATA.agreement
-        let url = _func.getWuzhengUrl('terminal/info/count/request/times', {
-          pre: preurl,
-          type: 'vehicle_info'
-        })
+        postdata.agreement = 'GB17691'
         _func.get({
-          url: url,
+          url: 'vehicle/info/terminal/info/count/request/times',
           query: postdata,
           token: 'default'
         }).then(res => {
@@ -372,13 +357,9 @@ let maindata = new ListData({
         let postdata = this.getExtra('lastPost')
         delete postdata.pageNo
         delete postdata.pageSize
-        postdata.agreement = _func.BASE_DATA.agreement
-        let url = _func.getWuzhengUrl('terminal/info/export', {
-          pre: preurl,
-          type: 'vehicle_info'
-        })
+        postdata.agreement = 'GB17691'
         _func.get({
-          url: url,
+          url: 'vehicle/info/terminal/info/export',
           query: postdata,
           token: 'default'
         }).then(res => {

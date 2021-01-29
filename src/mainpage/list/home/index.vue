@@ -43,7 +43,7 @@
             </span>
           </template>
         </LocalFormViewModel> -->
-        <LocalTableList :maindata="maindata" :mainlist="mainlist" @onPage="onPage" >
+        <LocalTableList :maindata="maindata" :columnList="mainlist" @onPage="onPage" >
           <template slot="_index" slot-scope="slotProps">
             <span class="menulist">
               <a>{{ CountIndex(slotProps.index) }}</a>

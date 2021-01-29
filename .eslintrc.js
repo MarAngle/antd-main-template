@@ -8,6 +8,7 @@ module.exports = {
     '@vue/standard'
   ],
   rules: {
+    'vue/require-default-prop': 0,
     'prefer-promise-reject-errors': 0,
     'eqeqeq': 0,
     'no-console': 'off',
