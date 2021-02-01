@@ -196,7 +196,7 @@ class BaseData extends DefaultData {
   }
 
   // 触发目标函数并伴随对应的操作值变动--未发现对应函数时报错
-  triggerTargetMethod (target, payload) {
+  triggerMethod (target, payload) {
     return new Promise((resolve, reject) => {
       if (this[target]) {
         this.setStatus('operating')
@@ -209,29 +209,29 @@ class BaseData extends DefaultData {
           reject(res)
         })
       } else {
-        this._printInfo(`未定义${target}函数，triggerTargetMethod函数触发失败！`)
+        this._printInfo(`未定义${target}函数，triggerMethod函数触发失败！`)
         reject({ status: 'fail', code: 'noMethod' })
       }
     })
   }
 
   // 触发目标函数并伴随对应的操作值变动--未发现对应函数时报错
-  triggerTargetMethodByOperate (target, payload) {
+  triggerMethodByOperate (target, payload) {
     return new Promise((resolve, reject) => {
       if (this[target]) {
         let operate = this.getStatus()
         if (operate.value == 'operated') {
-          this.triggerTargetMethod(target, payload).then(res => {
+          this.triggerMethod(target, payload).then(res => {
             resolve(res)
           }, res => {
             reject(res)
           })
         } else {
-          this._printInfo(`当前操作状态为:${operate.label}，${target}函数操作互斥，triggerTargetMethodByOperate函数失败！`)
+          this._printInfo(`当前操作状态为:${operate.label}，${target}函数操作互斥，triggerMethodByOperate函数失败！`)
           reject({ status: 'fail', code: 'clash' })
         }
       } else {
-        this._printInfo(`未定义${target}函数，triggerTargetMethodByOperate函数触发失败！`)
+        this._printInfo(`未定义${target}函数，triggerMethodByOperate函数触发失败！`)
         reject({ status: 'fail', code: 'noMethod' })
       }
     })
@@ -243,7 +243,7 @@ class BaseData extends DefaultData {
       // 触发生命周期加载前事件
       this.life.trigger('beforeLoad')
       this.setStatus('loading', 'load')
-      this.triggerTargetMethod('getData', payload).then(res => {
+      this.triggerMethod('getData', payload).then(res => {
         this.setStatus('loaded', 'load')
         // 触发生命周期加载完成事件
         this.life.trigger('loaded')
@@ -260,7 +260,7 @@ class BaseData extends DefaultData {
       this.setStatus('updating', 'update')
       // 触发生命周期更新前事件
       this.life.trigger('beforeUpdate')
-      this.triggerTargetMethod('updateData', payload).then(res => {
+      this.triggerMethod('updateData', payload).then(res => {
         this.setStatus('updated', 'update')
         // 触发生命周期更新完成事件
         this.life.trigger('updated')

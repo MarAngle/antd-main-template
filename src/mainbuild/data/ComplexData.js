@@ -10,6 +10,7 @@ class ComplexData extends BaseData {
     super(initdata)
     this.data = {
       list: [],
+      tree: [],
       current: {}
     }
     /*
@@ -17,18 +18,18 @@ class ComplexData extends BaseData {
       limit: [] // 存在值则对应的模块在非对象模块时不参与构建整个数据
     }
     */
-    this.dictionary = new DictionaryList()
+    this.dictionaryList = new DictionaryList()
     this.mod = {}
     this._initComplexData(initdata)
   }
   _initComplexData ({
     option,
-    origindata,
+    originData,
     dictionary,
     layout
   }) {
     this._initLayout(layout)
-    this._initOrigindata(origindata)
+    this._initOriginData(originData)
     this._initComplexDataOption(option)
     this._initDictionary(dictionary)
     this.buildModData('edit')
@@ -44,12 +45,12 @@ class ComplexData extends BaseData {
     })
   }
   // 加载源数据
-  _initOrigindata (origindata) {
-    if (origindata) {
-      this.origindata = origindata
+  _initOriginData (originData) {
+    if (originData) {
+      this.originData = originData
       this.getData = function () {
         return new Promise((resolve, reject) => {
-          this.formatData(this.origindata)
+          this.formatData(this.originData)
           resolve({ status: 'success' })
         })
       }
@@ -77,21 +78,21 @@ class ComplexData extends BaseData {
     if (option) {}
   }
   // 设置字典列表
-  _initDictionary (dictionaryData) {
-    if (dictionaryData) {
-      if (dictionaryData.constructor === DictionaryList) {
-        this.dictionary = dictionaryData
+  _initDictionary (dictionaryOption) {
+    if (dictionaryOption) {
+      if (dictionaryOption.constructor === DictionaryList) {
+        this.dictionaryList = dictionaryOption
       } else {
-        dictionaryData = this.analyzeDictionaryData(dictionaryData)
-        this.dictionary.initMain(dictionaryData, {
+        dictionaryOption = this.analyzeDictionaryOption(dictionaryOption)
+        this.dictionaryList.initMain(dictionaryOption, {
           layout: this.layout.getMain(),
           parent: this
         })
       }
     }
   }
-  analyzeDictionaryData (dictionaryData) {
-    return dictionaryData
+  analyzeDictionaryOption (dictionaryOption) {
+    return dictionaryOption
   }
   /**
    * 根据prop生成编辑基本模板以及对应数据
@@ -127,10 +128,10 @@ class ComplexData extends BaseData {
   rebuildDictionary (dictionaryData, payload = {}) {
     if (dictionaryData) {
       if (dictionaryData.constructor === DictionaryList) {
-        this.dictionary = dictionaryData
+        this.dictionaryList = dictionaryData
       } else {
-        dictionaryData = this.analyzeDictionaryData(dictionaryData)
-        this.dictionary.rebuildData(dictionaryData, {
+        dictionaryData = this.analyzeDictionaryOption(dictionaryData)
+        this.dictionaryList.rebuildData(dictionaryData, {
           type: payload.type,
           layout: this.layout.getMain(),
           parent: this
@@ -140,11 +141,11 @@ class ComplexData extends BaseData {
   }
   // 设置字典唯一值
   setIdData (data) {
-    this.dictionary.setIdData(data)
+    this.dictionaryList.setIdData(data)
   }
   // 获取字典唯一值
   getIdData () {
-    return this.dictionary.getIdData()
+    return this.dictionaryList.getIdData()
   }
   // 生成基本的form表单数据，(originitemtype对应change或者设置的formatType=change时作为初始值参与构建)
   buildModFormData (modlist, type, originitem) {
@@ -174,7 +175,7 @@ class ComplexData extends BaseData {
   }
   // 获取字典对象
   getDitem (data, act) {
-    return this.dictionary.getItem(data, act)
+    return this.dictionaryList.getItem(data, act)
   }
   // 编辑对象函数 创建和编辑，对应的函数需要在外部methods里面定义
   triggerEdit (type, tempdata, modlist, index) {
@@ -198,27 +199,27 @@ class ComplexData extends BaseData {
 
   // 并在编辑的时候添加上ID字段
   setPostDataId (postdata, targetitem) {
-    this.dictionary.setPostDataId(postdata, targetitem)
+    this.dictionaryList.setPostDataId(postdata, targetitem)
   }
   // 根据本地数据格式以及mod列表格式化为后端需要的数据格式
   getPostData (tempdata, modlist, type) {
-    return this.dictionary.getPostData(tempdata, modlist, type)
+    return this.dictionaryList.getPostData(tempdata, modlist, type)
   }
   // 根据源数据格式化对象
   formatItem (originitem, type = 'list', option) {
-    return this.dictionary.formatItem(originitem, type, option)
+    return this.dictionaryList.formatItem(originitem, type, option)
   }
   // 根据源数据更新数据
   updateItem (targetitem, originitem, type = 'info', option) {
-    return this.dictionary.updateItem(targetitem, originitem, type, option)
+    return this.dictionaryList.updateItem(targetitem, originitem, type, option)
   }
   // 格式化列表数据
   formatListData (targetlist, originlist, type, option) {
-    this.dictionary.formatListData(targetlist, originlist, type, option)
+    this.dictionaryList.formatListData(targetlist, originlist, type, option)
   }
   // 格式化列表数据
   formatTreeData (targetlist, originlist, type, option) {
-    this.dictionary.formatTreeData(targetlist, originlist, type, option)
+    this.dictionaryList.formatTreeData(targetlist, originlist, type, option)
   }
   // 格式化独立数据
   formatItemData (originitem, targetitem, type, option = {}) {
@@ -238,11 +239,11 @@ class ComplexData extends BaseData {
   // --页面数据相关--
   // 获取页面页面对应的字典列表
   getModList (mod) {
-    return this.dictionary.getModList(mod)
+    return this.dictionaryList.getModList(mod)
   }
   // 根据字典列表返回页面需要的数据列表
   getPageList (mod, modlist, payload = {}) {
-    return this.dictionary.getPageList(mod, modlist, payload)
+    return this.dictionaryList.getPageList(mod, modlist, payload)
   }
 
   // 触发获取详情操作
