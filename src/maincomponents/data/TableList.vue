@@ -2,6 +2,30 @@
 p{
   margin: 0;
 }
+.text{
+  width: 100%;
+}
+.local-main-TableList {
+  /deep/.text {
+    width: 100%;
+    p,
+    span {
+      vertical-align: middle;
+    }
+    &.text-nowrap {
+      p,
+      span {
+        display: inline-block;
+        width: 100%;
+        // height: 24px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+    }
+  }
+}
+
 </style>
 <template>
   <div :class="'local-main-TableList'">
@@ -21,6 +45,7 @@ p{
         :key="k"
         :slot="pitem.scopedSlots.customRender"
         :style="buildTextStyle(pitem)"
+        :class="pitem.ellipsis ? 'text text-nowrap' : 'text text-wrap'"
         slot-scope="text, record, index"
       >
         <slot :name="pitem.slotdata.name" :text="text" :record="record" :index="index">
@@ -41,6 +66,7 @@ export default {
   },
   data () {
     return {
+      page: this._func.page
     }
   },
   props: {
@@ -91,6 +117,15 @@ export default {
     customHeaderRow: {
       type: Function,
       required: false
+    },
+    widthType: {
+      type: String,
+      required: false,
+      default: 'count'
+    },
+    widthCount: {
+      type: [String, Number, Function],
+      required: false
     }
   },
   computed: {
@@ -112,17 +147,21 @@ export default {
       return num
     },
     width () {
-      // if (this.widthType == 'count') {
-      //   if (this.widthData) {
-      //     return this.widthData > this.minWidth ? false : this.minWidth
-      //   } else {
-      //     let defaultWidth = this.page.mod.main.width - 96
-      //     return defaultWidth > this.minWidth ? false : this.minWidth
-      //   }
-      // } else {
-      //   return true
-      // }
-      return true
+      if (this.widthType == 'count') {
+        if (this.widthCount) {
+          let type = this._func.getType(this.widthCount)
+          if (type == 'function') {
+            return this.widthCount(this.minWidth)
+          } else {
+            return this.widthCount > this.minWidth ? false : this.minWidth
+          }
+        } else {
+          let defaultWidth = this.page.mod.main.width - 96
+          return defaultWidth > this.minWidth ? false : this.minWidth
+        }
+      } else {
+        return true
+      }
     }
   },
   methods: {
@@ -131,7 +170,7 @@ export default {
       if (pitem.width) {
         let type = this._func.getType(pitem.width)
         if (type == 'number') {
-          style.minWidth = pitem.width - 32 + 'px'
+          style.minWidth = pitem.width - 32 - 1 + 'px'
         }
       }
       return style

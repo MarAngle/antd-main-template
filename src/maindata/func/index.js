@@ -1,4 +1,6 @@
 import mainfunc from '@/mainfunc/index'
+import _page from './data/page'
+mainfunc.page = _page
 
 mainfunc.init({
   require: {
@@ -88,6 +90,12 @@ mainfunc.init({
     ]
   }
 })
+mainfunc.autoPage = function () {
+  mainfunc.page.initBodyPage()
+  window.onresize = mainfunc.throttle(function () {
+    mainfunc.page.initBodyPage()
+  }, 200, 2)
+}
 
 // 设置token
 console.error('设置TOKEN')

@@ -2,15 +2,10 @@
 .AutoText{
   width: 100%;
   margin: 0;
-  padding: 0;
-  word-wrap: break-word;
-  word-break: break-all;
-}
-.content{
-  width: 100%;
 }
 .auto{
-  /* display: inline-block; */
+  word-wrap: break-word;
+  word-break: break-all;
   cursor: pointer;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -75,7 +70,7 @@ export default {
   },
   methods: {
     autoWidth () {
-      console.log(this.$refs['AutoText'].clientWidth, this.text)
+      // console.log(this.$refs['AutoText'].clientWidth, this.text)
     }
   }
 }
