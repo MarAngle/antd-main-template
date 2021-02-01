@@ -20,13 +20,11 @@ p{
         v-for="(pitem, k) in columnList"
         :key="k"
         :slot="pitem.scopedSlots.customRender"
-        :class="pitem.ellipsis ? 'text text-nowrap' : 'text text-wrap'"
+        :style="buildTextStyle(pitem)"
         slot-scope="text, record, index"
       >
-        <slot :name="pitem.slotdata.name" :text="text" :record="record" :index="index">
-          <a-tooltip :placement="'top'" :title="showTips(pitem, text)">
-            <p :style="pitem.style">{{ showData(pitem, text) }}</p>
-          </a-tooltip>
+        <slot v-if="index == 0" :name="pitem.slotdata.name" :text="text" :record="record" :index="index">
+          <AutoText :text="showData(pitem, text)" :auto="pitem.ellipsis" :tipPlacement="pitem.tipPlacement" />
         </slot>
       </div>
     </a-table>
@@ -34,8 +32,13 @@ p{
 </template>
 
 <script>
+import AutoText from './../mod/AutoText'
+
 export default {
   name: 'TableList',
+  components: {
+    AutoText
+  },
   data () {
     return {
     }
@@ -123,6 +126,16 @@ export default {
     }
   },
   methods: {
+    buildTextStyle (pitem) {
+      let style = {}
+      if (pitem.width) {
+        let type = this._func.getType(pitem.width)
+        if (type == 'number') {
+          style.minWidth = pitem.width - 18 + 'px'
+        }
+      }
+      return style
+    },
     showTips (pitem, text) {
       if (pitem.ellipsis) {
         return this.showData(pitem, text)
