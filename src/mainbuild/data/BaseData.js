@@ -4,6 +4,7 @@ import StatusData from './../mod/StatusData'
 import UpdateData from './../mod/UpdateData'
 import LifeData from './../mod/LifeData'
 import PromiseData from './../mod/PromiseData'
+
 class BaseData extends DefaultData {
   constructor (initdata = {}) {
     super(initdata)
@@ -93,10 +94,10 @@ class BaseData extends DefaultData {
       if (this.update[method]) {
         this.update[method](payload)
       } else {
-        console.error(`Error: ${this._selfName()}中更新模块不存在${method}方法`)
+        this._printInfo(`更新模块不存在${method}方法`)
       }
     } else if (!hideError) {
-      console.error(`Error: ${this._selfName()}中未定义更新模块`)
+      this._printInfo(`未定义更新模块`)
     }
   }
   // 自动加载或者更新数据
@@ -161,7 +162,7 @@ class BaseData extends DefaultData {
         }
       }
       this.triggerPromise('load', {
-        errmsg: `Error: ${this._selfName()}中promise模块无load数据(load状态:${loadStatus.value})`
+        errmsg: this._getPrintInfo(`promise模块无load数据(load状态:${loadStatus.value})`)
       }).then(res => {
         resolve(res)
       }, res => {
@@ -185,7 +186,7 @@ class BaseData extends DefaultData {
         }
       }
       this.triggerPromise('update', {
-        errmsg: `Error: ${this._selfName()}中promise模块无update数据(update状态:${updateStatus.value})`
+        errmsg: this._getPrintInfo(`promise模块无update数据(update状态:${updateStatus.value})`)
       }).then(res => {
         resolve(res)
       }, res => {
@@ -208,7 +209,7 @@ class BaseData extends DefaultData {
           reject(res)
         })
       } else {
-        console.error(`Error: ${this._selfName()}中未定义${target}函数，triggerTargetMethod函数触发失败！`)
+        this._printInfo(`未定义${target}函数，triggerTargetMethod函数触发失败！`)
         reject({ status: 'fail', code: 'noMethod' })
       }
     })
@@ -226,11 +227,11 @@ class BaseData extends DefaultData {
             reject(res)
           })
         } else {
-          console.error(`Error: ${this._selfName()}中当前操作状态为:${operate.label}，${target}函数操作互斥，triggerTargetMethodByOperate函数失败！`)
+          this._printInfo(`当前操作状态为:${operate.label}，${target}函数操作互斥，triggerTargetMethodByOperate函数失败！`)
           reject({ status: 'fail', code: 'clash' })
         }
       } else {
-        console.error(`Error: ${this._selfName()}中未定义${target}函数，triggerTargetMethodByOperate函数触发失败！`)
+        this._printInfo(`未定义${target}函数，triggerTargetMethodByOperate函数触发失败！`)
         reject({ status: 'fail', code: 'noMethod' })
       }
     })
