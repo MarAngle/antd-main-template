@@ -2,10 +2,10 @@
 .AutoText{
   width: 100%;
   margin: 0;
-}
-.auto{
   word-wrap: break-word;
   word-break: break-all;
+}
+.auto{
   cursor: pointer;
   overflow: hidden;
   text-overflow: ellipsis;

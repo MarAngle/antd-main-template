@@ -5,26 +5,6 @@ p{
 .text{
   width: 100%;
 }
-.local-main-TableList {
-  /deep/.text {
-    width: 100%;
-    p,
-    span {
-      vertical-align: middle;
-    }
-    &.text-nowrap {
-      p,
-      span {
-        display: inline-block;
-        width: 100%;
-        // height: 24px;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        white-space: nowrap;
-      }
-    }
-  }
-}
 
 </style>
 <template>
@@ -95,7 +75,6 @@ export default {
       required: false,
       default: function () {
         return function (total, range) {
-          console.log(total, range)
           return total
         }
       }
