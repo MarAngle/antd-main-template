@@ -96,206 +96,206 @@ let maindata = new ListData({
         originprop: 'vin',
         mod: {
           list: {
-            width: 80
+            width: 150
           }
         }
+      },
+      {
+        prop: 'requestTimes',
+        name: '密钥请求次数',
+        originprop: 'requestTimes',
+        mod: {
+          list: {
+            width: 120
+          }
+        }
+      },
+      {
+        prop: 'afterBindRequestTimes',
+        name: '车辆绑定后密钥请求次数',
+        originprop: 'afterBindRequestTimes',
+        mod: {
+          list: {
+            width: 180
+          }
+        }
+      },
+      {
+        prop: 'publicKey',
+        name: 'RSA公钥',
+        originprop: 'publicKey',
+        mod: {
+          list: {
+            width: 180
+          },
+          info: {}
+        }
+      },
+      {
+        prop: 'firmwareVersion',
+        name: '当前固件版本号',
+        label: {
+          default: '当前固件版本号',
+          build: '固件版本',
+          change: '固件版本'
+        },
+        originprop: 'firmwareVersion',
+        mod: {
+          list: {
+            width: 150
+          },
+          info: {},
+          edit: {
+            type: 'input',
+            required: false,
+            option: {
+              type: 'text'
+            }
+          },
+          build: {
+            type: 'edit'
+          },
+          change: {
+            type: 'edit'
+          }
+        }
+      },
+      {
+        prop: 'terminalModel',
+        name: '终端型号',
+        originprop: 'terminalModel',
+        mod: {
+          list: {
+            width: 120
+          },
+          info: {},
+          edit: {
+            type: 'input',
+            required: false,
+            option: {
+              type: 'text'
+            }
+          },
+          build: {
+            type: 'edit'
+          },
+          change: {
+            type: 'edit'
+          }
+        }
+      },
+      {
+        prop: 'terminalModelAuthState',
+        name: '终端型号授权备案结果',
+        originprop: 'terminalModelAuthState',
+        mod: {
+          // list: {
+          //   width: 170
+          // },
+          info: {}
+        }
+      },
+      {
+        prop: 'terminalModelState',
+        name: '终端型号备案结果',
+        originprop: 'terminalModelState',
+        mod: {
+          // list: {
+          //   width: 160
+          // },
+          info: {}
+        }
+      },
+      {
+        prop: 'chipCode',
+        name: '安全芯片编号',
+        label: {
+          default: '安全芯片编号',
+          build: '芯片编号',
+          change: '芯片编号'
+        },
+        originprop: 'chipCode',
+        mod: {
+          list: {
+            width: 120
+          },
+          edit: {
+            type: 'input',
+            required: false,
+            option: {
+              type: 'text'
+            }
+          },
+          build: {
+            type: 'edit'
+          },
+          change: {
+            type: 'edit'
+          }
+        }
+      },
+      {
+        prop: 'chipModel',
+        name: '安全芯片型号',
+        label: {
+          default: '安全芯片型号',
+          build: '芯片型号',
+          change: '芯片型号'
+        },
+        originprop: 'chipModel',
+        mod: {
+          list: {
+            width: 120
+          },
+          info: {},
+          edit: {
+            type: 'input',
+            required: false,
+            option: {
+              type: 'text'
+            }
+          },
+          build: {
+            type: 'edit'
+          },
+          change: {
+            type: 'edit'
+          }
+        }
+      },
+      {
+        prop: 'chipModelState',
+        name: '安全芯片型号备案结果',
+        originprop: 'chipModelState',
+        mod: {
+          // list: {
+          //   width: 170
+          // },
+          info: {}
+        }
+      },
+      {
+        prop: 'terminalFactoryOrgCode',
+        name: '企业社会信用代码',
+        originprop: 'terminalFactoryOrgCode',
+        mod: {
+          list: {
+            width: 160
+          },
+          info: {}
+        }
+      },
+      {
+        prop: 'terminalFactoryName',
+        name: '终端厂商名称',
+        originprop: 'terminalFactoryName',
+        mod: {
+          list: {
+            width: 120
+          },
+          info: {}
+        }
       }
-      // {
-      //   prop: 'requestTimes',
-      //   name: '密钥请求次数',
-      //   originprop: 'requestTimes',
-      //   mod: {
-      //     list: {
-      //       width: 120
-      //     }
-      //   }
-      // },
-      // {
-      //   prop: 'afterBindRequestTimes',
-      //   name: '车辆绑定后密钥请求次数',
-      //   originprop: 'afterBindRequestTimes',
-      //   mod: {
-      //     list: {
-      //       width: 180
-      //     }
-      //   }
-      // },
-      // {
-      //   prop: 'publicKey',
-      //   name: 'RSA公钥',
-      //   originprop: 'publicKey',
-      //   mod: {
-      //     list: {
-      //       width: 180
-      //     },
-      //     info: {}
-      //   }
-      // },
-      // {
-      //   prop: 'firmwareVersion',
-      //   name: '当前固件版本号',
-      //   label: {
-      //     default: '当前固件版本号',
-      //     build: '固件版本',
-      //     change: '固件版本'
-      //   },
-      //   originprop: 'firmwareVersion',
-      //   mod: {
-      //     list: {
-      //       width: 150
-      //     },
-      //     info: {},
-      //     edit: {
-      //       type: 'input',
-      //       required: false,
-      //       option: {
-      //         type: 'text'
-      //       }
-      //     },
-      //     build: {
-      //       type: 'edit'
-      //     },
-      //     change: {
-      //       type: 'edit'
-      //     }
-      //   }
-      // },
-      // {
-      //   prop: 'terminalModel',
-      //   name: '终端型号',
-      //   originprop: 'terminalModel',
-      //   mod: {
-      //     list: {
-      //       width: 120
-      //     },
-      //     info: {},
-      //     edit: {
-      //       type: 'input',
-      //       required: false,
-      //       option: {
-      //         type: 'text'
-      //       }
-      //     },
-      //     build: {
-      //       type: 'edit'
-      //     },
-      //     change: {
-      //       type: 'edit'
-      //     }
-      //   }
-      // },
-      // {
-      //   prop: 'terminalModelAuthState',
-      //   name: '终端型号授权备案结果',
-      //   originprop: 'terminalModelAuthState',
-      //   mod: {
-      //     // list: {
-      //     //   width: 170
-      //     // },
-      //     info: {}
-      //   }
-      // },
-      // {
-      //   prop: 'terminalModelState',
-      //   name: '终端型号备案结果',
-      //   originprop: 'terminalModelState',
-      //   mod: {
-      //     // list: {
-      //     //   width: 160
-      //     // },
-      //     info: {}
-      //   }
-      // },
-      // {
-      //   prop: 'chipCode',
-      //   name: '安全芯片编号',
-      //   label: {
-      //     default: '安全芯片编号',
-      //     build: '芯片编号',
-      //     change: '芯片编号'
-      //   },
-      //   originprop: 'chipCode',
-      //   mod: {
-      //     list: {
-      //       width: 120
-      //     },
-      //     edit: {
-      //       type: 'input',
-      //       required: false,
-      //       option: {
-      //         type: 'text'
-      //       }
-      //     },
-      //     build: {
-      //       type: 'edit'
-      //     },
-      //     change: {
-      //       type: 'edit'
-      //     }
-      //   }
-      // },
-      // {
-      //   prop: 'chipModel',
-      //   name: '安全芯片型号',
-      //   label: {
-      //     default: '安全芯片型号',
-      //     build: '芯片型号',
-      //     change: '芯片型号'
-      //   },
-      //   originprop: 'chipModel',
-      //   mod: {
-      //     list: {
-      //       width: 120
-      //     },
-      //     info: {},
-      //     edit: {
-      //       type: 'input',
-      //       required: false,
-      //       option: {
-      //         type: 'text'
-      //       }
-      //     },
-      //     build: {
-      //       type: 'edit'
-      //     },
-      //     change: {
-      //       type: 'edit'
-      //     }
-      //   }
-      // },
-      // {
-      //   prop: 'chipModelState',
-      //   name: '安全芯片型号备案结果',
-      //   originprop: 'chipModelState',
-      //   mod: {
-      //     // list: {
-      //     //   width: 170
-      //     // },
-      //     info: {}
-      //   }
-      // },
-      // {
-      //   prop: 'terminalFactoryOrgCode',
-      //   name: '企业社会信用代码',
-      //   originprop: 'terminalFactoryOrgCode',
-      //   mod: {
-      //     list: {
-      //       width: 160
-      //     },
-      //     info: {}
-      //   }
-      // },
-      // {
-      //   prop: 'terminalFactoryName',
-      //   name: '终端厂商名称',
-      //   originprop: 'terminalFactoryName',
-      //   mod: {
-      //     list: {
-      //       width: 120
-      //     },
-      //     info: {}
-      //   }
-      // }
     ]
   },
   methods: {

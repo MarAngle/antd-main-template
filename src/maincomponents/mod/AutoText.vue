@@ -1,11 +1,16 @@
 <style scoped>
-p{
+.AutoText{
+  width: 100%;
   margin: 0;
   padding: 0;
   word-wrap: break-word;
   word-break: break-all;
 }
-.nowarpContent{
+.content{
+  width: 100%;
+}
+.auto{
+  /* display: inline-block; */
   cursor: pointer;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -14,9 +19,11 @@ p{
 
 </style>
 <template>
-  <div ref="AutoText" class="AutoText" >
-    <p ref="size" class="sizeContent nowarpContent" >{{ text }}</p>
-  </div>
+  <p ref="AutoText" class="AutoText auto" >
+    <a-tooltip v-bind="tipOption" >
+      <span ref="size" class="content" >{{ text }}</span>
+    </a-tooltip>
+  </p>
 </template>
 
 <script>
@@ -30,12 +37,35 @@ export default {
     }
   },
   computed: {
+    tipOption () {
+      let option
+      if (typeof this.tip == 'object') {
+        option = this.tip
+      } else {
+        option = {
+          placement: this.tip || 'top'
+        }
+      }
+      if (!option.title) {
+        option.title = this.text
+      }
+      return option
+    }
   },
   props: {
     text: {
-      type: [ String, Number, Object, Array ],
+      type: [String, Number, Object, Array],
       required: false,
       default: ''
+    },
+    auto: {
+      type: Boolean,
+      required: false,
+      default: false
+    },
+    tip: {
+      type: [String, Object],
+      required: false
     }
   },
   mounted () {
@@ -46,22 +76,7 @@ export default {
   methods: {
     autoWidth () {
       console.log(this.$refs['AutoText'].clientWidth, this.text)
-      // 观察器的配置（需要观察什么变动）
-      const config = { attributes: true, characterData: true, subtree: true }
-      // 当观察到变动时执行的回调函数
-      const callback = function (mutationsList, observer) {
-        console.log(mutationsList, observer)
-      }
-      // 创建一个观察器实例并传入回调函数
-      this.observer = new MutationObserver(callback)
-      // 以上述配置开始观察目标节点
-      this.observer.observe(this.$refs['size'], config)
     }
-  },
-  beforeDestroy () {
-    // 停止观测
-    this.observer.disconnect()
-    this.observer = null
   }
 }
 </script>

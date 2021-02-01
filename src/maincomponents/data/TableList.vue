@@ -23,8 +23,8 @@ p{
         :style="buildTextStyle(pitem)"
         slot-scope="text, record, index"
       >
-        <slot v-if="index == 0" :name="pitem.slotdata.name" :text="text" :record="record" :index="index">
-          <AutoText :text="showData(pitem, text)" :auto="pitem.ellipsis" :tipPlacement="pitem.tipPlacement" />
+        <slot :name="pitem.slotdata.name" :text="text" :record="record" :index="index">
+          <AutoText :text="showData(pitem, text)" :auto="pitem.ellipsis" :tip="pitem.tip" />
         </slot>
       </div>
     </a-table>
@@ -131,7 +131,7 @@ export default {
       if (pitem.width) {
         let type = this._func.getType(pitem.width)
         if (type == 'number') {
-          style.minWidth = pitem.width - 18 + 'px'
+          style.minWidth = pitem.width - 32 + 'px'
         }
       }
       return style
