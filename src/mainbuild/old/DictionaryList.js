@@ -1,7 +1,6 @@
 import _func from '@/maindata/func/index'
 import DictionaryData from './DictionaryData'
 import OptionData from './OptionData'
-import ParentData from './ParentData'
 
 class DictionaryList {
   constructor (initdata, payload) {
@@ -13,8 +12,7 @@ class DictionaryList {
       },
       tree: false
     })
-    this.parentData = new ParentData()
-    this.propData = {
+    this.propdata = {
       id: {
         prop: 'id',
         data: ''
@@ -36,10 +34,11 @@ class DictionaryList {
   }
   initMain (initdata, payload = {}) {
     payload.type = payload.type || 'init'
-    this.initOption(initdata.option)
+    // initdata = this.analyzeInitData(initdata)
+    this._setOption(initdata.option)
     this.initDictionaryData(initdata, payload)
   }
-  initOption (option = {}) {
+  _setOption (option = {}) {
     if (option.isChildren !== undefined) {
       this.option.setData('isChildren', option.isChildren)
     }
@@ -54,18 +53,15 @@ class DictionaryList {
       this.option.setData('tree', option.tree)
     }
   }
-  // 设置父实例
-  setParent (data) {
-    this.parentData.setData(data)
-  }
-  // 获取上级实例
-  getParent (n) {
-    return this.parentData.getData(n)
+  // 获取构建设置项
+  getBuildOption () {
+    let buildOption = this.option.getData('build')
+    return buildOption
   }
   // 加载默认初始值.子类自动按照父类来源设置
-  analyzeOptionFromParent (optiondata, parentData, isChildren) {
-    if (isChildren && !optiondata.originfrom && parentData.originfrom) {
-      optiondata.originfrom = parentData.originfrom
+  analyzeOptionFromParent (optiondata, parentdata, isChildren) {
+    if (isChildren && !optiondata.originfrom && parentdata.originfrom) {
+      optiondata.originfrom = parentdata.originfrom
     }
   }
   // 分析传参
@@ -73,20 +69,19 @@ class DictionaryList {
     return initdata
   }
   // 生成字典列表
-  initDictionaryData (initdata, payload = {}) { // type init push replace
+  initDictionaryData (initdata, payload) { // type init push replace
     if (payload.type == 'init') {
       this.data.clear()
     }
-    this.setParent(payload.parent)
     if (initdata) {
       initdata = this.analyzeInitData(initdata)
-      let parentData = this.getParent()
+      let parentdata = payload.parent || {}
       let isChildren = this.option.getData('isChildren')
       for (let n in initdata.list) {
-        let ditemOption = initdata.list[n]
+        let originDitem = initdata.list[n]
         // 判断是否为一级，不为一级需要将一级的默认属性添加
-        this.analyzeOptionFromParent(ditemOption, parentData, isChildren)
-        let ditem = this.getItem(ditemOption.prop)
+        this.analyzeOptionFromParent(originDitem, parentdata, isChildren)
+        let ditem = this.getItem(originDitem.prop)
         let act = {
           build: true,
           children: true
@@ -96,7 +91,7 @@ class DictionaryList {
             // 加载模式下不能出现相同字段=加载模式出发前会先清空
             act.build = false
             act.children = false
-            this._printInfo(`字典列表加载: ${ditemOption.prop} 重复`)
+            console.error(`${parentdata.name}/${parentdata.prop}-字典列表加载: ${originDitem.prop} 重复`)
           } else if (payload.type == 'push') {
             // 添加模式，不对相同ditem做处理，仅对额外数据做处理
             act.build = false
@@ -108,15 +103,15 @@ class DictionaryList {
         }
         if (act.build) {
           // 构建字典数据
-          ditem = new DictionaryData(ditemOption, {
+          ditem = new DictionaryData(originDitem, {
             layout: payload.layout,
-            parent: this
+            parent: parentdata
           })
           this.data.set(ditem.prop, ditem)
         }
         if (act.children) {
           // 构建子字典列表
-          this.buildItemDictionary(ditem, ditemOption, payload)
+          this.buildItemDictionary(ditem, originDitem, payload)
         }
       }
       this.initPropData(initdata)
@@ -135,20 +130,20 @@ class DictionaryList {
         } else if (type == 'string' || type == 'number') {
           this.propdata[prop].prop = data
         } else {
-          this._printInfo(`字典列表propdata:${prop}属性格式未预期:${type}，请检查数据!`)
+          console.error(`字典列表propdata:${prop}属性格式未预期:${type}，请检查数据!`)
         }
       }
     }
   }
-  analyzeBuildData (ditem, originOption) {
-    let initdata = originOption.dictionary
+  analyzeBuildData (ditem, originDitem) {
+    let initdata = originDitem.dictionary
     let type = ''
     if (this.option.getData('tree') && (this.getPropData('prop', 'children') == ditem.prop) && initdata === undefined) {
       initdata = 'self'
     }
     if (initdata == 'self') {
       type = 'self'
-      if (originOption.type === undefined) {
+      if (originDitem.type === undefined) {
         ditem.setInterface('type', 'default', 'array')
       }
     } else if (initdata) {
@@ -157,10 +152,10 @@ class DictionaryList {
     return type
   }
   // 创建字典的字典列表
-  buildItemDictionary (ditem, originOption, payload, isChildren = true) {
-    let type = this.analyzeBuildData(ditem, originOption)
+  buildItemDictionary (ditem, originDitem, payload, isChildren = true) {
+    let type = this.analyzeBuildData(ditem, originDitem)
     if (type == 'build') {
-      let initdata = this.analyzeInitData(originOption.dictionary)
+      let initdata = this.analyzeInitData(originDitem.dictionary)
       if (!initdata.option) {
         initdata.option = {}
       }
@@ -171,12 +166,12 @@ class DictionaryList {
       if (!initdata.option.build) {
         initdata.option.build = this.getBuildOption()
       }
-      ditem.dictionaryList = new DictionaryList(initdata, {
+      ditem.dictionary = new DictionaryList(initdata, {
         layout: payload.layout,
         parent: ditem
       })
     } else if (type == 'self') {
-      ditem.dictionaryList = this
+      ditem.dictionary = this
     }
   }
   // 重新创建字典列表
@@ -184,11 +179,25 @@ class DictionaryList {
     payload.type = payload.type || 'replace'
     this.initDictionaryData(initdata, payload)
   }
+
   setPropData (data, target = 'data', prop = 'id') {
     this.propdata[prop][target] = data
   }
   getPropData (target = 'data', prop = 'id') {
     return this.propdata[prop][target]
+  }
+
+  // 设置唯一值
+  setIdData (data) {
+    this.setPropData(data)
+  }
+  // 获取唯一值
+  getIdData () {
+    return this.getPropData()
+  }
+  // 获取唯一值
+  getIdProp () {
+    return this.getPropData('prop')
   }
 
   // 获取列表MAP
@@ -208,6 +217,15 @@ class DictionaryList {
       }
     }
   }
+
+  // 并在编辑的时候添加上ID字段
+  setPostDataId (postdata, targetitem) {
+    let idprop = this.getIdProp()
+    let ditem = this.getItem(idprop)
+    let originprop = ditem.getOriginProp(idprop, 'change')
+    postdata[originprop] = targetitem[idprop]
+  }
+
   // 根据源数据格式化对象
   formatItem (originitem, type = 'list', option, depth) {
     if (!option) {
@@ -341,7 +359,7 @@ class DictionaryList {
     return modList
   }
   // next
-  getModListNext (modList, dataMap, mod) {
+  getModListNext (modList, dataMap, mod, parentProp) {
     for (let ditem of dataMap.values()) {
       let fg = ditem.isMod(mod)
       if (fg) {
@@ -360,27 +378,46 @@ class DictionaryList {
     }
     return pagelist
   }
-
-
-
-  _getPrintInfo (content) {
-    return `${this._selfName()}:${content}`
-  }
-  _printInfo (content, type = 'error') {
-    console[type](this._getPrintInfo(content))
-  }
-  _selfName () {
-    let parent = this.getParent()
-    let pre
-    if (parent) {
-      if (parent._selfName) {
-        pre = `{${parent._selfName()}}-`
+  // 根据本地数据格式以及mod列表格式化为后端需要的数据格式
+  getPostData (tempdata, modlist, type) {
+    let postdata = {}
+    for (let n in modlist) {
+      let ditem = modlist[n]
+      let add = true
+      if (!ditem.mod[type].required) {
+        add = false
+        let emptyPost = this.option.getData('post.empty')
+        /*
+          存在check则进行check判断
+          此时赋值存在2种情况
+          1.不存在check 返回data ,data为真则赋值
+          2.存在check,返回check函数返回值，为真则赋值
+        */
+        let checkfg = ditem.triggerFunc('check', tempdata[ditem.prop], {
+          targetitem: postdata,
+          originitem: tempdata,
+          type: type
+        })
+        // empty状态下传递数据 或者 checkfg为真时传递数据 也就是非post状态的非真数据不传递
+        if (emptyPost || checkfg) {
+          add = true
+        }
+      }
+      if (add) {
+        let targetdata = tempdata[ditem.prop]
+        if (ditem.mod[type].trim) {
+          targetdata = _func.trimData(targetdata)
+        }
+        targetdata = ditem.triggerFunc('unedit', targetdata, {
+          targetitem: postdata,
+          originitem: tempdata,
+          type: type
+        })
+        let originprop = ditem.getInterface('originprop', type)
+        _func.setStrPropByType(postdata, originprop, targetdata, ditem.type)
       }
     }
-    if (!pre) {
-      pre = ``
-    }
-    return `${pre}[${this.constructor.name}]`
+    return postdata
   }
 }
 export default DictionaryList

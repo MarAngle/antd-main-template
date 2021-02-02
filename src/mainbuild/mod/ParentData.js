@@ -5,7 +5,7 @@ class ParentData {
   }
   _initMain (parentData) {
     if (parentData) {
-      this.data = parentData
+      this.setData(parentData)
     }
   }
   setData (data) {
@@ -17,15 +17,15 @@ class ParentData {
   }
   getDataNext (target, deepLevel) {
     if (target) {
-      let res = target.data
+      let current = target.data
       deepLevel--
-      if (deepLevel > 0) {
-        return this.getDataNext(res.parentdata, deepLevel)
+      if (current && deepLevel > 0) {
+        return this.getDataNext(current.parentdata, deepLevel)
       } else {
-        return res
+        return current
       }
     } else {
-      return false
+      return null
     }
   }
   _selfName () {
