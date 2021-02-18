@@ -22,11 +22,10 @@ class ComplexData extends BaseData {
   }
   _initComplexData ({
     option,
-    originData,
     dictionary
   }) {
     this._initComplexDataOption(option)
-    this._initDictionary(dictionary)
+    this.initDictionary(dictionary)
     this._initComplexDataLife()
   }
   // 加载生命周期函数
@@ -43,7 +42,7 @@ class ComplexData extends BaseData {
     if (option) {}
   }
   // 设置字典列表
-  _initDictionary (dictionaryOption) {
+  initDictionary (dictionaryOption) {
     if (dictionaryOption) {
       if (dictionaryOption.constructor === DictionaryList) {
         this.dictionaryList = dictionaryOption

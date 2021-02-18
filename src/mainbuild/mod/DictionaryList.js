@@ -336,9 +336,7 @@ class DictionaryList {
   }
   // 获取符合模块要求的字典列表
   getModList (mod) {
-    let modList = []
-    this.getModListNext(modList, this.data, mod, '')
-    return modList
+    return this.getModListNext([], this.data, mod)
   }
   // next
   getModListNext (modList, dataMap, mod) {
@@ -350,8 +348,12 @@ class DictionaryList {
     }
     return modList
   }
+  getPageList (mod, payload) {
+    let modList = this.getModList(mod)
+    return this.getPageListByModList(mod, modList, payload)
+  }
   // 将模块列表转换为页面需要数据的列表
-  getPageList (mod, modlist, payload = {}) {
+  getPageListByModList (mod, modlist, payload = {}) {
     let pagelist = []
     for (let n in modlist) {
       let ditem = modlist[n]
