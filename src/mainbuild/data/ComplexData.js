@@ -1,9 +1,9 @@
-import Vue from 'vue'
+// import Vue from 'vue'
 import _func from '@/maindata/func/index'
 import BaseData from './BaseData'
 import DictionaryList from './../mod/DictionaryList'
-import InterfaceData from './../mod/InterfaceData'
-import option from './../option'
+// import InterfaceData from './../mod/InterfaceData'
+// import option from './../option'
 
 console.error('originData中getData判断')
 
@@ -65,7 +65,7 @@ class ComplexData extends BaseData {
       } else {
         dictionaryOption = this.analyzeDictionaryOption(dictionaryOption, 'init')
         this.dictionaryList.initMain(dictionaryOption, {
-          layout: this.layout.getMain(),
+          // layout: this.layout.getMain(),
           parent: this
         })
       }
@@ -87,7 +87,7 @@ class ComplexData extends BaseData {
         dictionaryOption = this.analyzeDictionaryOption(dictionaryOption, 'rebuild')
         this.dictionaryList.rebuildData(dictionaryOption, {
           type: payload.type,
-          layout: this.layout.getMain(),
+          // layout: this.layout.getMain(),
           parent: this
         })
       }
@@ -125,7 +125,6 @@ class ComplexData extends BaseData {
     let item = this.formatItem(originitem, type)
     _func.updateData(targetitem, item, option)
   }
-
 }
 
 export default ComplexData

@@ -131,9 +131,9 @@ class DictionaryList {
       if (data) {
         let type = _func.getType(data)
         if (type == 'object') {
-          this.propdata[prop] = data
+          this.propData[prop] = data
         } else if (type == 'string' || type == 'number') {
-          this.propdata[prop].prop = data
+          this.propData[prop].prop = data
         } else {
           this._printInfo(`字典列表propdata:${prop}属性格式未预期:${type}，请检查数据!`)
         }
@@ -185,10 +185,10 @@ class DictionaryList {
     this.initDictionaryData(initdata, payload)
   }
   setPropData (data, target = 'data', prop = 'id') {
-    this.propdata[prop][target] = data
+    this.propData[prop][target] = data
   }
   getPropData (target = 'data', prop = 'id') {
-    return this.propdata[prop][target]
+    return this.propData[prop][target]
   }
 
   // 获取列表MAP
@@ -360,8 +360,6 @@ class DictionaryList {
     }
     return pagelist
   }
-
-
 
   _getPrintInfo (content) {
     return `${this._selfName()}:${content}`
