@@ -5,8 +5,6 @@ import DictionaryList from './../mod/DictionaryList'
 // import InterfaceData from './../mod/InterfaceData'
 // import option from './../option'
 
-console.error('originData中getData判断')
-
 class ComplexData extends BaseData {
   constructor (initdata = {}) {
     super(initdata)
@@ -27,7 +25,6 @@ class ComplexData extends BaseData {
     originData,
     dictionary
   }) {
-    this._initOriginData(originData)
     this._initComplexDataOption(option)
     this._initDictionary(dictionary)
     this._initComplexDataLife()
@@ -40,18 +37,6 @@ class ComplexData extends BaseData {
         this.resetComplexData()
       }
     })
-  }
-  // 加载源数据
-  _initOriginData (originData) {
-    if (originData && !this.getData) {
-      this.originData = originData
-      this.getData = function () {
-        return new Promise((resolve, reject) => {
-          this.formatData(this.originData)
-          resolve({ status: 'success' })
-        })
-      }
-    }
   }
   // 加载设置选项
   _initComplexDataOption (option) {
