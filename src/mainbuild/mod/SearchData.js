@@ -1,18 +1,16 @@
 import Vue from 'vue'
 import _func from '@/maindata/func/index'
-import ComplexData from './../data/ComplexData'
+import DictionaryList from './DictionaryList'
 
-class SearchData extends ComplexData {
+class SearchData {
   constructor (initdata) {
-    super(initdata)
     this.show = false
     this.title = {
       show: false,
       data: ''
     }
-    this.post = {}
-    this.modlist = []
-    this.mainlist = []
+    this.menu = []
+    this.dictionaryList = new DictionaryList()
     if (initdata) {
       this._initSearchData(initdata)
     }
@@ -62,10 +60,9 @@ class SearchData extends ComplexData {
   }
   // 生成编辑数据并将modlist mainlist提到根节点
   formatList () {
-    this.buildModData('build')
-    this.modlist = this.mod.build.modlist
-    this.mainlist = this.mod.build.mainlist
-    this.resetData('init')
+    // this.modlist = this.mod.build.modlist
+    // this.mainlist = this.mod.build.mainlist
+    // this.resetData('init')
   }
   // 保存当前检索值
   setData (prop = 'edit', type = 'build') {
