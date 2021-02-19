@@ -54,6 +54,11 @@ class DictionaryList {
       this.option.setData('tree', option.tree)
     }
   }
+  // 获取构建设置项
+  getBuildOption () {
+    let buildOption = this.option.getData('build')
+    return buildOption
+  }
   // 设置父实例
   setParent (data) {
     this.parentData.setData(data)

@@ -50,7 +50,6 @@ export default {
     return {
       initType: true,
       maindata: maindata,
-      modlist: maindata.getModList('list'),
       mainlist: []
     }
   },
@@ -82,7 +81,7 @@ export default {
       return num
     },
     buildMainList () {
-      this.mainlist = this.maindata.getPageList('list', this.modlist)
+      this.mainlist = this.maindata.getDictionaryPageList('list')
     }
   }
 }

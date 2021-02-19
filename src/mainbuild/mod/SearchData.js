@@ -1,5 +1,5 @@
-import Vue from 'vue'
-import _func from '@/maindata/func/index'
+// import Vue from 'vue'
+// import _func from '@/maindata/func/index'
 import DictionaryList from './DictionaryList'
 
 class SearchData {
@@ -66,25 +66,26 @@ class SearchData {
   }
   // 保存当前检索值
   setData (prop = 'edit', type = 'build') {
-    let postdata = this.getPostData(this.mod[prop].form.data, this.modlist, type)
-    this.post[prop] = postdata
+    // let postdata = this.getPostData(this.mod[prop].form.data, this.modlist, type)
+    // this.post[prop] = postdata
   }
   // 获取检索值
   getData (prop = 'edit') {
-    return _func.deepClone(this.post[prop], true)
+    // return _func.deepClone(this.post[prop], true)
+    return {}
   }
   // 重置检索值
   resetData (from = 'init', option = {}, prop = 'edit', type = 'build') {
-    let limit = _func.getLimitData(option.limit)
-    for (let n in this.mainlist) {
-      let pitem = this.mainlist[n]
-      if (!limit.getLimit(pitem.prop)) {
-        let targetdata = from == 'init' ? pitem.edit.getValueData('initdata') : pitem.edit.getValueData('resetdata')
-        Vue.set(this.mod[prop].form.data, pitem.prop, targetdata)
-      }
-    }
-    let postdata = this.getPostData(this.mod[prop].form.data, this.modlist, type)
-    this.post[prop] = postdata
+    // let limit = _func.getLimitData(option.limit)
+    // for (let n in this.mainlist) {
+    //   let pitem = this.mainlist[n]
+    //   if (!limit.getLimit(pitem.prop)) {
+    //     let targetdata = from == 'init' ? pitem.edit.getValueData('initdata') : pitem.edit.getValueData('resetdata')
+    //     Vue.set(this.mod[prop].form.data, pitem.prop, targetdata)
+    //   }
+    // }
+    // let postdata = this.getPostData(this.mod[prop].form.data, this.modlist, type)
+    // this.post[prop] = postdata
   }
 }
 export default SearchData

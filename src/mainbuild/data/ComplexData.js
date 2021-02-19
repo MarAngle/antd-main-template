@@ -85,6 +85,15 @@ class ComplexData extends BaseData {
   getDictionaryPropData (target, prop) {
     return this.dictionaryList.getPropData(target, prop)
   }
+  getDictionaryModList (mod) {
+    return this.dictionaryList.getModList(mod)
+  }
+  getDictionaryPageList (mod, payload) {
+    return this.dictionaryList.getPageList(mod, payload)
+  }
+  getDictionaryPageListByModList (mod, modlist, payload) {
+    return this.dictionaryList.getPageListByModList(mod, modlist, payload)
+  }
   // 根据源数据格式化对象
   formatItem (originitem, type = 'list', option) {
     return this.dictionaryList.formatItem(originitem, type, option)

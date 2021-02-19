@@ -12,7 +12,7 @@ p{
     <a-table
       :size="size"
       :bordered="bordered"
-      :rowKey="maindata.dictionary.getIdProp()"
+      :rowKey="currentRowKey"
       :columns="columnList"
       :dataSource="currentListData"
       :pagination="false"
@@ -70,6 +70,11 @@ export default {
       type: Object,
       required: false
     },
+    rowKey: {
+      // 定制分页器
+      type: String,
+      required: ''
+    },
     paginationShowTotal: {
       type: Function,
       required: false,
@@ -113,6 +118,13 @@ export default {
         return this.listData
       } else {
         return this.maindata.data.list
+      }
+    },
+    currentRowKey () {
+      if (this.rowKey) {
+        return this.rowKey
+      } else {
+        return this.maindata.getDictionaryPropData('prop', 'id')
       }
     },
     minWidth () {
