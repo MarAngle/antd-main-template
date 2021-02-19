@@ -96,8 +96,8 @@ class Require {
   // params = {},
   // headers = {},
   // token,
-  // dataType = 'json',
-  // localType = 'json'
+  // requestDataType = 'json',
+  // requestCurrentDataType = 'json'
 
   check (optionData) {
     let check = {
@@ -140,11 +140,11 @@ class Require {
     if (!optionData.headers) {
       optionData.headers = {}
     }
-    if (!optionData.dataType) {
-      optionData.dataType = 'json'
+    if (!optionData.requestDataType) {
+      optionData.requestDataType = 'json'
     }
-    if (!optionData.localType) {
-      optionData.localType = 'json'
+    if (!optionData.requestCurrentDataType) {
+      optionData.requestCurrentDataType = 'json'
     }
     if (!optionData.responseType) {
       optionData.responseType = 'json'
@@ -168,12 +168,12 @@ class Require {
     return new Promise((resolve, reject) => {
       let check = this.check(optionData)
       if (check.next) {
-        if (optionData.dataType == 'formdata') {
+        if (optionData.requestDataType == 'formdata') {
           optionData.headers['Content-Type'] = 'multipart/form-data'
-          if (optionData.localType == 'json') {
+          if (optionData.requestCurrentDataType == 'json') {
             optionData.data = _utils.jsonToForm(optionData.data)
           }
-        } else if (optionData.dataType == 'json') {
+        } else if (optionData.requestDataType == 'json') {
           optionData.data = JSON.stringify(optionData.data)
         }
         this.requireNext(optionData, check).then(res => {
@@ -285,13 +285,13 @@ class Require {
   }
   postform (optionData = {}) {
     optionData.method = 'post'
-    optionData.dataType = 'formdata'
+    optionData.requestDataType = 'formdata'
     return this.require(optionData)
   }
   postfile (optionData = {}) {
     optionData.method = 'post'
-    optionData.dataType = 'formdata'
-    optionData.localType = 'formdata'
+    optionData.requestDataType = 'formdata'
+    optionData.requestCurrentDataType = 'formdata'
     return this.require(optionData)
   }
 
