@@ -64,14 +64,14 @@ option.setData({
     unformat: function (ditem, prop) {
       let pitem = {
         prop: ditem.prop,
-        name: ditem.name,
+        name: ditem.getInterface('label', prop),
         originprop: ditem.getInterface('originprop', prop),
         type: ditem.getInterface('type', prop),
         func: ditem.func,
         layout: ditem.getInterface('layout', prop),
         edit: ditem.mod[prop]
       }
-      pitem.edit.readyData()
+      // pitem.edit.readyData()
       return pitem
     },
     build: function (data, prop, payload) {

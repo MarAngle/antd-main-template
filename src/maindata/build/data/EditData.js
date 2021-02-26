@@ -133,7 +133,7 @@ class EditData extends BaseData {
     // 格式化占位符和检验规则
     if (typeOption.placeholder) {
       if (!editdata.placeholder) {
-        this.placeholder = `${typeOption.placeholder.front}${this.name}${typeOption.placeholder.end}`
+        this.placeholder = typeOption.placeholder(this.name)
       } else {
         this.placeholder = editdata.placeholder
       }

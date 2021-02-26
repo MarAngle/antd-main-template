@@ -26,6 +26,7 @@
 </style>
 <template>
   <div class="mainpage" >
+    <a-button @click="onBuild">创建</a-button>
     <div class="mainpagein">
       <a-spin :spinning="loadStatus == 'loading'">
         <LocalTableList :maindata="maindata" :columnList="mainlist" >
@@ -35,22 +36,42 @@
             </span>
           </template>
         </LocalTableList>
-        <!-- 弹窗区域 -->
       </a-spin>
     </div>
+    <DefaultEdit
+      :maindata="maindata"
+      :title="menu.main.title"
+      :show.sync="menu.main.show"
+      :edit="menu.main.edit"
+      :type="menu.main.type"
+      :index="menu.main.index"
+    />
   </div>
 </template>
 
 <script>
 import maindata from './../maindata'
+import DefaultEdit from './mod/DefaultEdit'
 
 export default {
   name: `main${maindata.prop}list`,
+  components: {
+    DefaultEdit
+  },
   data () {
     return {
       initType: true,
       maindata: maindata,
-      mainlist: []
+      mainlist: [],
+      menu: {
+        main: {
+          show: false,
+          index: 0,
+          type: 'build',
+          edit: 'build',
+          title: '创建'
+        }
+      }
     }
   },
   computed: {
@@ -82,6 +103,9 @@ export default {
     },
     buildMainList () {
       this.mainlist = this.maindata.getDictionaryPageList('list')
+    },
+    onBuild() {
+      this.menu.main.show = true
     }
   }
 }
