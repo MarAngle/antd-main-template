@@ -8,6 +8,8 @@ module.exports = {
     '@vue/standard'
   ],
   rules: {
+    'no-unused-vars': 0,
+    'space-before-function-paren': 0,
     'vue/require-default-prop': 0,
     'prefer-promise-reject-errors': 0,
     'eqeqeq': 0,
