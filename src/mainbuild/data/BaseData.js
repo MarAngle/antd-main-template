@@ -129,14 +129,14 @@ class BaseData extends DefaultData {
       args.shift()
       if (next == 'load') {
         args.splice(0, 1, true) // 强制获取新数据
-        this.loadData.apply(args).then(res => {
+        this.loadData.apply(this, args).then(res => {
           resolve(res)
         }, err => {
           reject(err)
         })
       } else if (next == 'update') {
         args.splice(0, 1, false) // update强制换取，此处设置为ing状态不重新拉取
-        this.loadUpdateData.apply(args).then(res => {
+        this.loadUpdateData.apply(this, args).then(res => {
           resolve(res)
         }, err => {
           reject(err)
@@ -156,18 +156,18 @@ class BaseData extends DefaultData {
       let args = Array.prototype.slice.call(arguments)
       args.shift()
       if (loadStatus.value == 'unload') {
-        this.triggerGetData.apply(args)
+        this.triggerGetData.apply(this, args)
       } else if (loadStatus.value == 'loading') {
         // 直接then
         if (force) {
           // force = { ing: true }
           if (typeof force == 'object' && force.ing) {
-            this.triggerGetData.apply(args)
+            this.triggerGetData.apply(this, args)
           }
         }
       } else if (loadStatus.value == 'loaded') {
         if (force) {
-          this.triggerGetData.apply(args)
+          this.triggerGetData.apply(this, args)
         }
       }
       this.triggerPromise('load', {
@@ -189,11 +189,11 @@ class BaseData extends DefaultData {
       let args = Array.prototype.slice.call(arguments)
       args.shift()
       if (updateStatus.value == 'updated') {
-        this.triggerUpdateData.apply(args)
+        this.triggerUpdateData.apply(this, args)
       } else { // updating
         // 直接then'
         if (force) {
-          this.triggerUpdateData.apply(args)
+          this.triggerUpdateData.apply(this, args)
         }
       }
       this.triggerPromise('update', {
@@ -213,7 +213,7 @@ class BaseData extends DefaultData {
         let args = Array.prototype.slice.call(arguments)
         args.shift()
         this.setStatus('operating')
-        this[target].apply(args).then(res => {
+        this[target].apply(this, args).then(res => {
           this.setStatus('operated')
           resolve(res)
         }, res => {
@@ -234,7 +234,7 @@ class BaseData extends DefaultData {
       if (this[target]) {
         let operate = this.getStatus()
         if (operate.value == 'operated') {
-          this.triggerMethod.apply(arguments).then(res => {
+          this.triggerMethod.apply(this, arguments).then(res => {
             resolve(res)
           }, res => {
             reject(res)
@@ -258,7 +258,7 @@ class BaseData extends DefaultData {
       this.setStatus('loading', 'load')
       let args = Array.prototype.slice.call(arguments)
       args.unshift('getData')
-      this.triggerMethod.apply(args).then(res => {
+      this.triggerMethod.apply(this, args).then(res => {
         this.setStatus('loaded', 'load')
         // 触发生命周期加载完成事件
         this.life.trigger('loaded')
@@ -277,7 +277,7 @@ class BaseData extends DefaultData {
       this.life.trigger('beforeUpdate')
       let args = Array.prototype.slice.call(arguments)
       args.unshift('updateData')
-      this.triggerMethod.apply(args).then(res => {
+      this.triggerMethod.apply(this, args).then(res => {
         this.setStatus('updated', 'update')
         // 触发生命周期更新完成事件
         this.life.trigger('updated')

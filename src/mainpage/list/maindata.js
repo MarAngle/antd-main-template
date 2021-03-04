@@ -299,8 +299,9 @@ let maindata = new ListData({
     ]
   },
   methods: {
-    getData: function () {
+    getData: function (a, b, c) {
       return new Promise((resolve, reject) => {
+        console.log(a, b, c)
         let postdata = this.getSearch()
         postdata.pageSize = this.getPageData('size')
         postdata.pageNo = this.getPageData('page')
