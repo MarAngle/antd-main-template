@@ -1,8 +1,10 @@
 import _func from '@/maindata/func/index'
+import SimpleData from './SimpleData'
 import ExtraData from './../mod/ExtraData'
 
-class DefaultData {
+class DefaultData extends SimpleData {
   constructor (initdata = {}) {
+    super(initdata)
     this.module = {
       extra: new ExtraData()
     }
@@ -65,15 +67,6 @@ class DefaultData {
   // 重置额外数据
   resetExtra () {
     this.module.extra.reset()
-  }
-  _getPrintInfo (content) {
-    return `${this._selfName()}:${content}`
-  }
-  _printInfo (content, type = 'error', nextContent, nextType = type) {
-    console[type](this._getPrintInfo(content))
-    if (nextContent) {
-      console[nextType](nextContent)
-    }
   }
   _selfName () {
     return `[CLASS:${this.constructor.name}-${this.name}/${this.prop}]`

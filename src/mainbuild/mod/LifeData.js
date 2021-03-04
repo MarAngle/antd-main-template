@@ -1,5 +1,8 @@
 
+import SimpleData from './../data/SimpleData'
+
 /*
+传参问题不能用apply解决，避免箭头函数产生的this指向错误问题
 生命周期函数暂行方案
 通过Map实现，可实现对应的顺序
 基本周期函数
@@ -13,8 +16,9 @@ destroyed
 const defaultList = ['created', 'beforeLoad', 'loaded', 'beforeUpdate', 'updated', 'beforeReset', 'reseted', 'beforeDestroy', 'destroyed']
 let key = 0
 
-class LifeData {
+class LifeData extends SimpleData {
   constructor (initdata = {}) {
+    super(initdata)
     this.data = {}
     this._initMain(initdata)
   }
@@ -75,9 +79,6 @@ class LifeData {
     for (let n in this.data) {
       this.clear(n)
     }
-  }
-  _selfName () {
-    return `[${this.constructor.name}]`
   }
 }
 

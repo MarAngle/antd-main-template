@@ -1,7 +1,9 @@
 import _func from '@/maindata/func/index'
+import SimpleData from './../data/SimpleData'
 
-class OptionData {
+class OptionData extends SimpleData {
   constructor (structData) {
+    super()
     this.data = {}
     this.initStruct(structData)
   }
@@ -14,7 +16,7 @@ class OptionData {
     if (this.data[prop] === undefined) {
       this.data[prop] = structData
     } else {
-      console.error(`当前存在${prop}属性，无法构建对应的结构，将会导致数据内存地址的变更，请确认后重试`)
+      this._printInfo(`当前存在${prop}属性，无法构建对应的结构，将会导致数据内存地址的变更，请确认后重试`)
     }
   }
   // 加载设置
@@ -24,7 +26,7 @@ class OptionData {
         this.setData(n, data[n], 'init')
       }
     } else {
-      console.error('设置类的initData函数需要接受对象数据')
+      this._printInfo(`设置类的initData函数需要接受对象数据`)
     }
   }
 
@@ -43,7 +45,7 @@ class OptionData {
       if (type == 'init') {
         check.fg = true
       } else {
-        console.error('非init状态下不能进行undefined值操作', target, option)
+        this._printInfo(`非init状态下不能进行undefined值操作`, 'error', { target, option })
       }
       return check
     } else if (check.target == check.option) {
@@ -53,7 +55,7 @@ class OptionData {
       check.fg = true
       return check
     } else {
-      console.error(`option赋值双方格式不一致且存在复杂值,（设置目标值格式:${check.target}/设置值格式:${check.option}），禁止直接赋值，请检查代码`, target, option)
+      this._printInfo(`option赋值双方格式不一致且存在复杂值,（设置目标值格式:${check.target}/设置值格式:${check.option}），禁止直接赋值，请检查代码`, 'error', { target, option })
       return check
     }
   }
@@ -88,10 +90,6 @@ class OptionData {
     } else {
       delete this.data[prop]
     }
-  }
-
-  _selfName () {
-    return `[${this.constructor.name}]`
   }
 }
 
