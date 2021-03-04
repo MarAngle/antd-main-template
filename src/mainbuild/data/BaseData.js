@@ -101,7 +101,7 @@ class BaseData extends DefaultData {
     }
   }
   // 自动加载或者更新数据
-  autoLoadData (next, payload) {
+  autoLoadData (next) {
     return new Promise((resolve, reject) => {
       if (next === undefined || next === true) {
         next = 'auto'
@@ -125,14 +125,18 @@ class BaseData extends DefaultData {
         }
       }
       // auto 保证数据的更新
+      let args = Array.prototype.slice.call(arguments)
+      args.shift()
       if (next == 'load') {
-        this.loadData(true, payload).then(res => {
+        args.splice(0, 1, true) // 强制获取新数据
+        this.loadData.apply(args).then(res => {
           resolve(res)
         }, err => {
           reject(err)
         })
       } else if (next == 'update') {
-        this.loadUpdateData(payload).then(res => {
+        args.splice(0, 1, false) // update强制换取，此处设置为ing状态不重新拉取
+        this.loadUpdateData.apply(args).then(res => {
           resolve(res)
         }, err => {
           reject(err)
@@ -146,19 +150,24 @@ class BaseData extends DefaultData {
   数据相关函数定义
   加载判断load是否加载成功和强制判断值
   */
-  loadData (force, payload, ingForce) {
+  loadData (force) {
     return new Promise((resolve, reject) => {
       let loadStatus = this.getStatus('load')
+      let args = Array.prototype.slice.call(arguments)
+      args.shift()
       if (loadStatus.value == 'unload') {
-        this.triggerGetData(payload)
+        this.triggerGetData.apply(args)
       } else if (loadStatus.value == 'loading') {
         // 直接then
-        if (force && ingForce) {
-          this.triggerGetData(payload)
+        if (force) {
+          // force = { ing: true }
+          if (typeof force == 'object' && force.ing) {
+            this.triggerGetData.apply(args)
+          }
         }
       } else if (loadStatus.value == 'loaded') {
         if (force) {
-          this.triggerGetData(payload)
+          this.triggerGetData.apply(args)
         }
       }
       this.triggerPromise('load', {
@@ -174,15 +183,17 @@ class BaseData extends DefaultData {
   实现更新函数
   加载判断当前更新状态
   */
-  loadUpdateData (payload, ingForce) {
+  loadUpdateData (force) {
     return new Promise((resolve, reject) => {
       let updateStatus = this.getStatus('update')
+      let args = Array.prototype.slice.call(arguments)
+      args.shift()
       if (updateStatus.value == 'updated') {
-        this.triggerUpdateData(payload)
+        this.triggerUpdateData.apply(args)
       } else { // updating
         // 直接then'
-        if (ingForce) {
-          this.triggerUpdateData(payload)
+        if (force) {
+          this.triggerUpdateData.apply(args)
         }
       }
       this.triggerPromise('update', {
@@ -196,11 +207,13 @@ class BaseData extends DefaultData {
   }
 
   // 触发目标函数并伴随对应的操作值变动--未发现对应函数时报错
-  triggerMethod (target, payload) {
+  triggerMethod (target) {
     return new Promise((resolve, reject) => {
       if (this[target]) {
+        let args = Array.prototype.slice.call(arguments)
+        args.shift()
         this.setStatus('operating')
-        this[target](payload).then(res => {
+        this[target].apply(args).then(res => {
           this.setStatus('operated')
           resolve(res)
         }, res => {
@@ -216,12 +229,12 @@ class BaseData extends DefaultData {
   }
 
   // 触发目标函数并伴随对应的操作值变动--未发现对应函数时报错
-  triggerMethodByOperate (target, payload) {
+  triggerMethodByOperate (target) {
     return new Promise((resolve, reject) => {
       if (this[target]) {
         let operate = this.getStatus()
         if (operate.value == 'operated') {
-          this.triggerMethod(target, payload).then(res => {
+          this.triggerMethod.apply(arguments).then(res => {
             resolve(res)
           }, res => {
             reject(res)
@@ -238,12 +251,14 @@ class BaseData extends DefaultData {
   }
 
   // 触发加载数据操作
-  triggerGetData (payload) {
+  triggerGetData () {
     return this.setPromise('load', new Promise((resolve, reject) => {
       // 触发生命周期加载前事件
       this.life.trigger('beforeLoad')
       this.setStatus('loading', 'load')
-      this.triggerMethod('getData', payload).then(res => {
+      let args = Array.prototype.slice.call(arguments)
+      args.unshift('getData')
+      this.triggerMethod.apply(args).then(res => {
         this.setStatus('loaded', 'load')
         // 触发生命周期加载完成事件
         this.life.trigger('loaded')
@@ -255,12 +270,14 @@ class BaseData extends DefaultData {
     }))
   }
   // 触发更新数据操作
-  triggerUpdateData (payload) {
+  triggerUpdateData () {
     return this.setPromise('update', new Promise((resolve, reject) => {
       this.setStatus('updating', 'update')
       // 触发生命周期更新前事件
       this.life.trigger('beforeUpdate')
-      this.triggerMethod('updateData', payload).then(res => {
+      let args = Array.prototype.slice.call(arguments)
+      args.unshift('updateData')
+      this.triggerMethod.apply(args).then(res => {
         this.setStatus('updated', 'update')
         // 触发生命周期更新完成事件
         this.life.trigger('updated')
