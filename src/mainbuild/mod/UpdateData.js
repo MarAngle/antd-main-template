@@ -84,7 +84,7 @@ class UpdateData extends DefaultData {
       checkCb.then(() => {
         this.nextDo(offset)
       }, err => {
-        console.log(err, 'stop next')
+        this._printInfo('stop next', 'log', err)
       })
     } else if (checkCb) {
       this.nextDo(offset)
@@ -106,9 +106,6 @@ class UpdateData extends DefaultData {
   reset () {
     this.clear()
     this.resetNum()
-  }
-  _selfName () {
-    return `[${this.constructor.name}]`
   }
 }
 
