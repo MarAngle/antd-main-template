@@ -13,7 +13,7 @@
 // } from 'ant-design-vue'
 
 export default {
-  name: 'FormView',
+  name: 'FormViewJsx',
   props: {
     layout: { // 表单布局	'horizontal'|'vertical'|'inline'
       type: String,
@@ -51,19 +51,43 @@ export default {
   },
   methods: {
     renderItem(item, index) {
-      let 
+      let funcPayload = {
+        index: index,
+        item: item,
+        list: this.mainlist,
+        target: this
+      }
+      let funcForm = this.form.data
+      let mainprops = {
+        prop: item.prop,
+        colon: item.colon,
+        rules: item.edit.rules,
+        label: item.name
+      }
+      let props = {
+        type: item.edit.option.type,
+        allowClear: !item.edit.option.hideClear,
+        maxLength: item.edit.option.maxLength,
+        disabled: item.edit.disabled,
+        placeholder: item.edit.placeholder,
+        vOn: {
+          change(e) {
+          }
+        }
+      }
+      let events = {
+        change: function(e) {
+          console.log(e, item.edit)
+          if (item.edit.func.change) {
+            item.edit.func.change(e, funcForm, funcPayload)
+          }
+        }
+      }
       return (
-        <a-form-model-item>
+        <a-form-model-item {...{ props: mainprops }} >
           <a-input
-            v-if="item.edit.type == 'input'"
-            vModel="form.data[item.prop]"
-            :type="item.edit.option.type"
-            :allowClear="!item.edit.option.hideClear"
-            :maxLength="item.edit.option.maxLength"
-            :disabled="item.edit.disabled"
-            :placeholder="item.edit.placeholder"
-            @change="onItemEvent(form.data[item.prop], item, 'onChangeEvent')"
-          >
+            {...{ props: props, on: events }}
+          />
         </a-form-model-item>
       )
     }
@@ -74,7 +98,7 @@ export default {
     })
     return (
       <a-form-model>
-
+        { formList }
       </a-form-model>
     )
   }

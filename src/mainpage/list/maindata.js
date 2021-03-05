@@ -252,7 +252,13 @@ let maindata = new ListData({
             type: 'input',
             required: false,
             option: {
-              type: 'text'
+              type: 'text',
+              maxLength: 5
+            },
+            func: {
+              change(a, b, v) {
+                console.log(a, b, v)
+              }
             }
           },
           build: {

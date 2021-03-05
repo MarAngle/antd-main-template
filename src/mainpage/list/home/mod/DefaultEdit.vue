@@ -5,8 +5,8 @@
   <a-modal class="mainmodal" :title="title" v-model="currentShow" @ok="onMenu('ok')" @cancel="onMenu('cancel')">
     <div v-if="currentShow">
       <a-spin :spinning="false">
-        <LocalFormView :form="form" :mainlist="mainlist">
-        </LocalFormView>
+        <LocalFormViewJsx :form="form" :mainlist="mainlist">
+        </LocalFormViewJsx>
       </a-spin>
     </div>
   </a-modal>

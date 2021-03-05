@@ -1,5 +1,7 @@
 import Vue from 'vue'
 
+import FormViewJsx from './data/FormViewJsx'
+
 const _mainviews = require.context('./data', false, /\.vue$/)
 const _modviews = require.context('./data', false, /\.vue$/)
 
@@ -11,6 +13,7 @@ function LoadViews (_views, mod = '') {
     Vue.component(`Local${mod}${viewdata.name}`, viewdata)
   })
 }
+Vue.component(`LocalFormViewJsx`, FormViewJsx)
 
 LoadViews(_mainviews)
 LoadViews(_modviews, 'Mod')
