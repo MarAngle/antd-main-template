@@ -6,6 +6,7 @@
     <div v-if="currentShow">
       <a-spin :spinning="false">
         <LocalFormViewJsx :form="form" :mainlist="mainlist">
+          <span slot="terminalCode-label">222</span>
         </LocalFormViewJsx>
       </a-spin>
     </div>
