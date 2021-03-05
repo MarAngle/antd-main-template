@@ -1,17 +1,3 @@
-// import {
-//   Input,
-//   InputNumber,
-//   Button,
-//   Switch,
-//   Radio,
-//   Checkbox,
-//   Select,
-//   FormModel,
-//   Icon,
-//   DatePicker,
-//   TimePicker
-// } from 'ant-design-vue'
-
 export default {
   name: 'FormViewJsx',
   props: {
@@ -58,35 +44,36 @@ export default {
         target: this
       }
       let funcForm = this.form.data
-      let mainprops = {
-        prop: item.prop,
-        colon: item.colon,
-        rules: item.edit.rules,
-        label: item.name
-      }
-      let props = {
-        type: item.edit.option.type,
-        allowClear: !item.edit.option.hideClear,
-        maxLength: item.edit.option.maxLength,
-        disabled: item.edit.disabled,
-        placeholder: item.edit.placeholder,
-        vOn: {
-          change(e) {
-          }
+
+      let mainOption = {
+        props: {
+          prop: item.prop,
+          colon: item.colon,
+          rules: item.edit.rules,
+          label: item.name
         }
       }
-      let events = {}
+      let itemOption = {
+        props: {
+          type: item.edit.option.type,
+          allowClear: !item.edit.option.hideClear,
+          maxLength: item.edit.option.maxLength,
+          disabled: item.edit.disabled,
+          placeholder: item.edit.placeholder
+        },
+        on: {}
+      }
       for (let funcName in item.edit.func) {
-        events[funcName] = function() {
+        itemOption.on[funcName] = function() {
           let args = Array.prototype.slice.call(arguments)
           args.push(funcForm, funcPayload)
           item.edit.func[funcName].apply(this, args)
         }
       }
       return (
-        <a-form-model-item {...{ props: mainprops }} >
+        <a-form-model-item {...mainOption} >
           <a-input
-            {...{ props: props, on: events }}
+            {...itemOption}
           />
         </a-form-model-item>
       )
@@ -96,8 +83,15 @@ export default {
     const formList = this.mainlist.map((item, index) => {
       return this.renderItem(item, index)
     })
+    let option = {
+      props: {
+        layout: this.layout,
+        labelAlign: this.labelAlign,
+        validateOnRuleChange: this.validateOnRuleChange
+      }
+    }
     return (
-      <a-form-model>
+      <a-form-model {...option}>
         { formList }
       </a-form-model>
     )
