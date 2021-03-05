@@ -75,12 +75,12 @@ export default {
           }
         }
       }
-      let events = {
-        change: function(e) {
-          console.log(e, item.edit)
-          if (item.edit.func.change) {
-            item.edit.func.change(e, funcForm, funcPayload)
-          }
+      let events = {}
+      for (let funcName in item.edit.func) {
+        events[funcName] = function() {
+          let args = Array.prototype.slice.call(arguments)
+          args.push(funcForm, funcPayload)
+          item.edit.func[funcName].apply(this, args)
         }
       }
       return (
