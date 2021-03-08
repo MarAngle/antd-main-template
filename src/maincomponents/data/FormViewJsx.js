@@ -84,6 +84,7 @@ export default {
           item.edit.func[funcName].apply(this, args)
         }
       }
+      let renderTypeItem = null
       if (item.edit.type == 'input') {
         itemOption.props = {
           type: item.edit.option.type,
@@ -93,13 +94,28 @@ export default {
           placeholder: item.edit.placeholder,
           ...item.edit.props
         }
-        let renderTypeItem = (
+        renderTypeItem = (
           <a-input
             {...itemOption}
           />
         )
-        return renderTypeItem
+      } else if (item.edit.type == 'inputNumber') {
+        itemOption.props = {
+          min: item.edit.option.min,
+          max: item.edit.option.max,
+          precision: item.edit.option.precision,
+          step: item.edit.option.step,
+          disabled: item.edit.disabled,
+          placeholder: item.edit.placeholder,
+          ...item.edit.props
+        }
+        renderTypeItem = (
+          <a-input-number
+            {...itemOption}
+          />
+        )
       }
+      return renderTypeItem
     }
   },
   render () {
@@ -110,7 +126,8 @@ export default {
       props: {
         layout: this.layout,
         labelAlign: this.labelAlign,
-        validateOnRuleChange: this.validateOnRuleChange
+        validateOnRuleChange: this.validateOnRuleChange,
+        vModel: this.form.data
       }
     }
     let render = (
