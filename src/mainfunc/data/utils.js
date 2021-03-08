@@ -315,7 +315,6 @@ utils.getPropByList = function (targetdata, propList) {
 // 根据属性列表设置属性
 utils.setPropByList = function (targetdata, propList, propData, vueSet) {
   let res = targetdata
-  propList = propList.filter(item => item && item.trim())
   for (let n = 0; n < propList.length; n++) {
     if (n < propList.length - 1) {
       if (!res[propList[n]]) {
@@ -347,15 +346,9 @@ utils.getPropByStr = function (targetdata, strProp) {
 utils.setPropByStr = function (targetdata, strProp, propData, vueSet) {
   if (!targetdata || !strProp) {
     return false
-  } else if (strProp.indexOf('.') > -1) {
+  } else {
     let list = strProp.split('.')
     this.setPropByList(targetdata, list, propData, vueSet)
-  } else {
-    if (!vueSet) {
-      targetdata[strProp] = propData
-    } else {
-      Vue.set(targetdata, strProp, propData)
-    }
   }
 }
 // 格式化对象

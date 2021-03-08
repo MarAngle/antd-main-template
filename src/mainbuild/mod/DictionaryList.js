@@ -367,6 +367,18 @@ class DictionaryList {
     }
     return pagelist
   }
+  getFormData(modlist, mod, originitem) {
+    let formData = {}
+    for (let n in modlist) {
+      let ditem = modlist[n]
+      let target = ditem.getFormData(mod, {
+        targetItem: formData,
+        originitem: originitem
+      })
+      _func.setPropByStr(formData, ditem.prop, target, true)
+    }
+    return formData
+  }
 
   _getPrintInfo (content) {
     return `${this._selfName()}:${content}`

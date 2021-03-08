@@ -69,13 +69,20 @@ export default {
     },
     currentShow: function(val) {
       this.$emit('update:show', val)
+    },
+    'form.data': {
+      deep: true,
+      handler: function(val) {
+        console.log(val)
+      }
     }
   },
   mounted() {
   },
   methods: {
     initMainList() {
-      let mainlist = this.maindata.getDictionaryPageList(this.type, {
+      this.modlist = this.maindata.getDictionaryModList(this.type)
+      let mainlist = this.maindata.getDictionaryPageListByModList(this.type, this.modlist, {
         mod: this.edit
       })
       this.mainlist = mainlist
@@ -84,10 +91,12 @@ export default {
       this.initMainList()
       if (this.edit == 'change') {
         let targetitem = this.maindata.getItem(this.index)
-        // this.maindata.buildModFormData(this.modlist, this.type, targetitem)
+        this.form.data = this.maindata.getDictionaryFormData(this.modlist, this.type, targetitem)
       } else if (this.edit == 'build') {
         // this.maindata.buildModFormData(this.modlist, this.type)
+        this.form.data = this.maindata.getDictionaryFormData(this.modlist, this.type)
       }
+      console.log(this.form.data)
     }
   }
 }

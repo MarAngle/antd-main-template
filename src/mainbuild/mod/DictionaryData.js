@@ -171,7 +171,9 @@ class DictionaryData extends DefaultData {
   }
   // 获取编辑数据
   getFormData (type, { targetitem, originitem }) {
-    let target = this.mod[type].getValueData('initdata')
+    let mod = this.mod[type]
+    let target
+    console.log(originitem, mod)
     if (originitem) {
     // if (this.getInterface('modtype', type) == 'change') {
       target = this.triggerFunc('edit', originitem[this.prop], {
@@ -179,6 +181,8 @@ class DictionaryData extends DefaultData {
         targetitem,
         originitem
       })
+    } else if (mod.getValueData) {
+      target = mod.getValueData('initdata')
     }
     return target
   }

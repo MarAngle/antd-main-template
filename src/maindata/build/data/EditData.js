@@ -130,6 +130,7 @@ class EditData extends BaseData {
     this.type = editdata.type || 'input'
     this.required = editdata.required || false
     let typeOption = editTypeData.getData(this.type)
+    this.initValue(editdata, typeOption)
     // 格式化占位符和检验规则
     if (typeOption.placeholder) {
       if (!editdata.placeholder) {
@@ -186,6 +187,44 @@ class EditData extends BaseData {
         this.placeholder = [this.placeholder, this.placeholder]
       }
     }
+  }
+
+  initValue(editdata, typeOption) {
+    if (_func.hasProp(editdata, 'defaultdata')) {
+      this.setValueData(editdata.defaultdata, 'defaultdata')
+    } else {
+      this.setValueData(typeOption.defaultdata, 'defaultdata')
+    }
+    if (_func.hasProp(editdata, 'initdata')) {
+      this.value.initdata = editdata.initdata
+    } else {
+      this.value.initdata = this.value.defaultdata
+    }
+    if (_func.hasProp(editdata, 'resetdata')) {
+      this.value.resetdata = editdata.resetdata
+    } else {
+      this.value.resetdata = this.value.defaultdata
+    }
+  }
+  setValueToArray() {
+    let proplist = ['initdata', 'defaultdata', 'resetdata']
+    for (let n in proplist) {
+      let prop = proplist[n]
+      let type = _func.getType(this.getValueData(prop))
+      if (type != 'array') {
+        this.setValueData([], prop)
+      }
+    }
+    // ???? 多于操作???
+    /// ------
+    /// -------!!!!!
+    this.setValueData([], 'defaultdata')
+  }
+  setValueData(data, prop = 'defaultdata') {
+    this.value[prop] = data
+  }
+  getValueData(prop = 'defaultdata') {
+    return this.value[prop]
   }
 }
 export default EditData
