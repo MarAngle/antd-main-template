@@ -305,9 +305,8 @@ let maindata = new ListData({
     ]
   },
   methods: {
-    getData: function (a, b, c) {
+    getData: function () {
       return new Promise((resolve, reject) => {
-        console.log(a, b, c)
         let postdata = this.getSearch()
         postdata.pageSize = this.getPageData('size')
         postdata.pageNo = this.getPageData('page')

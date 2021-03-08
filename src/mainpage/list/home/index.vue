@@ -90,7 +90,7 @@ export default {
   methods: {
     pageLoad () {
       this.buildMainList()
-      this.maindata.loadData(this.initType, 1, 2, 3).then(res => {}, res => {
+      this.maindata.loadData(this.initType).then(res => {}, res => {
         console.error(res)
       })
     },

@@ -54,7 +54,8 @@ export default {
         }
       }
       if (this.$scopedSlots[item.edit.slot.label]) {
-        mainOption.props.label = this.$scopedSlots[item.edit.slot.label]
+        console.log(this.$scopedSlots[item.edit.slot.label])
+        mainOption.props.label = <template>{this.$scopedSlots[item.edit.slot.label]}</template>
       }
       let itemOption = {
         props: {
@@ -87,7 +88,6 @@ export default {
     const formList = this.mainlist.map((item, index) => {
       return this.renderItem(item, index)
     })
-    console.log(this.$scopedSlots)
     let option = {
       props: {
         layout: this.layout,
@@ -100,7 +100,6 @@ export default {
         { formList }
       </a-form-model>
     )
-    console.log(render)
     return render
   }
 }

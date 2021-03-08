@@ -58,7 +58,6 @@ mainfunc.init({
             }
           },
           check (response) {
-            console.log(response)
             let res = {
               status: 'fail'
             }
