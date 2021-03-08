@@ -127,12 +127,11 @@ export default {
           itemOption.on[funcName] = itemFunc
         }
       }
-      for (let n in funcData.data) {
-        let funcName = funcData.data[n]
-        if (!itemOption.on[funcName]) {
-          itemOption.on[funcName] = function() {
+      for (let triggerFuncName in funcData.data) {
+        if (!itemOption.on[triggerFuncName]) {
+          itemOption.on[triggerFuncName] = function() {
             let args = Array.prototype.slice.call(arguments)
-            funcData.data[funcName](formData, item.prop, args)
+            funcData.data[triggerFuncName](formData, item.prop, args)
           }
         }
       }
