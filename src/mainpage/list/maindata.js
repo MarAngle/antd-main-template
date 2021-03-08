@@ -76,13 +76,19 @@ let maindata = new ListData({
           },
           info: {},
           edit: {
-            type: 'input',
+            type: 'select',
             required: true,
             option: {
-              type: 'text'
-            },
-            props: {
-              defaultValue: 'defaultValue'
+              list: [
+                {
+                  value: '1',
+                  label: '11'
+                },
+                {
+                  value: '2',
+                  label: '22'
+                }
+              ]
             }
           },
           build: {
