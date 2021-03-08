@@ -51,15 +51,11 @@ export default {
           colon: item.colon,
           rules: item.edit.rules,
           label: item.name
-        },
-        slots: {},
-        scopedSlots: {}
+        }
       }
       if (this.$scopedSlots[item.edit.slot.label]) {
-        // mainOption.slots.label = <span> {this.$scopedSlots[item.edit.slot.label]} </span>
+        mainOption.props.label = this.$scopedSlots[item.edit.slot.label]
       }
-      // mainOption.scopedSlots.label = props => <span> $scopedSlots </span>
-      // mainOption.slots.label = () => <span> $slots </span>
       let itemOption = {
         props: {
           type: item.edit.option.type,
@@ -68,9 +64,7 @@ export default {
           disabled: item.edit.disabled,
           placeholder: item.edit.placeholder
         },
-        on: {},
-        slots: {},
-        scopedSlots: {}
+        on: {}
       }
       for (let funcName in item.edit.func) {
         itemOption.on[funcName] = function() {
@@ -80,14 +74,12 @@ export default {
         }
       }
       let renderItem = (
-        <a-form-model-item {...mainOption} >
+        <a-form-model-item {...mainOption } >
           <a-input
             {...itemOption}
           />
         </a-form-model-item>
       )
-      console.log(renderItem)
-      renderItem.data.scopedSlots.label = <span>2222</span>
       return renderItem
     }
   },
