@@ -59,18 +59,24 @@ export default {
           form: funcForm
         })
       }
+      let renderItem = (
+        <a-form-model-item {...mainOption } >
+          {this.renderTypeItem(item, index)}
+        </a-form-model-item>
+      )
+      return renderItem
+    },
+    renderTypeItem(item, index) {
+      let funcPayload = {
+        index: index,
+        item: item,
+        list: this.mainlist,
+        target: this
+      }
+      let funcForm = this.form.data
       let itemOption = {
-        props: {
-          type: item.edit.option.type,
-          allowClear: !item.edit.option.hideClear,
-          maxLength: item.edit.option.maxLength,
-          disabled: item.edit.disabled,
-          placeholder: item.edit.placeholder,
-          ...item.edit.props
-        },
         on: {}
       }
-      console.log(itemOption, item.edit)
       for (let funcName in item.edit.func) {
         itemOption.on[funcName] = function() {
           let args = Array.prototype.slice.call(arguments)
@@ -78,14 +84,22 @@ export default {
           item.edit.func[funcName].apply(this, args)
         }
       }
-      let renderItem = (
-        <a-form-model-item {...mainOption } >
+      if (item.edit.type == 'input') {
+        itemOption.props = {
+          type: item.edit.option.type,
+          allowClear: !item.edit.option.hideClear,
+          maxLength: item.edit.option.maxLength,
+          disabled: item.edit.disabled,
+          placeholder: item.edit.placeholder,
+          ...item.edit.props
+        }
+        let renderTypeItem = (
           <a-input
             {...itemOption}
           />
-        </a-form-model-item>
-      )
-      return renderItem
+        )
+        return renderTypeItem
+      }
     }
   },
   render () {
