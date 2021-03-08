@@ -80,6 +80,9 @@ let maindata = new ListData({
             required: true,
             option: {
               type: 'text'
+            },
+            props: {
+              defaultValue: 'defaultValue'
             }
           },
           build: {

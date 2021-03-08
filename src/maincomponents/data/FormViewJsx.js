@@ -54,8 +54,10 @@ export default {
         }
       }
       if (this.$scopedSlots[item.edit.slot.label]) {
-        console.log(this.$scopedSlots[item.edit.slot.label])
-        mainOption.props.label = <template>{this.$scopedSlots[item.edit.slot.label]}</template>
+        mainOption.props.label = this.$scopedSlots[item.edit.slot.label]({
+          ...funcPayload,
+          form: funcForm
+        })
       }
       let itemOption = {
         props: {
@@ -63,10 +65,12 @@ export default {
           allowClear: !item.edit.option.hideClear,
           maxLength: item.edit.option.maxLength,
           disabled: item.edit.disabled,
-          placeholder: item.edit.placeholder
+          placeholder: item.edit.placeholder,
+          ...item.edit.props
         },
         on: {}
       }
+      console.log(itemOption, item.edit)
       for (let funcName in item.edit.func) {
         itemOption.on[funcName] = function() {
           let args = Array.prototype.slice.call(arguments)

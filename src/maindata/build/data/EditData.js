@@ -141,7 +141,8 @@ class EditData extends BaseData {
     if (!editdata.option) {
       editdata.option = {}
     }
-    this.option.props = editdata.option.props || {}
+    // 插件单独的props设置，做特殊处理时使用，尽可能的将所有能用到的数据通过option做兼容处理避免问题
+    this.props = editdata.props || {}
 
     if (this.type == 'input') {
       // INPUT
