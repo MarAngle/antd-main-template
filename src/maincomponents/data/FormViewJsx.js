@@ -66,7 +66,7 @@ export default {
       )
       return renderItem
     },
-    renderTypeItem(item, index) {
+    buildFunc(type, itemOption, item, index) {
       let funcPayload = {
         index: index,
         item: item,
@@ -74,15 +74,29 @@ export default {
         target: this
       }
       let funcForm = this.form.data
+      if (type) {
+        itemOption.props.value = this.form.data[item.prop]
+        if (!item.edit.func.input) {
+          item.edit.func.input = true
+        }
+        for (let funcName in item.edit.func) {
+          itemOption.on[funcName] = function() {
+            let args = Array.prototype.slice.call(arguments)
+            console.log(args)
+            args.push(funcForm, funcPayload)
+            if (funcName == 'input') {
+              funcForm[item.prop] = args[0].target.value
+            }
+            if (typeof item.edit.func[funcName] === 'function') {
+              item.edit.func[funcName].apply(this, args)
+            }
+          }
+        }
+      }
+    },
+    renderTypeItem(item, index) {
       let itemOption = {
         on: {}
-      }
-      for (let funcName in item.edit.func) {
-        itemOption.on[funcName] = function() {
-          let args = Array.prototype.slice.call(arguments)
-          args.push(funcForm, funcPayload)
-          item.edit.func[funcName].apply(this, args)
-        }
       }
       let renderTypeItem = null
       if (item.edit.type == 'input') {
@@ -94,6 +108,8 @@ export default {
           placeholder: item.edit.placeholder,
           ...item.edit.props
         }
+        this.buildFunc(item.edit.type, itemOption, item, index)
+        console.log(itemOption)
         renderTypeItem = (
           <a-input
             {...itemOption}
@@ -124,10 +140,10 @@ export default {
     })
     let option = {
       props: {
+        model: this.form.data,
         layout: this.layout,
         labelAlign: this.labelAlign,
-        validateOnRuleChange: this.validateOnRuleChange,
-        vModel: this.form.data
+        validateOnRuleChange: this.validateOnRuleChange
       }
     }
     let render = (

@@ -173,9 +173,7 @@ class DictionaryData extends DefaultData {
   getFormData (type, { targetitem, originitem }) {
     let mod = this.mod[type]
     let target
-    console.log(originitem, mod)
     if (originitem) {
-    // if (this.getInterface('modtype', type) == 'change') {
       target = this.triggerFunc('edit', originitem[this.prop], {
         type: type,
         targetitem,

@@ -93,9 +93,11 @@ export default {
         let targetitem = this.maindata.getItem(this.index)
         this.form.data = this.maindata.getDictionaryFormData(this.modlist, this.type, targetitem)
       } else if (this.edit == 'build') {
-        // this.maindata.buildModFormData(this.modlist, this.type)
         this.form.data = this.maindata.getDictionaryFormData(this.modlist, this.type)
       }
+      console.log('---')
+    },
+    onMenu() {
       console.log(this.form.data)
     }
   }
