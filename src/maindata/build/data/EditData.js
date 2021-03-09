@@ -238,19 +238,17 @@ class EditData extends BaseData {
             handleSearch(...args)
           }
         }
-        let handleOpen = this.on.open
-        this.on.open = (...args) => {
-          console.log('open', args)
+        let handleDropdownVisibleChange = this.on.dropdownVisibleChange
+        this.on.dropdownVisibleChange = (...args) => {
           this.func.openStart(...args)
-          if (handleOpen) {
-            handleOpen(...args)
+          if (handleDropdownVisibleChange) {
+            handleDropdownVisibleChange(...args)
           }
         }
         if (!this.func.openStart) {
-          this.func.openStart = (value) => {
-            // ???
-            console.log(value, this.getValueData('initdata'), this.getValueData('defaultdata'))
-            if (value) {
+          this.func.openStart = (isOpen) => {
+            if (isOpen) {
+              console.log('!!!!!', this.getValueData('initdata'), this.getValueData('defaultdata'))
               if (this.getValueData('initdata') === this.getValueData('defaultdata')) {
                 this.on.search('')
               }

@@ -109,7 +109,7 @@ let maindata = new ListData({
                     }
                   ]
                   this.option.list = []
-                  // this.option.list = data
+                  this.option.list = data
                   resolve()
                 })
               }
