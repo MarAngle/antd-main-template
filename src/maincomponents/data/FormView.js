@@ -151,7 +151,6 @@ export default {
           ...item.edit.props
         }
         this.buildFunc(item.edit.type, itemOption, item, index)
-        console.log(itemOption)
         renderTypeItem = (
           <a-input
             {...itemOption}
