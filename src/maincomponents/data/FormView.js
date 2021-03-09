@@ -1,5 +1,8 @@
 
 const funcList = {
+  valueInit: function(itemOption, formData, prop) {
+    itemOption.props.value = formData[prop]
+  },
   input: function(formdata, prop, args) {
     formdata[prop] = args[0].target.value
   },
@@ -10,24 +13,27 @@ const funcList = {
 
 const formatFunc = {
   ainput: {
-    input: function(formdata, prop, args) {
-      formdata[prop] = args[0].target.value
+    init: funcList.valueInit,
+    data: {
+      input: funcList.input
     }
   },
   ainputNumber: {
-    input: function(formdata, prop, args) {
-      formdata[prop] = args[0].target.value
+    init: funcList.valueInit,
+    data: {
+      input: funcList.input
     }
   },
   aselect: {
-    select: function(formdata, prop, args) {
-      formdata[prop] = args[0]
+    init: funcList.valueInit,
+    data: {
+      select: funcList.select
     }
   }
 }
 
 export default {
-  name: 'FormViewJsx',
+  name: 'FormView',
   props: {
     layout: { // 表单布局	'horizontal'|'vertical'|'inline'
       type: String,
@@ -103,16 +109,29 @@ export default {
       }
       let formData = this.form.data
       let funcData = formatFunc['a' + type]
+      funcData.init(itemOption, formData, item.prop)
       itemOption.props.value = this.form.data[item.prop]
       for (let funcName in item.edit.func) {
-        itemOption.on[funcName] = function() {
+         let itemFunc = function() {
           let args = Array.prototype.slice.call(arguments)
           args.push(formData, funcPayload)
-          if (formatFunc['a' + funcName]) {
-            formatFunc['a' + funcName](formData, item.prop, args)
+          item.edit.func[funcName].apply(this, args)
+        }
+        if (funcData.data[funcName]) {
+          itemOption.on[funcName] = function() {
+            let args = Array.prototype.slice.call(arguments)
+            funcData.data[funcName](formData, item.prop, args)
+            itemFunc.apply(this, args)
           }
-          if (typeof item.edit.func[funcName] === 'function') {
-            item.edit.func[funcName].apply(this, args)
+        } else {
+          itemOption.on[funcName] = itemFunc
+        }
+      }
+      for (let triggerFuncName in funcData.data) {
+        if (!itemOption.on[triggerFuncName]) {
+          itemOption.on[triggerFuncName] = function() {
+            let args = Array.prototype.slice.call(arguments)
+            funcData.data[triggerFuncName](formData, item.prop, args)
           }
         }
       }

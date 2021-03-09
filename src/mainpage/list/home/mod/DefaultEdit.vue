@@ -5,9 +5,9 @@
   <a-modal class="mainmodal" :title="title" v-model="currentShow" @ok="onMenu('ok')" @cancel="onMenu('cancel')">
     <div v-if="currentShow">
       <a-spin :spinning="false">
-        <LocalFormViewJsx :form="form" :mainlist="mainlist">
+        <LocalFormView :form="form" :mainlist="mainlist">
           <span slot="terminalCode-label" slot-scope="data">{{ data.index }}</span>
-        </LocalFormViewJsx>
+        </LocalFormView>
       </a-spin>
     </div>
   </a-modal>
