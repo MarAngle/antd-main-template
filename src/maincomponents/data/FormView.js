@@ -113,14 +113,12 @@ export default {
       itemOption.props.value = this.form.data[item.prop]
       for (let funcName in item.edit.on) {
          let itemFunc = function(...args) {
-          console.log(args)
           args.push(formData, funcPayload)
-          console.log(args)
           item.edit.on[funcName](...args)
         }
         if (funcData.data[funcName]) {
           itemOption.on[funcName] = function(...args) {
-            console.log(args)
+            console.log(funcName, args)
             funcData.data[funcName](formData, item.prop, args)
             itemFunc(...args)
           }
@@ -131,7 +129,6 @@ export default {
       for (let triggerFuncName in funcData.data) {
         if (!itemOption.on[triggerFuncName]) {
           itemOption.on[triggerFuncName] = function(...args) {
-            console.log(args)
             funcData.data[triggerFuncName](formData, item.prop, args)
           }
         }
@@ -175,11 +172,13 @@ export default {
         )
       } else if (item.edit.type == 'select') {
         itemOption.props = {
+          mode: item.edit.option.mode,
           showSearch: item.edit.option.search.show,
           showArrow: !item.edit.option.hideArrow,
           allowClear: !item.edit.option.hideClear,
           dropdownMatchSelectWidth: item.edit.option.autoWidth,
           notFoundContent: item.edit.option.noDataContent,
+          filterOption: item.edit.option.filterOption,
           disabled: item.edit.disabled,
           placeholder: item.edit.placeholder,
           ...item.edit.props
@@ -196,7 +195,7 @@ export default {
             props: {
               key: itemData[dict.key],
               value: itemData[dict.value],
-              disabled: itemData[dict.disabled]
+              disabled: itemData[dict.disabled] || false
             }
           }
           return <a-select-option { ... optionOption }>{ itemData[dict.label] }</a-select-option>

@@ -161,6 +161,7 @@ class EditData extends BaseData {
     } else if (this.type == 'select') {
       // 考虑位置在data.list的可行性
       this.option.list = editdata.option.list || []
+      this.option.mode = editdata.option.mode || 'default' // 设置 Select 的模式为多选或标签	'default' | 'multiple' | 'tags' | 'combobox'
       this.option.multiple = editdata.option.multiple || false
       this.option.optionValue = editdata.option.optionValue || 'value'
       this.option.optionLabel = editdata.option.optionLabel || 'label'
@@ -168,9 +169,9 @@ class EditData extends BaseData {
       this.option.popupLocation = editdata.option.popupLocation || 'form'
       this.option.hideArrow = editdata.option.hideArrow || false
       this.option.hideClear = editdata.option.hideClear || false
-      this.option.filterOption = editdata.option.filterOption || false
-      this.option.autoWidth = editdata.option.autoWidth || false
-      this.option.noDataContent = editdata.option.noDataContent
+      this.option.filterOption = editdata.option.filterOption || false // 是否自动过滤
+      this.option.autoWidth = editdata.option.autoWidth || false // 宽度自适应
+      this.option.noDataContent = editdata.option.noDataContent // 无数据时文字显示 == 默认不传使用antd的默认模板
       if (this.option.multiple) {
         this.setValueToArray()
       }
@@ -231,8 +232,7 @@ class EditData extends BaseData {
       if (this.option.search.show && this.option.search.auto) {
         this.option.search.value = ''
         let handleSearch = this.on.search
-        this.on.search = function(...args) {
-          console.log('search', args)
+        this.on.search = (...args) => {
           this.func.searchStart(...args)
           if (handleSearch) {
             handleSearch(...args)

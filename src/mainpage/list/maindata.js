@@ -96,19 +96,20 @@ let maindata = new ListData({
                 return new Promise((resolve, reject) => {
                   let data = [
                     {
-                      value: `${value}`,
-                      babel: `${value}/111`
+                      value: `${value}/111`,
+                      label: `${value}/111`
                     },
                     {
                       value: '3',
-                      babel: '33'
+                      label: '33'
                     },
                     {
-                      value: '3',
-                      babel: '33'
+                      value: '4',
+                      label: '44'
                     }
                   ]
-                  this.option.list = data
+                  this.option.list = []
+                  // this.option.list = data
                   resolve()
                 })
               }
