@@ -265,6 +265,8 @@ class BaseData extends DefaultData {
         resolve(res)
       }, res => {
         this.setStatus('unload', 'load')
+        // 触发生命周期加载失败事件
+        this.life.trigger('loadFail')
         reject(res)
       })
     }))
@@ -284,6 +286,8 @@ class BaseData extends DefaultData {
         resolve(res)
       }, res => {
         this.setStatus('updated', 'update')
+        // 触发生命周期加载失败事件
+        this.life.trigger('updateFail')
         reject(res)
       })
     }))

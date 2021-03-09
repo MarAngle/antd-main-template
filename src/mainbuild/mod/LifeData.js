@@ -9,11 +9,12 @@ import SimpleData from './../data/SimpleData'
 created
 beforeLoad
 loaded
+unload 加载失败
 beforeDestroy
 destroyed
 */
 
-const defaultList = ['created', 'beforeLoad', 'loaded', 'beforeUpdate', 'updated', 'beforeReset', 'reseted', 'beforeDestroy', 'destroyed']
+const defaultList = ['created', 'beforeLoad', 'load', 'loadFail', 'beforeUpdate', 'updated', 'updateFail', 'beforeReset', 'reseted', 'beforeDestroy', 'destroyed']
 let key = 0
 
 class LifeData extends SimpleData {

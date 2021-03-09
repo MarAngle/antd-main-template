@@ -1,6 +1,7 @@
 import _func from '@/maindata/func/index'
 import { BaseData, ParentData, PaginationData } from '@/mainbuild/index'
 import editTypeData from './EditTypeData'
+import { edit } from 'node_modules/external-editor/main/index'
 
 function formatDateTimeOption(option, range) {
   const defaultValueData = '00:00:00'
@@ -129,6 +130,8 @@ class EditData extends BaseData {
   initType(editdata) {
     this.type = editdata.type || 'input'
     this.required = editdata.required || false
+    // 组件事件监控
+    this.on = editdata.on || {}
     let typeOption = editTypeData.getData(this.type)
     this.initValue(editdata, typeOption)
     // 格式化占位符和检验规则
@@ -157,6 +160,7 @@ class EditData extends BaseData {
       this.option.precision = editdata.option.precision === undefined ? 0 : editdata.option.precision // 精确到几位小数，接受非负整数
       this.option.step = editdata.option.step === undefined ? 1 : editdata.option.step // 点击步进
     } else if (this.type == 'select') {
+      // 考虑位置在data.list的可行性
       this.option.list = editdata.option.list || []
       this.option.multiple = editdata.option.multiple || false
       this.option.optionValue = editdata.option.optionValue || 'value'
@@ -169,8 +173,130 @@ class EditData extends BaseData {
       this.option.autoWidth = editdata.option.autoWidth || false
       this.option.noDataContent = editdata.option.noDataContent
       if (this.option.multiple) {
-        // ~~~~~~~~~~~~~~!!!!!!!!!!!!!!!!!!!!!
         this.setValueToArray()
+      }
+      // 添加默认的重置选项数据
+      if (!this.func.clearData) {
+        this.func.clearData = () => {
+          this.option.list = []
+          if (this.pagination) {
+            this.pagination.setTotal(0)
+          }
+        }
+      }
+      // 存在分页相关设置
+      if (editdata.option.pagination) {
+        if (!this.func.page) {
+          if (this.getData) {
+            this._printInfo('选择器存在分页器时需要定义page回调或者getData函数供分页时调用')
+          }
+          this.func.page = (act, data) => {
+            this.loadData(true).then(res => {}, err => { this._printInfo('loadData失败！', 'error', err) })
+          }
+        }
+        let paginationOption = editdata.option.pagination
+        if (paginationOption === true) {
+          paginationOption = {
+            size: 10,
+            mod: {
+              sizehidden: true,
+              jumphidden: true,
+              total: 'hidden'
+            }
+          }
+        }
+        this.pagination = new PaginationData(paginationOption)
+      } else {
+        this.pagination = null
+      }
+      // 检索下拉设置
+      let search = editdata.option.search
+      if (!search) {
+        search = {
+          show: false
+        }
+      } else if (search === true) {
+        search = {
+          show: true
+        }
+      }
+      this.option.search = {
+        show: search.show,
+        value: '',
+        min: search.min || 0,
+        noDataContent: search.noDataContent || this.option.noDataContent,
+        noSizeContent: search.noSizeContent || 0
+      }
+      this.option.search.noSizeContent = search.noSizeContent || `请输入${this.option.search.min}位及以上的值检索`
+      if (this.option.search.show) {
+        this.option.search.value = ''
+        if (!this.func.openStart) {
+          this.func.openStart = (value) => {
+            // ???
+            console.log(value, this.getValueData('initdata'), this.getValueData('defaultdata'))
+            if (value) {
+              if (this.getValueData('initdata') === this.getValueData('defaultdata')) {
+                this.on.search('')
+              }
+            }
+          }
+        }
+        if (!this.func.autoSearch) {
+          this.func.autoSearch = (act) => {
+            if (act == 'init') {
+              let num = this.option.search.value.length
+              if (num < this.option.search.min) {
+                this.option.noDataContent = this.option.search.noSizeContent
+                this.func.clearData()
+                return false
+              } else {
+                return true
+              }
+            } else if (act == 'loading') {
+              this.option.noDataContent = '检索中...'
+              return true
+            } else if (act == 'loaded') {
+              if (this.option.list.length <= 0) {
+                this.option.noDataContent = this.option.search.noDataContent
+                return false
+              } else {
+                return true
+              }
+            }
+          }
+        }
+        // 通过生命周期触发对应的状态操作
+        this.setLifeData({
+          type: 'beforeLoad',
+          name: 'autoSearchBeforeLoad',
+          func: () => {
+            this.func.autoSearch('loading')
+          }
+        })
+        this.setLifeData({
+          type: 'loaded',
+          name: 'autoSearchLoaded',
+          func: () => {
+            this.func.autoSearch('loaded')
+          }
+        })
+        this.setLifeData({
+          type: 'loadFail',
+          name: 'autoSearchLoadFail',
+          func: () => {
+            this.func.clearData()
+            this.func.autoSearch('loaded')
+          }
+        })
+        // 生命周期设置完成
+        if (!this.func.handleSearch) {
+          this.func.handleSearch = (value) => {
+            this.option.search.value = value || ''
+            if (this.func.autoSearch('init')) {
+              this.loadData(true, this.option.search.value).then(res => {}, err => { this._printInfo('loadData失败！', 'error', err) })
+            }
+          }
+        }
       }
     } else if (this.type == 'datePicker') {
       // DATEPICKER

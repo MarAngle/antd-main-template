@@ -111,11 +111,11 @@ export default {
       let funcData = formatFunc['a' + type]
       funcData.init(itemOption, formData, item.prop)
       itemOption.props.value = this.form.data[item.prop]
-      for (let funcName in item.edit.func) {
+      for (let funcName in item.edit.on) {
          let itemFunc = function() {
           let args = Array.prototype.slice.call(arguments)
           args.push(formData, funcPayload)
-          item.edit.func[funcName].apply(this, args)
+          item.edit.on[funcName].apply(this, args)
         }
         if (funcData.data[funcName]) {
           itemOption.on[funcName] = function() {
