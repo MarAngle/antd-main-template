@@ -1,7 +1,6 @@
 import _func from '@/maindata/func/index'
 import { BaseData, ParentData, PaginationData } from '@/mainbuild/index'
 import editTypeData from './EditTypeData'
-import { edit } from 'node_modules/external-editor/main/index'
 
 function formatDateTimeOption(option, range) {
   const defaultValueData = '00:00:00'

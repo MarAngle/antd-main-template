@@ -79,6 +79,7 @@ let maindata = new ListData({
             type: 'select',
             required: true,
             option: {
+              search: true,
               list: [
                 {
                   value: '1',
@@ -89,6 +90,25 @@ let maindata = new ListData({
                   label: '22'
                 }
               ]
+            },
+            getData(value) {
+              return new Promise((resolve, reject) => {
+                let data = [
+                  {
+                    value: `${value}`,
+                    babel: `${value}/111`
+                  },
+                  {
+                    value: '3',
+                    babel: '33'
+                  },
+                  {
+                    value: '3',
+                    babel: '33'
+                  }
+                ]
+                this.option.list = data
+              })
             }
           },
           build: {

@@ -14,7 +14,7 @@ beforeDestroy
 destroyed
 */
 
-const defaultList = ['created', 'beforeLoad', 'load', 'loadFail', 'beforeUpdate', 'updated', 'updateFail', 'beforeReset', 'reseted', 'beforeDestroy', 'destroyed']
+const defaultList = ['created', 'beforeLoad', 'loaded', 'loadFail', 'beforeUpdate', 'updated', 'updateFail', 'beforeReset', 'reseted', 'beforeDestroy', 'destroyed']
 let key = 0
 
 class LifeData extends SimpleData {
