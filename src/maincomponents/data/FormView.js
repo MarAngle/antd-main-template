@@ -112,14 +112,15 @@ export default {
       funcData.init(itemOption, formData, item.prop)
       itemOption.props.value = this.form.data[item.prop]
       for (let funcName in item.edit.on) {
-         let itemFunc = function() {
-          let args = Array.prototype.slice.call(arguments)
+         let itemFunc = function(...args) {
+          console.log(args)
           args.push(formData, funcPayload)
+          console.log(args)
           item.edit.on[funcName].apply(this, args)
         }
         if (funcData.data[funcName]) {
-          itemOption.on[funcName] = function() {
-            let args = Array.prototype.slice.call(arguments)
+          itemOption.on[funcName] = function(...args) {
+            console.log(args)
             funcData.data[funcName](formData, item.prop, args)
             itemFunc.apply(this, args)
           }
@@ -129,8 +130,8 @@ export default {
       }
       for (let triggerFuncName in funcData.data) {
         if (!itemOption.on[triggerFuncName]) {
-          itemOption.on[triggerFuncName] = function() {
-            let args = Array.prototype.slice.call(arguments)
+          itemOption.on[triggerFuncName] = function(...args) {
+            console.log(args)
             funcData.data[triggerFuncName](formData, item.prop, args)
           }
         }

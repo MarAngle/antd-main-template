@@ -231,18 +231,16 @@ class EditData extends BaseData {
       if (this.option.search.show && this.option.search.auto) {
         this.option.search.value = ''
         let handleSearch = this.on.search
-        this.on.search = () => {
-          let args = Array.prototype.slice.call(arguments)
-          console.log(args)
+        this.on.search = function(...args) {
+          console.log('search', args)
           this.func.searchStart.apply(this, args)
           if (handleSearch) {
             handleSearch.apply(this, args)
           }
         }
         let handleOpen = this.on.open
-        this.on.open = () => {
-          let args = Array.prototype.slice.call(arguments)
-          console.log(args)
+        this.on.open = (...args) => {
+          console.log('open', args)
           this.func.openStart.apply(this, args)
           if (handleOpen) {
             handleOpen.apply(this, args)
