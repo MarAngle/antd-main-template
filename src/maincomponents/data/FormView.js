@@ -116,13 +116,13 @@ export default {
           console.log(args)
           args.push(formData, funcPayload)
           console.log(args)
-          item.edit.on[funcName].apply(this, args)
+          item.edit.on[funcName](...args)
         }
         if (funcData.data[funcName]) {
           itemOption.on[funcName] = function(...args) {
             console.log(args)
             funcData.data[funcName](formData, item.prop, args)
-            itemFunc.apply(this, args)
+            itemFunc(...args)
           }
         } else {
           itemOption.on[funcName] = itemFunc

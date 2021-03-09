@@ -233,17 +233,17 @@ class EditData extends BaseData {
         let handleSearch = this.on.search
         this.on.search = function(...args) {
           console.log('search', args)
-          this.func.searchStart.apply(this, args)
+          this.func.searchStart(...args)
           if (handleSearch) {
-            handleSearch.apply(this, args)
+            handleSearch(...args)
           }
         }
         let handleOpen = this.on.open
         this.on.open = (...args) => {
           console.log('open', args)
-          this.func.openStart.apply(this, args)
+          this.func.openStart(...args)
           if (handleOpen) {
-            handleOpen.apply(this, args)
+            handleOpen(...args)
           }
         }
         if (!this.func.openStart) {
