@@ -174,6 +174,7 @@ export default {
         )
       } else if (item.edit.type == 'select') {
         itemOption.props = {
+          showSearch: item.edit.option.search.show,
           showArrow: !item.edit.option.hideArrow,
           allowClear: !item.edit.option.hideClear,
           dropdownMatchSelectWidth: item.edit.option.autoWidth,

@@ -220,15 +220,34 @@ class EditData extends BaseData {
         }
       }
       this.option.search = {
-        show: search.show,
-        value: '',
-        min: search.min || 0,
+        show: search.show, // 检索模式开启判断值
+        value: '', // 当前检索数据
+        min: search.min || 0, // 检索触发值，auto模式下
         noDataContent: search.noDataContent || this.option.noDataContent,
-        noSizeContent: search.noSizeContent || 0
+        noSizeContent: search.noSizeContent || 0,
+        auto: search.auto === undefined ? true : search.auto // 是否load检索
       }
       this.option.search.noSizeContent = search.noSizeContent || `请输入${this.option.search.min}位及以上的值检索`
-      if (this.option.search.show) {
+      if (this.option.search.show && this.option.search.auto) {
         this.option.search.value = ''
+        let handleSearch = this.on.search
+        this.on.search = () => {
+          let args = Array.prototype.slice.call(arguments)
+          console.log(args)
+          this.func.searchStart.apply(this, args)
+          if (handleSearch) {
+            handleSearch.apply(this, args)
+          }
+        }
+        let handleOpen = this.on.open
+        this.on.open = () => {
+          let args = Array.prototype.slice.call(arguments)
+          console.log(args)
+          this.func.openStart.apply(this, args)
+          if (handleOpen) {
+            handleOpen.apply(this, args)
+          }
+        }
         if (!this.func.openStart) {
           this.func.openStart = (value) => {
             // ???
@@ -288,8 +307,8 @@ class EditData extends BaseData {
           }
         })
         // 生命周期设置完成
-        if (!this.func.handleSearch) {
-          this.func.handleSearch = (value) => {
+        if (!this.func.searchStart) {
+          this.func.searchStart = (value) => {
             this.option.search.value = value || ''
             if (this.func.autoSearch('init')) {
               this.loadData(true, this.option.search.value).then(res => {}, err => { this._printInfo('loadData失败！', 'error', err) })

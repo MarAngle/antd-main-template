@@ -91,24 +91,27 @@ let maindata = new ListData({
                 }
               ]
             },
-            getData(value) {
-              return new Promise((resolve, reject) => {
-                let data = [
-                  {
-                    value: `${value}`,
-                    babel: `${value}/111`
-                  },
-                  {
-                    value: '3',
-                    babel: '33'
-                  },
-                  {
-                    value: '3',
-                    babel: '33'
-                  }
-                ]
-                this.option.list = data
-              })
+            methods: {
+              getData(value) {
+                return new Promise((resolve, reject) => {
+                  let data = [
+                    {
+                      value: `${value}`,
+                      babel: `${value}/111`
+                    },
+                    {
+                      value: '3',
+                      babel: '33'
+                    },
+                    {
+                      value: '3',
+                      babel: '33'
+                    }
+                  ]
+                  this.option.list = data
+                  resolve()
+                })
+              }
             }
           },
           build: {
