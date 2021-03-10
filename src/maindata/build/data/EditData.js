@@ -185,16 +185,16 @@ class EditData extends BaseData {
         }
       }
       // 存在分页相关设置
-      if (editdata.option.pagination) {
+      if (editdata.pagination) {
         if (!this.func.page) {
-          if (this.getData) {
+          if (!this.getData) {
             this._printInfo('选择器存在分页器时需要定义page回调或者getData函数供分页时调用')
           }
           this.func.page = (act, data) => {
             this.loadData(true).then(res => {}, err => { this._printInfo('loadData失败！', 'error', err) })
           }
         }
-        let paginationOption = editdata.option.pagination
+        let paginationOption = editdata.pagination
         if (paginationOption === true) {
           paginationOption = {
             size: 10,

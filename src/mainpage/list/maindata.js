@@ -91,6 +91,7 @@ let maindata = new ListData({
                 }
               ]
             },
+            pagination: true,
             methods: {
               getData(value) {
                 return new Promise((resolve, reject) => {
