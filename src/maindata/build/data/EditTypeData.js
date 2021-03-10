@@ -1,5 +1,29 @@
 import _func from '@/maindata/func/index'
 
+function timeOptionFormat(option, range) {
+  if (option) {
+    let defaultValue = '00:00:00'
+    if (option === true) {
+      option = {}
+    }
+    if (!option.format) {
+      option.format = 'HH:mm:ss'
+    }
+    if (range) {
+      if (!option.defaultValue) {
+        option.defaultValue = [defaultValue, defaultValue]
+      }
+    } else {
+      if (!option.defaultValue) {
+        option.defaultValue = defaultValue
+      }
+    }
+  } else {
+    option = false
+  }
+  return option
+}
+
 let editTypeData = {
   data: {
     type_input: {
@@ -25,12 +49,14 @@ let editTypeData = {
     },
     type_date: {
       defaultdata: null,
+      timeOptionFormat: timeOptionFormat,
       placeholder: function(name) {
         return `请选择${name}`
       }
     },
     type_dateRange: {
       defaultdata: [],
+      timeOptionFormat: timeOptionFormat,
       placeholder: function(name) {
         return `请选择${name}`
       }

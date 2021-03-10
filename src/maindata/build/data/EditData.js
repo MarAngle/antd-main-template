@@ -334,15 +334,20 @@ class EditData extends BaseData {
       }
     } else if (this.type == 'date') {
       // DATEPICKER
-      this.option.format = editdata.option.format || 'YYYY-MM-DD'
-      this.option.formatedit = editdata.option.formatedit || this.option.format
-      this.option.showTime = formatDateTimeOption(editdata.option.showTime)
+      this.option.showTime = typeOption.timeOptionFormat(editdata.option.showTime)
+      this.option.format = editdata.option.format || this.option.showTime ? 'YYYY-MM-DD HH:mm:ss' : 'YYYY-MM-DD' // 默认显示解析
+      this.option.formatedit = editdata.option.formatedit || this.option.format // 默认确认后的数据解析
+      if (this.func.unedit === undefined) { // 可设置为false实现moment对象的传递
+        this.func.unedit = (value) => {
+          return value ? value.format(this.option.formatedit) : value
+        }
+      }
     } else if (this.type == 'dateRange') {
       // DATERANGEPICKER
       this.option.format = editdata.option.format || 'YYYY-MM-DD'
       this.option.formatedit = editdata.option.formatedit || this.option.format
       this.option.separator = editdata.option.separator || '-'
-      this.option.showTime = formatDateTimeOption(editdata.option.showTime, 'range')
+      this.option.showTime = editdata.option.showTime
       if (_func.getType(this.placeholder) != 'array') {
         this.placeholder = [this.placeholder, this.placeholder]
       }

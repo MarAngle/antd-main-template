@@ -202,10 +202,10 @@ let maindata = new ListData({
           },
           info: {},
           edit: {
-            type: 'input',
+            type: 'date',
             required: false,
             option: {
-              type: 'text'
+              showTime: true
             }
           },
           build: {

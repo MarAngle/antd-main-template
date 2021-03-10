@@ -1,3 +1,4 @@
+import _func from '@/maindata/func/index'
 import moment from 'moment'
 
 let showLogs = {
@@ -22,7 +23,7 @@ const funcList = {
     if (showLogs.model) { console.log(formdata, prop, args) }
     formdata[prop] = args[0]
   },
-  change: function(formdata, prop, args) {
+  change: function (formdata, prop, args) {
     if (showLogs.model) { console.log(formdata, prop, args) }
     formdata[prop] = args[0]
   }
@@ -58,6 +59,34 @@ const formatFunc = {
     data: {
       change: funcList.change
     }
+  }
+}
+
+function formatMoment(data, propList) {
+  for (let n = 0; n < propList.length; n++) {
+    let prop = propList[n]
+    if (data[prop]) {
+      let type = _func.getType(data[prop])
+      if (type == 'array') {
+        for (let i = 0; i < data[prop].length; i++) {
+          data[prop][i] = formatMomentNext(data[prop][i])
+        }
+      } else {
+        data[prop] = formatMomentNext(data[prop])
+      }
+    }
+  }
+}
+
+function formatMomentNext(value) {
+  if (value) {
+    if (moment.isMoment(value)) {
+      return value
+    } else {
+      return moment(value)
+    }
+  } else {
+    return value
   }
 }
 
@@ -313,8 +342,12 @@ export default {
         }
         this.buildFunc(item.edit.type, itemOption, item, index)
         itemOption = this._func.mergeData(itemOption, item.edit.localOption.item)
+        formatMoment(itemOption.props, ['value', 'defaultValue'])
+        if (itemOption.props.showTime) {
+          formatMoment(itemOption.props.showTime, ['defaultValue', 'defaultOpenValue'])
+        }
         renderTypeItem = (
-          <a-switch
+          <a-date-picker
             {...itemOption}
           />
         )
