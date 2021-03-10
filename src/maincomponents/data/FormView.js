@@ -1,12 +1,28 @@
 
+let showLogs = {
+  init: false,
+  model: true
+}
+
 const funcList = {
-  valueInit: function(itemOption, formData, prop) {
+  valueInit: function (itemOption, formData, prop) {
+    if (showLogs.init) { console.log(itemOption, formData, prop) }
     itemOption.props.value = formData[prop]
   },
-  input: function(formdata, prop, args) {
+  checkInit: function (itemOption, formData, prop) {
+    if (showLogs.init) { console.log(itemOption, formData, prop) }
+    itemOption.props.checked = formData[prop]
+  },
+  input: function (formdata, prop, args) {
+    if (showLogs.model) { console.log(formdata, prop, args) }
     formdata[prop] = args[0].target.value
   },
-  select: function(formdata, prop, args) {
+  select: function (formdata, prop, args) {
+    if (showLogs.model) { console.log(formdata, prop, args) }
+    formdata[prop] = args[0]
+  },
+  change: function(formdata, prop, args) {
+    if (showLogs.model) { console.log(formdata, prop, args) }
     formdata[prop] = args[0]
   }
 }
@@ -24,10 +40,16 @@ const formatFunc = {
       input: funcList.input
     }
   },
+  aswitch: {
+    init: funcList.checkInit,
+    data: {
+      change: funcList.change
+    }
+  },
   aselect: {
     init: funcList.valueInit,
     data: {
-      select: funcList.select
+      input: funcList.input
     }
   }
 }
@@ -59,13 +81,13 @@ export default {
       required: true
     }
   },
-  data () {
+  data() {
     return {
     }
   },
   computed: {
   },
-  mounted () {
+  mounted() {
   },
   watch: {
   },
@@ -78,7 +100,6 @@ export default {
         target: this
       }
       let formData = this.form.data
-
       let mainOption = {
         props: {
           prop: item.prop,
@@ -95,7 +116,7 @@ export default {
       }
       mainOption = this._func.mergeData(mainOption, item.edit.localOption.main)
       let renderItem = (
-        <a-form-model-item {...mainOption } >
+        <a-form-model-item {...mainOption} >
           {this.renderTip(item, index)}
         </a-form-model-item>
       )
@@ -106,7 +127,7 @@ export default {
       if (item.edit.tips.props.title) {
         return (
           <a-tooltip {...item.edit.tips} >
-            { typeItem }
+            { typeItem}
           </a-tooltip>
         )
       } else {
@@ -125,12 +146,12 @@ export default {
       funcData.init(itemOption, formData, item.prop)
       itemOption.props.value = this.form.data[item.prop]
       for (let funcName in item.edit.on) {
-         let itemFunc = function(...args) {
+        let itemFunc = function (...args) {
           args.push(formData, funcPayload)
           item.edit.on[funcName](...args)
         }
         if (funcData.data[funcName]) {
-          itemOption.on[funcName] = function(...args) {
+          itemOption.on[funcName] = function (...args) {
             console.log(funcName, args)
             funcData.data[funcName](formData, item.prop, args)
             itemFunc(...args)
@@ -141,7 +162,7 @@ export default {
       }
       for (let triggerFuncName in funcData.data) {
         if (!itemOption.on[triggerFuncName]) {
-          itemOption.on[triggerFuncName] = function(...args) {
+          itemOption.on[triggerFuncName] = function (...args) {
             funcData.data[triggerFuncName](formData, item.prop, args)
           }
         }
@@ -158,7 +179,8 @@ export default {
           allowClear: !item.edit.option.hideClear,
           maxLength: item.edit.option.maxLength,
           disabled: item.edit.disabled,
-          placeholder: item.edit.placeholder
+          placeholder: item.edit.placeholder,
+          value: this.form.data[item.prop]
         }
         this.buildFunc(item.edit.type, itemOption, item, index)
         itemOption = this._func.mergeData(itemOption, item.edit.localOption.item)
@@ -174,12 +196,24 @@ export default {
           precision: item.edit.option.precision,
           step: item.edit.option.step,
           disabled: item.edit.disabled,
-          placeholder: item.edit.placeholder
+          placeholder: item.edit.placeholder,
+          value: this.form.data[item.prop]
         }
         this.buildFunc(item.edit.type, itemOption, item, index)
         itemOption = this._func.mergeData(itemOption, item.edit.localOption.item)
         renderTypeItem = (
           <a-input-number
+            {...itemOption}
+          />
+        )
+      } else if (item.edit.type == 'switch') {
+        itemOption.props = {
+          value: this.form.data[item.prop]
+        }
+        this.buildFunc(item.edit.type, itemOption, item, index)
+        itemOption = this._func.mergeData(itemOption, item.edit.localOption.item)
+        renderTypeItem = (
+          <a-switch
             {...itemOption}
           />
         )
@@ -212,7 +246,7 @@ export default {
             }
           }
           optionOption = this._func.mergeData(optionOption, item.edit.localOption.option)
-          return <a-select-option { ... optionOption }>{ itemData[dict.label] }</a-select-option>
+          return <a-select-option {...optionOption}>{itemData[dict.label]}</a-select-option>
         })
         if (item.edit.pagination) {
           let defaultProps = {
@@ -226,7 +260,7 @@ export default {
               ...defaultProps
             },
             on: {
-              change: function(...args) {
+              change: function (...args) {
                 item.edit.func.page(...args)
               }
             }
@@ -252,10 +286,10 @@ export default {
             return (
               <div>
                 <div>
-                  { menuNode }
+                  {menuNode}
                 </div>
-                <div { ...paginationAreaOption }>
-                  { pagination }
+                <div {...paginationAreaOption}>
+                  {pagination}
                 </div>
               </div>
             )
@@ -265,14 +299,14 @@ export default {
           <a-select
             {...itemOption}
           >
-            { optionList }
+            { optionList}
           </a-select>
         )
       }
       return renderTypeItem
     }
   },
-  render () {
+  render() {
     const formList = this.mainlist.map((item, index) => {
       return this.renderItem(item, index)
     })
@@ -286,7 +320,7 @@ export default {
     }
     let render = (
       <a-form-model {...option}>
-        { formList }
+        { formList}
       </a-form-model>
     )
     return render

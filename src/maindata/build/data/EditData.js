@@ -157,6 +157,8 @@ class EditData extends BaseData {
       this.option.min = editdata.option.min === undefined ? -Infinity : editdata.option.min
       this.option.precision = editdata.option.precision === undefined ? 0 : editdata.option.precision // 精确到几位小数，接受非负整数
       this.option.step = editdata.option.step === undefined ? 1 : editdata.option.step // 点击步进
+    } else if (this.type == 'switch') {
+      // SWITCH
     } else if (this.type == 'select') {
       // 考虑位置在data.list的可行性
       // =>避免后期修改时存在的问题，基本数据结构提前生成，非当前必要字段也应生成

@@ -178,7 +178,7 @@ let maindata = new ListData({
           },
           info: {},
           edit: {
-            type: 'input',
+            type: 'switch',
             required: false,
             option: {
               type: 'text'
