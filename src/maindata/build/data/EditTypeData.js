@@ -23,13 +23,13 @@ let editTypeData = {
         return `请选择${name}`
       }
     },
-    type_datePicker: {
+    type_date: {
       defaultdata: null,
       placeholder: function(name) {
         return `请选择${name}`
       }
     },
-    type_dateRangePicker: {
+    type_dateRange: {
       defaultdata: [],
       placeholder: function(name) {
         return `请选择${name}`

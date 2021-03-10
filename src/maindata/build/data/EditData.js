@@ -332,12 +332,12 @@ class EditData extends BaseData {
           }
         }
       }
-    } else if (this.type == 'datePicker') {
+    } else if (this.type == 'date') {
       // DATEPICKER
       this.option.format = editdata.option.format || 'YYYY-MM-DD'
       this.option.formatedit = editdata.option.formatedit || this.option.format
       this.option.showTime = formatDateTimeOption(editdata.option.showTime)
-    } else if (this.type == 'dateRangePicker') {
+    } else if (this.type == 'dateRange') {
       // DATERANGEPICKER
       this.option.format = editdata.option.format || 'YYYY-MM-DD'
       this.option.formatedit = editdata.option.formatedit || this.option.format

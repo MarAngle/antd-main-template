@@ -1,3 +1,4 @@
+import moment from 'moment'
 
 let showLogs = {
   init: false,
@@ -50,6 +51,12 @@ const formatFunc = {
     init: funcList.valueInit,
     data: {
       input: funcList.input
+    }
+  },
+  adate: {
+    init: funcList.valueInit,
+    data: {
+      change: funcList.change
     }
   }
 }
@@ -179,8 +186,7 @@ export default {
           allowClear: !item.edit.option.hideClear,
           maxLength: item.edit.option.maxLength,
           disabled: item.edit.disabled,
-          placeholder: item.edit.placeholder,
-          value: this.form.data[item.prop]
+          placeholder: item.edit.placeholder
         }
         this.buildFunc(item.edit.type, itemOption, item, index)
         itemOption = this._func.mergeData(itemOption, item.edit.localOption.item)
@@ -196,8 +202,7 @@ export default {
           precision: item.edit.option.precision,
           step: item.edit.option.step,
           disabled: item.edit.disabled,
-          placeholder: item.edit.placeholder,
-          value: this.form.data[item.prop]
+          placeholder: item.edit.placeholder
         }
         this.buildFunc(item.edit.type, itemOption, item, index)
         itemOption = this._func.mergeData(itemOption, item.edit.localOption.item)
@@ -208,7 +213,6 @@ export default {
         )
       } else if (item.edit.type == 'switch') {
         itemOption.props = {
-          value: this.form.data[item.prop]
         }
         this.buildFunc(item.edit.type, itemOption, item, index)
         itemOption = this._func.mergeData(itemOption, item.edit.localOption.item)
@@ -301,6 +305,18 @@ export default {
           >
             { optionList}
           </a-select>
+        )
+      } else if (item.edit.type == 'date') {
+        itemOption.props = {
+          format: item.edit.option.format,
+          showTime: item.edit.option.showTime
+        }
+        this.buildFunc(item.edit.type, itemOption, item, index)
+        itemOption = this._func.mergeData(itemOption, item.edit.localOption.item)
+        renderTypeItem = (
+          <a-switch
+            {...itemOption}
+          />
         )
       }
       return renderTypeItem
