@@ -160,6 +160,7 @@ class EditData extends BaseData {
       this.option.step = editdata.option.step === undefined ? 1 : editdata.option.step // 点击步进
     } else if (this.type == 'select') {
       // 考虑位置在data.list的可行性
+      // =>避免后期修改时存在的问题，基本数据结构提前生成，非当前必要字段也应生成
       this.option.list = editdata.option.list || []
       this.option.mode = editdata.option.mode || 'default' // 设置 Select 的模式为多选或标签	'default' | 'multiple' | 'tags' | 'combobox'
       this.option.optionValue = editdata.option.optionValue || 'value'
@@ -171,23 +172,10 @@ class EditData extends BaseData {
       this.option.filterOption = editdata.option.filterOption || false // 是否自动过滤
       this.option.autoWidth = editdata.option.autoWidth || false // 宽度自适应
       this.option.noDataContent = editdata.option.noDataContent // 无数据时文字显示 == 默认不传使用antd的默认模板
+      // 分页器其他相关设置
+      this.option.pagination = editdata.option.pagination || {}
       if (this.option.mode == 'multiple') {
         this.setValueToArray()
-      }
-      // 添加默认的重置选项数据
-      if (!this.func.clearData) {
-        this.func.clearData = () => {
-          this.option.list = []
-          this.func.clearPagination()
-        }
-      }
-      // 添加默认的重置分页器函数
-      if (!this.func.clearPagination) {
-        this.func.clearPagination = () => {
-          if (this.pagination) {
-            this.pagination.setTotal(0)
-          }
-        }
       }
       // 存在分页相关设置
       if (editdata.pagination) {
@@ -213,6 +201,21 @@ class EditData extends BaseData {
         this.pagination = new PaginationData(paginationOption)
       } else {
         this.pagination = null
+      }
+      // 添加默认的重置选项数据
+      if (!this.func.clearData) {
+        this.func.clearData = () => {
+          this.option.list = []
+          this.func.clearPagination()
+        }
+      }
+      // 添加默认的重置分页器函数
+      if (!this.func.clearPagination) {
+        this.func.clearPagination = () => {
+          if (this.pagination) {
+            this.pagination.setTotal(0)
+          }
+        }
       }
       // 检索下拉设置
       let search = editdata.option.search

@@ -209,7 +209,8 @@ export default {
           let paginationOption = {
             props: {
               paginationdata: item.edit.pagination,
-              ...defaultProps
+              ...defaultProps,
+              ...item.edit.option.pagination.data
             },
             on: {
               change: function(...args) {
@@ -219,7 +220,10 @@ export default {
           }
           let paginationAreaOption = {
             style: {
-              borderTop: '1px #ccc solid'
+              borderTop: '1px #ccc solid',
+              display: 'flex',
+              justifyContent: 'center',
+              alignItems: 'center'
             },
             on: {
               mousedown: function (e) {
@@ -227,6 +231,7 @@ export default {
               }
             }
           }
+          
           let pagination = <localPaginationView {...paginationOption} />
           itemOption.props.dropdownRender = (menuNode, props) => {
             return (

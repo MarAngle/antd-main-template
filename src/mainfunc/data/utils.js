@@ -380,7 +380,10 @@ utils.reBuildProp = function (item, prop, defaultdata) {
   }
 }
 // 基于新数据格式化当前数据函数
-utils.rebuildData = function (data, currentdata = {}) {
+utils.mergeData = function (data, currentdata) {
+  if (!currentdata) {
+    currentdata = {}
+  }
   for (let n in currentdata) {
     let type = this.getType(currentdata[n])
     if (type == 'object') {
