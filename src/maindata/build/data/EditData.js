@@ -144,8 +144,9 @@ class EditData extends BaseData {
     if (!editdata.option) {
       editdata.option = {}
     }
-    // 插件单独的props设置，做特殊处理时使用，尽可能的将所有能用到的数据通过option做兼容处理避免问题
-    this.props = editdata.props || {}
+    // 插件单独的设置，做特殊处理时使用，尽可能的将所有能用到的数据通过option做兼容处理避免问题
+    // main item ...
+    this.localOption = editdata.localOption || {}
 
     if (this.type == 'input') {
       // INPUT
@@ -172,8 +173,6 @@ class EditData extends BaseData {
       this.option.filterOption = editdata.option.filterOption || false // 是否自动过滤
       this.option.autoWidth = editdata.option.autoWidth || false // 宽度自适应
       this.option.noDataContent = editdata.option.noDataContent // 无数据时文字显示 == 默认不传使用antd的默认模板
-      // 分页器其他相关设置
-      this.option.pagination = editdata.option.pagination || {}
       if (this.option.mode == 'multiple') {
         this.setValueToArray()
       }

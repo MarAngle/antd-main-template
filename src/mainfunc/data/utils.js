@@ -390,7 +390,7 @@ utils.mergeData = function (data, currentdata) {
       if (!data[n]) {
         data[n] = {}
       }
-      this.rebuildData(data[n], currentdata[n])
+      this.mergeData(data[n], currentdata[n])
     } else {
       data[n] = currentdata[n]
     }

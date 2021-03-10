@@ -93,6 +93,7 @@ export default {
           form: formData
         })
       }
+      mainOption = this._func.mergeData(mainOption, item.edit.localOption.main)
       let renderItem = (
         <a-form-model-item {...mainOption } >
           {this.renderTypeItem(item, index)}
@@ -145,10 +146,10 @@ export default {
           allowClear: !item.edit.option.hideClear,
           maxLength: item.edit.option.maxLength,
           disabled: item.edit.disabled,
-          placeholder: item.edit.placeholder,
-          ...item.edit.props
+          placeholder: item.edit.placeholder
         }
         this.buildFunc(item.edit.type, itemOption, item, index)
+        itemOption = this._func.mergeData(itemOption, item.edit.localOption.item)
         renderTypeItem = (
           <a-input
             {...itemOption}
@@ -161,10 +162,10 @@ export default {
           precision: item.edit.option.precision,
           step: item.edit.option.step,
           disabled: item.edit.disabled,
-          placeholder: item.edit.placeholder,
-          ...item.edit.props
+          placeholder: item.edit.placeholder
         }
         this.buildFunc(item.edit.type, itemOption, item, index)
+        itemOption = this._func.mergeData(itemOption, item.edit.localOption.item)
         renderTypeItem = (
           <a-input-number
             {...itemOption}
@@ -180,10 +181,10 @@ export default {
           notFoundContent: item.edit.option.noDataContent,
           filterOption: item.edit.option.filterOption,
           disabled: item.edit.disabled,
-          placeholder: item.edit.placeholder,
-          ...item.edit.props
+          placeholder: item.edit.placeholder
         }
         this.buildFunc(item.edit.type, itemOption, item, index)
+        itemOption = this._func.mergeData(itemOption, item.edit.localOption.item)
         let dict = {
           key: item.edit.option.optionValue || 'value',
           value: item.edit.option.optionValue || 'value',
@@ -198,6 +199,7 @@ export default {
               disabled: itemData[dict.disabled] || false
             }
           }
+          optionOption = this._func.mergeData(optionOption, item.edit.localOption.option)
           return <a-select-option { ... optionOption }>{ itemData[dict.label] }</a-select-option>
         })
         if (item.edit.pagination) {
@@ -209,8 +211,7 @@ export default {
           let paginationOption = {
             props: {
               paginationdata: item.edit.pagination,
-              ...defaultProps,
-              ...item.edit.option.pagination.data
+              ...defaultProps
             },
             on: {
               change: function(...args) {
@@ -218,6 +219,7 @@ export default {
               }
             }
           }
+          paginationOption = this._func.mergeData(paginationOption, item.edit.localOption.pagination)
           let paginationAreaOption = {
             style: {
               borderTop: '1px #ccc solid',
@@ -231,7 +233,7 @@ export default {
               }
             }
           }
-          
+          paginationAreaOption = this._func.mergeData(paginationAreaOption, item.edit.localOption.paginationArea)
           let pagination = <localPaginationView {...paginationOption} />
           itemOption.props.dropdownRender = (menuNode, props) => {
             return (
