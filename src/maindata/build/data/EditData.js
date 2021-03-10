@@ -107,23 +107,21 @@ class EditData extends BaseData {
     // tips提示
     if (!editdata.tips) {
       this.tips = {
-        data: ''
+        props: {
+          title: ''
+        }
       }
     } else {
       let tipsType = _func.getType(editdata.tips)
       if (tipsType != 'object') {
         this.tips = {
-          data: editdata.tips
+          props: {
+            title: editdata.tips
+          }
         }
       } else {
         this.tips = editdata.tips
       }
-    }
-    if (!this.tips.placement) {
-      this.tips.placement = 'topLeft'
-    }
-    if (!this.tips.trigger) {
-      this.tips.trigger = 'hover'
     }
   }
   initType(editdata) {

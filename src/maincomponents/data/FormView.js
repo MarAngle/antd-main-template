@@ -96,10 +96,22 @@ export default {
       mainOption = this._func.mergeData(mainOption, item.edit.localOption.main)
       let renderItem = (
         <a-form-model-item {...mainOption } >
-          {this.renderTypeItem(item, index)}
+          {this.renderTip(item, index)}
         </a-form-model-item>
       )
       return renderItem
+    },
+    renderTip(item, index) {
+      let typeItem = this.renderTypeItem(item, index)
+      if (item.edit.tips.props.title) {
+        return (
+          <a-tooltip {...item.edit.tips} >
+            { typeItem }
+          </a-tooltip>
+        )
+      } else {
+        return typeItem
+      }
     },
     buildFunc(type, itemOption, item, index) {
       let funcPayload = {

@@ -78,6 +78,7 @@ let maindata = new ListData({
           edit: {
             type: 'select',
             required: true,
+            tips: 'tips',
             option: {
               search: true,
               list: [
