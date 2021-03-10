@@ -162,23 +162,28 @@ class EditData extends BaseData {
       // 考虑位置在data.list的可行性
       this.option.list = editdata.option.list || []
       this.option.mode = editdata.option.mode || 'default' // 设置 Select 的模式为多选或标签	'default' | 'multiple' | 'tags' | 'combobox'
-      this.option.multiple = editdata.option.multiple || false
       this.option.optionValue = editdata.option.optionValue || 'value'
       this.option.optionLabel = editdata.option.optionLabel || 'label'
       this.option.optionDisabled = editdata.option.optionDisabled || 'disabled'
-      this.option.popupLocation = editdata.option.popupLocation || 'form'
+      // this.option.popupLocation = editdata.option.popupLocation || 'form' // 默认归属的dom元素，暂时注释等待优化
       this.option.hideArrow = editdata.option.hideArrow || false
       this.option.hideClear = editdata.option.hideClear || false
       this.option.filterOption = editdata.option.filterOption || false // 是否自动过滤
       this.option.autoWidth = editdata.option.autoWidth || false // 宽度自适应
       this.option.noDataContent = editdata.option.noDataContent // 无数据时文字显示 == 默认不传使用antd的默认模板
-      if (this.option.multiple) {
+      if (this.option.mode == 'multiple') {
         this.setValueToArray()
       }
       // 添加默认的重置选项数据
       if (!this.func.clearData) {
         this.func.clearData = () => {
           this.option.list = []
+          this.func.clearPagination()
+        }
+      }
+      // 添加默认的重置分页器函数
+      if (!this.func.clearPagination) {
+        this.func.clearPagination = () => {
           if (this.pagination) {
             this.pagination.setTotal(0)
           }
@@ -191,7 +196,7 @@ class EditData extends BaseData {
             this._printInfo('选择器存在分页器时需要定义page回调或者getData函数供分页时调用')
           }
           this.func.page = (act, data) => {
-            this.loadData(true).then(res => {}, err => { this._printInfo('loadData失败！', 'error', err) })
+            this.loadData(true, this.option.search.value).then(res => {}, err => { this._printInfo('loadData失败！', 'error', err) })
           }
         }
         let paginationOption = editdata.pagination
@@ -226,11 +231,11 @@ class EditData extends BaseData {
         min: search.min || 0, // 检索触发值，auto模式下
         noDataContent: search.noDataContent || this.option.noDataContent,
         noSizeContent: search.noSizeContent || 0,
-        auto: search.auto === undefined ? true : search.auto // 是否load检索
+        auto: search.auto === undefined ? true : search.auto, // 是否load检索
+        reset: search.reset || false // 是否重新检索，默认保存上次检索值?
       }
       this.option.search.noSizeContent = search.noSizeContent || `请输入${this.option.search.min}位及以上的值检索`
       if (this.option.search.show && this.option.search.auto) {
-        this.option.search.value = ''
         let handleSearch = this.on.search
         this.on.search = (...args) => {
           this.func.searchStart(...args)
@@ -248,9 +253,22 @@ class EditData extends BaseData {
         if (!this.func.openStart) {
           this.func.openStart = (isOpen) => {
             if (isOpen) {
-              console.log('!!!!!', this.getValueData('initdata'), this.getValueData('defaultdata'))
-              if (this.getValueData('initdata') === this.getValueData('defaultdata')) {
+              // 下拉打开时
+              if (this.option.search.reset) {
+                // 当前reset模式下直接进行value和分页器的重置
+                this.func.clearPagination()
                 this.on.search('')
+              } else {
+                // 不强制加载
+                this.loadData(false, this.option.search.value).then(res => {}, err => { this._printInfo('loadData失败！', 'error', err) })
+
+                // if (this.getValueData('initdata') === this.getValueData('defaultdata')) {
+                //   // 非reset模式下，initdata与defaultdata数据相同，触发
+                //   this.on.search('')
+                // } else if (this.getValueData('initdata') === this.getValueData('defaultdata')) {
+                //   // 非reset模式下，initdata与defaultdata数据相同，触发
+                //   this.on.search('')
+                // }
               }
             }
           }

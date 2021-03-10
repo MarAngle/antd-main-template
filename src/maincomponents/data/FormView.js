@@ -200,7 +200,6 @@ export default {
           }
           return <a-select-option { ... optionOption }>{ itemData[dict.label] }</a-select-option>
         })
-        let pagination = null
         if (item.edit.pagination) {
           let defaultProps = {
             simple: true,
@@ -218,17 +217,37 @@ export default {
               }
             }
           }
-          pagination = <div slot="dropdownRender"><localPaginationView {...paginationOption} /></div>
+          let paginationAreaOption = {
+            style: {
+              borderTop: '1px #ccc solid'
+            },
+            on: {
+              mousedown: function (e) {
+                e.preventDefault()
+              }
+            }
+          }
+          let pagination = <localPaginationView {...paginationOption} />
+          itemOption.props.dropdownRender = (menuNode, props) => {
+            return (
+              <div>
+                <div>
+                  { menuNode }
+                </div>
+                <div { ...paginationAreaOption }>
+                  { pagination }
+                </div>
+              </div>
+            )
+          }
         }
         renderTypeItem = (
           <a-select
             {...itemOption}
           >
-            { pagination }
             { optionList }
           </a-select>
         )
-        console.log(renderTypeItem)
       }
       return renderTypeItem
     }

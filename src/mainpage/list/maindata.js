@@ -95,22 +95,19 @@ let maindata = new ListData({
             methods: {
               getData(value) {
                 return new Promise((resolve, reject) => {
-                  let data = [
-                    {
-                      value: `${value}/111`,
-                      label: `${value}/111`
-                    },
-                    {
-                      value: '3',
-                      label: '33'
-                    },
-                    {
-                      value: '4',
-                      label: '44'
+                  let pageCurrent = this.pagination.getPage()
+                  let pageSizeCurrent = this.pagination.getSize()
+                  let list = []
+                  for (let n = pageCurrent * pageSizeCurrent; n < (pageCurrent + 1) * pageSizeCurrent; n++) {
+                    let item = {
+                      value: `page${pageCurrent}size${pageSizeCurrent}id${n}value${value}`,
+                      label: `page${pageCurrent}size${pageSizeCurrent}id${n}value${value}`
                     }
-                  ]
+                    list.push(item)
+                  }
                   this.option.list = []
-                  this.option.list = data
+                  this.option.list = list
+                  this.pagination.setTotal(100)
                   resolve()
                 })
               }
