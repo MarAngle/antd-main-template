@@ -224,7 +224,8 @@ export default {
             style: {
               borderTop: '1px #ccc solid',
               display: 'flex',
-              justifyContent: 'center',
+              justifyContent: 'flex-end',
+              padding: '4px 12px',
               alignItems: 'center'
             },
             on: {

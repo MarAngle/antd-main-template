@@ -91,13 +91,6 @@ let maindata = new ListData({
                 }
               ]
             },
-            localOption: {
-              pagination: {
-                style: {
-                  color: 'red'
-                }
-              }
-            },
             pagination: true,
             methods: {
               getData(value) {
