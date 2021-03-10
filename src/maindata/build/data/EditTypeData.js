@@ -48,7 +48,7 @@ let editTypeData = {
       }
     },
     type_date: {
-      defaultdata: null,
+      defaultdata: undefined,
       timeOptionFormat: timeOptionFormat,
       placeholder: function(name) {
         return `请选择${name}`

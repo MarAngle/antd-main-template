@@ -3,7 +3,7 @@ import moment from 'moment'
 
 let showLogs = {
   init: false,
-  model: true
+  model: false
 }
 
 const funcList = {
@@ -62,28 +62,28 @@ const formatFunc = {
   }
 }
 
-function formatMoment(data, propList) {
+function formatMoment(data, propList, formatList) {
   for (let n = 0; n < propList.length; n++) {
     let prop = propList[n]
     if (data[prop]) {
       let type = _func.getType(data[prop])
       if (type == 'array') {
         for (let i = 0; i < data[prop].length; i++) {
-          data[prop][i] = formatMomentNext(data[prop][i])
+          data[prop][i] = formatMomentNext(data[prop][i], formatList[n])
         }
       } else {
-        data[prop] = formatMomentNext(data[prop])
+        data[prop] = formatMomentNext(data[prop], formatList[n])
       }
     }
   }
 }
 
-function formatMomentNext(value) {
+function formatMomentNext(value, format) {
   if (value) {
     if (moment.isMoment(value)) {
       return value
     } else {
-      return moment(value)
+      return moment(value, format)
     }
   } else {
     return value
@@ -342,9 +342,9 @@ export default {
         }
         this.buildFunc(item.edit.type, itemOption, item, index)
         itemOption = this._func.mergeData(itemOption, item.edit.localOption.item)
-        formatMoment(itemOption.props, ['value', 'defaultValue'])
+        formatMoment(itemOption.props, ['value', 'defaultValue'], [itemOption.props.formatedit, itemOption.props.formatedit])
         if (itemOption.props.showTime) {
-          formatMoment(itemOption.props.showTime, ['defaultValue', 'defaultOpenValue'])
+          formatMoment(itemOption.props.showTime, ['defaultValue', 'defaultOpenValue'], [itemOption.props.showTime.format, itemOption.props.showTime.format])
         }
         renderTypeItem = (
           <a-date-picker
