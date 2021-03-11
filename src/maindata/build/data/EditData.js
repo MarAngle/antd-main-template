@@ -337,6 +337,8 @@ class EditData extends BaseData {
       this.option.showTime = typeOption.timeOptionFormat(editdata.option.showTime)
       this.option.format = editdata.option.format || this.option.showTime ? 'YYYY-MM-DD HH:mm:ss' : 'YYYY-MM-DD' // 默认显示解析
       this.option.formatedit = editdata.option.formatedit || this.option.format // 默认确认后的数据解析
+      this.option.disabledDate = editdata.option.disabledDate
+      this.option.disabledTime = editdata.option.disabledTime
       if (this.func.unedit === undefined) { // 可设置为false实现moment对象的传递
         this.func.unedit = (value) => {
           return value ? value.format(this.option.formatedit) : value

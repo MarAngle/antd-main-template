@@ -338,7 +338,9 @@ export default {
       } else if (item.edit.type == 'date') {
         itemOption.props = {
           format: item.edit.option.format,
-          showTime: item.edit.option.showTime
+          showTime: item.edit.option.showTime,
+          disabled: item.edit.disabled,
+          placeholder: item.edit.placeholder
         }
         this.buildFunc(item.edit.type, itemOption, item, index)
         itemOption = this._func.mergeData(itemOption, item.edit.localOption.item)
@@ -348,6 +350,24 @@ export default {
         }
         renderTypeItem = (
           <a-date-picker
+            {...itemOption}
+          />
+        )
+      } else if (item.edit.type == 'dateRange') {
+        itemOption.props = {
+          format: item.edit.option.format,
+          showTime: item.edit.option.showTime,
+          disabled: item.edit.disabled,
+          placeholder: item.edit.placeholder
+        }
+        this.buildFunc(item.edit.type, itemOption, item, index)
+        itemOption = this._func.mergeData(itemOption, item.edit.localOption.item)
+        formatMoment(itemOption.props, ['value', 'defaultValue'], [itemOption.props.formatedit, itemOption.props.formatedit])
+        if (itemOption.props.showTime) {
+          formatMoment(itemOption.props.showTime, ['defaultValue', 'defaultOpenValue'], [itemOption.props.showTime.format, itemOption.props.showTime.format])
+        }
+        renderTypeItem = (
+          <a-range-picker
             {...itemOption}
           />
         )
