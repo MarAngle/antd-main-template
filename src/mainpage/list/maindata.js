@@ -102,7 +102,7 @@ let maindata = new ListData({
                   for (let n = pageCurrent * pageSizeCurrent; n < (pageCurrent + 1) * pageSizeCurrent; n++) {
                     let item = {
                       value: `page${pageCurrent}size${pageSizeCurrent}id${n}value${value}`,
-                      label: `page${pageCurrent}size${pageSizeCurrent}id${n}value${value}`
+                      label: `page${pageCurrent}size${pageSizeCurrent}id${n}label${value}`
                     }
                     list.push(item)
                   }
@@ -209,6 +209,9 @@ let maindata = new ListData({
               disabledDate: {
                 start: '2021-03-01 10:00:00',
                 end: 'current'
+              },
+              disabledTime: function(date) {
+                console.log(date)
               }
             }
           },

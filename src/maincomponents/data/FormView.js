@@ -51,7 +51,7 @@ const formatFunc = {
   aselect: {
     init: funcList.valueInit,
     data: {
-      input: funcList.input
+      change: funcList.change
     }
   },
   adate: {
