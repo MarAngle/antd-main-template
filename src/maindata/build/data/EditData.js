@@ -318,7 +318,7 @@ class EditData extends BaseData {
       if (editdata.option.disabledDate) {
         let type = _func.getType(editdata.option.disabledDate)
         if (type === 'object') {
-          let disabledDateOption = editdata.option.disabledDate
+          let disabledDateOption = typeOption.timeCheckOptionFormat(editdata.option.disabledDate)
           this.option.disabledDate = function (value) {
             return typeOption.timeCheck(value, disabledDateOption)
           }

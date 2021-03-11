@@ -20,6 +20,11 @@ currentDate.clear = function() {
     this.timer = undefined
   }
 }
+
+currentDate.getCurrent = function() {
+  return this.data
+}
+
 currentDate.init()
 
 export default currentDate

@@ -205,7 +205,11 @@ let maindata = new ListData({
             type: 'date',
             required: false,
             option: {
-              showTime: true
+              showTime: true,
+              disabledDate: {
+                start: '2021-03-01 10:00:00',
+                end: 'current'
+              }
             }
           },
           build: {
