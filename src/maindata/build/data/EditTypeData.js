@@ -1,4 +1,5 @@
 import _func from '@/maindata/func/index'
+import currentDate from './currentDate'
 
 function timeOptionFormat(option, range) {
   if (option) {
@@ -22,6 +23,10 @@ function timeOptionFormat(option, range) {
     option = false
   }
   return option
+}
+
+function timeCheck(value, { start, end, format }) {
+
 }
 
 let editTypeData = {
@@ -50,6 +55,7 @@ let editTypeData = {
     type_date: {
       defaultdata: undefined,
       timeOptionFormat: timeOptionFormat,
+      timeCheck: timeCheck,
       placeholder: function(name) {
         return `请选择${name}`
       }
@@ -57,6 +63,7 @@ let editTypeData = {
     type_dateRange: {
       defaultdata: [],
       timeOptionFormat: timeOptionFormat,
+      timeCheck: timeCheck,
       placeholder: function(name) {
         return `请选择${name}`
       }

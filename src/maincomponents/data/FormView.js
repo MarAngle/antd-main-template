@@ -339,6 +339,8 @@ export default {
         itemOption.props = {
           format: item.edit.option.format,
           showTime: item.edit.option.showTime,
+          disabledDate: item.edit.option.disabledDate,
+          disabledTime: item.edit.option.disabledTime,
           disabled: item.edit.disabled,
           placeholder: item.edit.placeholder
         }

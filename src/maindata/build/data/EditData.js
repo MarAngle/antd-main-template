@@ -2,28 +2,6 @@ import _func from '@/maindata/func/index'
 import { BaseData, ParentData, PaginationData } from '@/mainbuild/index'
 import editTypeData from './EditTypeData'
 
-function formatDateTimeOption(option, range) {
-  const defaultValueData = '00:00:00'
-  if (option) {
-    if (option === true) {
-      option = {}
-    }
-    if (!option.format) {
-      option.format = 'HH:mm:ss'
-    }
-    if (range == 'range') {
-      let defaultValue = option.defaultValue || []
-      option.defaultValue = [_func.moment(defaultValue[0] || defaultValueData, option.format), _func.moment(defaultValue[1] || defaultValueData, option.format)]
-    } else {
-      let defaultValue = option.defaultValue || defaultValueData
-      option.defaultValue = _func.moment(defaultValue, option.format)
-    }
-  } else {
-    option = false
-  }
-  return option
-}
-
 class EditData extends BaseData {
   constructor(editdata, payload) {
     super(editdata)
@@ -337,7 +315,17 @@ class EditData extends BaseData {
       this.option.showTime = typeOption.timeOptionFormat(editdata.option.showTime)
       this.option.format = editdata.option.format || this.option.showTime ? 'YYYY-MM-DD HH:mm:ss' : 'YYYY-MM-DD' // 默认显示解析
       this.option.formatedit = editdata.option.formatedit || this.option.format // 默认确认后的数据解析
-      this.option.disabledDate = editdata.option.disabledDate
+      if (editdata.option.disabledDate) {
+        let type = _func.getType(editdata.option.disabledDate)
+        if (type === 'object') {
+          let disabledDateOption = editdata.option.disabledDate
+          this.option.disabledDate = function (value) {
+            return typeOption.timeCheck(value, disabledDateOption)
+          }
+        } else {
+          this.option.disabledDate = editdata.option.disabledDate
+        }
+      }
       this.option.disabledTime = editdata.option.disabledTime
       if (this.func.unedit === undefined) { // 可设置为false实现moment对象的传递
         this.func.unedit = (value) => {
