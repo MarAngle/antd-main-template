@@ -30,49 +30,57 @@ const funcList = {
 }
 
 const formatFunc = {
-  adefault: {
+  base: {
     init: funcList.valueInit,
     data: {
       change: funcList.change
     }
   },
-  ainput: {
-    init: funcList.valueInit,
-    data: {
-      input: funcList.input
-    }
-  },
-  ainputNumber: {
-    init: funcList.valueInit,
-    data: {
-      input: funcList.input
-    }
-  },
-  aswitch: {
-    init: funcList.checkInit,
-    data: {
-      change: funcList.change
-    }
-  },
-  aselect: {
-    init: funcList.valueInit,
-    data: {
-      change: funcList.change
-    }
-  },
-  adate: {
-    init: funcList.valueInit,
-    data: {
-      change: funcList.change
-    }
-  },
-  adateRange: {
-    init: funcList.valueInit,
-    data: {
-      change: funcList.change
+  data: {
+    ainput: {
+      data: {
+        input: funcList.input
+      }
+    },
+    ainputNumber: {
+      data: {
+        input: funcList.input
+      }
+    },
+    aswitch: {
+      init: funcList.checkInit
+    },
+    aselect: {
+    },
+    adate: {
+    },
+    adateRange: {
     }
   }
 }
+formatFunc.init = function() {
+  for (let n in this.data) {
+    let item = this.data[n]
+    if (!item.init) {
+      item.init = this.base.init
+    }
+    if (!item.data) {
+      item.data = {}
+      for (let i in this.base.data) {
+        item.data[i] = this.base.data[i]
+      }
+    }
+  }
+}
+formatFunc.getFunc = function(type) {
+  let typeName = 'a' + type
+  if (this.data[typeName]) {
+    return this.data[typeName]
+  } else {
+    return this.base.data
+  }
+}
+formatFunc.init()
 
 function formatMoment(data, propList, formatList) {
   for (let n = 0; n < propList.length; n++) {
@@ -190,7 +198,7 @@ export default {
         target: this
       }
       let formData = this.form.data
-      let funcData = formatFunc['a' + type]
+      let funcData = formatFunc.getFunc(type)
       funcData.init(itemOption, formData, item.prop)
       itemOption.props.value = this.form.data[item.prop]
       for (let funcName in item.edit.on) {
