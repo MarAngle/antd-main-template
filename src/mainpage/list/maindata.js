@@ -259,10 +259,17 @@ let maindata = new ListData({
             width: 120
           },
           edit: {
-            type: 'input',
+            type: 'dateRange',
             required: false,
             option: {
-              type: 'text'
+              showTime: true,
+              disabledDate: {
+                start: '2021-03-01 10:00:00',
+                end: 'current'
+              },
+              disabledTime: function(date) {
+                console.log(date)
+              }
             }
           },
           build: {

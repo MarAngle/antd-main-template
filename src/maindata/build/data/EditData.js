@@ -334,12 +334,35 @@ class EditData extends BaseData {
       }
     } else if (this.type == 'dateRange') {
       // DATERANGEPICKER
-      this.option.format = editdata.option.format || 'YYYY-MM-DD'
-      this.option.formatedit = editdata.option.formatedit || this.option.format
-      this.option.separator = editdata.option.separator || '-'
-      this.option.showTime = editdata.option.showTime
       if (_func.getType(this.placeholder) != 'array') {
         this.placeholder = [this.placeholder, this.placeholder]
+      }
+      this.setValueToArray()
+      this.option.showTime = typeOption.timeOptionFormat(editdata.option.showTime, true)
+      this.option.separator = editdata.option.separator || '-' // 分隔符
+      this.option.format = editdata.option.format || this.option.showTime ? 'YYYY-MM-DD HH:mm:ss' : 'YYYY-MM-DD' // 默认显示解析
+      this.option.formatedit = editdata.option.formatedit || this.option.format // 默认确认后的数据解析
+      if (editdata.option.disabledDate) {
+        let type = _func.getType(editdata.option.disabledDate)
+        if (type === 'object') {
+          let disabledDateOption = typeOption.timeCheckOptionFormat(editdata.option.disabledDate)
+          this.option.disabledDate = function (value) {
+            return typeOption.timeCheck(value, disabledDateOption)
+          }
+        } else {
+          this.option.disabledDate = editdata.option.disabledDate
+        }
+      }
+      this.option.disabledTime = editdata.option.disabledTime
+      if (this.func.unedit === undefined) { // 可设置为false实现moment对象的传递
+        this.func.unedit = (value) => {
+          if (value && value.length > 0) {
+            for (let n = 0; n < value.length; n++) {
+              value[n] = value[n].format(this.option.formatedit)
+            }
+          }
+          return value
+        }
       }
     }
   }

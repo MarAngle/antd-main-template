@@ -30,6 +30,12 @@ const funcList = {
 }
 
 const formatFunc = {
+  adefault: {
+    init: funcList.valueInit,
+    data: {
+      change: funcList.change
+    }
+  },
   ainput: {
     init: funcList.valueInit,
     data: {
@@ -55,6 +61,12 @@ const formatFunc = {
     }
   },
   adate: {
+    init: funcList.valueInit,
+    data: {
+      change: funcList.change
+    }
+  },
+  adateRange: {
     init: funcList.valueInit,
     data: {
       change: funcList.change
@@ -359,6 +371,9 @@ export default {
         itemOption.props = {
           format: item.edit.option.format,
           showTime: item.edit.option.showTime,
+          separator: item.edit.option.separator,
+          disabledDate: item.edit.option.disabledDate,
+          disabledTime: item.edit.option.disabledTime,
           disabled: item.edit.disabled,
           placeholder: item.edit.placeholder
         }
