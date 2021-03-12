@@ -7,8 +7,10 @@
       <a-spin :spinning="false">
         <LocalFormView :form="form" :mainlist="mainlist">
           <!-- <span slot="terminalCode-label" slot-scope="data">{{ data.index }}</span> -->
-          <a-input slot="terminalCode" slot-scope="data" >{{ showData(data) }}|</a-input>
-          <span slot="requestTimes">1111111</span>
+          <!-- <a-input slot="terminalCode" slot-scope="data" >{{ showData(data) }}|</a-input> -->
+          <span slot="requestTimes" slot-scope="data" >
+            <a-input v-bind="data.option.props" v-on="data.option.on" ></a-input>
+          </span>
         </LocalFormView>
       </a-spin>
     </div>
@@ -82,6 +84,9 @@ export default {
   mounted() {
   },
   methods: {
+    onChange(a, b, c) {
+      console.log(a, b, c)
+    },
     showData(data) {
       console.log(data)
     },

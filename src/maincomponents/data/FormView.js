@@ -177,7 +177,7 @@ export default {
             item: item,
             list: this.mainlist,
             index: index,
-            form: form.data,
+            form: this.form.data,
             prop: item.prop,
             target: this
           })
@@ -195,7 +195,7 @@ export default {
             item: item,
             list: this.mainlist,
             index: index,
-            form: form.data,
+            form: this.form.data,
             prop: item.prop,
             target: this
           })
@@ -214,7 +214,7 @@ export default {
           item: item,
           list: this.mainlist,
           index: index,
-          form: form.data,
+          form: this.form.data,
           prop: item.prop,
           target: this
         })
@@ -224,7 +224,7 @@ export default {
       if (item.edit.tips.props.title) {
         return (
           <a-tooltip {...item.edit.tips} >
-            { typeItem}
+            { typeItem }
           </a-tooltip>
         )
       } else {
