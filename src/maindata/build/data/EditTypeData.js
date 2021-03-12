@@ -121,11 +121,17 @@ let editTypeData = {
       defaultdata: '',
       placeholder: function(name) {
         return `请输入${name}`
+      },
+      rules: function(name) {
+        return `请输入${name}`
       }
     },
     type_inputNumber: {
       defaultdata: '',
       placeholder: function(name) {
+        return `请输入${name}`
+      },
+      rules: function(name) {
         return `请输入${name}`
       }
     },
@@ -136,6 +142,9 @@ let editTypeData = {
       defaultdata: undefined,
       placeholder: function(name) {
         return `请选择${name}`
+      },
+      rules: function(name) {
+        return `请选择${name}`
       }
     },
     type_date: {
@@ -144,6 +153,9 @@ let editTypeData = {
       timeCheck: timeCheck,
       timeCheckOptionFormat: timeCheckOptionFormat,
       placeholder: function(name) {
+        return `请选择${name}`
+      },
+      rules: function(name) {
         return `请选择${name}`
       }
     },
@@ -154,11 +166,17 @@ let editTypeData = {
       timeCheckOptionFormat: timeCheckOptionFormat,
       placeholder: function(name) {
         return `请选择${name}`
+      },
+      rules: function(name) {
+        return `请选择${name}`
       }
     },
     type_file: {
       defaultdata: undefined,
       placeholder: function(name) {
+        return `上传${name}`
+      },
+      rules: function(name) {
         return `上传${name}`
       }
     },

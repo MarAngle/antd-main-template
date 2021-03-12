@@ -158,9 +158,10 @@ let maindata = new ListData({
             width: 120
           },
           build: {
-            type: 'slot',
+            type: 'input',
             required: true,
             option: {
+              maxLength: 2,
               slot: 'model'
             }
           }

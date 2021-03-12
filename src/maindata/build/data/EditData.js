@@ -382,8 +382,31 @@ class EditData extends BaseData {
     } else if (this.type == 'slot') {
       // this.option.name = editdata.option.name || this.prop
     }
+    this.buildRules(editdata, typeOption)
   }
-
+  buildRules(editdata, typeOption) {
+    if (editdata.rules) {
+      this.rules = editdata.rules
+    } else {
+      this.rules = [
+        {
+          required: this.required,
+          trigger: 'change'
+        }
+      ]
+    }
+    let message = this.placeholder
+    if (editdata.ruleMessage) {
+      message = editdata.ruleMessage
+    } else if (typeOption.rules) {
+      message = typeOption.rules(this.name)
+    }
+    for (let n in this.rules) {
+      if (!this.rules[n].message) {
+        this.rules[n].message = message
+      }
+    }
+  }
   initValue(editdata, typeOption) {
     if (_func.hasProp(editdata, 'defaultdata')) {
       this.setValueData(editdata.defaultdata, 'defaultdata')
