@@ -66,7 +66,7 @@ let typeFormat = {
         change: funcList.change
       }
     },
-    option: function(itemOption, item, index, target) {
+    option: function(itemOption, item, payload) {
       return itemOption
     }
   },
@@ -77,7 +77,7 @@ let typeFormat = {
           input: funcList.input
         }
       },
-      option: function(itemOption, item, index, target) {
+      option: function(itemOption, item, payload) {
         itemOption.props = {
           type: item.edit.option.type,
           allowClear: !item.edit.option.hideClear,
@@ -85,7 +85,7 @@ let typeFormat = {
           disabled: item.edit.disabled,
           placeholder: item.edit.placeholder
         }
-        typeFormat.buildFunc(item.edit.type, itemOption, item, index, target)
+        typeFormat.buildFunc(this, itemOption, item, payload)
         itemOption = _func.mergeData(itemOption, item.edit.localOption.item)
         return itemOption
       }
@@ -96,7 +96,7 @@ let typeFormat = {
           input: funcList.input
         }
       },
-      option: function(itemOption, item, index, target) {
+      option: function(itemOption, item, payload) {
         itemOption.props = {
           min: item.edit.option.min,
           max: item.edit.option.max,
@@ -105,7 +105,7 @@ let typeFormat = {
           disabled: item.edit.disabled,
           placeholder: item.edit.placeholder
         }
-        typeFormat.buildFunc(item.edit.type, itemOption, item, index, target)
+        typeFormat.buildFunc(this, itemOption, item, payload)
         itemOption = _func.mergeData(itemOption, item.edit.localOption.item)
         return itemOption
       }
@@ -114,18 +114,18 @@ let typeFormat = {
       func: {
         init: funcList.checkInit
       },
-      option: function(itemOption, item, index, target) {
+      option: function(itemOption, item, payload) {
         itemOption.props = {
           disabled: item.edit.disabled
         }
-        typeFormat.buildFunc(item.edit.type, itemOption, item, index, target)
+        typeFormat.buildFunc(this, itemOption, item, payload)
         itemOption = _func.mergeData(itemOption, item.edit.localOption.item)
         return itemOption
       }
     },
     aselect: {
       func: {},
-      option: function(itemOption, item, index, target) {
+      option: function(itemOption, item, payload) {
         itemOption.props = {
           mode: item.edit.option.mode,
           showSearch: item.edit.option.search.show,
@@ -137,14 +137,14 @@ let typeFormat = {
           disabled: item.edit.disabled,
           placeholder: item.edit.placeholder
         }
-        typeFormat.buildFunc(item.edit.type, itemOption, item, index, target)
+        typeFormat.buildFunc(this, itemOption, item, payload)
         itemOption = _func.mergeData(itemOption, item.edit.localOption.item)
         return itemOption
       }
     },
     adate: {
       func: {},
-      option: function(itemOption, item, index, target) {
+      option: function(itemOption, item, payload) {
         itemOption.props = {
           format: item.edit.option.format,
           showTime: item.edit.option.showTime,
@@ -153,7 +153,7 @@ let typeFormat = {
           disabled: item.edit.disabled,
           placeholder: item.edit.placeholder
         }
-        typeFormat.buildFunc(item.edit.type, itemOption, item, index, target)
+        typeFormat.buildFunc(this, itemOption, item, payload)
         itemOption = _func.mergeData(itemOption, item.edit.localOption.item)
         formatMoment(itemOption.props, ['value', 'defaultValue'], [itemOption.props.formatedit, itemOption.props.formatedit])
         if (itemOption.props.showTime) {
@@ -164,7 +164,7 @@ let typeFormat = {
     },
     adateRange: {
       func: {},
-      option: function(itemOption, item, index, target) {
+      option: function(itemOption, item, payload) {
         itemOption.props = {
           format: item.edit.option.format,
           showTime: item.edit.option.showTime,
@@ -174,7 +174,7 @@ let typeFormat = {
           disabled: item.edit.disabled,
           placeholder: item.edit.placeholder
         }
-        typeFormat.buildFunc(item.edit.type, itemOption, item, index, target)
+        typeFormat.buildFunc(this, itemOption, item, payload)
         itemOption = _func.mergeData(itemOption, item.edit.localOption.item)
         formatMoment(itemOption.props, ['value', 'defaultValue'], [itemOption.props.formatedit, itemOption.props.formatedit])
         if (itemOption.props.showTime) {
@@ -185,7 +185,7 @@ let typeFormat = {
     },
     afile: {
       func: {},
-      option: function(itemOption, item, index, target) {
+      option: function(itemOption, item, payload) {
         let layout = item.edit.option.layout
         if (layout == 'auto') {
           if (this.layout == 'inline') {
@@ -207,7 +207,7 @@ let typeFormat = {
           disabled: item.edit.disabled,
           placeholder: item.edit.placeholder
         }
-        typeFormat.buildFunc(item.edit.type, itemOption, item, index, target)
+        typeFormat.buildFunc(this, itemOption, item, payload)
         itemOption = _func.mergeData(itemOption, item.edit.localOption.item)
         return itemOption
       }
@@ -217,7 +217,7 @@ let typeFormat = {
         init: false,
         data: {}
       },
-      option: function(itemOption, item, index, target) {
+      option: function(itemOption, item, payload) {
         return itemOption
       }
     },
@@ -226,7 +226,7 @@ let typeFormat = {
         init: false,
         data: {}
       },
-      option: function(itemOption, item, index, target) {
+      option: function(itemOption, item, payload) {
         return itemOption
       }
     }
@@ -271,22 +271,16 @@ typeFormat.getData = function(type) {
   }
 }
 
-typeFormat.buildFunc = function(type, itemOption, item, index, target) {
-  let funcPayload = {
-    index: index,
-    item: item,
-    list: target.mainlist,
-    target: target
-  }
-  let formData = target.form.data
-  let funcData = typeFormat.getFunc(type)
+typeFormat.buildFunc = function(typeData, itemOption, item, payload) {
+  let formData = payload.form
+  let funcData = typeData.func
   if (funcData.init) {
     funcData.init(itemOption, formData, item.prop)
   }
   for (let funcName in item.edit.on) {
     let itemFunc = function (...args) {
-      args.push(formData, funcPayload)
-      target.$emit('func', item.prop, funcName, ...args)
+      args.push(formData, payload)
+      payload.target.$emit('func', item.prop, funcName, ...args)
       item.edit.on[funcName](...args)
     }
     if (funcData.data[funcName]) {
@@ -351,6 +345,14 @@ export default {
     // forviewItem模板
     renderItem(item, index) {
       let renderItem = null
+      let payload = {
+        item: item,
+        list: this.mainlist,
+        index: index,
+        form: this.form.data,
+        prop: item.prop,
+        target: this
+      }
       if (item.edit.slot.type != 'main') {
         let mainOption = {
           props: {
@@ -362,30 +364,20 @@ export default {
         }
         if (this.$scopedSlots[item.edit.slot.label]) {
           mainOption.props.label = this.$scopedSlots[item.edit.slot.label]({
-            item: item,
-            list: this.mainlist,
-            index: index,
-            form: this.form.data,
-            prop: item.prop,
-            target: this
+            ...payload
           })
         }
         mainOption = this._func.mergeData(mainOption, item.edit.localOption.main)
         renderItem = (
           <a-form-model-item {...mainOption} >
-            {this.renderTip(item, index)}
+            {this.renderTip(item, payload)}
           </a-form-model-item>
         )
       } else {
         let mainSlot = this.$scopedSlots[item.edit.slot.name]
         if (mainSlot) {
           renderItem = mainSlot({
-            item: item,
-            list: this.mainlist,
-            index: index,
-            form: this.form.data,
-            prop: item.prop,
-            target: this
+            ...payload
           })
         } else {
           console.error(`${item.prop}/${item.name}需要设置插槽!`)
@@ -394,20 +386,15 @@ export default {
       return renderItem
     },
     // tips模板
-    renderTip(item, index) {
+    renderTip(item, payload) {
       let typeItem = null
       let itemSlot = this.$scopedSlots[item.edit.slot.name]
       if (itemSlot && (item.edit.slot.type == 'auto' || item.edit.slot.type == 'item')) {
         typeItem = itemSlot({
-          item: item,
-          list: this.mainlist,
-          index: index,
-          form: this.form.data,
-          prop: item.prop,
-          target: this
+          ...payload
         })
       } else {
-        typeItem = this.renderTypeItem(item, index)
+        typeItem = this.renderTypeItem(item, payload)
       }
       if (item.edit.tips.props.title) {
         return (
@@ -420,13 +407,13 @@ export default {
       }
     },
     // type模板
-    renderTypeItem(item, index) {
+    renderTypeItem(item, payload) {
       let itemOption = {
         on: {}
       }
       let renderTypeItem = null
       let typeFormatData = typeFormat.getData(item.edit.type)
-      itemOption = typeFormatData.option(itemOption, item, index, this)
+      itemOption = typeFormatData.option(itemOption, item, payload)
       if (item.edit.type == 'input') {
         renderTypeItem = (
           <a-input
