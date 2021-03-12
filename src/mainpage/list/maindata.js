@@ -129,6 +129,23 @@ let maindata = new ListData({
         mod: {
           list: {
             width: 150
+          },
+          build: {
+            type: 'file',
+            required: true,
+            option: {
+              upload: true,
+              fileUpload: function(data) {
+                return new Promise((resolve) => {
+                  resolve({
+                    id: 1,
+                    url: 1,
+                    data: 1,
+                    name: 1
+                  })
+                })
+              }
+            }
           }
         }
       },

@@ -364,6 +364,27 @@ class EditData extends BaseData {
           return value
         }
       }
+    } else if (this.type == 'file') {
+      // FILE
+      this.option.accept = editdata.option.accept || ''
+      this.option.multiple = editdata.option.multiple || false
+      this.option.multipleAppend = editdata.option.multipleAppend || false // 多选状态下多个文件中一个存在问题时的操作
+      this.option.maxNum = editdata.option.maxNum || 0
+      this.option.minNum = editdata.option.minNum || 0
+      this.option.maxSize = editdata.option.maxSize || 0
+      this.option.upload = editdata.option.upload || false
+      this.option.fileUpload = editdata.option.fileUpload || false
+      this.option.layout = editdata.option.layout === undefined ? 'auto' : editdata.option.layout
+      if (this.option.upload && !this.option.fileUpload) {
+        this._printInfo('上传插件需要定义上传方法:fileUpload=>option')
+      }
+      if (this.option.multiple) {
+        this.setValueToArray()
+      }
+    } else if (this.type == 'button') {
+      // FILE
+    } else if (this.type == 'button') {
+      // FILE
     }
   }
 

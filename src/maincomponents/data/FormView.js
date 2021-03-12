@@ -1,5 +1,6 @@
 import _func from '@/maindata/func/index'
 import moment from 'moment'
+import FileView from './../mod/FileView'
 
 let showLogs = {
   init: false,
@@ -55,6 +56,8 @@ const formatFunc = {
     adate: {
     },
     adateRange: {
+    },
+    afile: {
     },
     abutton: {
       init: false,
@@ -401,8 +404,35 @@ export default {
             {...itemOption}
           />
         )
-      } else if (item.edit.type == 'button') {
-
+      } else if (item.edit.type == 'file') {
+        let layout = item.edit.option.layout
+        if (layout == 'auto') {
+          if (this.layout == 'inline') {
+            layout = 'end'
+          } else {
+            layout = 'bottom'
+          }
+        }
+        itemOption.props = {
+          accept: item.edit.option.accept,
+          multiple: item.edit.option.multiple,
+          multipleAppend: item.edit.option.multipleAppend,
+          maxNum: item.edit.option.maxNum,
+          minNum: item.edit.option.minNum,
+          maxSize: item.edit.option.maxSize,
+          upload: item.edit.option.upload,
+          fileUpload: item.edit.option.fileUpload,
+          layout: layout,
+          disabled: item.edit.disabled,
+          placeholder: item.edit.placeholder
+        }
+        this.buildFunc(item.edit.type, itemOption, item, index)
+        itemOption = this._func.mergeData(itemOption, item.edit.localOption.item)
+        renderTypeItem = (
+          <FileView
+            {...itemOption}
+          />
+        )
       }
       // console.log(this.$scopedSlots[item.prop])
       // if (this.$scopedSlots[item.prop]) {

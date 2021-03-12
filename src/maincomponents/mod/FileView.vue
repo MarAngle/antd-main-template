@@ -121,7 +121,7 @@
 </template>
 
 <script>
-import InputFileView from './../comm/InputFileView'
+import InputFileView from './InputFileView'
 
 export default {
   name: 'FileView',
