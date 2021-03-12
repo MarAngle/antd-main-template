@@ -212,6 +212,7 @@ export default {
       for (let funcName in item.edit.on) {
         let itemFunc = function (...args) {
           args.push(formData, funcPayload)
+          this.$emit('func', item.prop, funcName, ...args)
           item.edit.on[funcName](...args)
         }
         if (funcData.data[funcName]) {

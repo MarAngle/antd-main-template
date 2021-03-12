@@ -156,6 +156,12 @@ let maindata = new ListData({
         mod: {
           list: {
             width: 120
+          },
+          build: {
+            type: 'slot',
+            required: true,
+            option: {
+            }
           }
         }
       },
