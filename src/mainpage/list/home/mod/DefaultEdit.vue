@@ -8,7 +8,7 @@
         <LocalFormView :form="form" :mainlist="mainlist">
           <!-- <span slot="terminalCode-label" slot-scope="data">{{ data.index }}</span> -->
           <a-input slot="terminalCode" slot-scope="data" >{{ showData(data) }}|</a-input>
-          <span slot="requestTimes" slot-scope="data">{{ data.index }}</span>
+          <span slot="requestTimes">1111111</span>
         </LocalFormView>
       </a-spin>
     </div>

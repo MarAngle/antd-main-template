@@ -164,6 +164,9 @@ let editTypeData = {
     },
     type_button: {
       defaultdata: undefined
+    },
+    type_slot: {
+      defaultdata: undefined
     }
   }
 }

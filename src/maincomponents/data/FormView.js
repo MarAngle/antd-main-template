@@ -1,3 +1,4 @@
+import form from '@/locales/lang/en-US/form'
 import _func from '@/maindata/func/index'
 import moment from 'moment'
 import FileView from './../mod/FileView'
@@ -60,6 +61,10 @@ const formatFunc = {
     afile: {
     },
     abutton: {
+      init: false,
+      data: {}
+    },
+    aslot: {
       init: false,
       data: {}
     }
@@ -155,38 +160,67 @@ export default {
   watch: {
   },
   methods: {
+    // forviewItem模板
     renderItem(item, index) {
-      let funcPayload = {
-        index: index,
-        item: item,
-        list: this.mainlist,
-        target: this
-      }
-      let formData = this.form.data
-      let mainOption = {
-        props: {
-          prop: item.prop,
-          colon: item.colon,
-          rules: item.edit.rules,
-          label: item.name
+      let renderItem = null
+      if (!item.edit.slot.main) {
+        let mainOption = {
+          props: {
+            prop: item.prop,
+            colon: item.colon,
+            rules: item.edit.rules,
+            label: item.name
+          }
+        }
+        if (this.$scopedSlots[item.edit.slot.label]) {
+          mainOption.props.label = this.$scopedSlots[item.edit.slot.label]({
+            item: item,
+            list: this.mainlist,
+            index: index,
+            form: form.data,
+            prop: item.prop,
+            target: this
+          })
+        }
+        mainOption = this._func.mergeData(mainOption, item.edit.localOption.main)
+        renderItem = (
+          <a-form-model-item {...mainOption} >
+            {this.renderTip(item, index)}
+          </a-form-model-item>
+        )
+      } else {
+        let mainSlot = this.$scopedSlots[item.edit.slot.name]
+        if (mainSlot) {
+          renderItem = mainSlot({
+            item: item,
+            list: this.mainlist,
+            index: index,
+            form: form.data,
+            prop: item.prop,
+            target: this
+          })
+        } else {
+          console.error(`${item.prop}/${item.name}需要设置插槽!`)
         }
       }
-      if (this.$scopedSlots[item.edit.slot.label]) {
-        mainOption.props.label = this.$scopedSlots[item.edit.slot.label]({
-          ...funcPayload,
-          form: formData
-        })
-      }
-      mainOption = this._func.mergeData(mainOption, item.edit.localOption.main)
-      let renderItem = (
-        <a-form-model-item {...mainOption} >
-          {this.renderTip(item, index)}
-        </a-form-model-item>
-      )
       return renderItem
     },
+    // tips模板
     renderTip(item, index) {
-      let typeItem = this.renderTypeItem(item, index)
+      let typeItem = null
+      let itemSlot = this.$scopedSlots[item.edit.slot.name]
+      if (itemSlot) {
+        typeItem = itemSlot({
+          item: item,
+          list: this.mainlist,
+          index: index,
+          form: form.data,
+          prop: item.prop,
+          target: this
+        })
+      } else {
+        typeItem = this.renderTypeItem(item, index)
+      }
       if (item.edit.tips.props.title) {
         return (
           <a-tooltip {...item.edit.tips} >
@@ -233,6 +267,7 @@ export default {
         }
       }
     },
+    // type模板
     renderTypeItem(item, index) {
       let itemOption = {
         on: {}

@@ -366,7 +366,7 @@ class EditData extends BaseData {
     } else if (this.type == 'button') {
       // BUTTON
       this.option.main = editdata.option.main === undefined ? true : editdata.option.main // 是否加载main/slot
-      if (this.option.main && this.slot.main !== undefined) {
+      if (this.option.main && this.slot.main === undefined) {
         this.slot.main = true
       }
       this.option.loading = editdata.option.loading || false
@@ -377,6 +377,9 @@ class EditData extends BaseData {
     } else if (this.type == 'slot') {
       // SLOT
       this.option.main = editdata.option.main === undefined ? true : editdata.option.main // 是否加载main/slot
+      if (this.option.main && this.slot.main === undefined) {
+        this.slot.main = true
+      }
       this.option.model = editdata.option.model || false // 是否是双向绑定插槽=>实现方案待定
       // this.option.name = editdata.option.name || this.prop
     }
