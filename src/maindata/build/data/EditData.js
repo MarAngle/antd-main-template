@@ -105,6 +105,12 @@ class EditData extends BaseData {
     if (!editdata.option) {
       editdata.option = {}
     }
+
+    // 插槽重置
+    if (editdata.option.slot && this.slot.type == 'auto') {
+      this.slot.type = editdata.option.slot
+    }
+
     // 插件单独的设置，做特殊处理时使用，尽可能的将所有能用到的数据通过option做兼容处理避免问题
     // main item ...
     this.localOption = editdata.localOption || {}
@@ -368,22 +374,12 @@ class EditData extends BaseData {
       }
     } else if (this.type == 'button') {
       // BUTTON
-      this.option.main = editdata.option.main === undefined ? true : editdata.option.main // 是否加载main/slot
-      if (this.option.main && this.slot.type === 'auto') {
-        this.slot.type = 'main'
-      }
       this.option.loading = editdata.option.loading || false
       this.option.type = editdata.option.type || 'default'
       this.option.icon = editdata.option.icon || ''
       this.option.act = editdata.option.act || ''
       this.option.name = editdata.option.name || this.label
     } else if (this.type == 'slot') {
-      // SLOT
-      this.option.main = editdata.option.main === undefined ? true : editdata.option.main // 是否加载main/slot
-      if (this.option.main && this.slot.type === 'auto') {
-        this.slot.type = 'main'
-      }
-      this.option.model = editdata.option.model || false // 是否是双向绑定插槽=>实现方案待定
       // this.option.name = editdata.option.name || this.prop
     }
   }

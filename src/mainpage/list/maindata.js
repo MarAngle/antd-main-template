@@ -161,8 +161,7 @@ let maindata = new ListData({
             type: 'slot',
             required: true,
             option: {
-              main: false,
-              model: true
+              slot: 'model'
             }
           }
         }

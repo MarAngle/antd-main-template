@@ -353,6 +353,7 @@ export default {
         prop: item.prop,
         target: this
       }
+      let mainSlot = this.$scopedSlots[item.edit.slot.name]
       if (item.edit.slot.type != 'main') {
         let mainOption = {
           props: {
@@ -370,11 +371,10 @@ export default {
         mainOption = this._func.mergeData(mainOption, item.edit.localOption.main)
         renderItem = (
           <a-form-model-item {...mainOption} >
-            {this.renderTip(item, payload)}
+            {this.renderTip(item, mainSlot, payload)}
           </a-form-model-item>
         )
       } else {
-        let mainSlot = this.$scopedSlots[item.edit.slot.name]
         if (mainSlot) {
           renderItem = mainSlot({
             ...payload
@@ -386,15 +386,14 @@ export default {
       return renderItem
     },
     // tips模板
-    renderTip(item, payload) {
+    renderTip(item, mainSlot, payload) {
       let typeItem = null
-      let itemSlot = this.$scopedSlots[item.edit.slot.name]
-      if (itemSlot && (item.edit.slot.type == 'auto' || item.edit.slot.type == 'item')) {
-        typeItem = itemSlot({
+      if (mainSlot && (item.edit.slot.type == 'auto' || item.edit.slot.type == 'item')) {
+        typeItem = mainSlot({
           ...payload
         })
       } else {
-        typeItem = this.renderTypeItem(item, payload)
+        typeItem = this.renderTypeItem(item, mainSlot, payload)
       }
       if (item.edit.tips.props.title) {
         return (
@@ -407,14 +406,19 @@ export default {
       }
     },
     // type模板
-    renderTypeItem(item, payload) {
+    renderTypeItem(item, mainSlot, payload) {
       let itemOption = {
         on: {}
       }
       let renderTypeItem = null
       let typeFormatData = typeFormat.getData(item.edit.type)
       itemOption = typeFormatData.option(itemOption, item, payload)
-      if (item.edit.type == 'input') {
+      if (mainSlot && item.edit.slot.type == 'model') {
+        renderTypeItem = mainSlot({
+          ...payload,
+          option: itemOption
+        })
+      } else if (item.edit.type == 'input') {
         renderTypeItem = (
           <a-input
             {...itemOption}

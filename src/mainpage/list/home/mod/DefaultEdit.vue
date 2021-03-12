@@ -8,8 +8,9 @@
         <LocalFormView :form="form" :mainlist="mainlist">
           <!-- <span slot="terminalCode-label" slot-scope="data">{{ data.index }}</span> -->
           <!-- <a-input slot="terminalCode" slot-scope="data" >{{ showData(data) }}|</a-input> -->
-          <span slot="requestTimes" >
-            <a-input ></a-input>
+          <span slot="requestTimes" slot-scope="data" >
+            {{ showData(data) }}
+            <a-input v-bind="data.option.props" v-on="data.option.on" ></a-input>
           </span>
         </LocalFormView>
       </a-spin>
