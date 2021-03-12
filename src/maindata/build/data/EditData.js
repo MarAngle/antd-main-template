@@ -53,12 +53,15 @@ class EditData extends BaseData {
     }
   }
   // slot格式化编辑数据
-  initSlot (editdata) { // name=>自身 label=>title main=>item
+  initSlot (editdata) { // label / front / end
     this.slot = editdata.slot || {}
-    if (!this.slot.name) {
+    if (!this.slot.type) { // slot类型 auto/main/item/model
+      this.slot.type = 'auto'
+    }
+    if (!this.slot.name) { // name=>插槽默认名
       this.slot.name = this.prop
     }
-    if (!this.slot.label) {
+    if (!this.slot.label) { // label=>title
       this.slot.label = this.slot.name + '-label'
     }
   }
@@ -366,8 +369,8 @@ class EditData extends BaseData {
     } else if (this.type == 'button') {
       // BUTTON
       this.option.main = editdata.option.main === undefined ? true : editdata.option.main // 是否加载main/slot
-      if (this.option.main && this.slot.main === undefined) {
-        this.slot.main = true
+      if (this.option.main && this.slot.type === 'auto') {
+        this.slot.type = 'main'
       }
       this.option.loading = editdata.option.loading || false
       this.option.type = editdata.option.type || 'default'
@@ -377,8 +380,8 @@ class EditData extends BaseData {
     } else if (this.type == 'slot') {
       // SLOT
       this.option.main = editdata.option.main === undefined ? true : editdata.option.main // 是否加载main/slot
-      if (this.option.main && this.slot.main === undefined) {
-        this.slot.main = true
+      if (this.option.main && this.slot.type === 'auto') {
+        this.slot.type = 'main'
       }
       this.option.model = editdata.option.model || false // 是否是双向绑定插槽=>实现方案待定
       // this.option.name = editdata.option.name || this.prop

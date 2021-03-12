@@ -59,42 +59,172 @@ function formatMomentNext(value, format) {
 }
 
 let typeFormat = {
-  func: {
-    base: {
+  base: {
+    func: {
       init: funcList.valueInit,
       data: {
         change: funcList.change
       }
+    }
+  },
+  data: {
+    ainput: {
+      func: {
+        data: {
+          input: funcList.input
+        }
+      },
+      option: function(itemOption, item, index, target) {
+        itemOption.props = {
+          type: item.edit.option.type,
+          allowClear: !item.edit.option.hideClear,
+          maxLength: item.edit.option.maxLength,
+          disabled: item.edit.disabled,
+          placeholder: item.edit.placeholder
+        }
+        typeFormat.buildFunc(item.edit.type, itemOption, item, index, target)
+        itemOption = _func.mergeData(itemOption, item.edit.localOption.item)
+        return itemOption
+      }
     },
-    data: {
-      ainput: {
+    ainputNumber: {
+      func: {
         data: {
           input: funcList.input
         }
       },
-      ainputNumber: {
-        data: {
-          input: funcList.input
+      option: function(itemOption, item, index, target) {
+        itemOption.props = {
+          min: item.edit.option.min,
+          max: item.edit.option.max,
+          precision: item.edit.option.precision,
+          step: item.edit.option.step,
+          disabled: item.edit.disabled,
+          placeholder: item.edit.placeholder
         }
-      },
-      aswitch: {
+        typeFormat.buildFunc(item.edit.type, itemOption, item, index, target)
+        itemOption = _func.mergeData(itemOption, item.edit.localOption.item)
+        return itemOption
+      }
+    },
+    aswitch: {
+      func: {
         init: funcList.checkInit
       },
-      aselect: {
-      },
-      adate: {
-      },
-      adateRange: {
-      },
-      afile: {
-      },
-      abutton: {
+      option: function(itemOption, item, index, target) {
+        itemOption.props = {
+          disabled: item.edit.disabled
+        }
+        typeFormat.buildFunc(item.edit.type, itemOption, item, index, target)
+        itemOption = _func.mergeData(itemOption, item.edit.localOption.item)
+        return itemOption
+      }
+    },
+    aselect: {
+      func: {},
+      option: function(itemOption, item, index, target) {
+        itemOption.props = {
+          mode: item.edit.option.mode,
+          showSearch: item.edit.option.search.show,
+          showArrow: !item.edit.option.hideArrow,
+          allowClear: !item.edit.option.hideClear,
+          dropdownMatchSelectWidth: item.edit.option.autoWidth,
+          notFoundContent: item.edit.option.noDataContent,
+          filterOption: item.edit.option.filterOption,
+          disabled: item.edit.disabled,
+          placeholder: item.edit.placeholder
+        }
+        typeFormat.buildFunc(item.edit.type, itemOption, item, index, target)
+        itemOption = _func.mergeData(itemOption, item.edit.localOption.item)
+        return itemOption
+      }
+    },
+    adate: {
+      func: {},
+      option: function(itemOption, item, index, target) {
+        itemOption.props = {
+          format: item.edit.option.format,
+          showTime: item.edit.option.showTime,
+          disabledDate: item.edit.option.disabledDate,
+          disabledTime: item.edit.option.disabledTime,
+          disabled: item.edit.disabled,
+          placeholder: item.edit.placeholder
+        }
+        typeFormat.buildFunc(item.edit.type, itemOption, item, index, target)
+        itemOption = _func.mergeData(itemOption, item.edit.localOption.item)
+        formatMoment(itemOption.props, ['value', 'defaultValue'], [itemOption.props.formatedit, itemOption.props.formatedit])
+        if (itemOption.props.showTime) {
+          formatMoment(itemOption.props.showTime, ['defaultValue', 'defaultOpenValue'], [itemOption.props.showTime.format, itemOption.props.showTime.format])
+        }
+        return itemOption
+      }
+    },
+    adateRange: {
+      func: {},
+      option: function(itemOption, item, index, target) {
+        itemOption.props = {
+          format: item.edit.option.format,
+          showTime: item.edit.option.showTime,
+          separator: item.edit.option.separator,
+          disabledDate: item.edit.option.disabledDate,
+          disabledTime: item.edit.option.disabledTime,
+          disabled: item.edit.disabled,
+          placeholder: item.edit.placeholder
+        }
+        typeFormat.buildFunc(item.edit.type, itemOption, item, index, target)
+        itemOption = _func.mergeData(itemOption, item.edit.localOption.item)
+        formatMoment(itemOption.props, ['value', 'defaultValue'], [itemOption.props.formatedit, itemOption.props.formatedit])
+        if (itemOption.props.showTime) {
+          formatMoment(itemOption.props.showTime, ['defaultValue', 'defaultOpenValue'], [itemOption.props.showTime.format, itemOption.props.showTime.format])
+        }
+        return itemOption
+      }
+    },
+    afile: {
+      func: {},
+      option: function(itemOption, item, index, target) {
+        let layout = item.edit.option.layout
+        if (layout == 'auto') {
+          if (this.layout == 'inline') {
+            layout = 'end'
+          } else {
+            layout = 'bottom'
+          }
+        }
+        itemOption.props = {
+          accept: item.edit.option.accept,
+          multiple: item.edit.option.multiple,
+          multipleAppend: item.edit.option.multipleAppend,
+          maxNum: item.edit.option.maxNum,
+          minNum: item.edit.option.minNum,
+          maxSize: item.edit.option.maxSize,
+          upload: item.edit.option.upload,
+          fileUpload: item.edit.option.fileUpload,
+          layout: layout,
+          disabled: item.edit.disabled,
+          placeholder: item.edit.placeholder
+        }
+        typeFormat.buildFunc(item.edit.type, itemOption, item, index, target)
+        itemOption = _func.mergeData(itemOption, item.edit.localOption.item)
+        return itemOption
+      }
+    },
+    abutton: {
+      func: {
         init: false,
         data: {}
       },
-      aslot: {
+      option: function(itemOption, item, index, target) {
+        return itemOption
+      }
+    },
+    aslot: {
+      func: {
         init: false,
         data: {}
+      },
+      option: function(itemOption, item, index, target) {
+        return itemOption
       }
     }
   }
@@ -104,15 +234,15 @@ typeFormat.init = function() {
   this.initFunc()
 }
 typeFormat.initFunc = function() {
-  for (let n in this.func.data) {
-    let item = this.func.data[n]
+  for (let n in this.data) {
+    let item = this.data[n].func
     if (item.init === undefined) {
-      item.init = this.func.base.init
+      item.init = this.base.init
     }
     if (!item.data) {
       item.data = {}
-      for (let i in this.func.base.data) {
-        item.data[i] = this.func.base.data[i]
+      for (let i in this.base.data) {
+        item.data[i] = this.base.data[i]
       }
     }
   }
@@ -120,10 +250,55 @@ typeFormat.initFunc = function() {
 
 typeFormat.getFunc = function(type) {
   let typeName = 'a' + type
-  if (this.func.data[typeName]) {
-    return this.func.data[typeName]
+  if (this.data[typeName]) {
+    return this.data[typeName].func
   } else {
-    return this.func.base.data
+    return this.base.func
+  }
+}
+typeFormat.getData = function(type) {
+  let typeName = 'a' + type
+  if (this.data[typeName]) {
+    return this.data[typeName]
+  } else {
+    return this.base
+  }
+}
+
+typeFormat.buildFunc = function(type, itemOption, item, index, target) {
+  let funcPayload = {
+    index: index,
+    item: item,
+    list: target.mainlist,
+    target: target
+  }
+  let formData = target.form.data
+  let funcData = typeFormat.getFunc(type)
+  if (funcData.init) {
+    funcData.init(itemOption, formData, item.prop)
+  }
+  for (let funcName in item.edit.on) {
+    let itemFunc = function (...args) {
+      args.push(formData, funcPayload)
+      target.$emit('func', item.prop, funcName, ...args)
+      item.edit.on[funcName](...args)
+    }
+    if (funcData.data[funcName]) {
+      itemOption.on[funcName] = function (...args) {
+        console.log(funcName, args)
+        funcData.data[funcName](formData, item.prop, args)
+        itemFunc(...args)
+      }
+    } else {
+      itemOption.on[funcName] = itemFunc
+    }
+  }
+  for (let triggerFuncName in funcData.data) {
+    if (!itemOption.on[triggerFuncName]) {
+      itemOption.on[triggerFuncName] = function (...args) {
+        funcData.data[triggerFuncName](formData, item.prop, args)
+      }
+    }
   }
 }
 
@@ -170,7 +345,7 @@ export default {
     // forviewItem模板
     renderItem(item, index) {
       let renderItem = null
-      if (!item.edit.slot.main) {
+      if (item.edit.slot.type != 'main') {
         let mainOption = {
           props: {
             prop: item.prop,
@@ -216,7 +391,7 @@ export default {
     renderTip(item, index) {
       let typeItem = null
       let itemSlot = this.$scopedSlots[item.edit.slot.name]
-      if (itemSlot) {
+      if (itemSlot && (item.edit.slot.type == 'auto' || item.edit.slot.type == 'item')) {
         typeItem = itemSlot({
           item: item,
           list: this.mainlist,
@@ -280,61 +455,27 @@ export default {
         on: {}
       }
       let renderTypeItem = null
+      let typeFormatData = typeFormat.getData(item.edit.type)
+      itemOption = typeFormatData.option(itemOption, item, index, this)
       if (item.edit.type == 'input') {
-        itemOption.props = {
-          type: item.edit.option.type,
-          allowClear: !item.edit.option.hideClear,
-          maxLength: item.edit.option.maxLength,
-          disabled: item.edit.disabled,
-          placeholder: item.edit.placeholder
-        }
-        this.buildFunc(item.edit.type, itemOption, item, index)
-        itemOption = this._func.mergeData(itemOption, item.edit.localOption.item)
         renderTypeItem = (
           <a-input
             {...itemOption}
           />
         )
       } else if (item.edit.type == 'inputNumber') {
-        itemOption.props = {
-          min: item.edit.option.min,
-          max: item.edit.option.max,
-          precision: item.edit.option.precision,
-          step: item.edit.option.step,
-          disabled: item.edit.disabled,
-          placeholder: item.edit.placeholder
-        }
-        this.buildFunc(item.edit.type, itemOption, item, index)
-        itemOption = this._func.mergeData(itemOption, item.edit.localOption.item)
         renderTypeItem = (
           <a-input-number
             {...itemOption}
           />
         )
       } else if (item.edit.type == 'switch') {
-        itemOption.props = {
-        }
-        this.buildFunc(item.edit.type, itemOption, item, index)
-        itemOption = this._func.mergeData(itemOption, item.edit.localOption.item)
         renderTypeItem = (
           <a-switch
             {...itemOption}
           />
         )
       } else if (item.edit.type == 'select') {
-        itemOption.props = {
-          mode: item.edit.option.mode,
-          showSearch: item.edit.option.search.show,
-          showArrow: !item.edit.option.hideArrow,
-          allowClear: !item.edit.option.hideClear,
-          dropdownMatchSelectWidth: item.edit.option.autoWidth,
-          notFoundContent: item.edit.option.noDataContent,
-          filterOption: item.edit.option.filterOption,
-          disabled: item.edit.disabled,
-          placeholder: item.edit.placeholder
-        }
-        this.buildFunc(item.edit.type, itemOption, item, index)
-        itemOption = this._func.mergeData(itemOption, item.edit.localOption.item)
         let dict = {
           key: item.edit.option.optionValue || 'value',
           value: item.edit.option.optionValue || 'value',
@@ -407,70 +548,18 @@ export default {
           </a-select>
         )
       } else if (item.edit.type == 'date') {
-        itemOption.props = {
-          format: item.edit.option.format,
-          showTime: item.edit.option.showTime,
-          disabledDate: item.edit.option.disabledDate,
-          disabledTime: item.edit.option.disabledTime,
-          disabled: item.edit.disabled,
-          placeholder: item.edit.placeholder
-        }
-        this.buildFunc(item.edit.type, itemOption, item, index)
-        itemOption = this._func.mergeData(itemOption, item.edit.localOption.item)
-        formatMoment(itemOption.props, ['value', 'defaultValue'], [itemOption.props.formatedit, itemOption.props.formatedit])
-        if (itemOption.props.showTime) {
-          formatMoment(itemOption.props.showTime, ['defaultValue', 'defaultOpenValue'], [itemOption.props.showTime.format, itemOption.props.showTime.format])
-        }
         renderTypeItem = (
           <a-date-picker
             {...itemOption}
           />
         )
       } else if (item.edit.type == 'dateRange') {
-        itemOption.props = {
-          format: item.edit.option.format,
-          showTime: item.edit.option.showTime,
-          separator: item.edit.option.separator,
-          disabledDate: item.edit.option.disabledDate,
-          disabledTime: item.edit.option.disabledTime,
-          disabled: item.edit.disabled,
-          placeholder: item.edit.placeholder
-        }
-        this.buildFunc(item.edit.type, itemOption, item, index)
-        itemOption = this._func.mergeData(itemOption, item.edit.localOption.item)
-        formatMoment(itemOption.props, ['value', 'defaultValue'], [itemOption.props.formatedit, itemOption.props.formatedit])
-        if (itemOption.props.showTime) {
-          formatMoment(itemOption.props.showTime, ['defaultValue', 'defaultOpenValue'], [itemOption.props.showTime.format, itemOption.props.showTime.format])
-        }
         renderTypeItem = (
           <a-range-picker
             {...itemOption}
           />
         )
       } else if (item.edit.type == 'file') {
-        let layout = item.edit.option.layout
-        if (layout == 'auto') {
-          if (this.layout == 'inline') {
-            layout = 'end'
-          } else {
-            layout = 'bottom'
-          }
-        }
-        itemOption.props = {
-          accept: item.edit.option.accept,
-          multiple: item.edit.option.multiple,
-          multipleAppend: item.edit.option.multipleAppend,
-          maxNum: item.edit.option.maxNum,
-          minNum: item.edit.option.minNum,
-          maxSize: item.edit.option.maxSize,
-          upload: item.edit.option.upload,
-          fileUpload: item.edit.option.fileUpload,
-          layout: layout,
-          disabled: item.edit.disabled,
-          placeholder: item.edit.placeholder
-        }
-        this.buildFunc(item.edit.type, itemOption, item, index)
-        itemOption = this._func.mergeData(itemOption, item.edit.localOption.item)
         renderTypeItem = (
           <FileView
             {...itemOption}
