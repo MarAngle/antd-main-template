@@ -55,13 +55,17 @@ const formatFunc = {
     adate: {
     },
     adateRange: {
+    },
+    abutton: {
+      init: false,
+      data: {}
     }
   }
 }
 formatFunc.init = function() {
   for (let n in this.data) {
     let item = this.data[n]
-    if (!item.init) {
+    if (item.init === undefined) {
       item.init = this.base.init
     }
     if (!item.data) {
@@ -199,8 +203,9 @@ export default {
       }
       let formData = this.form.data
       let funcData = formatFunc.getFunc(type)
-      funcData.init(itemOption, formData, item.prop)
-      itemOption.props.value = this.form.data[item.prop]
+      if (funcData.init) {
+        funcData.init(itemOption, formData, item.prop)
+      }
       for (let funcName in item.edit.on) {
         let itemFunc = function (...args) {
           args.push(formData, funcPayload)
@@ -396,7 +401,16 @@ export default {
             {...itemOption}
           />
         )
+      } else if (item.edit.type == 'button') {
+
       }
+      // console.log(this.$scopedSlots[item.prop])
+      // if (this.$scopedSlots[item.prop]) {
+      //   let mainSlot = this.$scopedSlots[item.prop](itemOption)
+      //   renderTypeItem = (
+      //     { mainSlot }
+      //   )
+      // }
       return renderTypeItem
     }
   },

@@ -6,7 +6,8 @@
     <div v-if="currentShow">
       <a-spin :spinning="false">
         <LocalFormView :form="form" :mainlist="mainlist">
-          <span slot="terminalCode-label" slot-scope="data">{{ data.index }}</span>
+          <!-- <span slot="terminalCode-label" slot-scope="data">{{ data.index }}</span> -->
+          <a-input slot="terminalCode" slot-scope="data" >{{ showData(data) }}|</a-input>
         </LocalFormView>
       </a-spin>
     </div>
@@ -80,6 +81,9 @@ export default {
   mounted() {
   },
   methods: {
+    showData(data) {
+      console.log(data)
+    },
     initMainList() {
       this.modlist = this.maindata.getDictionaryModList(this.type)
       let mainlist = this.maindata.getDictionaryPageListByModList(this.type, this.modlist, {
