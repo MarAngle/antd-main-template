@@ -1,4 +1,3 @@
-import form from '@/locales/lang/en-US/form'
 import _func from '@/maindata/func/index'
 import moment from 'moment'
 import FileView from './../mod/FileView'
@@ -31,69 +30,6 @@ const funcList = {
   }
 }
 
-const formatFunc = {
-  base: {
-    init: funcList.valueInit,
-    data: {
-      change: funcList.change
-    }
-  },
-  data: {
-    ainput: {
-      data: {
-        input: funcList.input
-      }
-    },
-    ainputNumber: {
-      data: {
-        input: funcList.input
-      }
-    },
-    aswitch: {
-      init: funcList.checkInit
-    },
-    aselect: {
-    },
-    adate: {
-    },
-    adateRange: {
-    },
-    afile: {
-    },
-    abutton: {
-      init: false,
-      data: {}
-    },
-    aslot: {
-      init: false,
-      data: {}
-    }
-  }
-}
-formatFunc.init = function() {
-  for (let n in this.data) {
-    let item = this.data[n]
-    if (item.init === undefined) {
-      item.init = this.base.init
-    }
-    if (!item.data) {
-      item.data = {}
-      for (let i in this.base.data) {
-        item.data[i] = this.base.data[i]
-      }
-    }
-  }
-}
-formatFunc.getFunc = function(type) {
-  let typeName = 'a' + type
-  if (this.data[typeName]) {
-    return this.data[typeName]
-  } else {
-    return this.base.data
-  }
-}
-formatFunc.init()
-
 function formatMoment(data, propList, formatList) {
   for (let n = 0; n < propList.length; n++) {
     let prop = propList[n]
@@ -121,6 +57,77 @@ function formatMomentNext(value, format) {
     return value
   }
 }
+
+let typeFormat = {
+  func: {
+    base: {
+      init: funcList.valueInit,
+      data: {
+        change: funcList.change
+      }
+    },
+    data: {
+      ainput: {
+        data: {
+          input: funcList.input
+        }
+      },
+      ainputNumber: {
+        data: {
+          input: funcList.input
+        }
+      },
+      aswitch: {
+        init: funcList.checkInit
+      },
+      aselect: {
+      },
+      adate: {
+      },
+      adateRange: {
+      },
+      afile: {
+      },
+      abutton: {
+        init: false,
+        data: {}
+      },
+      aslot: {
+        init: false,
+        data: {}
+      }
+    }
+  }
+}
+
+typeFormat.init = function() {
+  this.initFunc()
+}
+typeFormat.initFunc = function() {
+  for (let n in this.func.data) {
+    let item = this.func.data[n]
+    if (item.init === undefined) {
+      item.init = this.func.base.init
+    }
+    if (!item.data) {
+      item.data = {}
+      for (let i in this.func.base.data) {
+        item.data[i] = this.func.base.data[i]
+      }
+    }
+  }
+}
+
+typeFormat.getFunc = function(type) {
+  let typeName = 'a' + type
+  if (this.func.data[typeName]) {
+    return this.func.data[typeName]
+  } else {
+    return this.func.base.data
+  }
+}
+
+typeFormat.init()
 
 export default {
   name: 'FormView',
@@ -239,7 +246,7 @@ export default {
         target: this
       }
       let formData = this.form.data
-      let funcData = formatFunc.getFunc(type)
+      let funcData = typeFormat.getFunc(type)
       if (funcData.init) {
         funcData.init(itemOption, formData, item.prop)
       }
