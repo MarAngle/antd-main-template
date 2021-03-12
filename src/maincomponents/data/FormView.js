@@ -65,6 +65,9 @@ let typeFormat = {
       data: {
         change: funcList.change
       }
+    },
+    option: function(itemOption, item, index, target) {
+      return itemOption
     }
   },
   data: {
@@ -231,18 +234,21 @@ let typeFormat = {
 }
 
 typeFormat.init = function() {
-  this.initFunc()
-}
-typeFormat.initFunc = function() {
   for (let n in this.data) {
-    let item = this.data[n].func
-    if (item.init === undefined) {
-      item.init = this.base.init
+    let item = this.data[n]
+    if (!item.option) {
+      item.option = this.base.option
     }
-    if (!item.data) {
-      item.data = {}
-      for (let i in this.base.data) {
-        item.data[i] = this.base.data[i]
+    if (!item.func) {
+      item.func = {}
+    }
+    if (item.func.init === undefined) {
+      item.func.init = this.base.func.init
+    }
+    if (!item.func.data) {
+      item.func.data = {}
+      for (let i in this.base.func.data) {
+        item.func.data[i] = this.base.func.data[i]
       }
     }
   }
@@ -413,42 +419,6 @@ export default {
         return typeItem
       }
     },
-    buildFunc(type, itemOption, item, index) {
-      let funcPayload = {
-        index: index,
-        item: item,
-        list: this.mainlist,
-        target: this
-      }
-      let formData = this.form.data
-      let funcData = typeFormat.getFunc(type)
-      if (funcData.init) {
-        funcData.init(itemOption, formData, item.prop)
-      }
-      for (let funcName in item.edit.on) {
-        let itemFunc = function (...args) {
-          args.push(formData, funcPayload)
-          this.$emit('func', item.prop, funcName, ...args)
-          item.edit.on[funcName](...args)
-        }
-        if (funcData.data[funcName]) {
-          itemOption.on[funcName] = function (...args) {
-            console.log(funcName, args)
-            funcData.data[funcName](formData, item.prop, args)
-            itemFunc(...args)
-          }
-        } else {
-          itemOption.on[funcName] = itemFunc
-        }
-      }
-      for (let triggerFuncName in funcData.data) {
-        if (!itemOption.on[triggerFuncName]) {
-          itemOption.on[triggerFuncName] = function (...args) {
-            funcData.data[triggerFuncName](formData, item.prop, args)
-          }
-        }
-      }
-    },
     // type模板
     renderTypeItem(item, index) {
       let itemOption = {
@@ -566,13 +536,6 @@ export default {
           />
         )
       }
-      // console.log(this.$scopedSlots[item.prop])
-      // if (this.$scopedSlots[item.prop]) {
-      //   let mainSlot = this.$scopedSlots[item.prop](itemOption)
-      //   renderTypeItem = (
-      //     { mainSlot }
-      //   )
-      // }
       return renderTypeItem
     }
   },
