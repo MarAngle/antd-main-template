@@ -152,8 +152,8 @@ let editTypeData = {
         return `请选择${name}`
       },
       rule: {
-        trigger: ['change', 'blur', 'select'],
-        autoTrigger: [],
+        trigger: ['blur'],
+        autoTrigger: ['change', 'select'],
         message: function(name) {
           return `请选择${name}`
         }
@@ -169,7 +169,7 @@ let editTypeData = {
       },
       rule: {
         trigger: 'change',
-        autoTrigger: [],
+        autoTrigger: ['ok'],
         message: function(name) {
           return `请选择${name}`
         }
@@ -185,7 +185,7 @@ let editTypeData = {
       },
       rule: {
         trigger: 'change',
-        autoTrigger: [],
+        autoTrigger: ['ok'],
         message: function(name) {
           return `请选择${name}`
         }
