@@ -325,7 +325,7 @@ typeFormat.buildFunc = function(typeData, itemOption, item, payload) {
     for (let i in item.edit.autoTrigger) {
       let funcName = item.edit.autoTrigger[i]
       onEvent.add(funcName, function () {
-        payload.form.ref.validateField(payload.prop)
+        payload.target.triggerRuleCheck(payload.prop)
       })
     }
   }
@@ -347,7 +347,17 @@ export default {
       required: false,
       default: 'right'
     },
-    validateOnRuleChange: { // 是否在 rules 属性改变后立即触发一次验证
+    checkOnRuleChange: { // 是否在 rules 属性改变后立即触发一次验证
+      type: Boolean,
+      required: false,
+      default: true
+    },
+    checkOnInit: {
+      type: Boolean,
+      required: false,
+      default: false
+    },
+    clearCheckOnInit: {
       type: Boolean,
       required: false,
       default: true
@@ -369,14 +379,38 @@ export default {
   },
   mounted() {
     this.$nextTick(() => {
-      this.setFormRef()
+      this.setFormRef(this.checkOnInit, this.clearCheckOnInit)
     })
   },
   watch: {
   },
   methods: {
-    setFormRef() {
+    setFormRef(check, clear) {
       this.form.ref = this.$refs.formView
+      if (check) {
+        this.triggerRuleCheck()
+      } else if (clear) {
+        this.clearRuleCheck()
+      }
+    },
+    clearRuleCheck(prop) {
+      if (this.form.ref) {
+        this.form.ref.clearValidate(prop)
+      }
+    },
+    resetRuleCheck() {
+      if (this.form.ref) {
+        this.form.ref.resetFields()
+      }
+    },
+    triggerRuleCheck(prop) {
+      if (this.form.ref) {
+        if (prop) {
+          this.form.ref.validateField(prop)
+        } else {
+          this.form.ref.validate()
+        }
+      }
     },
     // forviewItem模板
     renderItem(item, index) {
@@ -576,7 +610,7 @@ export default {
         model: this.form.data,
         layout: this.layout,
         labelAlign: this.labelAlign,
-        validateOnRuleChange: this.validateOnRuleChange
+        validateOnRuleChange: this.checkOnRuleChange
       },
       ref: 'formView'
     }
