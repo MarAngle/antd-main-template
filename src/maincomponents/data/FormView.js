@@ -301,22 +301,33 @@ typeFormat.getData = function(type) {
 }
 
 typeFormat.buildFunc = function(typeData, itemOption, item, payload) {
-  let formData = payload.form
+  let formData = payload.formData
   let funcData = typeData.func
   if (funcData.init) {
     funcData.init(itemOption, formData, item.prop)
   }
   let onEvent = new EventData()
+  // 加载双向绑定逻辑
   for (let funcName in funcData.data) {
     onEvent.add(funcName, function (...args) {
       funcData.data[funcName](formData, item.prop, args)
     })
   }
+  // 加载单独设置的事件监控
   for (let funcName in item.edit.on) {
     onEvent.add(funcName, function (...args) {
       args.push(payload)
       item.edit.on[funcName](...args)
     })
+  }
+  // 加载需要的独立触发的规则检查
+  if (item.edit.autoTrigger) {
+    for (let i in item.edit.autoTrigger) {
+      let funcName = item.edit.autoTrigger[i]
+      onEvent.add(funcName, function () {
+        payload.form.ref.validateField(payload.prop)
+      })
+    }
   }
   itemOption.on = onEvent.getData()
 }
@@ -371,7 +382,8 @@ export default {
     renderItem(item, index) {
       let renderItem = null
       let payload = {
-        form: this.form.data,
+        form: this.form,
+        formData: this.form.data,
         prop: item.prop,
         item: item,
         list: this.mainlist,

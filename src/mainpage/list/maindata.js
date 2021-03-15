@@ -56,6 +56,33 @@ let maindata = new ListData({
             required: true,
             option: {
               type: 'text'
+            },
+            rules: [
+              {
+                required: true,
+                validator: function(rule, value, callback) {
+                  console.log('rule', value)
+                  if (value) {
+                    callback()
+                  } else {
+                    callback(rule.message)
+                  }
+                }
+              }
+            ],
+            on: {
+              input(value) {
+                console.log('input', value)
+                // if (value) {
+                //   form[item.prop] = undefined
+                // }
+              },
+              change(value) {
+                console.log('change', value)
+                // if (value) {
+                //   form[item.prop] = undefined
+                // }
+              }
             }
           },
           build: {
@@ -264,10 +291,10 @@ let maindata = new ListData({
               }
             },
             on: {
-              change(value, a, { form, item }) {
-                console.log(value, a, { form, item })
+              change(value, a, { formData, prop }) {
+                console.log(value, a, { formData, prop })
                 if (value) {
-                  form[item.prop] = undefined
+                  formData[prop] = undefined
                 }
               }
             }

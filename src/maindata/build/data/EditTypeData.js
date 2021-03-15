@@ -122,8 +122,9 @@ let editTypeData = {
       placeholder: function(name) {
         return `请输入${name}`
       },
-      rules: {
-        trigger: ['input', 'change', 'blur'],
+      rule: {
+        trigger: ['blur'],
+        autoTrigger: ['input', 'change'],
         message: function(name) {
           return `请输入${name}`
         }
@@ -134,8 +135,9 @@ let editTypeData = {
       placeholder: function(name) {
         return `请输入${name}`
       },
-      rules: {
-        trigger: ['input', 'change', 'blur'],
+      rule: {
+        trigger: ['blur'],
+        autoTrigger: ['input', 'change'],
         message: function(name) {
           return `请输入${name}`
         }
@@ -149,8 +151,9 @@ let editTypeData = {
       placeholder: function(name) {
         return `请选择${name}`
       },
-      rules: {
+      rule: {
         trigger: ['change', 'blur', 'select'],
+        autoTrigger: [],
         message: function(name) {
           return `请选择${name}`
         }
@@ -164,8 +167,9 @@ let editTypeData = {
       placeholder: function(name) {
         return `请选择${name}`
       },
-      rules: {
+      rule: {
         trigger: 'change',
+        autoTrigger: [],
         message: function(name) {
           return `请选择${name}`
         }
@@ -179,8 +183,9 @@ let editTypeData = {
       placeholder: function(name) {
         return `请选择${name}`
       },
-      rules: {
+      rule: {
         trigger: 'change',
+        autoTrigger: [],
         message: function(name) {
           return `请选择${name}`
         }
@@ -191,8 +196,9 @@ let editTypeData = {
       placeholder: function(name) {
         return `上传${name}`
       },
-      rules: {
+      rule: {
         trigger: ['input', 'change'],
+        autoTrigger: [],
         message: function(name) {
           return `上传${name}`
         }

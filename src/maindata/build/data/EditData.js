@@ -385,6 +385,12 @@ class EditData extends BaseData {
     this.buildRules(editdata, typeOption)
   }
   buildRules(editdata, typeOption) {
+    this.autoTrigger = editdata.autoTrigger
+    if (!this.autoTrigger) {
+      if (typeOption.rule && typeOption.rule.autoTrigger) {
+        this.autoTrigger = typeOption.rule.autoTrigger
+      }
+    }
     if (editdata.rules) {
       this.rules = editdata.rules
     } else {
@@ -396,16 +402,16 @@ class EditData extends BaseData {
     }
     let message = editdata.ruleMessage
     let trigger
-    if (typeOption.rules) {
+    if (typeOption.rule) {
       if (!message) {
-        if (typeOption.rules.message) {
-          message = typeOption.rules.message(this.name)
+        if (typeOption.rule.message) {
+          message = typeOption.rule.message(this.name)
         } else {
           message = this.placeholder
         }
       }
-      if (typeOption.rules.trigger) {
-        trigger = typeOption.rules.trigger
+      if (typeOption.rule.trigger) {
+        trigger = typeOption.rule.trigger
       }
     }
     for (let n in this.rules) {
