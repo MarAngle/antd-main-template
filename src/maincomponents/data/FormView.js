@@ -1,6 +1,35 @@
 import _func from '@/maindata/func/index'
 import moment from 'moment'
 import FileView from './../mod/FileView'
+class EventData {
+  constructor () {
+    this.data = {
+    }
+    this.on = {}
+  }
+  build(name, list = []) {
+    this.data[name] = list
+    this.on[name] = (...args) => {
+      this.trigger(name, ...args)
+    }
+  }
+  add(name, data, method = 'push') {
+    if (!this.data[name]) {
+      this.build(name)
+    }
+    this.data[name][method](data)
+  }
+  trigger(name, ...args) {
+    if (this.data[name]) {
+      for (let n = 0; n < this.data[name].length; n++) {
+        this.data[name][n](...args)
+      }
+    }
+  }
+  getData() {
+    return this.on
+  }
+}
 
 let showLogs = {
   init: false,
@@ -277,29 +306,19 @@ typeFormat.buildFunc = function(typeData, itemOption, item, payload) {
   if (funcData.init) {
     funcData.init(itemOption, formData, item.prop)
   }
+  let onEvent = new EventData()
+  for (let funcName in funcData.data) {
+    onEvent.add(funcName, function (...args) {
+      funcData.data[funcName](formData, item.prop, args)
+    })
+  }
   for (let funcName in item.edit.on) {
-    let itemFunc = function (...args) {
+    onEvent.add(funcName, function (...args) {
       args.push(payload)
-      payload.target.$emit('func', item.prop, funcName, ...args)
       item.edit.on[funcName](...args)
-    }
-    if (funcData.data[funcName]) {
-      itemOption.on[funcName] = function (...args) {
-        console.log(funcName, args)
-        funcData.data[funcName](formData, item.prop, args)
-        itemFunc(...args)
-      }
-    } else {
-      itemOption.on[funcName] = itemFunc
-    }
+    })
   }
-  for (let triggerFuncName in funcData.data) {
-    if (!itemOption.on[triggerFuncName]) {
-      itemOption.on[triggerFuncName] = function (...args) {
-        funcData.data[triggerFuncName](formData, item.prop, args)
-      }
-    }
-  }
+  itemOption.on = onEvent.getData()
 }
 
 typeFormat.init()
@@ -352,11 +371,11 @@ export default {
     renderItem(item, index) {
       let renderItem = null
       let payload = {
+        form: this.form.data,
+        prop: item.prop,
         item: item,
         list: this.mainlist,
         index: index,
-        form: this.form.data,
-        prop: item.prop,
         target: this
       }
       let mainSlot = this.$scopedSlots[item.edit.slot.name]
