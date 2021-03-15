@@ -338,10 +338,16 @@ export default {
   computed: {
   },
   mounted() {
+    this.$nextTick(() => {
+      this.setFormRef()
+    })
   },
   watch: {
   },
   methods: {
+    setFormRef() {
+      this.form.ref = this.$refs.formView
+    },
     // forviewItem模板
     renderItem(item, index) {
       let renderItem = null
@@ -540,7 +546,8 @@ export default {
         layout: this.layout,
         labelAlign: this.labelAlign,
         validateOnRuleChange: this.validateOnRuleChange
-      }
+      },
+      ref: 'formView'
     }
     let render = (
       <a-form-model {...option}>

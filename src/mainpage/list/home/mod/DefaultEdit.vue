@@ -9,7 +9,6 @@
           <!-- <span slot="terminalCode-label" slot-scope="data">{{ data.index }}</span> -->
           <!-- <a-input slot="terminalCode" slot-scope="data" >{{ showData(data) }}|</a-input> -->
           <span slot="requestTimes" slot-scope="data" >
-            {{ showData(data) }}
             <a-input v-bind="data.option.props" v-on="data.option.on" ></a-input>
           </span>
         </LocalFormView>
@@ -30,6 +29,7 @@ export default {
       modlist: [],
       mainlist: [],
       form: {
+        ref: null,
         data: {}
       }
     }
@@ -110,6 +110,9 @@ export default {
     },
     onMenu() {
       console.log(this.form.data)
+      this.form.ref.validate(valid => {
+        console.log(valid)
+      })
     }
   }
 }

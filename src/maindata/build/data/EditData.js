@@ -390,20 +390,31 @@ class EditData extends BaseData {
     } else {
       this.rules = [
         {
-          required: this.required,
-          trigger: 'change'
+          required: this.required
         }
       ]
     }
-    let message = this.placeholder
-    if (editdata.ruleMessage) {
-      message = editdata.ruleMessage
-    } else if (typeOption.rules) {
-      message = typeOption.rules(this.name)
+    let message = editdata.ruleMessage
+    let trigger
+    if (typeOption.rules) {
+      if (!message) {
+        if (typeOption.rules.message) {
+          message = typeOption.rules.message(this.name)
+        } else {
+          message = this.placeholder
+        }
+      }
+      if (typeOption.rules.trigger) {
+        trigger = typeOption.rules.trigger
+      }
     }
     for (let n in this.rules) {
-      if (!this.rules[n].message) {
-        this.rules[n].message = message
+      let rule = this.rules[n]
+      if (rule.message === undefined && message) {
+        rule.message = message
+      }
+      if (!rule.trigger && trigger) {
+        rule.trigger = trigger
       }
     }
   }

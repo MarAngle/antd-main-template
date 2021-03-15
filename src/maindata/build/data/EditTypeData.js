@@ -122,8 +122,11 @@ let editTypeData = {
       placeholder: function(name) {
         return `请输入${name}`
       },
-      rules: function(name) {
-        return `请输入${name}`
+      rules: {
+        trigger: ['input', 'change', 'blur'],
+        message: function(name) {
+          return `请输入${name}`
+        }
       }
     },
     type_inputNumber: {
@@ -131,8 +134,11 @@ let editTypeData = {
       placeholder: function(name) {
         return `请输入${name}`
       },
-      rules: function(name) {
-        return `请输入${name}`
+      rules: {
+        trigger: ['input', 'change', 'blur'],
+        message: function(name) {
+          return `请输入${name}`
+        }
       }
     },
     type_switch: {
@@ -143,8 +149,11 @@ let editTypeData = {
       placeholder: function(name) {
         return `请选择${name}`
       },
-      rules: function(name) {
-        return `请选择${name}`
+      rules: {
+        trigger: ['change', 'blur', 'select'],
+        message: function(name) {
+          return `请选择${name}`
+        }
       }
     },
     type_date: {
@@ -155,8 +164,11 @@ let editTypeData = {
       placeholder: function(name) {
         return `请选择${name}`
       },
-      rules: function(name) {
-        return `请选择${name}`
+      rules: {
+        trigger: 'change',
+        message: function(name) {
+          return `请选择${name}`
+        }
       }
     },
     type_dateRange: {
@@ -167,8 +179,11 @@ let editTypeData = {
       placeholder: function(name) {
         return `请选择${name}`
       },
-      rules: function(name) {
-        return `请选择${name}`
+      rules: {
+        trigger: 'change',
+        message: function(name) {
+          return `请选择${name}`
+        }
       }
     },
     type_file: {
@@ -176,8 +191,11 @@ let editTypeData = {
       placeholder: function(name) {
         return `上传${name}`
       },
-      rules: function(name) {
-        return `上传${name}`
+      rules: {
+        trigger: ['input', 'change'],
+        message: function(name) {
+          return `上传${name}`
+        }
       }
     },
     type_button: {
