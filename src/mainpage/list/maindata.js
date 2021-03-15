@@ -79,6 +79,19 @@ let maindata = new ListData({
             type: 'select',
             required: true,
             tips: 'tips',
+            rules: [
+              {
+                required: true,
+                validator: function(rule, value, callback) {
+                  console.log('rule', value)
+                  if (value) {
+                    callback()
+                  } else {
+                    callback(rule.message)
+                  }
+                }
+              }
+            ],
             option: {
               search: true,
               list: [
@@ -91,6 +104,17 @@ let maindata = new ListData({
                   label: '22'
                 }
               ]
+            },
+            on: {
+              change(value) {
+                console.log('c', value)
+              },
+              select(value) {
+                console.log('s', value)
+              },
+              input(value) {
+                console.log('i', value)
+              }
             },
             pagination: true,
             methods: {
@@ -237,6 +261,14 @@ let maindata = new ListData({
               },
               disabledTime: function(date) {
                 console.log(date)
+              }
+            },
+            on: {
+              change(value, a, { form, item }) {
+                console.log(value, a, { form, item })
+                if (value) {
+                  form[item.prop] = undefined
+                }
               }
             }
           },

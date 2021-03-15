@@ -279,7 +279,7 @@ typeFormat.buildFunc = function(typeData, itemOption, item, payload) {
   }
   for (let funcName in item.edit.on) {
     let itemFunc = function (...args) {
-      args.push(formData, payload)
+      args.push(payload)
       payload.target.$emit('func', item.prop, funcName, ...args)
       item.edit.on[funcName](...args)
     }

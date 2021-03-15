@@ -78,7 +78,7 @@ export default {
     'form.data': {
       deep: true,
       handler: function(val) {
-        console.log(val)
+        // console.log(val)
       }
     }
   },
