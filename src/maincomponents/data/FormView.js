@@ -247,6 +247,15 @@ let typeFormat = {
         data: {}
       },
       option: function(itemOption, item, payload) {
+        itemOption.props = {
+          loading: item.edit.option.loading,
+          type: item.edit.option.type,
+          icon: item.edit.option.icon,
+          disabled: item.edit.disabled,
+          placeholder: item.edit.placeholder
+        }
+        typeFormat.buildFunc(this, itemOption, item, payload)
+        itemOption = _func.mergeData(itemOption, item.edit.localOption.item)
         return itemOption
       }
     },
@@ -628,6 +637,12 @@ export default {
       } else if (item.edit.type == 'file') {
         renderTypeItem = (
           <FileView
+            {...itemOption}
+          />
+        )
+      } else if (item.edit.type == 'button') {
+        renderTypeItem = (
+          <a-button
             {...itemOption}
           />
         )

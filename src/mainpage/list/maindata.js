@@ -350,6 +350,7 @@ let maindata = new ListData({
             required: false,
             option: {
               showTime: true,
+              innerWidth: '100%',
               disabledDate: {
                 start: '2021-03-01 10:00:00',
                 end: 'current'

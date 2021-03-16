@@ -110,11 +110,9 @@ class EditData extends BaseData {
     if (editdata.option.slot && this.slot.type == 'auto') {
       this.slot.type = editdata.option.slot
     }
-
     // 插件单独的设置，做特殊处理时使用，尽可能的将所有能用到的数据通过option做兼容处理避免问题
     // main item ...
     this.localOption = editdata.localOption || {}
-
     if (this.type == 'input') {
       // INPUT
       this.option.type = editdata.option.type || 'text'
@@ -377,10 +375,8 @@ class EditData extends BaseData {
       this.option.loading = editdata.option.loading || false
       this.option.type = editdata.option.type || 'default'
       this.option.icon = editdata.option.icon || ''
-      this.option.act = editdata.option.act || ''
-      this.option.name = editdata.option.name || this.label
+      this.option.name = editdata.option.name || this.placeholder
     } else if (this.type == 'slot') {
-      // this.option.name = editdata.option.name || this.prop
     }
     this.buildRules(editdata, typeOption)
   }

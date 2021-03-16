@@ -205,7 +205,10 @@ let editTypeData = {
       }
     },
     type_button: {
-      defaultdata: undefined
+      defaultdata: undefined,
+      placeholder: function(name) {
+        return name
+      }
     },
     type_slot: {
       defaultdata: undefined
