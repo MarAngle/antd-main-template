@@ -37,7 +37,7 @@ option.setData({
         prop: ditem.prop,
         label: ditem.getInterface('label', prop),
         showtype: ditem.getInterface('showtype', prop),
-        layout: ditem.getInterface('layout', prop)
+        layout: ditem.getLayout(prop)
       }
       let target = ditem.triggerFunc('show', targetitem[ditem.prop], {
         targetitem: targetitem,
@@ -68,7 +68,7 @@ option.setData({
         originprop: ditem.getInterface('originprop', prop),
         type: ditem.getInterface('type', prop),
         func: ditem.func,
-        layout: ditem.getInterface('layout', prop),
+        layout: ditem.getLayout(prop),
         edit: ditem.mod[prop]
       }
       // pitem.edit.readyData()

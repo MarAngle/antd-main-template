@@ -121,6 +121,7 @@ let maindata = new ListData({
             ],
             option: {
               search: true,
+              innerWidth: '100px',
               list: [
                 {
                   value: '1',

@@ -1,8 +1,8 @@
 import _func from '@/maindata/func/index'
 import DefaultData from './../data/DefaultData'
 import ParentData from './ParentData'
-
 import InterfaceData from './InterfaceData'
+import LayoutData from './LayoutData'
 import option from './../option'
 
 class DictionaryData extends DefaultData {
@@ -15,7 +15,8 @@ class DictionaryData extends DefaultData {
   _initDictionary (initdata, payload = {}) {
     this._initParent(payload)
     this.initMain(initdata)
-    this.initInterface(initdata, payload)
+    this.initInterface(initdata)
+    this.setLayout(initdata.layout, payload.layout)
     option.format(this, initdata.mod)
     this.FormatFunc()
   }
@@ -49,8 +50,23 @@ class DictionaryData extends DefaultData {
       this.originfrom = [this.originfrom]
     }
   }
+  setLayout (layoutOption, parentLayoutOption) {
+    let option = layoutOption || parentLayoutOption
+    if (option && option.constructor === LayoutData) {
+      this.layout = option
+    } else {
+      this.layout = new LayoutData(option)
+    }
+  }
+  getLayout (prop) {
+    if (prop) {
+      return this.layout.getData(prop)
+    } else {
+      return this.layout
+    }
+  }
   // 加载接口类型数据
-  initInterface (initdata, payload) {
+  initInterface (initdata) {
     this.interface.label = new InterfaceData(initdata.label || initdata.name)
     this.interface.order = new InterfaceData(initdata.order)
     this.interface.showprop = new InterfaceData(initdata.showprop)
@@ -68,23 +84,23 @@ class DictionaryData extends DefaultData {
     }
     this.interface.type = new InterfaceData(dataType || 'string')
     this.interface.modtype = new InterfaceData('list')
-    if (initdata.layout) {
-      this.interface.layout = new InterfaceData(initdata.layout)
-    } else if (payload.layout) {
-      this.interface.layout = new InterfaceData(payload.layout)
-    } else {
-      this.interface.layout = new InterfaceData({
-        default: {
-          main: 24,
-          label: {
-            span: 8
-          },
-          content: {
-            span: 16
-          }
-        }
-      })
-    }
+    // if (initdata.layout) {
+    //   this.interface.layout = new InterfaceData(initdata.layout)
+    // } else if (payload.layout) {
+    //   this.interface.layout = new InterfaceData(payload.layout)
+    // } else {
+    //   this.interface.layout = new InterfaceData({
+    //     default: {
+    //       main: 24,
+    //       label: {
+    //         span: 8
+    //       },
+    //       content: {
+    //         span: 16
+    //       }
+    //     }
+    //   })
+    // }
   }
   // 获取接口数据
   getInterface (target, prop) {

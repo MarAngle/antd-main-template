@@ -2,6 +2,7 @@ import _func from '@/maindata/func/index'
 import DictionaryData from './DictionaryData'
 import OptionData from './OptionData'
 import ParentData from './ParentData'
+import LayoutData from './LayoutData'
 
 class DictionaryList {
   constructor (initdata, payload) {
@@ -67,6 +68,16 @@ class DictionaryList {
   getParent (n) {
     return this.parentData.getData(n)
   }
+  setLayout (data) {
+    this.layout = new LayoutData(data)
+  }
+  getLayout (prop) {
+    if (prop) {
+      return this.layout.getData(prop)
+    } else {
+      return this.layout
+    }
+  }
   // 加载默认初始值.子类自动按照父类来源设置
   analyzeOptionFromParent (optiondata, parentData, isChildren) {
     if (isChildren && !optiondata.originfrom && parentData.originfrom) {
@@ -85,6 +96,7 @@ class DictionaryList {
     this.setParent(payload.parent)
     if (initdata) {
       initdata = this.analyzeInitData(initdata)
+      this.setLayout(initdata.layout)
       let parentData = this.getParent()
       let isChildren = this.option.getData('isChildren')
       for (let n in initdata.list) {
@@ -114,7 +126,7 @@ class DictionaryList {
         if (act.build) {
           // 构建字典数据
           ditem = new DictionaryData(ditemOption, {
-            layout: payload.layout,
+            layout: this.getLayout(),
             parent: this
           })
           this.data.set(ditem.prop, ditem)

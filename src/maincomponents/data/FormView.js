@@ -434,6 +434,22 @@ export default {
             label: item.name
           }
         }
+        if (item.layout.type == 'grid') {
+          if (_func.getType(item.layout.data.label) == 'object') {
+            mainOption.props.labelCol = item.layout.data.label
+          } else {
+            mainOption.props.labelCol = {
+              span: item.layout.data.label
+            }
+          }
+          if (_func.getType(item.layout.data.content) == 'object') {
+            mainOption.props.wrapperCol = item.layout.data.content
+          } else {
+            mainOption.props.wrapperCol = {
+              span: item.layout.data.content
+            }
+          }
+        }
         if (this.$scopedSlots[item.edit.slot.label]) {
           mainOption.props.label = this.$scopedSlots[item.edit.slot.label]({
             ...payload
@@ -484,6 +500,18 @@ export default {
       let renderTypeItem = null
       let typeFormatData = typeFormat.getData(item.edit.type)
       itemOption = typeFormatData.option(itemOption, item, payload)
+      if (item.layout.type == 'width') {
+        if (!itemOption.style) {
+          itemOption.style = {}
+        }
+        if (!itemOption.style.width) {
+          if (_func.getType(item.layout.data.width) == 'number') {
+            itemOption.style.width = item.layout.data.width + 'px'
+          } else {
+            itemOption.style.width = item.layout.data.width
+          }
+        }
+      }
       if (mainSlot && item.edit.slot.type == 'model') {
         renderTypeItem = mainSlot({
           ...payload,

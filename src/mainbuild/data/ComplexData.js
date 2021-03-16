@@ -49,7 +49,6 @@ class ComplexData extends BaseData {
       } else {
         dictionaryOption = this.analyzeDictionaryOption(dictionaryOption, 'init')
         this.dictionaryList.initMain(dictionaryOption, {
-          // layout: this.layout.getMain(),
           parent: this
         })
       }
@@ -71,7 +70,6 @@ class ComplexData extends BaseData {
         dictionaryOption = this.analyzeDictionaryOption(dictionaryOption, 'rebuild')
         this.dictionaryList.rebuildData(dictionaryOption, {
           type: payload.type,
-          // layout: this.layout.getMain(),
           parent: this
         })
       }
