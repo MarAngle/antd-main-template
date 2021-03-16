@@ -219,6 +219,23 @@ let maindata = new ListData({
         }
       },
       {
+        prop: 'formMenu',
+        name: '表单操作',
+        originprop: 'formMenu',
+        mod: {
+          list: {
+            width: 120
+          },
+          build: {
+            type: 'button',
+            required: false,
+            option: {
+              name: '按钮'
+            }
+          }
+        }
+      },
+      {
         prop: 'afterBindRequestTimes',
         name: '车辆绑定后密钥请求次数',
         originprop: 'afterBindRequestTimes',

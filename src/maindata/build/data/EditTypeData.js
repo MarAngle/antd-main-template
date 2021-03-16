@@ -122,6 +122,7 @@ let editTypeData = {
       placeholder: function(name) {
         return `请输入${name}`
       },
+      eventList: ['change'],
       rule: {
         trigger: ['blur'],
         autoTrigger: ['input', 'change'],
@@ -135,6 +136,7 @@ let editTypeData = {
       placeholder: function(name) {
         return `请输入${name}`
       },
+      eventList: ['change'],
       rule: {
         trigger: ['blur'],
         autoTrigger: ['input', 'change'],
@@ -144,13 +146,15 @@ let editTypeData = {
       }
     },
     type_switch: {
-      defaultdata: false
+      defaultdata: false,
+      eventList: ['change']
     },
     type_select: {
       defaultdata: undefined,
       placeholder: function(name) {
         return `请选择${name}`
       },
+      eventList: ['change'],
       rule: {
         trigger: ['blur'],
         autoTrigger: ['change', 'select'],
@@ -167,6 +171,7 @@ let editTypeData = {
       placeholder: function(name) {
         return `请选择${name}`
       },
+      eventList: ['change'],
       rule: {
         trigger: 'change',
         autoTrigger: ['ok'],
@@ -183,6 +188,7 @@ let editTypeData = {
       placeholder: function(name) {
         return `请选择${name}`
       },
+      eventList: ['change'],
       rule: {
         trigger: 'change',
         autoTrigger: ['ok'],
@@ -196,6 +202,7 @@ let editTypeData = {
       placeholder: function(name) {
         return `上传${name}`
       },
+      eventList: ['change'],
       rule: {
         trigger: ['input', 'change'],
         autoTrigger: [],
@@ -206,6 +213,7 @@ let editTypeData = {
     },
     type_button: {
       defaultdata: undefined,
+      eventList: ['click'],
       placeholder: function(name) {
         return name
       }

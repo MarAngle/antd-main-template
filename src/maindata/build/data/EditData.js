@@ -94,6 +94,8 @@ class EditData extends BaseData {
     this.on = editdata.on || {}
     let typeOption = editTypeData.getData(this.type)
     this.initValue(editdata, typeOption)
+    // 需要默认触发的函数
+    this.eventTriggerList = typeOption.eventList
     // 格式化占位符和检验规则
     if (typeOption.placeholder) {
       if (!editdata.placeholder) {

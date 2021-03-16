@@ -19,7 +19,9 @@ class EventData {
     if (!this.data[name]) {
       this.build(name, target, prop)
     }
-    this.data[name][method](data)
+    if (data) {
+      this.data[name][method](data)
+    }
   }
   trigger(name, ...args) {
     if (this.data[name]) {
@@ -330,6 +332,13 @@ typeFormat.buildFunc = function(typeData, itemOption, item, payload) {
       args.push(payload)
       item.edit.on[funcName](...args)
     })
+  }
+  // 添加可能存在的需要触发emit事件的函数
+  if (item.edit.eventTriggerList) {
+    for (let i in item.edit.eventTriggerList) {
+      let funcName = item.edit.eventTriggerList[i]
+      onEvent.add(funcName, payload.target, item.prop, false)
+    }
   }
   // 加载需要的独立触发的规则检查
   if (item.edit.autoTrigger) {
@@ -645,7 +654,9 @@ export default {
         renderTypeItem = (
           <a-button
             {...itemOption}
-          />
+          >
+            { item.edit.option.name }
+          </a-button>
         )
       }
       return renderTypeItem
