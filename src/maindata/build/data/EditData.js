@@ -105,7 +105,7 @@ class EditData extends BaseData {
     if (!editdata.option) {
       editdata.option = {}
     }
-
+    this.option.innerWidth = editdata.option.innerWidth
     // 插槽重置
     if (editdata.option.slot && this.slot.type == 'auto') {
       this.slot.type = editdata.option.slot

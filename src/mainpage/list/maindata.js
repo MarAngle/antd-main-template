@@ -55,7 +55,8 @@ let maindata = new ListData({
             type: 'input',
             required: true,
             option: {
-              type: 'text'
+              type: 'text',
+              innerWidth: '100px'
             },
             rules: [
               {
@@ -121,7 +122,6 @@ let maindata = new ListData({
             ],
             option: {
               search: true,
-              innerWidth: '100px',
               list: [
                 {
                   value: '1',

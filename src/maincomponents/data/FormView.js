@@ -492,6 +492,19 @@ export default {
         return typeItem
       }
     },
+    autoSetItemWidth(itemOption, width) {
+      if (!itemOption.style) {
+        itemOption.style = {}
+      }
+      if (!itemOption.style.width) {
+        if (_func.getType(width) == 'number') {
+          itemOption.style.width = width + 'px'
+        } else {
+          itemOption.style.width = width
+        }
+      }
+      console.log(itemOption.style)
+    },
     // type模板
     renderTypeItem(item, mainSlot, payload) {
       let itemOption = {
@@ -501,16 +514,9 @@ export default {
       let typeFormatData = typeFormat.getData(item.edit.type)
       itemOption = typeFormatData.option(itemOption, item, payload)
       if (item.layout.type == 'width') {
-        if (!itemOption.style) {
-          itemOption.style = {}
-        }
-        if (!itemOption.style.width) {
-          if (_func.getType(item.layout.data.width) == 'number') {
-            itemOption.style.width = item.layout.data.width + 'px'
-          } else {
-            itemOption.style.width = item.layout.data.width
-          }
-        }
+        this.autoSetItemWidth(itemOption, item.layout.data.width)
+      } else if (item.edit.option.innerWidth) {
+        this.autoSetItemWidth(itemOption, item.edit.option.innerWidth)
       }
       if (mainSlot && item.edit.slot.type == 'model') {
         renderTypeItem = mainSlot({
