@@ -7,15 +7,17 @@ class EventData {
     }
     this.on = {}
   }
-  build(name, list = []) {
+  build(name, target, prop, list = []) {
     this.data[name] = list
     this.on[name] = (...args) => {
+      target.$emit('event', prop, name, args)
       this.trigger(name, ...args)
+      target.$emit('eventEnd', prop, name, args)
     }
   }
-  add(name, data, method = 'push') {
+  add(name, target, prop, data, method = 'push') {
     if (!this.data[name]) {
-      this.build(name)
+      this.build(name, target, prop)
     }
     this.data[name][method](data)
   }
@@ -318,13 +320,13 @@ typeFormat.buildFunc = function(typeData, itemOption, item, payload) {
   let onEvent = new EventData()
   // 加载双向绑定逻辑
   for (let funcName in funcData.data) {
-    onEvent.add(funcName, function (...args) {
+    onEvent.add(funcName, payload.target, item.prop, function (...args) {
       funcData.data[funcName](formData, item.prop, args)
     })
   }
   // 加载单独设置的事件监控
   for (let funcName in item.edit.on) {
-    onEvent.add(funcName, function (...args) {
+    onEvent.add(funcName, payload.target, item.prop, function (...args) {
       args.push(payload)
       item.edit.on[funcName](...args)
     })
@@ -333,7 +335,7 @@ typeFormat.buildFunc = function(typeData, itemOption, item, payload) {
   if (item.edit.autoTrigger) {
     for (let i in item.edit.autoTrigger) {
       let funcName = item.edit.autoTrigger[i]
-      onEvent.add(funcName, function () {
+      onEvent.add(funcName, payload.target, item.prop, function () {
         payload.target.triggerRuleCheck(payload.prop)
       })
     }
@@ -512,7 +514,6 @@ export default {
           itemOption.style.width = width
         }
       }
-      console.log(itemOption.style)
     },
     // type模板
     renderTypeItem(item, mainSlot, payload) {

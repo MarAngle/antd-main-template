@@ -62,7 +62,6 @@ let maindata = new ListData({
               {
                 required: true,
                 validator: function(rule, value, callback) {
-                  console.log('rule', value)
                   if (value) {
                     callback()
                   } else {
@@ -73,13 +72,11 @@ let maindata = new ListData({
             ],
             on: {
               input(value) {
-                console.log('input', value)
                 // if (value) {
                 //   form[item.prop] = undefined
                 // }
               },
               change(value) {
-                console.log('change', value)
                 // if (value) {
                 //   form[item.prop] = undefined
                 // }

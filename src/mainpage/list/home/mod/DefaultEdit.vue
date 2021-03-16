@@ -5,12 +5,12 @@
   <a-modal class="mainmodal" :title="title" v-model="currentShow" @ok="onMenu('ok')" @cancel="onMenu('cancel')">
     <div v-if="currentShow">
       <a-spin :spinning="false">
-        <LocalFormView :form="form" :mainlist="mainlist">
+        <LocalFormView :form="form" :mainlist="mainlist" @event="onFormEvent" @eventEnd="onFormEventEnd">
           <!-- <span slot="terminalCode-label" slot-scope="data">{{ data.index }}</span> -->
           <!-- <a-input slot="terminalCode" slot-scope="data" >{{ showData(data) }}|</a-input> -->
-          <span slot="terminalCode" slot-scope="data" >
+          <!-- <span slot="terminalCode" slot-scope="data" >
             <a-input v-bind="data.option.props" v-on="data.option.on" ></a-input>
-          </span>
+          </span> -->
           <span slot="requestTimes" slot-scope="data" >
             <a-input v-bind="data.option.props" v-on="data.option.on" ></a-input>
           </span>
@@ -88,8 +88,11 @@ export default {
   mounted() {
   },
   methods: {
-    onChange(a, b, c) {
-      console.log(a, b, c)
+    onFormEventEnd(...args) {
+      console.log('end', ...args)
+    },
+    onFormEvent(...args) {
+      console.log('start', ...args)
     },
     showData(data) {
       console.log(data)
