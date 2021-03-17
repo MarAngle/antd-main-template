@@ -28,7 +28,7 @@ class EditData extends BaseData {
     this.reload = editdata.reload || false // 异步二次加载判断值
     this.hideLabel = editdata.hideLabel === undefined ? false : editdata.hideLabel
     this.colon = editdata.colon === undefined ? true : editdata.colon // label属性：显示判断值
-    this.disabled = editdata.disabled || false
+    this.disabled = new InterfaceData(editdata.disabled || false)
     this.option = {}
     this.value = {}
     // 宽度设置
@@ -100,7 +100,7 @@ class EditData extends BaseData {
     // 格式化占位符和检验规则
     if (typeOption.placeholder) {
       if (!editdata.placeholder) {
-        this.placeholder = new InterfaceData(typeOption.placeholder(payload.parent.label))
+        this.placeholder = new InterfaceData(typeOption.placeholder(payload.parent.getInterfaceData('label')))
       } else {
         this.placeholder = new InterfaceData(editdata.placeholder)
       }
@@ -405,7 +405,7 @@ class EditData extends BaseData {
     if (typeOption.rule) {
       if (!message.isInit()) {
         if (typeOption.rule.message) {
-          message = new InterfaceData(typeOption.rule.message(payload.parent.label))
+          message = new InterfaceData(typeOption.rule.message(payload.parent.getInterfaceData('label')))
         } else {
           message = this.placeholder
         }

@@ -86,6 +86,10 @@ class DictionaryData extends DefaultData {
     this.interface.modtype = new InterfaceData('list')
   }
   // 获取接口数据
+  getInterfaceData (target) {
+    return this.interface[target]
+  }
+  // 获取接口数据
   getInterface (target, prop) {
     return this.interface[target].getData(prop)
   }

@@ -52,9 +52,7 @@ option.setData({
       if (data.type == 'edit') {
         ditem.mod[prop] = ditem.mod.edit
       } else {
-        // data.name = ditem.name
-        data.prop = ditem.prop
-        // data.label = ditem.getInterface('label', prop)
+        // data.prop = ditem.prop
         ditem.mod[prop] = new EditData(data, {
           // type: ditem.getInterface('type', prop),
           parent: ditem
@@ -64,7 +62,7 @@ option.setData({
     unformat: function (ditem, prop) {
       let pitem = {
         prop: ditem.prop,
-        name: ditem.getInterface('label', prop),
+        label: ditem.getInterface('label', prop),
         originprop: ditem.getInterface('originprop', prop),
         type: ditem.getInterface('type', prop),
         func: ditem.func,

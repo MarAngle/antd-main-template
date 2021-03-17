@@ -11,7 +11,7 @@ class InterfaceData {
     }
   }
   initMain (initdata) {
-    if (initdata) {
+    if (initdata !== undefined) {
       let type = _func.getType(initdata)
       if (type !== 'object') {
         this.data.default = initdata

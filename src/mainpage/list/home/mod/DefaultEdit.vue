@@ -5,7 +5,7 @@
   <a-modal class="mainmodal" :title="title" v-model="currentShow" @ok="onMenu('ok')" @cancel="onMenu('cancel')">
     <div v-if="currentShow">
       <a-spin :spinning="false">
-        <LocalFormView :form="form" :mainlist="mainlist" @event="onFormEvent" @eventEnd="onFormEventEnd">
+        <LocalFormView :form="form" :type="edit" :mainlist="mainlist" @event="onFormEvent" @eventEnd="onFormEventEnd">
           <!-- <span slot="terminalCode-label" slot-scope="data">{{ data.index }}</span> -->
           <!-- <a-input slot="terminalCode" slot-scope="data" >{{ showData(data) }}|</a-input> -->
           <!-- <span slot="terminalCode" slot-scope="data" >

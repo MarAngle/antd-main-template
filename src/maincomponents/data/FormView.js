@@ -115,8 +115,8 @@ let typeFormat = {
           type: item.edit.option.type,
           allowClear: !item.edit.option.hideClear,
           maxLength: item.edit.option.maxLength,
-          disabled: item.edit.disabled,
-          placeholder: item.edit.placeholder
+          disabled: item.edit.disabled.getData(payload.type),
+          placeholder: item.edit.placeholder.getData(payload.type)
         }
         typeFormat.buildFunc(this, itemOption, item, payload)
         itemOption = _func.mergeData(itemOption, item.edit.localOption.item)
@@ -135,8 +135,8 @@ let typeFormat = {
           max: item.edit.option.max,
           precision: item.edit.option.precision,
           step: item.edit.option.step,
-          disabled: item.edit.disabled,
-          placeholder: item.edit.placeholder
+          disabled: item.edit.disabled.getData(payload.type),
+          placeholder: item.edit.placeholder.getData(payload.type)
         }
         typeFormat.buildFunc(this, itemOption, item, payload)
         itemOption = _func.mergeData(itemOption, item.edit.localOption.item)
@@ -149,7 +149,7 @@ let typeFormat = {
       },
       option: function(itemOption, item, payload) {
         itemOption.props = {
-          disabled: item.edit.disabled
+          disabled: item.edit.disabled.getData(payload.type)
         }
         typeFormat.buildFunc(this, itemOption, item, payload)
         itemOption = _func.mergeData(itemOption, item.edit.localOption.item)
@@ -167,8 +167,8 @@ let typeFormat = {
           dropdownMatchSelectWidth: item.edit.option.autoWidth,
           notFoundContent: item.edit.option.noDataContent,
           filterOption: item.edit.option.filterOption,
-          disabled: item.edit.disabled,
-          placeholder: item.edit.placeholder
+          disabled: item.edit.disabled.getData(payload.type),
+          placeholder: item.edit.placeholder.getData(payload.type)
         }
         typeFormat.buildFunc(this, itemOption, item, payload)
         itemOption = _func.mergeData(itemOption, item.edit.localOption.item)
@@ -183,8 +183,8 @@ let typeFormat = {
           showTime: item.edit.option.showTime,
           disabledDate: item.edit.option.disabledDate,
           disabledTime: item.edit.option.disabledTime,
-          disabled: item.edit.disabled,
-          placeholder: item.edit.placeholder
+          disabled: item.edit.disabled.getData(payload.type),
+          placeholder: item.edit.placeholder.getData(payload.type)
         }
         typeFormat.buildFunc(this, itemOption, item, payload)
         itemOption = _func.mergeData(itemOption, item.edit.localOption.item)
@@ -204,8 +204,8 @@ let typeFormat = {
           separator: item.edit.option.separator,
           disabledDate: item.edit.option.disabledDate,
           disabledTime: item.edit.option.disabledTime,
-          disabled: item.edit.disabled,
-          placeholder: item.edit.placeholder
+          disabled: item.edit.disabled.getData(payload.type),
+          placeholder: item.edit.placeholder.getData(payload.type)
         }
         typeFormat.buildFunc(this, itemOption, item, payload)
         itemOption = _func.mergeData(itemOption, item.edit.localOption.item)
@@ -237,8 +237,8 @@ let typeFormat = {
           upload: item.edit.option.upload,
           fileUpload: item.edit.option.fileUpload,
           layout: layout,
-          disabled: item.edit.disabled,
-          placeholder: item.edit.placeholder
+          disabled: item.edit.disabled.getData(payload.type),
+          placeholder: item.edit.placeholder.getData(payload.type)
         }
         typeFormat.buildFunc(this, itemOption, item, payload)
         itemOption = _func.mergeData(itemOption, item.edit.localOption.item)
@@ -255,8 +255,8 @@ let typeFormat = {
           loading: item.edit.option.loading,
           type: item.edit.option.type,
           icon: item.edit.option.icon,
-          disabled: item.edit.disabled,
-          placeholder: item.edit.placeholder
+          disabled: item.edit.disabled.getData(payload.type),
+          placeholder: item.edit.placeholder.getData(payload.type)
         }
         typeFormat.buildFunc(this, itemOption, item, payload)
         itemOption = _func.mergeData(itemOption, item.edit.localOption.item)
@@ -271,7 +271,7 @@ let typeFormat = {
       option: function(itemOption, item, payload) {
         itemOption.props = {
           ...item.edit.option,
-          disabled: item.edit.disabled
+          disabled: item.edit.disabled.getData(payload.type)
         }
         typeFormat.buildFunc(this, itemOption, item, payload)
         itemOption = _func.mergeData(itemOption, item.edit.localOption.item)
@@ -363,6 +363,10 @@ typeFormat.init()
 export default {
   name: 'FormView',
   props: {
+    type: { // 表单布局	'horizontal'|'vertical'|'inline'
+      type: String,
+      required: true
+    },
     layout: { // 表单布局	'horizontal'|'vertical'|'inline'
       type: String,
       required: false,
@@ -449,6 +453,7 @@ export default {
         prop: item.prop,
         item: item,
         list: this.mainlist,
+        type: this.type,
         index: index,
         target: this
       }
@@ -457,9 +462,9 @@ export default {
         let mainOption = {
           props: {
             prop: item.prop,
-            colon: item.colon,
-            rules: item.edit.rules,
-            label: item.name
+            label: item.label,
+            colon: item.edit.colon,
+            rules: item.edit.rules
           }
         }
         if (item.layout.type == 'grid') {
@@ -664,7 +669,7 @@ export default {
           <a-button
             {...itemOption}
           >
-            { item.edit.option.name }
+            { item.edit.option.name.getData(payload.type) }
           </a-button>
         )
       } else if (item.edit.type == 'slot') {
