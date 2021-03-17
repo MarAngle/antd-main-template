@@ -52,11 +52,11 @@ option.setData({
       if (data.type == 'edit') {
         ditem.mod[prop] = ditem.mod.edit
       } else {
-        data.name = ditem.name
+        // data.name = ditem.name
         data.prop = ditem.prop
-        data.label = ditem.getInterface('label', prop)
+        // data.label = ditem.getInterface('label', prop)
         ditem.mod[prop] = new EditData(data, {
-          type: ditem.getInterface('type', prop),
+          // type: ditem.getInterface('type', prop),
           parent: ditem
         })
       }

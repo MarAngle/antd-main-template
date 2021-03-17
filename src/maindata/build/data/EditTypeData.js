@@ -33,7 +33,7 @@ const timeCheckUtils = {
     min: 'YYYYMMDDHHmm',
     sec: 'YYYYMMDDHHmmss'
   },
-  formatOption: function(option) {
+  formatOption: function (option) {
     if (option) {
       option.start = this.formatTimeOption(option.start)
       option.end = this.formatTimeOption(option.end)
@@ -41,7 +41,7 @@ const timeCheckUtils = {
     }
     return option
   },
-  formatTimeOption: function(timeOption) {
+  formatTimeOption: function (timeOption) {
     if (timeOption) {
       if (timeOption === 'current') {
         timeOption = {
@@ -67,14 +67,14 @@ const timeCheckUtils = {
     }
     return timeOption
   },
-  getFormat: function(format = 'min') {
+  getFormat: function (format = 'min') {
     if (this.formatDict[format]) {
       return this.formatDict[format]
     } else {
       return format
     }
   },
-  getTime: function(time) {
+  getTime: function (time) {
     if (time == 'current') {
       return currentDate.getCurrent()
     } else {
@@ -119,29 +119,45 @@ let editTypeData = {
   data: {
     type_input: {
       defaultdata: '',
-      placeholder: function(name) {
-        return `请输入${name}`
+      placeholder: function (label) {
+        let data = {}
+        label.map((labeldata, prop) => {
+          data[prop] = `请输入${labeldata[prop]}`
+        })
+        return data
       },
       eventList: ['change'],
       rule: {
         trigger: ['blur'],
         autoTrigger: ['input', 'change'],
-        message: function(name) {
-          return `请输入${name}`
+        message: function (label) {
+          let data = {}
+          label.map((labeldata, prop) => {
+            data[prop] = `请输入${labeldata[prop]}`
+          })
+          return data
         }
       }
     },
     type_inputNumber: {
       defaultdata: '',
-      placeholder: function(name) {
-        return `请输入${name}`
+      placeholder: function (label) {
+        let data = {}
+        label.map((labeldata, prop) => {
+          data[prop] = `请输入${labeldata[prop]}`
+        })
+        return data
       },
       eventList: ['change'],
       rule: {
         trigger: ['blur'],
         autoTrigger: ['input', 'change'],
-        message: function(name) {
-          return `请输入${name}`
+        message: function (label) {
+          let data = {}
+          label.map((labeldata, prop) => {
+            data[prop] = `请输入${labeldata[prop]}`
+          })
+          return data
         }
       }
     },
@@ -151,15 +167,23 @@ let editTypeData = {
     },
     type_select: {
       defaultdata: undefined,
-      placeholder: function(name) {
-        return `请选择${name}`
+      placeholder: function (label) {
+        let data = {}
+        label.map((labeldata, prop) => {
+          data[prop] = `请选择${labeldata[prop]}`
+        })
+        return data
       },
       eventList: ['change'],
       rule: {
         trigger: ['blur'],
         autoTrigger: ['change', 'select'],
-        message: function(name) {
-          return `请选择${name}`
+        message: function (label) {
+          let data = {}
+          label.map((labeldata, prop) => {
+            data[prop] = `请选择${labeldata[prop]}`
+          })
+          return data
         }
       }
     },
@@ -168,15 +192,23 @@ let editTypeData = {
       timeOptionFormat: timeOptionFormat,
       timeCheck: timeCheck,
       timeCheckOptionFormat: timeCheckOptionFormat,
-      placeholder: function(name) {
-        return `请选择${name}`
+      placeholder: function (label) {
+        let data = {}
+        label.map((labeldata, prop) => {
+          data[prop] = `请选择${labeldata[prop]}`
+        })
+        return data
       },
       eventList: ['change'],
       rule: {
         trigger: 'change',
         autoTrigger: ['ok'],
-        message: function(name) {
-          return `请选择${name}`
+        message: function (label) {
+          let data = {}
+          label.map((labeldata, prop) => {
+            data[prop] = `请选择${labeldata[prop]}`
+          })
+          return data
         }
       }
     },
@@ -185,37 +217,53 @@ let editTypeData = {
       timeOptionFormat: timeOptionFormat,
       timeCheck: timeCheck,
       timeCheckOptionFormat: timeCheckOptionFormat,
-      placeholder: function(name) {
-        return `请选择${name}`
+      placeholder: function (label) {
+        let data = {}
+        label.map((labeldata, prop) => {
+          data[prop] = `请选择${labeldata[prop]}`
+        })
+        return data
       },
       eventList: ['change'],
       rule: {
         trigger: 'change',
         autoTrigger: ['ok'],
-        message: function(name) {
-          return `请选择${name}`
+        message: function (label) {
+          let data = {}
+          label.map((labeldata, prop) => {
+            data[prop] = `请选择${labeldata[prop]}`
+          })
+          return data
         }
       }
     },
     type_file: {
       defaultdata: undefined,
-      placeholder: function(name) {
-        return `上传${name}`
+      placeholder: function (label) {
+        let data = {}
+        label.map((labeldata, prop) => {
+          data[prop] = `上传${labeldata[prop]}`
+        })
+        return data
       },
       eventList: ['change'],
       rule: {
         trigger: ['input', 'change'],
         autoTrigger: [],
-        message: function(name) {
-          return `上传${name}`
+        message: function (label) {
+          let data = {}
+          label.map((labeldata, prop) => {
+            data[prop] = `上传${labeldata[prop]}`
+          })
+          return data
         }
       }
     },
     type_button: {
       defaultdata: undefined,
       eventList: ['click'],
-      placeholder: function(name) {
-        return name
+      placeholder: function (label) {
+        return label.getMain()
       }
     },
     type_slot: {
@@ -224,7 +272,7 @@ let editTypeData = {
   }
 }
 
-editTypeData.getData = function(type) {
+editTypeData.getData = function (type) {
   let prop = 'type_' + type
   if (this.data[prop]) {
     return this.data[prop]

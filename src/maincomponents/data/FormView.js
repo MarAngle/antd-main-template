@@ -334,10 +334,10 @@ typeFormat.buildFunc = function(typeData, itemOption, item, payload) {
   }
   // 加载单独设置的事件监控
   for (let funcName in item.edit.on) {
-    onEvent.add(funcName, payload.target, item.prop, function (...args) {
+    onEvent.add(funcName, payload.target, item.prop, item.edit.on[funcName] ? function (...args) {
       args.push(payload)
       item.edit.on[funcName](...args)
-    })
+    } : false)
   }
   // 添加可能存在的需要触发emit事件的函数
   if (item.edit.eventTriggerList) {

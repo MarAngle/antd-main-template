@@ -2,6 +2,7 @@ import _func from '@/maindata/func/index'
 
 class InterfaceData {
   constructor (initdata) {
+    this.init = false
     this.data = {
       default: undefined
     }
@@ -10,14 +11,20 @@ class InterfaceData {
     }
   }
   initMain (initdata) {
-    let type = _func.getType(initdata)
-    if (type !== 'object') {
-      this.data.default = initdata
-    } else {
-      for (let n in initdata) {
-        this.setData(n, initdata[n])
+    if (initdata) {
+      let type = _func.getType(initdata)
+      if (type !== 'object') {
+        this.data.default = initdata
+      } else {
+        for (let n in initdata) {
+          this.setData(n, initdata[n])
+        }
       }
+      this.init = true
     }
+  }
+  isInit() {
+    return this.init
   }
   setData (prop, data) {
     this.data[prop] = data
@@ -27,6 +34,11 @@ class InterfaceData {
   }
   getMain () {
     return this.data
+  }
+  map(fn) {
+    for (let n in this.data) {
+      fn(this.data, n)
+    }
   }
   toString () {
     return this.data.default

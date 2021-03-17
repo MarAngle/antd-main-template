@@ -1,5 +1,5 @@
 import _func from '@/maindata/func/index'
-import { BaseData, ParentData, PaginationData } from '@/mainbuild/index'
+import { BaseData, ParentData, PaginationData, InterfaceData } from '@/mainbuild/index'
 import editTypeData from './EditTypeData'
 
 class EditData extends BaseData {
@@ -9,21 +9,22 @@ class EditData extends BaseData {
   }
   _initMainByEditData(editdata, payload = {}) {
     this._initParent(payload)
-    this.initMain(editdata)
+    this.initMain(editdata, payload)
     this.initSlot(editdata)
     this.initTips(editdata)
     this.initType(editdata, payload)
   }
   _initParent({ parent }) {
-    this.parentdata = new ParentData(parent)
+    this.parentData = new ParentData(parent)
   }
   setParent(data) {
-    this.parentdata.setData(data)
+    this.parentData.setData(data)
   }
   getParent(n) {
-    return this.parentdata.getData(n)
+    return this.parentData.getData(n)
   }
   initMain(editdata) {
+    // this.label = parent.label // 名称设置=InterfaceData数据类型
     this.reload = editdata.reload || false // 异步二次加载判断值
     this.hideLabel = editdata.hideLabel === undefined ? false : editdata.hideLabel
     this.colon = editdata.colon === undefined ? true : editdata.colon // label属性：显示判断值
@@ -87,7 +88,7 @@ class EditData extends BaseData {
       }
     }
   }
-  initType(editdata) {
+  initType(editdata, payload) {
     this.type = editdata.type || 'input'
     this.required = editdata.required || false
     // 组件事件监控
@@ -99,9 +100,9 @@ class EditData extends BaseData {
     // 格式化占位符和检验规则
     if (typeOption.placeholder) {
       if (!editdata.placeholder) {
-        this.placeholder = typeOption.placeholder(this.name)
+        this.placeholder = new InterfaceData(typeOption.placeholder(payload.parent.label))
       } else {
-        this.placeholder = editdata.placeholder
+        this.placeholder = new InterfaceData(editdata.placeholder)
       }
     }
     if (!editdata.option) {
@@ -326,7 +327,8 @@ class EditData extends BaseData {
     } else if (this.type == 'dateRange') {
       // DATERANGEPICKER
       if (_func.getType(this.placeholder) != 'array') {
-        this.placeholder = [this.placeholder, this.placeholder]
+        // this.placeholder = [this.placeholder, this.placeholder]
+        this._printInfo('dateRange需要设置数组类型的placeholder!')
       }
       this.setValueToArray()
       this.option.showTime = typeOption.timeOptionFormat(editdata.option.showTime, true)
@@ -377,12 +379,12 @@ class EditData extends BaseData {
       this.option.loading = editdata.option.loading || false
       this.option.type = editdata.option.type || 'default'
       this.option.icon = editdata.option.icon || ''
-      this.option.name = editdata.option.name || this.placeholder
+      this.option.name = editdata.option.name ? new InterfaceData(editdata.option.name) : this.placeholder
     } else if (this.type == 'slot') {
     }
-    this.buildRules(editdata, typeOption)
+    this.buildRules(editdata, typeOption, payload)
   }
-  buildRules(editdata, typeOption) {
+  buildRules(editdata, typeOption, payload) {
     this.autoTrigger = editdata.autoTrigger
     if (!this.autoTrigger) {
       if (typeOption.rule && typeOption.rule.autoTrigger) {
@@ -390,20 +392,20 @@ class EditData extends BaseData {
       }
     }
     if (editdata.rules) {
-      this.rules = editdata.rules
+      this.rules = new InterfaceData(editdata.rules)
     } else {
-      this.rules = [
+      this.rules = new InterfaceData([
         {
           required: this.required
         }
-      ]
+      ])
     }
-    let message = editdata.ruleMessage
+    let message = new InterfaceData(editdata.ruleMessage)
     let trigger
     if (typeOption.rule) {
-      if (!message) {
+      if (!message.isInit()) {
         if (typeOption.rule.message) {
-          message = typeOption.rule.message(this.name)
+          message = new InterfaceData(typeOption.rule.message(payload.parent.label))
         } else {
           message = this.placeholder
         }
@@ -412,15 +414,27 @@ class EditData extends BaseData {
         trigger = typeOption.rule.trigger
       }
     }
-    for (let n in this.rules) {
-      let rule = this.rules[n]
-      if (rule.message === undefined && message) {
-        rule.message = message
+    this.rules.map((data, prop) => {
+      let ruleList = data[prop]
+      for (let n in ruleList) {
+        let rule = ruleList[n]
+        if (rule.message === undefined && message.isInit()) {
+          rule.message = message.getData(prop)
+        }
+        if (!rule.trigger && trigger) {
+          rule.trigger = trigger
+        }
       }
-      if (!rule.trigger && trigger) {
-        rule.trigger = trigger
-      }
-    }
+    })
+    // for (let n in this.rules) {
+    //   let rule = this.rules[n]
+    //   if (rule.message === undefined && message) {
+    //     rule.message = message
+    //   }
+    //   if (!rule.trigger && trigger) {
+    //     rule.trigger = trigger
+    //   }
+    // }
   }
   initValue(editdata, typeOption) {
     if (_func.hasProp(editdata, 'defaultdata')) {

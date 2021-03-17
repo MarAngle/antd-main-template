@@ -26,15 +26,15 @@ class DictionaryData extends DefaultData {
   }
   // 加载父实例
   _initParent ({ parent }) {
-    this.parentdata = new ParentData(parent)
+    this.parentData = new ParentData(parent)
   }
   // 设置父实例
   setParent (data) {
-    this.parentdata.setData(data)
+    this.parentData.setData(data)
   }
   // 获取上级实例
   getParent (n) {
-    return this.parentdata.getData(n)
+    return this.parentData.getData(n)
   }
   /**
    * 加载基本数据
@@ -73,7 +73,7 @@ class DictionaryData extends DefaultData {
     this.interface.showtype = new InterfaceData(initdata.showtype)
     // prop/originprop
     this.interface.originprop = new InterfaceData(initdata.originprop || this.prop)
-    // --- 不存在prop时默认以originprop为主，此时以默认为基准
+    // --- 不存在prop时默认以originprop为主，此时以默认为基准=>prop为单一字段
     if (!this.prop) {
       this.prop = this.getInterface('originprop')
     }
@@ -84,23 +84,6 @@ class DictionaryData extends DefaultData {
     }
     this.interface.type = new InterfaceData(dataType || 'string')
     this.interface.modtype = new InterfaceData('list')
-    // if (initdata.layout) {
-    //   this.interface.layout = new InterfaceData(initdata.layout)
-    // } else if (payload.layout) {
-    //   this.interface.layout = new InterfaceData(payload.layout)
-    // } else {
-    //   this.interface.layout = new InterfaceData({
-    //     default: {
-    //       main: 24,
-    //       label: {
-    //         span: 8
-    //       },
-    //       content: {
-    //         span: 16
-    //       }
-    //     }
-    //   })
-    // }
   }
   // 获取接口数据
   getInterface (target, prop) {
