@@ -1,6 +1,8 @@
 import _func from '@/maindata/func/index'
 import { ListData, SelectList } from '@/mainbuild/index'
 
+let preurl = 'http://$local'
+
 let areaSelect = new SelectList({
   name: '区域',
   list: [
@@ -17,7 +19,6 @@ let areaSelect = new SelectList({
       label: '新市区'
     }
   ]
-
 })
 
 let maindata = new ListData({
@@ -339,19 +340,12 @@ let maindata = new ListData({
         let postdata = this.getSearch()
         postdata.pageSize = this.getPageData('size')
         postdata.pageNo = this.getPageData('page')
-        postdata.agreement = 'GB17691'
-        this.setExtra('lastPost', postdata)
         _func.get({
-          url: 'vehicle/info/terminal/info/page',
-          query: postdata,
-          token: 'default'
+          url: preurl + '/list/getdata',
+          params: postdata
         }).then(res => {
           this.formatData(res.data.data, res.data.totalCount)
-          this.getRequestTimes(postdata).then(res => {
-            resolve(res)
-          }, res => {
-            reject(res)
-          })
+          resolve(res)
         }, res => {
           reject(res)
         })

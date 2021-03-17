@@ -13,7 +13,7 @@ mainfunc.init({
     rule: [
       {
         name: '五征',
-        prop: 'default',
+        prop: 'wuzheng',
         token: {
           check: true,
           fail: function (tokenName, ruleItem) {
@@ -51,7 +51,7 @@ mainfunc.init({
         },
         methods: {
           checkUrl (url) {
-            if (url.indexOf('wuzheng.com.cn/') > -1) {
+            if (url.indexOf('wuzheng.com.cn') > -1) {
               return true
             } else {
               return false
@@ -67,6 +67,58 @@ mainfunc.init({
                 res.status = 'success'
                 res.msg = response.data.errorMessage
               } else if (response.data.result == 'LOGIN') {
+                res.status = 'login'
+                res.code = response.data.errorCode
+                res.msg = response.data.errorMessage
+              } else {
+                res.code = response.data.errorCode
+                res.msg = response.data.errorMessage
+              }
+            }
+            return res
+          },
+          failMsg (errRes) {
+            if (errRes.error.response) {
+              if (errRes.error.response.data && errRes.error.response.data.message) {
+                // return errRes.error.response.data.message
+              }
+            }
+          }
+        }
+      },
+      {
+        name: 'local',
+        prop: 'default',
+        token: {
+          check: true,
+          fail: function (tokenName, ruleItem) {
+            console.log(tokenName, ruleItem)
+          },
+          data: {}
+        },
+        methods: {
+          checkUrl (url) {
+            if (url.indexOf('http://$local') > -1) {
+              return true
+            } else {
+              return false
+            }
+          },
+          formatUrl (url) {
+            url = url.replace(/http:\/\/\$local/, '')
+            return url
+          },
+          check (response) {
+            let res = {
+              status: 'fail'
+            }
+            console.log(response)
+            if (response.data) {
+              res.data = response.data.result
+              if (response.data.result.result == 'SUCCEED') {
+                res.status = 'success'
+                res.msg = response.data.errorMessage
+              } else if (response.data.result.result == 'LOGIN') {
                 res.status = 'login'
                 res.code = response.data.errorCode
                 res.msg = response.data.errorMessage
