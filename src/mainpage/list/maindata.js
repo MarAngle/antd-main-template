@@ -133,7 +133,7 @@ let maindata = new ListData({
             on: {
               change(value, a, { formData, prop }) {
                 if (value) {
-                  formData[prop] = undefined
+                  // formData[prop] = undefined
                 }
               },
               select(value) {
