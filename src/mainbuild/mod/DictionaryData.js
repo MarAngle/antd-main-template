@@ -1,6 +1,5 @@
 import _func from '@/maindata/func/index'
 import DefaultData from './../data/DefaultData'
-import ParentData from './ParentData'
 import InterfaceData from './InterfaceData'
 import LayoutData from './LayoutData'
 import option from './../option'
@@ -13,7 +12,6 @@ class DictionaryData extends DefaultData {
     this._initDictionary(initdata, payload)
   }
   _initDictionary (initdata, payload = {}) {
-    this._initParent(payload)
     this.initMain(initdata)
     this.initInterface(initdata)
     this.setLayout(initdata.layout, payload.layout)
@@ -23,18 +21,6 @@ class DictionaryData extends DefaultData {
   // 获取moddata=>该数据为页面需要的数据格式,从外部定义
   getModData (modprop, payload = {}) {
     return option.unformat(this, modprop, payload)
-  }
-  // 加载父实例
-  _initParent ({ parent }) {
-    this.parentData = new ParentData(parent)
-  }
-  // 设置父实例
-  setParent (data) {
-    this.parentData.setData(data)
-  }
-  // 获取上级实例
-  getParent (n) {
-    return this.parentData.getData(n)
   }
   /**
    * 加载基本数据

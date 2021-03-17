@@ -1,11 +1,13 @@
 import _func from '@/maindata/func/index'
+import DefaultData from './../data/DefaultData'
 import DictionaryData from './DictionaryData'
 import OptionData from './OptionData'
 import ParentData from './ParentData'
 import LayoutData from './LayoutData'
 
-class DictionaryList {
+class DictionaryList extends DefaultData {
   constructor (initdata, payload) {
+    super(initdata)
     this.option = new OptionData({
       isChildren: false,
       build: _func.getLimitData(),
@@ -14,7 +16,6 @@ class DictionaryList {
       },
       tree: false
     })
-    this.parentData = new ParentData()
     this.propData = {
       id: {
         prop: 'id',
@@ -60,14 +61,6 @@ class DictionaryList {
     let buildOption = this.option.getData('build')
     return buildOption
   }
-  // 设置父实例
-  setParent (data) {
-    this.parentData.setData(data)
-  }
-  // 获取上级实例
-  getParent (n) {
-    return this.parentData.getData(n)
-  }
   setLayout (data) {
     this.layout = new LayoutData(data)
   }
@@ -93,8 +86,8 @@ class DictionaryList {
     if (payload.type == 'init') {
       this.data.clear()
     }
-    this.setParent(payload.parent)
     if (initdata) {
+      this.setParent(initdata.parent)
       initdata = this.analyzeInitData(initdata)
       this.setLayout(initdata.layout)
       let parentData = this.getParent()
@@ -125,9 +118,9 @@ class DictionaryList {
         }
         if (act.build) {
           // 构建字典数据
+          ditemOption.parent = this
           ditem = new DictionaryData(ditemOption, {
-            layout: this.getLayout(),
-            parent: this
+            layout: this.getLayout()
           })
           this.data.set(ditem.prop, ditem)
         }
@@ -188,9 +181,9 @@ class DictionaryList {
       if (!initdata.option.build) {
         initdata.option.build = this.getBuildOption()
       }
+      initdata.parent = ditem
       ditem.dictionaryList = new DictionaryList(initdata, {
-        layout: payload.layout,
-        parent: ditem
+        layout: payload.layout
       })
     } else if (type == 'self') {
       ditem.dictionaryList = this
@@ -390,26 +383,6 @@ class DictionaryList {
       _func.setPropByStr(formData, ditem.prop, target, true)
     }
     return formData
-  }
-
-  _getPrintInfo (content) {
-    return `${this._selfName()}:${content}`
-  }
-  _printInfo (content, type = 'error') {
-    console[type](this._getPrintInfo(content))
-  }
-  _selfName () {
-    let parent = this.getParent()
-    let pre
-    if (parent) {
-      if (parent._selfName) {
-        pre = `{${parent._selfName()}}-`
-      }
-    }
-    if (!pre) {
-      pre = ``
-    }
-    return `${pre}[${this.constructor.name}]`
   }
 }
 export default DictionaryList

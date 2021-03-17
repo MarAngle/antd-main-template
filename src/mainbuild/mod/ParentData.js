@@ -1,5 +1,5 @@
 class ParentData {
-  constructor (parentData = {}) {
+  constructor (parentData) {
     this.data = null
     this._initMain(parentData)
   }
@@ -20,7 +20,7 @@ class ParentData {
       let current = target.data
       deepLevel--
       if (current && deepLevel > 0) {
-        return this.getDataNext(current.parentdata, deepLevel)
+        return this.getDataNext(current.module.parent, deepLevel)
       } else {
         return current
       }

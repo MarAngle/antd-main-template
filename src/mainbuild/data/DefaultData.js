@@ -1,18 +1,21 @@
 import _func from '@/maindata/func/index'
 import SimpleData from './SimpleData'
 import ExtraData from './../mod/ExtraData'
+import ParentData from './../mod/ParentData'
 
 class DefaultData extends SimpleData {
   constructor (initdata = {}) {
     super(initdata)
     this.module = {
-      extra: new ExtraData()
+      extra: new ExtraData(),
+      parent: new ParentData()
     }
     this.initData(initdata)
   }
-  initData ({ name, prop, extra, func, methods }) {
+  initData ({ name, prop, parent, extra, func, methods }) {
     this.name = name || ''
     this.prop = prop || ''
+    this.setParent(parent)
     this.initExtra(extra)
     this.initFunc(func)
     this.initMethods(methods)
@@ -42,6 +45,15 @@ class DefaultData extends SimpleData {
       }
     }
   }
+  // --- 父数据相关 --- //
+  // 设置父实例
+  setParent (data) {
+    this.module.parent.setData(data)
+  }
+  // 获取上级实例
+  getParent (n) {
+    return this.module.parent.getData(n)
+  }
   // --额外数据相关--*/
   // 加载额外数据
   initExtra (extraData) {
@@ -69,7 +81,15 @@ class DefaultData extends SimpleData {
     this.module.extra.reset()
   }
   _selfName () {
-    return `[CLASS:${this.constructor.name}-${this.name}/${this.prop}]`
+    let parent = this.getParent()
+    let pre
+    if (parent && parent._selfName) {
+      pre = `(${parent._selfName()})-`
+    }
+    if (!pre) {
+      pre = ``
+    }
+    return `{${pre}[${this.constructor.name}-${this.name}/${this.prop}]}`
   }
 }
 

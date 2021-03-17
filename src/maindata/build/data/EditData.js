@@ -1,5 +1,5 @@
 import _func from '@/maindata/func/index'
-import { BaseData, ParentData, PaginationData, InterfaceData } from '@/mainbuild/index'
+import { BaseData, PaginationData, InterfaceData } from '@/mainbuild/index'
 import editTypeData from './EditTypeData'
 
 class EditData extends BaseData {
@@ -8,20 +8,10 @@ class EditData extends BaseData {
     this._initMainByEditData(editdata, payload)
   }
   _initMainByEditData(editdata, payload = {}) {
-    this._initParent(payload)
     this.initMain(editdata, payload)
     this.initSlot(editdata)
     this.initTips(editdata)
     this.initType(editdata, payload)
-  }
-  _initParent({ parent }) {
-    this.parentData = new ParentData(parent)
-  }
-  setParent(data) {
-    this.parentData.setData(data)
-  }
-  getParent(n) {
-    return this.parentData.getData(n)
   }
   initMain(editdata) {
     // this.label = parent.label // 名称设置=InterfaceData数据类型
@@ -100,7 +90,7 @@ class EditData extends BaseData {
     // 格式化占位符和检验规则
     if (typeOption.placeholder) {
       if (!editdata.placeholder) {
-        this.placeholder = new InterfaceData(typeOption.placeholder(payload.parent.getInterfaceData('label')))
+        this.placeholder = new InterfaceData(typeOption.placeholder(this.getParent().getInterfaceData('label')))
       } else {
         this.placeholder = new InterfaceData(editdata.placeholder)
       }
@@ -405,7 +395,7 @@ class EditData extends BaseData {
     if (typeOption.rule) {
       if (!message.isInit()) {
         if (typeOption.rule.message) {
-          message = new InterfaceData(typeOption.rule.message(payload.parent.getInterfaceData('label')))
+          message = new InterfaceData(typeOption.rule.message(this.getParent().getInterfaceData('label')))
         } else {
           message = this.placeholder
         }

@@ -48,9 +48,10 @@ class ComplexData extends BaseData {
         this.dictionaryList = dictionaryOption
       } else {
         dictionaryOption = this.analyzeDictionaryOption(dictionaryOption, 'init')
-        this.dictionaryList.initMain(dictionaryOption, {
-          parent: this
-        })
+        if (!dictionaryOption.parent) {
+          dictionaryOption.parent = this
+        }
+        this.dictionaryList.initMain(dictionaryOption)
       }
     }
   }
@@ -68,9 +69,11 @@ class ComplexData extends BaseData {
         this.dictionaryList = dictionaryOption
       } else {
         dictionaryOption = this.analyzeDictionaryOption(dictionaryOption, 'rebuild')
+        if (!dictionaryOption.parent) {
+          dictionaryOption.parent = this
+        }
         this.dictionaryList.rebuildData(dictionaryOption, {
-          type: payload.type,
-          parent: this
+          type: payload.type
         })
       }
     }

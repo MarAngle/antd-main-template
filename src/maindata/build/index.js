@@ -53,9 +53,9 @@ option.setData({
         ditem.mod[prop] = ditem.mod.edit
       } else {
         // data.prop = ditem.prop
+        data.parent = ditem
         ditem.mod[prop] = new EditData(data, {
           // type: ditem.getInterface('type', prop),
-          parent: ditem
         })
       }
     },
