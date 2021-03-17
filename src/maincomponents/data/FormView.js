@@ -464,7 +464,7 @@ export default {
             prop: item.prop,
             label: item.label,
             colon: item.edit.colon,
-            rules: item.edit.rules
+            rules: item.edit.rules.getData(payload.type)
           }
         }
         if (item.layout.type == 'grid') {

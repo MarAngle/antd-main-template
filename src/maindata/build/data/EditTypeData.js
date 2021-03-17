@@ -218,10 +218,9 @@ let editTypeData = {
       timeCheck: timeCheck,
       timeCheckOptionFormat: timeCheckOptionFormat,
       placeholder: function (label) {
-        let data = {}
-        label.map((labeldata, prop) => {
-          data[prop] = `请选择${labeldata[prop]}`
-        })
+        let data = {
+          default: [`开始时间`, `结束时间`]
+        }
         return data
       },
       eventList: ['change'],

@@ -1,6 +1,6 @@
 import _func from '@/maindata/func/index'
 import { BaseData, PaginationData, InterfaceData } from '@/mainbuild/index'
-import editTypeData from './EditTypeData'
+import editTypeData from './editTypeData'
 
 class EditData extends BaseData {
   constructor(editdata, payload) {
@@ -316,10 +316,6 @@ class EditData extends BaseData {
       }
     } else if (this.type == 'dateRange') {
       // DATERANGEPICKER
-      if (_func.getType(this.placeholder) != 'array') {
-        // this.placeholder = [this.placeholder, this.placeholder]
-        this._printInfo('dateRange需要设置数组类型的placeholder!')
-      }
       this.setValueToArray()
       this.option.showTime = typeOption.timeOptionFormat(editdata.option.showTime, true)
       this.option.separator = editdata.option.separator || '-' // 分隔符

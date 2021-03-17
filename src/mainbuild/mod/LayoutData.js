@@ -15,7 +15,6 @@ class LayoutData {
       maindata[n] = this.formatLayout(maindata[n])
     }
     this.data = new InterfaceData(maindata)
-    console.log(this.data)
   }
   formatLayout(data) {
     if (!data) {
