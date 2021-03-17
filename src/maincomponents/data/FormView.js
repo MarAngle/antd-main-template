@@ -124,11 +124,7 @@ let typeFormat = {
       }
     },
     ainputNumber: {
-      func: {
-        data: {
-          input: funcList.input
-        }
-      },
+      func: {},
       option: function(itemOption, item, payload) {
         itemOption.props = {
           min: item.edit.option.min,

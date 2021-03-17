@@ -49,7 +49,6 @@ export default {
   },
   props: {
     text: {
-      type: [String, Number, Object, Array],
       required: false,
       default: ''
     },

@@ -18,6 +18,7 @@ const getData = (options) => {
       id: tmpKey,
       name: Mock.mock('@integer(0, 3)'),
       age: Mock.mock('@integer(0, 3)'),
+      area: Mock.mock('@integer(1, 3)'),
       object: {
         value: Mock.mock('@integer(0, 1)'),
         label: '类型' + Mock.mock('@integer(0, 1)')
@@ -28,13 +29,11 @@ const getData = (options) => {
           incode: Mock.mock('@integer(0, 100)')
         }
       },
-      status: Mock.mock('@integer(0, 3)'),
-      upload: Mock.mock('@integer(1, 3)'),
-      otherchangeprop1: Mock.mock('@integer(1, 3)'),
-      otherchangeprop2: Mock.mock('@integer(4, 6)'),
-      otherbuildprop1: Mock.mock('@integer(1, 3)'),
-      otherbuildprop2: Mock.mock('@integer(4, 6)'),
-      time: Mock.mock('@datetime')
+      file: Mock.mock('@integer(0, 3)'),
+      outSlot: Mock.mock('@integer(1, 3)'),
+      switch: Mock.mock('@integer(1, 3)') == 2,
+      date: Mock.mock('@datetime'),
+      dateRange: [Mock.mock('@datetime'), Mock.mock('@datetime')]
     })
   }
 

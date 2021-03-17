@@ -5,17 +5,17 @@ let preurl = 'http://$local'
 
 let areaSelect = new SelectList({
   name: '区域',
-  list: [
+  data: [
     {
-      value: '1',
+      value: 1,
       label: '开发区'
     },
     {
-      value: '2',
+      value: 2,
       label: '东港区'
     },
     {
-      value: '3',
+      value: 3,
       label: '新市区'
     }
   ]
