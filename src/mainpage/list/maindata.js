@@ -1,23 +1,37 @@
 import _func from '@/maindata/func/index'
-import { ListData } from '@/mainbuild/index'
+import { ListData, SelectList } from '@/mainbuild/index'
+
+let areaSelect = new SelectList({
+  name: '区域',
+  list: [
+    {
+      value: '1',
+      label: '开发区'
+    },
+    {
+      value: '2',
+      label: '东港区'
+    },
+    {
+      value: '3',
+      label: '新市区'
+    }
+  ]
+
+})
 
 let maindata = new ListData({
   name: '终端信息管理',
   prop: 'terminalinfolist',
   option: {
   },
-  layout: {
-    default: {
-      main: 24,
-      label: {
-        span: 6
-      },
-      content: {
-        span: 18
-      }
-    }
-  },
   dictionary: {
+    layout: {
+      default: {
+        label: 6,
+        content: 18
+      }
+    },
     id: {
       prop: 'id',
       data: ''
@@ -43,9 +57,9 @@ let maindata = new ListData({
         }
       },
       {
-        prop: 'terminalCode',
-        name: '终端编号',
-        originprop: 'terminalCode',
+        prop: 'name',
+        name: '名称',
+        originprop: 'name',
         mod: {
           list: {
             width: 120
@@ -58,28 +72,9 @@ let maindata = new ListData({
               type: 'text',
               innerWidth: '100px'
             },
-            rules: [
-              {
-                required: true,
-                validator: function(rule, value, callback) {
-                  if (value) {
-                    callback()
-                  } else {
-                    callback(rule.message)
-                  }
-                }
-              }
-            ],
             on: {
-              input(value) {
-                // if (value) {
-                //   form[item.prop] = undefined
-                // }
-              },
               change(value) {
-                // if (value) {
-                //   form[item.prop] = undefined
-                // }
+                console.log(value)
               }
             }
           },
@@ -92,9 +87,68 @@ let maindata = new ListData({
         }
       },
       {
-        prop: 'iccid',
-        name: 'ICCID',
-        originprop: 'iccid',
+        prop: 'age',
+        name: '年龄',
+        originprop: 'age',
+        mod: {
+          list: {
+            width: 120
+          },
+          info: {},
+          edit: {
+            type: 'inputNumber',
+            required: true,
+            option: {
+              min: 0,
+              max: 200
+            }
+          },
+          build: {
+            type: 'edit'
+          },
+          change: {
+            type: 'edit'
+          }
+        }
+      },
+      {
+        prop: 'area',
+        showprop: {
+          default: 'label',
+          build: 'value',
+          change: 'value'
+        },
+        name: '区域',
+        originprop: 'area',
+        func: {
+          format: function(data) {
+            return areaSelect.getItem(data)
+          }
+        },
+        mod: {
+          list: {
+            width: 120
+          },
+          info: {},
+          edit: {
+            type: 'select',
+            required: true,
+            option: {
+              list: areaSelect.getList()
+            }
+          },
+          build: {
+            type: 'edit'
+          },
+          change: {
+            type: 'edit'
+          }
+        }
+      },
+      {
+        prop: 'selectSearch',
+        name: '检索下拉',
+        originprop: 'selectSearch',
         mod: {
           list: {
             width: 180
@@ -103,45 +157,10 @@ let maindata = new ListData({
           edit: {
             type: 'select',
             required: true,
-            tips: 'tips',
-            rules: [
-              {
-                required: true,
-                validator: function(rule, value, callback) {
-                  console.log('rule', value)
-                  if (value) {
-                    callback()
-                  } else {
-                    callback(rule.message)
-                  }
-                }
-              }
-            ],
+            tips: '这里是提示！',
             option: {
               search: true,
-              list: [
-                {
-                  value: '1',
-                  label: '11'
-                },
-                {
-                  value: '2',
-                  label: '22'
-                }
-              ]
-            },
-            on: {
-              change(value, a, { formData, prop }) {
-                if (value) {
-                  // formData[prop] = undefined
-                }
-              },
-              select(value) {
-                console.log('s', value)
-              },
-              input(value) {
-                console.log('i', value)
-              }
+              list: []
             },
             pagination: true,
             methods: {
@@ -174,9 +193,9 @@ let maindata = new ListData({
         }
       },
       {
-        prop: 'vin',
-        name: '绑定车辆VIN码',
-        originprop: 'vin',
+        prop: 'file',
+        name: '文件',
+        originprop: 'file',
         mod: {
           list: {
             width: 150
@@ -186,13 +205,13 @@ let maindata = new ListData({
             required: true,
             option: {
               upload: true,
-              fileUpload: function(data) {
+              fileUpload: function({ file }) {
                 return new Promise((resolve) => {
                   resolve({
                     id: 1,
-                    url: 1,
-                    data: 1,
-                    name: 1
+                    url: '',
+                    data: 'url' + file.name,
+                    name: file.name
                   })
                 })
               }
@@ -201,9 +220,9 @@ let maindata = new ListData({
         }
       },
       {
-        prop: 'requestTimes',
-        name: '密钥请求次数',
-        originprop: 'requestTimes',
+        prop: 'outSlot',
+        name: 'INPUT插槽',
+        originprop: 'outSlot',
         mod: {
           list: {
             width: 120
@@ -219,9 +238,9 @@ let maindata = new ListData({
         }
       },
       {
-        prop: 'formMenu',
-        name: '表单操作',
-        originprop: 'formMenu',
+        prop: 'button',
+        name: '按钮',
+        originprop: 'button',
         mod: {
           list: {
             width: 120
@@ -236,35 +255,9 @@ let maindata = new ListData({
         }
       },
       {
-        prop: 'afterBindRequestTimes',
-        name: '车辆绑定后密钥请求次数',
-        originprop: 'afterBindRequestTimes',
-        mod: {
-          list: {
-            width: 180
-          }
-        }
-      },
-      {
-        prop: 'publicKey',
-        name: 'RSA公钥',
-        originprop: 'publicKey',
-        mod: {
-          list: {
-            width: 180
-          },
-          info: {}
-        }
-      },
-      {
-        prop: 'firmwareVersion',
-        name: '当前固件版本号',
-        label: {
-          default: '当前固件版本号',
-          build: '固件版本',
-          change: '固件版本'
-        },
-        originprop: 'firmwareVersion',
+        prop: 'switch',
+        name: '开关',
+        originprop: 'switch',
         mod: {
           list: {
             width: 150
@@ -272,10 +265,7 @@ let maindata = new ListData({
           info: {},
           edit: {
             type: 'switch',
-            required: false,
-            option: {
-              type: 'text'
-            }
+            required: false
           },
           build: {
             type: 'edit'
@@ -286,9 +276,9 @@ let maindata = new ListData({
         }
       },
       {
-        prop: 'terminalModel',
-        name: '终端型号',
-        originprop: 'terminalModel',
+        prop: 'date',
+        name: '日期',
+        originprop: 'date',
         mod: {
           list: {
             width: 120
@@ -302,17 +292,6 @@ let maindata = new ListData({
               disabledDate: {
                 start: '2021-03-01 10:00:00',
                 end: 'current'
-              },
-              disabledTime: function(date) {
-                console.log(date)
-              }
-            },
-            on: {
-              change(value, a, { formData, prop }) {
-                console.log(value, a, { formData, prop })
-                if (value) {
-                  formData[prop] = undefined
-                }
               }
             }
           },
@@ -325,36 +304,9 @@ let maindata = new ListData({
         }
       },
       {
-        prop: 'terminalModelAuthState',
-        name: '终端型号授权备案结果',
-        originprop: 'terminalModelAuthState',
-        mod: {
-          // list: {
-          //   width: 170
-          // },
-          info: {}
-        }
-      },
-      {
-        prop: 'terminalModelState',
-        name: '终端型号备案结果',
-        originprop: 'terminalModelState',
-        mod: {
-          // list: {
-          //   width: 160
-          // },
-          info: {}
-        }
-      },
-      {
-        prop: 'chipCode',
-        name: '安全芯片编号',
-        label: {
-          default: '安全芯片编号',
-          build: '芯片编号',
-          change: '芯片编号'
-        },
-        originprop: 'chipCode',
+        prop: 'dateRange',
+        name: '日期范围',
+        originprop: 'dateRange',
         mod: {
           list: {
             width: 120
@@ -368,9 +320,6 @@ let maindata = new ListData({
               disabledDate: {
                 start: '2021-03-01 10:00:00',
                 end: 'current'
-              },
-              disabledTime: function(date) {
-                console.log(date)
               }
             }
           },
@@ -380,74 +329,6 @@ let maindata = new ListData({
           change: {
             type: 'edit'
           }
-        }
-      },
-      {
-        prop: 'chipModel',
-        name: '安全芯片型号',
-        label: {
-          default: '安全芯片型号',
-          build: '芯片型号',
-          change: '芯片型号'
-        },
-        originprop: 'chipModel',
-        mod: {
-          list: {
-            width: 120
-          },
-          info: {},
-          edit: {
-            type: 'input',
-            required: false,
-            option: {
-              type: 'text',
-              maxLength: 5
-            },
-            func: {
-              change(a, b, v) {
-                console.log(a, b, v)
-              }
-            }
-          },
-          build: {
-            type: 'edit'
-          },
-          change: {
-            type: 'edit'
-          }
-        }
-      },
-      {
-        prop: 'chipModelState',
-        name: '安全芯片型号备案结果',
-        originprop: 'chipModelState',
-        mod: {
-          // list: {
-          //   width: 170
-          // },
-          info: {}
-        }
-      },
-      {
-        prop: 'terminalFactoryOrgCode',
-        name: '企业社会信用代码',
-        originprop: 'terminalFactoryOrgCode',
-        mod: {
-          list: {
-            width: 160
-          },
-          info: {}
-        }
-      },
-      {
-        prop: 'terminalFactoryName',
-        name: '终端厂商名称',
-        originprop: 'terminalFactoryName',
-        mod: {
-          list: {
-            width: 120
-          },
-          info: {}
         }
       }
     ]
