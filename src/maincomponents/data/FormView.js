@@ -1,6 +1,7 @@
 import _func from '@/maindata/func/index'
 import moment from 'moment'
 import FileView from './../mod/FileView'
+// 事件相关
 class EventData {
   constructor () {
     this.data = {
@@ -39,7 +40,7 @@ let showLogs = {
   init: false,
   model: false
 }
-
+// 函数列表
 const funcList = {
   valueInit: function (itemOption, formData, prop) {
     if (showLogs.init) { console.log(itemOption, formData, prop) }
@@ -62,7 +63,7 @@ const funcList = {
     formdata[prop] = args[0]
   }
 }
-
+// moment兼容
 function formatMoment(data, propList, formatList) {
   for (let n = 0; n < propList.length; n++) {
     let prop = propList[n]
@@ -78,7 +79,6 @@ function formatMoment(data, propList, formatList) {
     }
   }
 }
-
 function formatMomentNext(value, format) {
   if (value) {
     if (moment.isMoment(value)) {
@@ -90,7 +90,7 @@ function formatMomentNext(value, format) {
     return value
   }
 }
-
+// 类型格式化
 let typeFormat = {
   base: {
     func: {
@@ -269,6 +269,12 @@ let typeFormat = {
         data: {}
       },
       option: function(itemOption, item, payload) {
+        itemOption.props = {
+          ...item.edit.option,
+          disabled: item.edit.disabled
+        }
+        typeFormat.buildFunc(this, itemOption, item, payload)
+        itemOption = _func.mergeData(itemOption, item.edit.localOption.item)
         return itemOption
       }
     }
@@ -402,9 +408,8 @@ export default {
       this.setFormRef(this.checkOnInit, this.clearCheckOnInit)
     })
   },
-  watch: {
-  },
   methods: {
+    // 设置form的ref
     setFormRef(check, clear) {
       this.form.ref = this.$refs.formView
       if (check) {
@@ -413,16 +418,19 @@ export default {
         this.clearRuleCheck()
       }
     },
+    // 清除指定检查
     clearRuleCheck(prop) {
       if (this.form.ref) {
         this.form.ref.clearValidate(prop)
       }
     },
+    // 重置检查
     resetRuleCheck() {
       if (this.form.ref) {
         this.form.ref.resetFields()
       }
     },
+    // 触发检查
     triggerRuleCheck(prop) {
       if (this.form.ref) {
         if (prop) {
@@ -512,6 +520,7 @@ export default {
         return typeItem
       }
     },
+    // typeItem宽度设置
     autoSetItemWidth(itemOption, width) {
       if (!itemOption.style) {
         itemOption.style = {}
@@ -524,7 +533,7 @@ export default {
         }
       }
     },
-    // type模板
+    // typeItem模板
     renderTypeItem(item, mainSlot, payload) {
       let itemOption = {
         on: {}
@@ -658,10 +667,13 @@ export default {
             { item.edit.option.name }
           </a-button>
         )
+      } else if (item.edit.type == 'slot') {
+        console.error(`${item.prop}未定义slot`)
       }
       return renderTypeItem
     }
   },
+  // 主模板
   render() {
     const formList = this.mainlist.map((item, index) => {
       return this.renderItem(item, index)
