@@ -1,6 +1,6 @@
 import _func from '@/maindata/func/index'
 import { BaseData, PaginationData, InterfaceData } from '@/mainbuild/index'
-import editTypeData from './editTypeData'
+import editTypeData from './data/editTypeData'
 
 class EditData extends BaseData {
   constructor(editdata, payload) {

@@ -151,9 +151,6 @@ let maindata = new ListData({
         name: '检索下拉',
         originprop: 'selectSearch',
         mod: {
-          list: {
-            width: 180
-          },
           info: {},
           edit: {
             type: 'select',
@@ -239,23 +236,6 @@ let maindata = new ListData({
         }
       },
       {
-        prop: 'button',
-        name: '按钮',
-        originprop: 'button',
-        mod: {
-          list: {
-            width: 120
-          },
-          build: {
-            type: 'button',
-            required: false,
-            option: {
-              name: '按钮'
-            }
-          }
-        }
-      },
-      {
         prop: 'switch',
         name: '开关',
         originprop: 'switch',
@@ -329,6 +309,23 @@ let maindata = new ListData({
           },
           change: {
             type: 'edit'
+          }
+        }
+      },
+      {
+        prop: 'button',
+        name: '按钮',
+        originprop: 'button',
+        mod: {
+          list: {
+            width: 120
+          },
+          build: {
+            type: 'button',
+            required: false,
+            option: {
+              name: '按钮'
+            }
           }
         }
       }
