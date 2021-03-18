@@ -55,6 +55,11 @@ export default {
       required: false,
       default: 'change'
     },
+    data: {
+      type: [Object, Array],
+      required: false,
+      default: null
+    },
     index: {
       type: Number,
       required: false,
@@ -102,12 +107,11 @@ export default {
     initData() {
       this.initMainList()
       if (this.edit == 'change') {
-        let targetitem = this.maindata.getItem(this.index)
-        this.form.data = this.maindata.getDictionaryFormData(this.modlist, this.type, targetitem)
+        // let targetitem = this.maindata.getItem(this.index)
+        this.form.data = this.maindata.getDictionaryFormData(this.modlist, this.type, this.data)
       } else if (this.edit == 'build') {
         this.form.data = this.maindata.getDictionaryFormData(this.modlist, this.type)
       }
-      console.log('---')
     },
     onMenu() {
       console.log(this.form.data)

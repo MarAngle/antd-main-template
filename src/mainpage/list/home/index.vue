@@ -29,10 +29,23 @@
     <a-button @click="onBuild">创建</a-button>
     <div class="mainpagein">
       <a-spin :spinning="loadStatus == 'loading'">
+        <!-- <LocalFormViewModel
+          v-if="maindata.searchdata.show"
+          :layout="'inline'"
+          :form="maindata.searchdata.mod.edit.form"
+          :mainlist="maindata.searchdata.mainlist"
+          :menudata="searchmenu"
+          @button="onSearchMenu"
+        ></LocalFormViewModel> -->
         <LocalTableList :maindata="maindata" :columnList="mainlist" >
           <template slot="_index" slot-scope="slotProps">
             <span class="menulist">
               <a>{{ CountIndex(slotProps.index) }}</a>
+            </span>
+          </template>
+          <template slot="button" slot-scope="slotProps">
+            <span class="menulist" @click="onMenuChange(slotProps)">
+              <a>修改</a>
             </span>
           </template>
         </LocalTableList>
@@ -44,6 +57,7 @@
       :show.sync="menu.main.show"
       :edit="menu.main.edit"
       :type="menu.main.type"
+      :data="menu.main.data"
       :index="menu.main.index"
     />
   </div>
@@ -66,10 +80,11 @@ export default {
       menu: {
         main: {
           show: false,
-          index: 0,
           type: 'build',
           edit: 'build',
-          title: '创建'
+          title: '创建',
+          index: 0,
+          data: null
         }
       }
     }
@@ -104,8 +119,20 @@ export default {
     buildMainList () {
       this.mainlist = this.maindata.getDictionaryPageList('list')
     },
+    setMenu(prop, type, edit, title, index, data) {
+      this.menu[prop].type = type
+      this.menu[prop].edit = edit
+      this.menu[prop].title = title
+      this.menu[prop].index = index
+      this.menu[prop].data = null
+      this.menu[prop].data = data
+      this.menu[prop].show = true
+    },
+    onMenuChange({ record, index }) {
+      this.setMenu('main', 'edit', 'change', '修改', index, record)
+    },
     onBuild() {
-      this.menu.main.show = true
+      this.setMenu('main', 'build', 'build', '创建', 0, null)
     }
   }
 }
