@@ -163,20 +163,18 @@ class DictionaryData extends DefaultData {
     let mod = this.mod[type]
     let target
     if (originitem) {
-      if (mod && mod.func && mod.func.edit) {
-        target = mod.func.edit(originitem[this.prop], {
-          type: type,
-          targetitem,
-          originitem
-        })
-      } else {
-        target = originitem[this.prop]
-      }
-      target = this.triggerFunc('edit', target, {
+      target = this.triggerFunc('edit', originitem[this.prop], {
         type: type,
         targetitem,
         originitem
       })
+      if (mod && mod.func && mod.func.edit) {
+        target = mod.func.edit(target, {
+          type: type,
+          targetitem,
+          originitem
+        })
+      }
     } else if (mod.getValueData) {
       target = mod.getValueData('initdata')
     }

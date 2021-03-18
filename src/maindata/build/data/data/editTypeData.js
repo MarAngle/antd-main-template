@@ -77,6 +77,8 @@ let editTypeData = {
       defaultdata: undefined,
       timeOptionFormat: timeUtils.timeOptionFormat,
       timeCheck: timeUtils.timeCheck,
+      funcEdit: timeUtils.funcEdit,
+      funcUnEdit: timeUtils.funcUnEdit,
       timeCheckOptionFormat: timeUtils.timeCheckOptionFormat,
       placeholder: function (label) {
         let data = {}
@@ -102,6 +104,8 @@ let editTypeData = {
       defaultdata: [],
       timeOptionFormat: timeUtils.timeOptionFormat,
       timeCheck: timeUtils.timeCheck,
+      funcEdit: timeUtils.funcEditRange,
+      funcUnEdit: timeUtils.funcUnEditRange,
       timeCheckOptionFormat: timeUtils.timeCheckOptionFormat,
       placeholder: function (label) {
         let data = {

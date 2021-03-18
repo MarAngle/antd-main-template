@@ -309,9 +309,14 @@ class EditData extends BaseData {
         }
       }
       this.option.disabledTime = editdata.option.disabledTime
+      if (this.func.edit === undefined) { // 可设置为false实现不默认格式化为moment
+        this.func.edit = (value) => {
+          return typeOption.funcEdit(value, this.option.formatedit)
+        }
+      }
       if (this.func.unedit === undefined) { // 可设置为false实现moment对象的传递
         this.func.unedit = (value) => {
-          return value ? value.format(this.option.formatedit) : value
+          return typeOption.funcUnEdit(value, this.option.formatedit)
         }
       }
     } else if (this.type == 'dateRange') {
@@ -333,14 +338,14 @@ class EditData extends BaseData {
         }
       }
       this.option.disabledTime = editdata.option.disabledTime
+      if (this.func.edit === undefined) { // 可设置为false实现不默认格式化为moment
+        this.func.edit = (value) => {
+          return typeOption.funcEdit(value, this.option.formatedit)
+        }
+      }
       if (this.func.unedit === undefined) { // 可设置为false实现moment对象的传递
         this.func.unedit = (value) => {
-          if (value && value.length > 0) {
-            for (let n = 0; n < value.length; n++) {
-              value[n] = value[n].format(this.option.formatedit)
-            }
-          }
-          return value
+          return typeOption.funcUnEdit(value, this.option.formatedit)
         }
       }
     } else if (this.type == 'file') {

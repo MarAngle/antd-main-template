@@ -25,6 +25,31 @@ const timeUtils = {
       return time
     }
   },
+  funcEdit: function(data, format) {
+    if (data && !moment.isMoment(data)) {
+      data = moment(data, format)
+    }
+    return data
+  },
+  funcEditRange: function(data, format) {
+    if (data && data.length > 0) {
+      for (let n = 0; n < data.length; n++) {
+        data[n] = timeUtils.funcEdit(data[n], format)
+      }
+    }
+    return data
+  },
+  funcUnEdit: function(data, format) {
+    return data ? data.format(format) : data
+  },
+  funcUnEditRange: function(data, format) {
+    if (data && data.length > 0) {
+      for (let n = 0; n < data.length; n++) {
+        data[n] = timeUtils.funcUnEdit(data[n], format)
+      }
+    }
+    return data
+  },
   // 时间设置格式化
   timeOptionFormat(option, range) {
     if (option) {
