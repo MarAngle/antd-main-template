@@ -2,6 +2,8 @@ import _func from '@/maindata/func/index'
 import moment from 'moment'
 import currentDate from './currentDate'
 
+// 重要，此处函数基本赋值操作，this指向不确定，引用时不能使用this
+
 const timeUtils = {
   formatDict: {
     day: 'YYYYMMDD',
@@ -9,6 +11,21 @@ const timeUtils = {
     min: 'YYYYMMDDHHmm',
     sec: 'YYYYMMDDHHmmss'
   },
+  getFormat: function (format = 'min') {
+    if (timeUtils.formatDict[format]) {
+      return timeUtils.formatDict[format]
+    } else {
+      return format
+    }
+  },
+  getTime: function (time) {
+    if (time == 'current') {
+      return currentDate.getCurrent()
+    } else {
+      return time
+    }
+  },
+  // 时间设置格式化
   timeOptionFormat(option, range) {
     if (option) {
       let defaultValue = '00:00:00'
@@ -32,15 +49,17 @@ const timeUtils = {
     }
     return option
   },
-  formatOption: function (option) {
+  // 时间可用判断设置项格式化总
+  timeCheckOptionFormat: function (option) {
     if (option) {
-      option.start = this.formatTimeOption(option.start)
-      option.end = this.formatTimeOption(option.end)
-      option.format = this.getFormat(option.format)
+      option.start = timeUtils.timeCheckOptionFormatNext(option.start)
+      option.end = timeUtils.timeCheckOptionFormatNext(option.end)
+      option.format = timeUtils.getFormat(option.format)
     }
     return option
   },
-  formatTimeOption: function (timeOption) {
+  // 时间可用判断设置项格式化
+  timeCheckOptionFormatNext: function (timeOption) {
     if (timeOption) {
       if (timeOption === 'current') {
         timeOption = {
@@ -66,25 +85,12 @@ const timeUtils = {
     }
     return timeOption
   },
-  getFormat: function (format = 'min') {
-    if (this.formatDict[format]) {
-      return this.formatDict[format]
-    } else {
-      return format
-    }
-  },
-  getTime: function (time) {
-    if (time == 'current') {
-      return currentDate.getCurrent()
-    } else {
-      return time
-    }
-  },
+  // 时间可用判断函数=>根据设置项
   timeCheck: function (value, { start, end, format }) {
     let disabled = false
     if (value) {
       if (start) {
-        let startLimit = this.getTime(start.data)
+        let startLimit = timeUtils.getTime(start.data)
         // 当前时间在开始时间前则禁止
         if (!start.eq) {
           disabled = value.format(format) - startLimit.format(format) < 0
@@ -95,7 +101,7 @@ const timeUtils = {
       }
       // 开始时间通过后继续检查结束时间
       if (!disabled && end) {
-        let endLimit = this.getTime(end.data)
+        let endLimit = timeUtils.getTime(end.data)
         // 当前时间在结束时间后则禁止
         if (!end.eq) {
           disabled = value.format(format) - endLimit.format(format) > 0

@@ -77,7 +77,7 @@ let editTypeData = {
       defaultdata: undefined,
       timeOptionFormat: timeUtils.timeOptionFormat,
       timeCheck: timeUtils.timeCheck,
-      timeCheckOptionFormat: timeUtils.formatOption,
+      timeCheckOptionFormat: timeUtils.timeCheckOptionFormat,
       placeholder: function (label) {
         let data = {}
         label.map((labeldata, prop) => {
@@ -102,7 +102,7 @@ let editTypeData = {
       defaultdata: [],
       timeOptionFormat: timeUtils.timeOptionFormat,
       timeCheck: timeUtils.timeCheck,
-      timeCheckOptionFormat: timeUtils.formatOption,
+      timeCheckOptionFormat: timeUtils.timeCheckOptionFormat,
       placeholder: function (label) {
         let data = {
           default: [`开始时间`, `结束时间`]
