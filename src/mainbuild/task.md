@@ -1,17 +1,17 @@
 
 ----
 ## 考虑
-- update阶段load算作何种状态=>理论上更新是对加载数据的更新操作，此时加载数据一直是加载完成的状态比较符合常理
-- update考虑扩展到多个update协调=>后期考虑，将问题复杂化且使用次数过少
-- BaseData: 鉴于CLASS生成时间段的问题,created生命周期触发于父类创建事件节点，此时子类创建未完成，等待优化方案=>暂时可以考虑在链式类继承时额外传递字段判断，最终在子类中调用生命周期函数
+- update阶段load算作何种状态=>
+    理论上更新是对加载数据的更新操作，此时加载数据一直是加载完成的状态比较符合常理
+- update考虑扩展到多个update协调=>
+    后期考虑，将问题复杂化且使用次数过少
+- BaseData: 鉴于CLASS生成时间段的问题,created生命周期触发于父类创建事件节点，此时子类创建未完成，等待优化方案=>
+    暂时可以考虑在链式类继承时额外传递字段判断，最终在子类中调用生命周期函数
 - DictionaryData: 列表数据暂时无法设置特殊TITLE，找到解决方案后删除
 - DictionaryData: order实现方案暂未有比较好的思路，待定中...0821
-- DictionaryData: label值设置时需要跟edit中的值进行对应，当build指向edit时单独设置无效，此问题先办法解决一下
-- ComplexData: buildModFormData考虑根据传值进行初始化判断而不是根据type
 - ParentData: 归属函数，暂时实现到单父类形式，根据情况考虑是否存在多个归属的情况
 - DList: 树形结构的属性是否固定设置为array
 - list数据全赋值导致的更新操作覆盖行为的解决方案...考虑vue.set实现数据的绑定操作%重要!!!
-- FormModelView中的label值考虑更改为ditem.label[type]，传值优化，避免出现edit复用情况下的名称不同问题
 
 ----
 ## 待定
@@ -30,10 +30,13 @@
 - 实现列表定制-样式-悬停，事件等
 - 生命周期考虑添加immediate状态判断，即使触发并判断状态等逻辑
 - 添加全局监控事件，可由BD自行触发全局监控到函数操作
+- 模块组件使用install方法实现可变加载
 
 ----
 ## 进行中
-- 
+- DictionaryData: label值设置时需要跟edit中的值进行对应
+- ComplexData: buildModFormData考虑根据传值进行初始化判断而不是根据type
+- FormModelView中的label值考虑更改为ditem.label[type]，传值优化，避免出现edit复用情况下的名称不同问题
 
 ----
 ## 已完成
