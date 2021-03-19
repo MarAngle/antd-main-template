@@ -38,7 +38,7 @@
           :footMenu="maindata.searchData.menu"
           @menu="onSearchMenu"
         ></LocalFormView>
-        <LocalTableList :maindata="maindata" :columnList="mainlist" >
+        <LocalTableView :maindata="maindata" :columnList="mainlist" >
           <template slot="_index" slot-scope="slotProps">
             <span class="menulist">
               <a>{{ CountIndex(slotProps.index) }}</a>
@@ -49,7 +49,7 @@
               <a>修改</a>
             </span>
           </template>
-        </LocalTableList>
+        </LocalTableView>
       </a-spin>
     </div>
     <DefaultEdit
