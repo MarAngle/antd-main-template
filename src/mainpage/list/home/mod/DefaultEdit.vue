@@ -5,7 +5,15 @@
   <a-modal class="mainmodal" :title="title" v-model="currentShow" @ok="onMenu('ok')" @cancel="onMenu('cancel')">
     <div v-if="currentShow">
       <a-spin :spinning="false">
-        <LocalFormView :form="form" :type="edit" :mainlist="mainlist" @event="onFormEvent" @eventEnd="onFormEventEnd">
+        <LocalFormView
+          :form="form"
+          :type="edit"
+          :footMenu="menu"
+          :mainlist="mainlist"
+          @menu="onFormMenu"
+          @event="onFormEvent"
+          @eventEnd="onFormEventEnd"
+        >
           <span slot="outSlot" slot-scope="itemData" >
             <a-input v-bind="itemData.option.props" v-on="itemData.option.on" ></a-input>
           </span>
@@ -29,7 +37,13 @@ export default {
       form: {
         ref: null,
         data: {}
-      }
+      },
+      menu: [
+        {
+          name: '111',
+          act: '1'
+        }
+      ]
     }
   },
   props: {
@@ -88,6 +102,9 @@ export default {
   mounted() {
   },
   methods: {
+    onFormMenu(...args) {
+      console.log('menu', ...args)
+    },
     onFormEventEnd(...args) {
       console.log('end', ...args)
     },

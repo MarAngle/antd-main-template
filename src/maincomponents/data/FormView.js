@@ -395,6 +395,18 @@ export default {
     mainlist: {
       type: Array,
       required: true
+    },
+    footMenuArea: {
+      type: Object,
+      required: false,
+      default: function() {
+        return null
+      }
+    },
+    footMenu: {
+      type: [Object, Array],
+      required: false,
+      default: null
     }
   },
   data() {
@@ -402,6 +414,62 @@ export default {
     }
   },
   computed: {
+    currentFootMenuArea() {
+      let currentFootMenuArea = this.footMenuArea
+      if (!currentFootMenuArea) {
+        currentFootMenuArea = {
+          props: {}
+        }
+      }
+      if (!currentFootMenuArea.style) {
+        currentFootMenuArea.style = {
+          display: 'flex',
+          flexDirection: 'row',
+          justifyContent: 'center',
+          alignItems: 'center'
+        }
+      }
+      return currentFootMenuArea
+    },
+    currentFootMenu() {
+      let currentFootMenu = []
+      if (this.footMenu) {
+        for (let i = 0; i < this.footMenu.length; i++) {
+          let menuItem = this.footMenu[i]
+          if (!menuItem.props || this._func.getType(menuItem.props) != 'object') {
+            // 传值不存在时说明此时使用简单数据传值，所有传值默认传递到props中=>
+            menuItem = {
+              props: {
+                ...menuItem
+              }
+            }
+          }
+          if (!menuItem.style) {
+            menuItem.style = {
+              flex: 'none',
+              margin: '0px 10px'
+            }
+          }
+          if (!menuItem.on) {
+            menuItem.on = {
+            }
+          }
+          if (!menuItem.on.click) {
+            menuItem.on.click = () => {
+              this.$emit('menu', menuItem.props.act, {
+                form: this.form,
+                formData: this.form.data,
+                list: this.mainlist,
+                type: this.type,
+                target: this
+              })
+            }
+          }
+          currentFootMenu.push(menuItem)
+        }
+      }
+      return currentFootMenu
+    }
   },
   mounted() {
     this.$nextTick(() => {
@@ -439,6 +507,33 @@ export default {
           this.form.ref.validate()
         }
       }
+    },
+    renderFormList() {
+      const renderFormList = this.mainlist.map((item, index) => {
+        return this.renderItem(item, index)
+      })
+      console.log(this.currentFootMenu)
+      if (this.currentFootMenu && this.currentFootMenu.length > 0) {
+        let menuList = []
+        for (let i = 0; i < this.currentFootMenu.length; i++) {
+          let menuItem = this.currentFootMenu[i]
+          menuList.push((
+            <a-button
+              { ...menuItem }
+            >
+              { menuItem.props.name }
+            </a-button>
+          ))
+        }
+        let footMenu = (
+          <div {...this.currentFootMenuArea} >
+            { menuList }
+          </div>
+        )
+        console.log(footMenu)
+        renderFormList.push(footMenu)
+      }
+      return renderFormList
     },
     // forviewItem模板
     renderItem(item, index) {
@@ -676,9 +771,6 @@ export default {
   },
   // 主模板
   render() {
-    const formList = this.mainlist.map((item, index) => {
-      return this.renderItem(item, index)
-    })
     let option = {
       props: {
         model: this.form.data,
@@ -688,9 +780,10 @@ export default {
       },
       ref: 'formView'
     }
+    let renderFormList = this.renderFormList()
     let render = (
       <a-form-model {...option}>
-        { formList}
+        { renderFormList}
       </a-form-model>
     )
     return render
