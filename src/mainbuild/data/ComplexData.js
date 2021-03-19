@@ -122,6 +122,10 @@ class ComplexData extends BaseData {
     let item = this.formatItem(originitem, type)
     _func.updateData(targetitem, item, option)
   }
+  // 格式化独立数据
+  getEditData (formData, modlist, type) {
+    return this.dictionaryList.getEditData(formData, modlist, type)
+  }
 }
 
 export default ComplexData

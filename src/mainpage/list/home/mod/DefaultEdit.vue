@@ -116,7 +116,10 @@ export default {
     onMenu() {
       console.log(this.form.data)
       this.form.ref.validate(valid => {
-        console.log(valid)
+        if (valid) {
+          let postdata = this.maindata.getEditData(this.form.data, this.modlist, this.type)
+          console.log(postdata)
+        }
       })
     }
   }
