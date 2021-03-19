@@ -422,11 +422,15 @@ export default {
         }
       }
       if (!currentFootMenuArea.style) {
-        currentFootMenuArea.style = {
-          display: 'flex',
-          flexDirection: 'row',
-          justifyContent: 'center',
-          alignItems: 'center'
+        if (this.layout != 'inline') {
+          // 居中删除底部空间
+          currentFootMenuArea.style = {
+            display: 'flex',
+            flexDirection: 'row',
+            justifyContent: 'center',
+            alignItems: 'center',
+            marginBottom: '0px'
+          }
         }
       }
       return currentFootMenuArea
@@ -447,7 +451,7 @@ export default {
           if (!menuItem.style) {
             menuItem.style = {
               flex: 'none',
-              margin: '0px 10px'
+              marginRight: i < this.footMenu.length ? '16px' : '0px'
             }
           }
           if (!menuItem.on) {
@@ -512,7 +516,6 @@ export default {
       const renderFormList = this.mainlist.map((item, index) => {
         return this.renderItem(item, index)
       })
-      console.log(this.currentFootMenu)
       if (this.currentFootMenu && this.currentFootMenu.length > 0) {
         let menuList = []
         for (let i = 0; i < this.currentFootMenu.length; i++) {
@@ -526,11 +529,10 @@ export default {
           ))
         }
         let footMenu = (
-          <div {...this.currentFootMenuArea} >
+          <a-form-model-item {...this.currentFootMenuArea} >
             { menuList }
-          </div>
+          </a-form-model-item>
         )
-        console.log(footMenu)
         renderFormList.push(footMenu)
       }
       return renderFormList

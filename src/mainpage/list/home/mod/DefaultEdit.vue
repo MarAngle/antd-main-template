@@ -7,9 +7,9 @@
       <a-spin :spinning="false">
         <LocalFormView
           :form="form"
+          :mainlist="mainlist"
           :type="edit"
           :footMenu="menu"
-          :mainlist="mainlist"
           @menu="onFormMenu"
           @event="onFormEvent"
           @eventEnd="onFormEventEnd"

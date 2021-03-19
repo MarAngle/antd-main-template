@@ -89,7 +89,7 @@ class SearchData extends ComplexData {
   setData(type = 'build') {
     this.post[type] = this.getEditData(this.form[type].form.data, this.form[type].modlist, 'build')
   }
-  getData(type, deep = true) {
+  getData(type = 'build', deep = true) {
     if (deep) {
       return _func.deepClone(this.post[type], deep)
     } else {

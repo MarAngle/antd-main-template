@@ -337,6 +337,7 @@ let maindata = new ListData({
         let postdata = this.getSearch()
         postdata.pageSize = this.getPageData('size')
         postdata.pageNo = this.getPageData('page')
+        console.log(postdata)
         _func.get({
           url: preurl + '/list/getdata',
           params: postdata
@@ -352,13 +353,38 @@ let maindata = new ListData({
   searchdata: {
     dictionary: {
       list: [
+        {
+          prop: 'name',
+          name: '名称',
+          originprop: 'name',
+          mod: {
+            list: {
+              width: 120
+            },
+            info: {},
+            edit: {
+              type: 'input',
+              required: true,
+              option: {
+                type: 'text',
+                innerWidth: '100px'
+              },
+              on: {
+                change(value) {
+                  console.log(value)
+                }
+              }
+            },
+            build: {
+              type: 'edit'
+            }
+          }
+        }
       ]
     }
   },
   extradata: {},
   pagination: true
 })
-
-console.log(maindata.searchData)
 
 export default maindata

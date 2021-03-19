@@ -29,14 +29,15 @@
     <a-button @click="onBuild">创建</a-button>
     <div class="mainpagein">
       <a-spin :spinning="loadStatus == 'loading'">
-        <!-- <LocalFormViewModel
-          v-if="maindata.searchdata.show"
+        <LocalFormView
+          v-if="maindata.searchData.show"
+          :form="maindata.searchData.form.build.form"
+          :mainlist="maindata.searchData.form.build.mainlist"
           :layout="'inline'"
-          :form="maindata.searchdata.mod.edit.form"
-          :mainlist="maindata.searchdata.mainlist"
-          :menudata="searchmenu"
-          @button="onSearchMenu"
-        ></LocalFormViewModel> -->
+          :type="'build'"
+          :footMenu="maindata.searchData.menu"
+          @menu="onSearchMenu"
+        ></LocalFormView>
         <LocalTableList :maindata="maindata" :columnList="mainlist" >
           <template slot="_index" slot-scope="slotProps">
             <span class="menulist">
@@ -115,6 +116,21 @@ export default {
         num = num + (this.maindata.getPageData('page') - 1) * this.maindata.getPageData('size')
       }
       return num
+    },
+    onSearchMenu(act) {
+      if (act == 'search') {
+        this.onDefaultMenuBySearch()
+      } else if (act == 'reset') {
+        this.onDefaultMenuByReset()
+      }
+    },
+    onDefaultMenuBySearch() {
+      this.maindata.setSearch()
+      this.maindata.reloadData(true)
+    },
+    onDefaultMenuByReset() {
+      this.maindata.resetSearch()
+      this.maindata.reloadData(true)
     },
     buildMainList () {
       this.mainlist = this.maindata.getDictionaryPageList('list')
