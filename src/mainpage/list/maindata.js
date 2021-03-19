@@ -347,53 +347,6 @@ let maindata = new ListData({
           reject(res)
         })
       })
-    },
-    buildItem: function ({ postdata, targetitem, index }) {
-      return new Promise((resolve, reject) => {
-        postdata.agreement = 'GB17691'
-        _func.post({
-          url: 'vehicle/info/terminal/info/create',
-          data: postdata,
-          token: 'default'
-        }).then(res => {
-          this.reloadData()
-          resolve(res)
-        }, err => {
-          reject(err)
-        })
-      })
-    },
-    getRequestTimes: function (postdata) {
-      return new Promise((resolve, reject) => {
-        postdata.agreement = 'GB17691'
-        _func.get({
-          url: 'vehicle/info/terminal/info/count/request/times',
-          query: postdata,
-          token: 'default'
-        }).then(res => {
-          this.data.requestTimes = res.data.data || 0
-          resolve({ status: 'success' })
-        }, err => {
-          reject(err)
-        })
-      })
-    },
-    onExport: function () {
-      return new Promise((resolve, reject) => {
-        let postdata = this.getExtra('lastPost')
-        delete postdata.pageNo
-        delete postdata.pageSize
-        postdata.agreement = 'GB17691'
-        _func.get({
-          url: 'vehicle/info/terminal/info/export',
-          query: postdata,
-          token: 'default'
-        }).then(res => {
-          resolve({ status: 'success', url: res.data.data })
-        }, err => {
-          reject(err)
-        })
-      })
     }
   },
   searchdata: {
@@ -406,6 +359,6 @@ let maindata = new ListData({
   pagination: true
 })
 
-console.log(maindata.searchdata)
+console.log(maindata.searchData)
 
 export default maindata

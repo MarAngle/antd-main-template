@@ -11,27 +11,24 @@ class ComplexDataWithSearch extends ComplexData {
     if (searchdata) {
       searchdata.parent = this
     }
-    this.searchdata = new SearchData(searchdata)
+    this.searchData = new SearchData(searchdata)
   }
   _initComplexDataWithSearchLife () {
     this.setLifeData({
       type: 'reseted',
       func: () => {
-        this.resetComplexDataWithSearch()
+        this.searchData.reset()
       }
     })
   }
-  setSearch () {
-    this.searchdata.setData()
+  setSearch (type) {
+    this.searchData.setData(type)
   }
-  resetSearch (option) {
-    this.searchdata.resetData('reset', option)
+  resetSearch (option, syncPost, type) {
+    this.searchData.resetFormData('reset', option, syncPost, type)
   }
-  getSearch () {
-    return this.searchdata.getData()
-  }
-  resetComplexDataWithSearch () {
-    this.resetSearch()
+  getSearch (type, deep) {
+    return this.searchData.getData(type, deep)
   }
 }
 

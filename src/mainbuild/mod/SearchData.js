@@ -1,7 +1,6 @@
-// import Vue from 'vue'
-// import _func from '@/maindata/func/index'
-import DefaultData from './../data/DefaultData'
-import DictionaryList from './DictionaryList'
+import Vue from 'vue'
+import _func from '@/maindata/func/index'
+import ComplexData from './../data/ComplexData'
 
 const defaultMenu = [
   {
@@ -18,7 +17,7 @@ const defaultMenu = [
   }
 ]
 
-class SearchData extends DefaultData {
+class SearchData extends ComplexData {
   constructor (initdata) {
     super(initdata)
     this.show = false
@@ -27,9 +26,11 @@ class SearchData extends DefaultData {
       data: ''
     }
     this.menu = []
-    this.dictionaryList = new DictionaryList()
+    this.form = {}
+    this.post = {}
     if (initdata) {
       this.initSearchData(initdata)
+      this.initFormData()
     }
   }
 
@@ -59,8 +60,41 @@ class SearchData extends DefaultData {
     }
     this.menu = menu.list
   }
-  initData() {
-    this.modlist = 
+  initFormData(type = 'build') {
+    this.form[type] = {
+      modlist: [],
+      mainlist: [],
+      form: {
+        data: {}
+      }
+    }
+    this.form[type].modlist = this.getDictionaryModList('build')
+    this.form[type].mainlist = this.getDictionaryPageListByModList('build', this.form[type].modlist)
+    this.resetFormData('init')
+  }
+  // 重置检索值
+  resetFormData(from = 'init', option = {}, syncPost = true, type = 'build') {
+    let limit = _func.getLimitData(option.limit)
+    for (let n in this.form[type].mainlist) {
+      let pitem = this.form[type].mainlist[n]
+      if (!limit.getLimit(pitem.prop)) {
+        let targetdata = from == 'init' ? pitem.edit.getValueData('initdata') : pitem.edit.getValueData('resetdata')
+        Vue.set(this.form[type].form.data, pitem.prop, targetdata)
+      }
+    }
+    if (syncPost) {
+      this.setData(type)
+    }
+  }
+  setData(type = 'build') {
+    this.post[type] = this.getEditData(this.form[type].form.data, this.form[type].modlist, 'build')
+  }
+  getData(type, deep = true) {
+    if (deep) {
+      return _func.deepClone(this.post[type], deep)
+    } else {
+      return this.post[type]
+    }
   }
 }
 export default SearchData
