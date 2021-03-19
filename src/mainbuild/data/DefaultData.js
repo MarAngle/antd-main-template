@@ -10,9 +10,9 @@ class DefaultData extends SimpleData {
       extra: new ExtraData(),
       parent: new ParentData()
     }
-    this.initData(initdata)
+    this.initDefaultData(initdata)
   }
-  initData ({ name, prop, parent, extra, func, methods }) {
+  initDefaultData ({ name, prop, parent, extra, func, methods }) {
     this.name = name || ''
     this.prop = prop || ''
     this.setParent(parent)

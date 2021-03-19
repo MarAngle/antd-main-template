@@ -1,9 +1,26 @@
 // import Vue from 'vue'
 // import _func from '@/maindata/func/index'
+import DefaultData from './../data/DefaultData'
 import DictionaryList from './DictionaryList'
 
-class SearchData {
+const defaultMenu = [
+  {
+    type: 'primary',
+    icon: 'search',
+    name: '查询',
+    act: 'search'
+  },
+  {
+    type: 'default',
+    icon: 'reload',
+    name: '重置',
+    act: 'reset'
+  }
+]
+
+class SearchData extends DefaultData {
   constructor (initdata) {
+    super(initdata)
     this.show = false
     this.title = {
       show: false,
@@ -12,80 +29,38 @@ class SearchData {
     this.menu = []
     this.dictionaryList = new DictionaryList()
     if (initdata) {
-      this._initSearchData(initdata)
+      this.initSearchData(initdata)
     }
   }
-  _initSearchData ({
+
+  initSearchData({
     title,
     menu
   }) {
     this.show = true
-    this._initTitle(title)
-    this._initMenu(menu)
-    this.formatList()
+    this.initTitle(title)
+    this.initMenu(menu)
   }
-  // 加载标题
-  _initTitle (title) {
+  initTitle(title) {
     if (title) {
       this.title.data = title
       this.title.show = true
     }
   }
-  // menu 列表 type 类型/add/replace
-  _initMenu (menu = {}) {
-    let defaultMenu = [
-      {
-        type: 'primary',
-        icon: 'search',
-        name: '查询',
-        act: 'search'
-      },
-      {
-        type: 'default',
-        icon: 'reload',
-        name: '重置',
-        act: 'reset'
-      }
-    ]
+  initMenu(menu = {}) {
     if (!menu.list) {
       menu.list = []
     }
     if (!menu.type) {
-      menu.type = 'add'
+      menu.type = 'default'
     }
-    if (menu.type == 'add') {
+    if (menu.type == 'default') {
       menu.list = defaultMenu.concat(menu.list)
     }
     this.menu = menu.list
   }
-  // 生成编辑数据并将modlist mainlist提到根节点
-  formatList () {
-    // this.modlist = this.mod.build.modlist
-    // this.mainlist = this.mod.build.mainlist
-    // this.resetData('init')
-  }
-  // 保存当前检索值
-  setData (prop = 'edit', type = 'build') {
-    // let postdata = this.getPostData(this.mod[prop].form.data, this.modlist, type)
-    // this.post[prop] = postdata
-  }
-  // 获取检索值
-  getData (prop = 'edit') {
-    // return _func.deepClone(this.post[prop], true)
-    return {}
-  }
-  // 重置检索值
-  resetData (from = 'init', option = {}, prop = 'edit', type = 'build') {
-    // let limit = _func.getLimitData(option.limit)
-    // for (let n in this.mainlist) {
-    //   let pitem = this.mainlist[n]
-    //   if (!limit.getLimit(pitem.prop)) {
-    //     let targetdata = from == 'init' ? pitem.edit.getValueData('initdata') : pitem.edit.getValueData('resetdata')
-    //     Vue.set(this.mod[prop].form.data, pitem.prop, targetdata)
-    //   }
-    // }
-    // let postdata = this.getPostData(this.mod[prop].form.data, this.modlist, type)
-    // this.post[prop] = postdata
+  initData() {
+    this.modlist = 
   }
 }
 export default SearchData

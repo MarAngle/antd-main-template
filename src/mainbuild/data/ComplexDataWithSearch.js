@@ -8,6 +8,9 @@ class ComplexDataWithSearch extends ComplexData {
     this._initComplexDataWithSearchLife()
   }
   _initComplexDataWithSearch ({ searchdata }) {
+    if (searchdata) {
+      searchdata.parent = this
+    }
     this.searchdata = new SearchData(searchdata)
   }
   _initComplexDataWithSearchLife () {
