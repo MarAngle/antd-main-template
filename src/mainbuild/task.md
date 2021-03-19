@@ -12,6 +12,7 @@
 - ParentData: 归属函数，暂时实现到单父类形式，根据情况考虑是否存在多个归属的情况
 - DList: 树形结构的属性是否固定设置为array
 - list数据全赋值导致的更新操作覆盖行为的解决方案...考虑vue.set实现数据的绑定操作%重要!!!
+- TableList组件的JSX化
 
 ----
 ## 待定
@@ -34,10 +35,9 @@
 
 ----
 ## 进行中
-- DictionaryData: label值设置时需要跟edit中的值进行对应
-- ComplexData: buildModFormData考虑根据传值进行初始化判断而不是根据type
-- FormModelView中的label值考虑更改为ditem.label[type]，传值优化，避免出现edit复用情况下的名称不同问题
 
 ----
 ## 已完成
 - 关于editdata的结构考虑优化精简，通过JSX语法实现逻辑的优化和代码的精简
+- DictionaryList: getFormData根据传值和Type进行初始化判断
+- FormModelView中的label值更改为ditem.label[type]，避免出现edit复用情况下的名称不同问题
