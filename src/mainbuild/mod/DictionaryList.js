@@ -2,7 +2,6 @@ import _func from '@/maindata/func/index'
 import DefaultData from './../data/DefaultData'
 import DictionaryData from './DictionaryData'
 import OptionData from './OptionData'
-import ParentData from './ParentData'
 import LayoutData from './LayoutData'
 
 class DictionaryList extends DefaultData {
@@ -11,7 +10,7 @@ class DictionaryList extends DefaultData {
     this.option = new OptionData({
       isChildren: false,
       build: _func.getLimitData(),
-      post: {
+      edit: {
         empty: false
       },
       tree: false
@@ -49,8 +48,8 @@ class DictionaryList extends DefaultData {
       let buildLimit = _func.getLimitData(option.build, 'allow')
       this.option.setData('build', buildLimit, 'init')
     }
-    if (option.post) {
-      this.option.setData('post', option.post)
+    if (option.edit) {
+      this.option.setData('edit', option.edit)
     }
     if (option.tree !== undefined) {
       this.option.setData('tree', option.tree)
@@ -383,6 +382,44 @@ class DictionaryList extends DefaultData {
       _func.setPropByStr(formData, ditem.prop, target, true)
     }
     return formData
+  }
+  getEditData(formData, modlist, type) {
+    let editData = {}
+    for (let n in modlist) {
+      let ditem = modlist[n]
+      let add = true
+      if (!ditem.mod[type].required) {
+        /*
+          存在check则进行check判断
+          此时赋值存在2种情况
+          1.不存在check 返回data ,data为真则赋值
+          2.存在check,返回check函数返回值，为真则赋值
+        */
+        add = ditem.triggerFunc('check', formData[ditem.prop], {
+          targetitem: editData,
+          originitem: formData,
+          type: type
+        })
+        // empty状态下传递数据 或者 checkFg为真时传递数据 也就是非post状态的非真数据不传递
+        if (!add) {
+          add = this.option.getData('edit.empty')
+        }
+      }
+      if (add) {
+        let targetdata = formData[ditem.prop]
+        if (ditem.mod[type].trim) {
+          targetdata = _func.trimData(targetdata)
+        }
+        targetdata = ditem.triggerFunc('unedit', targetdata, {
+          targetitem: editData,
+          originitem: formData,
+          type: type
+        })
+        let originprop = ditem.getInterface('originprop', type)
+        _func.setStrPropByType(editData, originprop, targetdata, ditem.type)
+      }
+    }
+    return editData
   }
 }
 export default DictionaryList

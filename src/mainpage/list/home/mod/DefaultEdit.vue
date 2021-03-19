@@ -6,8 +6,8 @@
     <div v-if="currentShow">
       <a-spin :spinning="false">
         <LocalFormView :form="form" :type="edit" :mainlist="mainlist" @event="onFormEvent" @eventEnd="onFormEventEnd">
-          <span slot="outSlot" slot-scope="data" >
-            <a-input v-bind="data.option.props" v-on="data.option.on" ></a-input>
+          <span slot="outSlot" slot-scope="itemData" >
+            <a-input v-bind="itemData.option.props" v-on="itemData.option.on" ></a-input>
           </span>
         </LocalFormView>
       </a-spin>
