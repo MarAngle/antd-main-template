@@ -35,7 +35,7 @@ class ListData extends ComplexDataWithSearch {
       type: 'loaded',
       func: () => {
         // 加载完成操作，判断重置强制选择设置
-        this.loadNextCallBack()
+        this.loadedCallBack()
       }
     })
     this.setLifeData({
@@ -101,7 +101,7 @@ class ListData extends ComplexDataWithSearch {
     this.setPageData(totalnum, 'num')
   }
   // 重新拉取数据
-  reloadData (option, payload, ingForce) {
+  reloadData (option, force, ...args) {
     return new Promise((resolve, reject) => {
       let type = _func.getType(option)
       if (option) {
@@ -125,7 +125,7 @@ class ListData extends ComplexDataWithSearch {
         this.setPageData(option.pagedata, option.pageprop)
       }
       this.choiceForceByAct('set', option.choicereset)
-      this.loadData(true, payload, ingForce).then(res => {
+      this.loadData(force, ...args).then(res => {
         resolve(res)
       }, err => {
         reject(err)
@@ -133,7 +133,7 @@ class ListData extends ComplexDataWithSearch {
       })
     })
   }
-  loadNextCallBack () {
+  loadedCallBack () {
     this.choiceForceByAct('set', false) // 选择框强制判断值在完成拉去后重置为否
   }
   // 设置choice选项
