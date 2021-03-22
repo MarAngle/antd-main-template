@@ -44,6 +44,9 @@
               <a>{{ CountIndex(slotProps.index) }}</a>
             </span>
           </template>
+          <span slot="name-title" >
+            <span>111</span>
+          </span>
           <template slot="button" slot-scope="slotProps">
             <span class="menulist" @click="onMenuChange(slotProps)">
               <a>修改</a>

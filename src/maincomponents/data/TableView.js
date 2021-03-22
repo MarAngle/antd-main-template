@@ -117,6 +117,14 @@ export default {
               return data
             }
           }
+          let titleSlotProp = pitem.dataIndex + '-title'
+          let titleSlot = this.$scopedSlots[titleSlotProp]
+          if (titleSlot) {
+            pitem.title = titleSlot({
+              item: pitem,
+              list: this.columnList
+            })
+          }
         }
         if (this.formatColumn) {
           this.formatColumn(pitem, this.columnList, this.listType)
