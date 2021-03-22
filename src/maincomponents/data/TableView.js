@@ -13,6 +13,15 @@ export default {
       type: Array,
       required: true
     },
+    formatColumn: {
+      type: Function,
+      required: false
+    },
+    listType: {
+      type: String,
+      required: false,
+      default: 'list'
+    },
     listData: {
       // 定制列表数据
       type: Array,
@@ -48,7 +57,7 @@ export default {
         currentTableOption.props = {}
       }
       if (!currentTableOption.props.columns) {
-        currentTableOption.props.columns = this.columnList
+        currentTableOption.props.columns = this.currentColumnList
       }
       if (!currentTableOption.props.dataSource) {
         currentTableOption.props.dataSource = this.currentListData
@@ -65,20 +74,6 @@ export default {
       if (!currentTableOption.props.bordered) {
         currentTableOption.props.bordered = this.bordered
       }
-      // if (!currentTableOption.props.customRow) {
-      //   currentTableOption.props.customRow = (a, b, c) => {
-      //     console.log(a, b, c)
-      //     return {
-      //       props: {
-      //       },
-      //       style: {
-      //         color: b == 1 ? 'red' : 'blue'
-      //       },
-      //       on: {
-      //       }
-      //     }
-      //   }
-      // }
       return currentTableOption
     },
     currentListData () {
@@ -87,6 +82,30 @@ export default {
       } else {
         return this.maindata.data.list
       }
+    },
+    currentColumnList() {
+      // JSX语法使用需要在此进行
+      let list = []
+      for (let i = 0; i < this.columnList.length; i++) {
+        let pitem = this.columnList[i]
+        if (!pitem.customRender) {
+          pitem.customRender = (text, record, index) => {
+            let data = pitem.func.show(text, { type: this.listType })
+            let type = _func.getType(data)
+            if (type == 'object') {
+              data = JSON.stringify(data)
+            } else if (type == 'array') {
+              data = data.join(',')
+            }
+            return <div>{ data }</div>
+          }
+        }
+        if (this.formatColumn) {
+          this.formatColumn(pitem, this.columnList, this.listType)
+        }
+        list.push(pitem)
+      }
+      return list
     }
   },
   mounted() {
