@@ -42,6 +42,11 @@ export default {
       type: Object,
       required: false,
       default: null
+    },
+    autoTextTipOption: {
+      type: [String, Object],
+      required: false,
+      default: ''
     }
   },
   data() {
@@ -103,7 +108,8 @@ export default {
               let AutoTextOption = {
                 props: {
                   text: data,
-                  auto: true
+                  auto: true,
+                  tip: this.formatAutoTextTipOption(pitem.tip, this.autoTextTipOption)
                 }
               }
               return <AutoText { ...AutoTextOption } />
@@ -123,9 +129,12 @@ export default {
   mounted() {
   },
   methods: {
+    formatAutoTextTipOption(pitemTip, mainTip) {
+      let tipOption = pitemTip || mainTip
+      return tipOption
+    },
     renderList() {
       let renderList = []
-
       return renderList
     }
   },
