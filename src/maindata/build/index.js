@@ -4,30 +4,45 @@ import _func from '@/maindata/func/index'
 
 option.setData({
   list: {
+    format: function (ditem, prop, data) {
+      if (data) {
+        if (!data.dataIndex) {
+          data.dataIndex = ditem.prop
+        }
+        if (!data.align) {
+          data.align = 'center'
+        }
+        if (!data.width) {
+          data.width = 100
+        }
+        if (data.customCell) {
+          let type = _func.getType(data.customCell)
+          if (type == 'object') {
+            let customCellOption = data.customCell
+            data.customCell = () => {
+              return customCellOption
+            }
+          }
+        }
+        if (data.customHeaderCell) {
+          let type = _func.getType(data.customHeaderCell)
+          if (type == 'object') {
+            let customHeaderCellOption = data.customHeaderCell
+            data.customHeaderCell = () => {
+              return customHeaderCellOption
+            }
+          }
+        }
+        ditem.mod[prop] = data
+      }
+    },
     unformat: function (ditem, prop) {
       let pitem = {
-        title: ditem.getInterface('label', prop), // 标题
-        dataIndex: ditem.prop,
-        showprop: ditem.getInterface('showprop', prop),
-        fixed: ditem.mod[prop].fixed || false, // 列表固定
-        align: ditem.mod[prop].align || 'center', // 对齐方式
-        width: ditem.mod[prop].width || 100, // 默认宽度
-        ellipsis: ditem.mod[prop].ellipsis === undefined ? true : ditem.mod[prop].wrap,
-        style: ditem.mod[prop].style || {},
-        customCell: ditem.mod[prop].customCell,
-        customHeaderCell: ditem.mod[prop].customHeaderCell,
-        func: ditem.func
+        ...ditem.mod[prop]
       }
-      // 自定义插槽设置
-      pitem.slotdata = {}
-      let slotname = ditem.mod[prop].slot
-      if (_func.getType(slotname) != 'string') {
-        slotname = ditem.prop
+      if (!pitem.title) {
+        pitem.title = ditem.getInterface('label', prop)
       }
-      pitem.scopedSlots = {
-        customRender: `autoMainContent${slotname}`
-      }
-      pitem.slotdata.name = slotname
       return pitem
     }
   },

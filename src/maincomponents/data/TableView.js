@@ -65,20 +65,20 @@ export default {
       if (!currentTableOption.props.bordered) {
         currentTableOption.props.bordered = this.bordered
       }
-      if (!currentTableOption.props.customRow) {
-        currentTableOption.props.customRow = (a, b, c) => {
-          console.log(a, b, c)
-          return {
-            props: {
-            },
-            style: {
-              color: b == 1 ? 'red' : 'blue'
-            },
-            on: {
-            }
-          }
-        }
-      }
+      // if (!currentTableOption.props.customRow) {
+      //   currentTableOption.props.customRow = (a, b, c) => {
+      //     console.log(a, b, c)
+      //     return {
+      //       props: {
+      //       },
+      //       style: {
+      //         color: b == 1 ? 'red' : 'blue'
+      //       },
+      //       on: {
+      //       }
+      //     }
+      //   }
+      // }
       return currentTableOption
     },
     currentListData () {
