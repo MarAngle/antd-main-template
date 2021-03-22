@@ -15,6 +15,18 @@ option.setData({
         if (!data.width) {
           data.width = 100
         }
+        if (!data.customCell) {
+          data.customRender = (text, record, index) => {
+            let data = ditem.func.show(text, { type: this.prop })
+            let type = _func.getType(data)
+            if (type == 'object') {
+              data = JSON.stringify(data)
+            } else if (type == 'array') {
+              data = data.join(',')
+            }
+            return data
+          }
+        }
         if (data.customCell) {
           let type = _func.getType(data.customCell)
           if (type == 'object') {

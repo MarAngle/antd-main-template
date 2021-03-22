@@ -134,7 +134,6 @@ export default {
     },
     buildMainList () {
       this.mainlist = this.maindata.getDictionaryPageList('list')
-      console.log(this.mainlist)
     },
     setMenu(prop, type, edit, title, index, data) {
       this.menu[prop].type = type
