@@ -1,4 +1,5 @@
 import _func from '@/maindata/func/index'
+import AutoText from './../mod/AutoText'
 
 export default {
   name: 'TableView',
@@ -97,7 +98,18 @@ export default {
             } else if (type == 'array') {
               data = data.join(',')
             }
-            return <div>{ data }</div>
+            if (pitem.ellipsis || pitem.autoWrap) {
+              // 自动省略切自动换行?
+              let AutoTextOption = {
+                props: {
+                  text: data,
+                  auto: true
+                }
+              }
+              return <AutoText { ...AutoTextOption } />
+            } else {
+              return data
+            }
           }
         }
         if (this.formatColumn) {

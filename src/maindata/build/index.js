@@ -15,6 +15,12 @@ option.setData({
         if (!data.width) {
           data.width = 100
         }
+        if (data.ellipsis === undefined) {
+          data.ellipsis = true
+        }
+        if (data.autoWrap === undefined) {
+          data.autoWrap = true
+        }
         if (data.customCell) {
           let type = _func.getType(data.customCell)
           if (type == 'object') {
