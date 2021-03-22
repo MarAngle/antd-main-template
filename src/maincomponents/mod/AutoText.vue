@@ -6,6 +6,7 @@
   word-break: break-all;
 }
 .auto{
+  display: inline-block;
   cursor: pointer;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -14,7 +15,7 @@
 
 </style>
 <template>
-  <p ref="AutoText" class="AutoText auto" >
+  <p ref="main" class="AutoText auto" >
     <a-tooltip v-bind="tipOption" >
       <span ref="size" class="content" >{{ text }}</span>
     </a-tooltip>
@@ -27,22 +28,25 @@ export default {
   name: 'AutoText',
   data () {
     return {
-      isEllipsis: false,
-      nowrapWidth: 'auto'
+      isEllipsis: false
     }
   },
   computed: {
     tipOption () {
       let option
-      if (typeof this.tip == 'object') {
-        option = this.tip
-      } else {
-        option = {
-          placement: this.tip || 'top'
+      if (this.isEllipsis) {
+        if (typeof this.tip == 'object') {
+          option = this.tip
+        } else {
+          option = {
+            placement: this.tip || 'top'
+          }
         }
-      }
-      if (!option.title) {
-        option.title = this.text
+        if (!option.title) {
+          option.title = this.text
+        }
+      } else {
+        option = {}
       }
       return option
     }
@@ -62,14 +66,25 @@ export default {
       required: false
     }
   },
-  mounted () {
-    this.$nextTick(() => {
+  watch: {
+    text: function() {
       this.autoWidth()
-    })
+    }
+  },
+  mounted () {
+    this.autoWidth()
   },
   methods: {
-    autoWidth () {
-      // console.log(this.$refs['AutoText'].clientWidth, this.text)
+    autoWidth() {
+      this.$nextTick(() => {
+        let mainWidth = this.$refs['main'].offsetWidth
+        let currentWith = this.$refs['size'].offsetWidth
+        if (mainWidth < currentWith) {
+          this.isEllipsis = true
+        } else {
+          this.isEllipsis = false
+        }
+      })
     }
   }
 }
