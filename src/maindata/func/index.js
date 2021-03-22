@@ -147,6 +147,7 @@ mainfunc.autoPage = function () {
     mainfunc.page.initBodyPage()
   }, 200, 2)
 }
+mainfunc.autoPage()
 
 // 设置token
 console.error('设置TOKEN')

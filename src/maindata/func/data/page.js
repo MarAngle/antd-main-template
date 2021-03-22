@@ -1,6 +1,7 @@
 let page = {
   type: 'default', // default / main
   recount: {
+    main: 0,
     resize: 0,
     sider: 0
   },
@@ -43,6 +44,7 @@ page.initBodyPage = function () {
   this.mod.body.height = document.documentElement.clientHeight
   this.reCountPage()
   this.recount.resize++
+  this.recount.main++
 }
 
 page.setMenuData = function (data) {
@@ -66,6 +68,7 @@ page.setSiderType = function (type) {
   this.mod.sider.width = this.mod.sider.data[type]
   this.reCountPage()
   this.recount.sider++
+  this.recount.main++
 }
 
 page.reCountExtra = function () {

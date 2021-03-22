@@ -28,6 +28,7 @@ export default {
   name: 'AutoText',
   data () {
     return {
+      page: this._func.page,
       isEllipsis: false
     }
   },
@@ -68,6 +69,9 @@ export default {
   },
   watch: {
     text: function() {
+      this.autoWidth()
+    },
+    'page.recount.main': function() {
       this.autoWidth()
     }
   },
