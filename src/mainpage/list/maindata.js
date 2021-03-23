@@ -345,6 +345,7 @@ let maindata = new ListData({
           url: preurl + '/list/getdata',
           params: postdata
         }).then(res => {
+          console.log(res.data)
           this.formatData(res.data.data, res.data.totalCount)
           resolve(res)
         }, res => {

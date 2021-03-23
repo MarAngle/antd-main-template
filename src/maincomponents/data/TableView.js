@@ -158,7 +158,7 @@ export default {
       if (this.paginationData) {
         return this.paginationData
       } else {
-        return this.maindata.pagination
+        return this.maindata.module.pagination
       }
     }
   },
@@ -173,18 +173,42 @@ export default {
       let renderList = []
       return renderList
     },
+    renderPagination() {
+      let renderPagination = null
+      if (this.currentPaginationData) {
+        let option = {
+          props: {
+            data: this.currentPaginationData,
+            change: this.onPaginationChange
+          }
+        }
+        renderPagination = (
+          <LocalPaginationView { ...option } />
+        )
+      }
+      return renderPagination
+    },
     // 分页回调
+    onPaginationChange(prop, current) {
+      this.$emit('pagination', prop, current)
+    },
     onChoiceChange(id, list) {
+      this.$emit('choice', id, list)
       this.maindata.changeChoice(id, list)
     }
   },
   // 主模板
   render() {
     let renderList = this.renderList()
+    let renderPagination = this.renderPagination()
+    console.log(renderPagination)
     let render = (
-      <a-table {...this.currentTableOption}>
-        { renderList}
-      </a-table>
+      <div>
+        <a-table {...this.currentTableOption}>
+          { renderList}
+        </a-table>
+        { renderPagination }
+      </div>
     )
     return render
   }

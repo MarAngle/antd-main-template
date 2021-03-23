@@ -33,22 +33,22 @@
     }"
   >
     <div v-if="!simple">
-      <div v-if="paginationdata.mod.total.show && paginationdata.mod.total.align=='left'" class="totalnum">
-        <p>{{ showTotal(paginationdata.page.total, paginationdata.data.total) }}</p>
+      <div v-if="data.mod.total.show && data.mod.total.align=='left'" class="totalnum">
+        <p>{{ showTotal(data.page.total, data.data.total) }}</p>
       </div>
     </div>
     <div class="paginationdiv">
-      <div v-if="!simple && paginationdata.mod.total.show && paginationdata.mod.total.align!='left'" class="totalnum">
-        <p>{{ showTotal(paginationdata.page.total, paginationdata.data.total) }}</p>
+      <div v-if="!simple && data.mod.total.show && data.mod.total.align!='left'" class="totalnum">
+        <p>{{ showTotal(data.page.total, data.data.total) }}</p>
       </div>
       <a-pagination
-        :showQuickJumper="paginationdata.mod.jump.show"
-        :showSizeChanger="paginationdata.mod.size.show"
-        :current="paginationdata.page.current"
+        :showQuickJumper="data.mod.jump.show"
+        :showSizeChanger="data.mod.size.show"
+        :current="data.page.current"
         :simple="simple"
-        :pageSize=" paginationdata.size.current"
-        :pageSizeOptions=" paginationdata.size.list"
-        :total="paginationdata.data.total"
+        :pageSize=" data.size.current"
+        :pageSizeOptions=" data.size.list"
+        :total="data.data.total"
         @change="pageChange"
         @showSizeChange="sizeChange"
       />
@@ -63,7 +63,7 @@
       return {}
     },
     props: {
-      paginationdata: {
+      data: {
         type: Object,
         required: true
       },
@@ -94,28 +94,28 @@
       }
     },
     watch: {
-      'paginationdata.page.total': function(val) {
-        if (this.paginationdata.page.current > val) {
-          this.paginationdata.page.current = val
-          this.$emit('change', 'page', this.paginationdata.page.current)
+      'data.page.total': function(val) {
+        if (this.data.page.current > val) {
+          this.data.page.current = val
+          this.$emit('change', 'page', this.data.page.current)
         }
       }
     },
     methods: {
       showTotal(pagenum, num) {
-        if (this.paginationdata.mod.total.func) {
-          return this.paginationdata.mod.total.func(pagenum, num)
+        if (this.data.mod.total.func) {
+          return this.data.mod.total.func(pagenum, num)
         } else {
           console.error('分页器需要设置总数计算函数')
           return `共${pagenum}页 ${num}条`
         }
       },
       pageChange(current) {
-        this.paginationdata.setPage(current)
+        this.data.setPage(current)
         this.$emit('change', 'page', current)
       },
       sizeChange(current, size) {
-        this.paginationdata.setSize({
+        this.data.setSize({
           page: current,
           size: size
         })
