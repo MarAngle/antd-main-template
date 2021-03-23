@@ -26,6 +26,9 @@ let maindata = new ListData({
   prop: 'terminalinfolist',
   option: {
   },
+  choice: {
+    show: true
+  },
   dictionary: {
     layout: {
       default: {

@@ -47,6 +47,11 @@ export default {
       type: [String, Object],
       required: false,
       default: ''
+    },
+    choiceOption: {
+      type: Object,
+      required: false,
+      default: null
     }
   },
   data() {
@@ -132,6 +137,32 @@ export default {
         list.push(pitem)
       }
       return list
+    },
+    rowSelection() {
+      // let optionList = this.maindata.option.getData(this.listType)
+      // if (optionList.choice.show) {
+      //   return {
+      //     selectedRowKeys: this.maindata.choice.idlist,
+      //     onChange: this.onSelectChange,
+      //   }
+      // } else {
+      //   return null
+      // }
+      if (this.choiceOption) {
+        return this.choiceOption
+      } else {
+        let choice = this.maindata.module.choice
+        if (choice.getShow()) {
+          let option = choice.getOption()
+          return {
+            ...option,
+            selectedRowKeys: choice.data.id,
+            onChange: this.onChoiceChange
+          }
+        } else {
+          return null
+        }
+      }
     }
   },
   mounted() {
@@ -144,6 +175,10 @@ export default {
     renderList() {
       let renderList = []
       return renderList
+    },
+    // 分页回调
+    onChoiceChange(id, list) {
+      this.maindata.changeChoice(id, list)
     }
   },
   // 主模板
