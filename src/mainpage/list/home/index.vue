@@ -103,6 +103,12 @@ export default {
       return operateStatus.value
     }
   },
+  watch: {
+    'maindata.module.choice.data.id': function(val) {
+      console.log(val)
+      console.log(this.maindata.module.choice.data.list)
+    }
+  },
   mounted () {
     this.pageLoad()
   },

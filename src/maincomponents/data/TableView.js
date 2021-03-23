@@ -47,11 +47,6 @@ export default {
       type: [String, Object],
       required: false,
       default: ''
-    },
-    choiceOption: {
-      type: Object,
-      required: false,
-      default: null
     }
   },
   data() {
@@ -84,6 +79,9 @@ export default {
       }
       if (!currentTableOption.props.bordered) {
         currentTableOption.props.bordered = this.bordered
+      }
+      if (!currentTableOption.props.rowSelection) {
+        currentTableOption.props.rowSelection = this.rowSelection
       }
       return currentTableOption
     },
@@ -139,29 +137,16 @@ export default {
       return list
     },
     rowSelection() {
-      // let optionList = this.maindata.option.getData(this.listType)
-      // if (optionList.choice.show) {
-      //   return {
-      //     selectedRowKeys: this.maindata.choice.idlist,
-      //     onChange: this.onSelectChange,
-      //   }
-      // } else {
-      //   return null
-      // }
-      if (this.choiceOption) {
-        return this.choiceOption
-      } else {
-        let choice = this.maindata.module.choice
-        if (choice.getShow()) {
-          let option = choice.getOption()
-          return {
-            ...option,
-            selectedRowKeys: choice.data.id,
-            onChange: this.onChoiceChange
-          }
-        } else {
-          return null
+      let choice = this.maindata.module.choice
+      if (choice.getShow()) {
+        let option = choice.getOption()
+        return {
+          ...option,
+          selectedRowKeys: choice.data.id,
+          onChange: this.onChoiceChange
         }
+      } else {
+        return null
       }
     }
   },
