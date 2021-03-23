@@ -47,6 +47,11 @@ export default {
       type: [String, Object],
       required: false,
       default: ''
+    },
+    paginationData: {
+      type: Object,
+      required: false,
+      default: null
     }
   },
   data() {
@@ -147,6 +152,13 @@ export default {
         }
       } else {
         return null
+      }
+    },
+    currentPaginationData() {
+      if (this.paginationData) {
+        return this.paginationData
+      } else {
+        return this.maindata.pagination
       }
     }
   },

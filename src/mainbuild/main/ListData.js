@@ -65,42 +65,42 @@ class ListData extends ComplexDataWithSearch {
   // 加载分页器
   _initPagination (pagination) {
     if (pagination) {
-      this.pagination = new PaginationData(pagination)
+      this.module.pagination = new PaginationData(pagination)
     } else {
-      this.pagination = false
+      this.module.pagination = null
     }
   }
   // 获取分页器数据
   getPageData (prop) {
     let res
-    if (this.pagination) {
+    if (this.module.pagination) {
       if (prop == 'page') {
-        res = this.pagination.getPage()
+        res = this.module.pagination.getPage()
       } else if (prop == 'size') {
-        res = this.pagination.getSize()
+        res = this.module.pagination.getSize()
       } else if (prop == 'num') {
-        res = this.pagination.getTotal()
+        res = this.module.pagination.getTotal()
       } else {
-        res = this.pagination.getCurrent()
+        res = this.module.pagination.getCurrent()
       }
     }
     return res
   }
   // 重置分页器
   resetPageData () {
-    if (this.pagination) {
-      this.pagination.reset()
+    if (this.module.pagination) {
+      this.module.pagination.reset()
     }
   }
   // 设置分页器数据
   setPageData (data, prop = 'page') {
-    if (this.pagination) {
+    if (this.module.pagination) {
       if (prop == 'page') {
-        this.pagination.setPage(data)
+        this.module.pagination.setPage(data)
       } else if (prop == 'size') {
-        this.pagination.setSize(data) // { page, size }
+        this.module.pagination.setSize(data) // { page, size }
       } else if (prop == 'num') {
-        this.pagination.setTotal(data)
+        this.module.pagination.setTotal(data)
       }
     }
   }
@@ -125,7 +125,7 @@ class ListData extends ComplexDataWithSearch {
           choicereset: true
         }
       }
-      if (this.pagination && option.pageprop && option.pagedata) {
+      if (this.module.pagination && option.pageprop && option.pagedata) {
         this.setPageData(option.pagedata, option.pageprop)
       }
       this.choiceForceByAct('set', option.choicereset)
