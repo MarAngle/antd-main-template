@@ -201,7 +201,6 @@ export default {
   render() {
     let renderList = this.renderList()
     let renderPagination = this.renderPagination()
-    console.log(renderPagination)
     let render = (
       <div>
         <a-table {...this.currentTableOption}>
