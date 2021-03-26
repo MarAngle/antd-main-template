@@ -2,7 +2,7 @@
 // 空数据对象
 class EmptyData {
   toString() {
-    return ''
+    return null
   }
 }
 
