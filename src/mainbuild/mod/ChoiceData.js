@@ -13,10 +13,13 @@ class ChoiceData extends DefaultData {
     }
     this.reset = {
       load: false,
+      reload: false,
       update: false,
-      search: false,
-      page: false,
-      pageSize: false
+      search: {
+        set: true,
+        reset: true
+      },
+      page: false
     }
     this.option = {}
     this.checkInit(initdata)
@@ -56,6 +59,40 @@ class ChoiceData extends DefaultData {
   changeData(id, list) {
     this.data.id = id
     this.data.list = list
+  }
+  setData(id, list) {
+    this.data.id = id
+    this.data.list = list
+  }
+  auto(data) {
+    let reset = this.check(data)
+    this.reset(reset)
+  }
+  check(data = {}) {
+    let from = data.from
+    let reset
+    if (this.reset[from] !== undefined) {
+      if (this.reset[from] && typeof this.reset[from] == 'object') {
+        let act = data.act
+        if (!act) {
+          this._printInfo(`check函数中对应的from:${from}未定义act,可定义:${this.reset[from].keys()}`)
+        } else if (this.reset[from][act] !== undefined) {
+          reset = this.reset[from][act]
+        } else {
+          this._printInfo(`check函数中对应的from:${from}中不存在act:${act},可定义:${this.reset[from].keys()}`)
+        }
+      } else {
+        reset = this.reset[from]
+      }
+    } else {
+      this._printInfo(`check函数未找到对应的from:${from}`)
+    }
+    return reset
+  }
+  reset(force) {
+    if (force) {
+      this.setData([], [])
+    }
   }
 }
 

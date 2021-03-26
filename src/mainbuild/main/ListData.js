@@ -18,15 +18,14 @@ class ListData extends ComplexDataWithSearch {
   _initListDataLife () {
     this.setLifeData({
       type: 'beforeLoad',
-      func: () => {
+      func: (...args) => {
+        console.log(args)
         // this.resetChoice() // 根据情况重置选择框
       }
     })
     this.setLifeData({
       type: 'loaded',
-      func: () => {
-        // 加载完成操作，判断重置强制选择设置
-        this.loadedCallBack()
+      func: (...args) => {
       }
     })
     this.setLifeData({
@@ -91,36 +90,35 @@ class ListData extends ComplexDataWithSearch {
     this.formatListData(this.data.list, datalist, type, option)
     this.setPageData(totalnum, 'num')
   }
-  // 重新拉取数据
-  reloadData (option, force, ...args) {
+  // 数据重新拉取
+  reloadData (page, choice, force, ...args) {
     return new Promise((resolve, reject) => {
-      let type = _func.getType(option)
-      if (option) {
+      let type = _func.getType(page)
+      if (page) {
         if (type != 'object') {
-          option = {
-            pageprop: 'page',
-            pagedata: 1
+          page = {
+            prop: 'page',
+            data: 1
           }
         }
       } else {
-        option = {
+        page = {
           // choicereset: true
         }
       }
-      if (this.module.pagination && option.pageprop && option.pagedata) {
-        this.setPageData(option.pagedata, option.pageprop)
+      if (this.module.pagination && page.prop && page.data) {
+        this.setPageData(page.data, page.prop)
       }
-      // this.choiceForceByAct('set', option.choicereset)
+      choice = this.formatChoiceOption(choice, 'reload')
+      // 根据设置和传值自动进行当前选项的重置操作
+      this.autoChoice(choice)
       this.loadData(force, ...args).then(res => {
         resolve(res)
       }, err => {
-        reject(err)
         console.error(err)
+        reject(err)
       })
     })
-  }
-  loadedCallBack () {
-    // this.choiceForceByAct('set', false) // 选择框强制判断值在完成拉去后重置为否
   }
   // 设置choice选项
   // choiceForceByAct (act, data) {
@@ -131,8 +129,25 @@ class ListData extends ComplexDataWithSearch {
   //     return optionList.choice.force
   //   }
   // }
+  formatChoiceOption(option, defaultOption = 'load') {
+    if (!option) {
+      option = defaultOption
+    }
+    if (typeof option != 'object') {
+      option = {
+        from: option
+      }
+    }
+    return option
+  }
+  autoChoice(data) {
+    this.module.choice.auto(data)
+  }
   changeChoice(id, list) {
     this.module.choice.changeData(id, list)
+  }
+  resetChoice(force) {
+    this.module.choice.reset(force)
   }
   // 重置选择项
   // resetChoice (force) {

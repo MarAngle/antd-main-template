@@ -203,9 +203,9 @@ export default {
         if (this.paginationChange === true) {
           // auto
           this.maindata.reloadData({
-            pageprop: prop,
-            pagedata: current
-          }, true, 'page').then(() => {}, () => {})
+            prop: prop,
+            data: current
+          }, 'page', true).then(() => {}, () => {})
         } else {
           this.paginationChange(prop, current)
         }

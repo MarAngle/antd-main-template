@@ -58,11 +58,11 @@ class BaseData extends DefaultData {
   }
   // 触发特定的生命周期函数
   triggerLifeData (payload, ...args) {
-    this.triggerLifeData(payload, ...args)
+    this.module.life.triggerData(payload, ...args)
   }
   // 触发生命周期
   triggerLife (type, ...args) {
-    this.triggerLife(type, ...args)
+    this.module.life.trigger(type, ...args)
   }
 
   // 更新相关操作
