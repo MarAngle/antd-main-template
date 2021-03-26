@@ -56,12 +56,26 @@ class ChoiceData extends DefaultData {
       return this.data
     }
   }
-  changeData(id, list) {
-    this.data.id = id
-    this.data.list = list
+  getItemFromList() {
+
   }
-  setData(id, list) {
-    this.data.id = id
+  // 数据变更=>id作为唯一基准
+  changeData(idList, currentList, idProp = 'id') {
+    let totalList = currentList
+    for (let n = 0; n < this.data.list.length; n++) {
+      let item = this.data.list[n]
+      if (totalList.indexOf(item) < 0) {
+        totalList.push(item)
+      }
+    }
+    for (let i = 0; i < idList.length; i++) {
+      let id = idList[i]
+    }
+    // this.data.id = idList
+    // this.data.list = list
+  }
+  setData(idList, list) {
+    this.data.id = idList
     this.data.list = list
   }
   autoReset(option, defaultOption) {

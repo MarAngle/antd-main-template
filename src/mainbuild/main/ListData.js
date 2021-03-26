@@ -120,8 +120,11 @@ class ListData extends ComplexDataWithSearch {
   autoChoiceReset(data) {
     this.module.choice.autoReset(data)
   }
-  changeChoice(id, list) {
-    this.module.choice.changeData(id, list)
+  changeChoice(idList, currentList, idProp) {
+    if (!idProp) {
+      idProp = this.getDictionaryPropData('prop', 'id')
+    }
+    this.module.choice.changeData(idList, currentList, idProp)
   }
   resetChoice(force) {
     this.module.choice.reset(force)

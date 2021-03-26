@@ -211,9 +211,9 @@ export default {
         }
       }
     },
-    onChoiceChange(id, list) {
-      this.$emit('choice', id, list)
-      this.maindata.changeChoice(id, list)
+    onChoiceChange(idList, currentList) {
+      this.$emit('choice', idList, currentList)
+      this.maindata.changeChoice(idList, currentList)
     }
   },
   // 主模板
