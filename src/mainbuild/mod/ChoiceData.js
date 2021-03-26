@@ -1,5 +1,6 @@
 import _func from '@/maindata/func/index'
 import DefaultData from './../data/DefaultData'
+import EmptyData from './EmptyData'
 
 class ChoiceData extends DefaultData {
   constructor (initdata = {}) {
@@ -56,11 +57,18 @@ class ChoiceData extends DefaultData {
       return this.data
     }
   }
-  getItemFromList() {
-
+  formatItemFromList(id, totalList, idProp = 'id') {
+    for (let n = 0; n < totalList.length; n++) {
+      let item = totalList[n]
+      if (item && item[idProp] == id) {
+        totalList.splice(n, 1)
+        return item
+      }
+    }
+    return new EmptyData()
   }
   // 数据变更=>id作为唯一基准
-  changeData(idList, currentList, idProp = 'id') {
+  changeData(idList, currentList, idProp) {
     let totalList = currentList
     for (let n = 0; n < this.data.list.length; n++) {
       let item = this.data.list[n]
@@ -68,11 +76,12 @@ class ChoiceData extends DefaultData {
         totalList.push(item)
       }
     }
+    let list = []
     for (let i = 0; i < idList.length; i++) {
       let id = idList[i]
+      list[i] = this.formatItemFromList(id, totalList, idProp)
     }
-    // this.data.id = idList
-    // this.data.list = list
+    this.setData(idList, list)
   }
   setData(idList, list) {
     this.data.id = idList
