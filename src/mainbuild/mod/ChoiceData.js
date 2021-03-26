@@ -106,7 +106,9 @@ class ChoiceData extends DefaultData {
   checkReset(option = {}) {
     let from = option.from
     let reset
-    if (this.resetOption[from] !== undefined) {
+    if (from === true) {
+      reset = true
+    } else if (this.resetOption[from] !== undefined) {
       if (this.resetOption[from] && typeof this.resetOption[from] == 'object') {
         let act = option.act
         if (!act) {

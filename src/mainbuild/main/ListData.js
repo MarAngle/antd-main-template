@@ -99,13 +99,9 @@ class ListData extends ComplexDataWithSearch {
             data: 1
           }
         }
-      } else {
-        page = {
-          // choicereset: true
+        if (this.module.pagination && page.prop && page.data) {
+          this.setPageData(page.data, page.prop)
         }
-      }
-      if (this.module.pagination && page.prop && page.data) {
-        this.setPageData(page.data, page.prop)
       }
       // 根据设置和传值自动进行当前选项的重置操作
       this.autoChoiceReset(choice, 'reload')
@@ -129,46 +125,14 @@ class ListData extends ComplexDataWithSearch {
   resetChoice(force) {
     this.module.choice.reset(force)
   }
-  // // 从列表获取数据并从数组删除数据
-  // getTotalChoiceItem (id, totallist) {
-  //   for (let n in totallist) {
-  //     let item = totallist[n]
-  //     if (item && item[this.dictionary.getIdProp()] == id) {
-  //       totallist.splice(n, 1)
-  //       return item
-  //     }
-  //   }
-  //   return false
-  // }
-  // // 重新计算idlist
-  // recountChoice (idlist, currentlist) {
-  //   let list = []
-  //   let totallist = this.choice.itemlist
-  //   for (let n = 0; n < currentlist.length; n++) {
-  //     let item = currentlist[n]
-  //     if (totallist.indexOf(item) < 0) {
-  //       totallist.push(item)
-  //     }
-  //   }
-  //   for (let n = 0; n < idlist.length; n++) {
-  //     let itemid = idlist[n]
-  //     list[n] = this.getTotalChoiceItem(itemid, totallist)
-  //   }
-  //   this.setChoice(idlist, list)
-  // }
-  // // 设置选项
-  // setChoice (idlist, itemlist) {
-  //   this.choice.idlist = idlist
-  //   this.choice.itemlist = itemlist
-  // }
-  // // 获取选项
-  // getChoice (prop) {
-  //   if (prop) {
-  //     return this.choice[prop]
-  //   } else {
-  //     return this.choice
-  //   }
-  // }
+  // 获取选项
+  getChoice () {
+    return this.module.choice
+  }
+  // 获取选项
+  getChoiceData (prop) {
+    return this.module.choice.getData(prop)
+  }
   // 重置， 清除检索，清除选择项，分页器恢复，数据清除
   resetListData () {
     this.resetChoice(true)
