@@ -16,18 +16,16 @@ class ListData extends ComplexDataWithSearch {
   }
   // 加载生命周期
   _initListDataLife () {
-    this.setLifeData({
-      type: 'beforeLoad',
-      func: (...args) => {
-        console.log(args)
-        // this.resetChoice() // 根据情况重置选择框
-      }
-    })
-    this.setLifeData({
-      type: 'loaded',
-      func: (...args) => {
-      }
-    })
+    // this.setLifeData({
+    //   type: 'beforeLoad',
+    //   func: (...args) => {
+    //   }
+    // })
+    // this.setLifeData({
+    //   type: 'loaded',
+    //   func: (...args) => {
+    //   }
+    // })
     this.setLifeData({
       type: 'reseted',
       func: () => {

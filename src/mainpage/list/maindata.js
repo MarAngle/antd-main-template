@@ -340,12 +340,10 @@ let maindata = new ListData({
         let postdata = this.getSearch()
         postdata.pageSize = this.getPageData('size')
         postdata.pageNo = this.getPageData('page')
-        console.log(postdata)
         _func.get({
           url: preurl + '/list/getdata',
           params: postdata
         }).then(res => {
-          console.log(res.data)
           this.formatData(res.data.data, res.data.totalCount)
           resolve(res)
         }, res => {

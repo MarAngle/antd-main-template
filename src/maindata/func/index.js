@@ -112,7 +112,6 @@ mainfunc.init({
             let res = {
               status: 'fail'
             }
-            console.log(response)
             if (response.data) {
               res.data = response.data.result
               if (response.data.result.result == 'SUCCEED') {
