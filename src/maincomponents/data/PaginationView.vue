@@ -40,10 +40,10 @@
             }
           }
         }
-        paginationOption.props.current = this.data.page.current
-        paginationOption.props.pageSize = this.data.size.current
-        paginationOption.props.pageSizeOptions = this.data.size.list
-        paginationOption.props.total = this.data.num.total
+        paginationOption.props.current = this.data.data.page.current
+        paginationOption.props.pageSize = this.data.data.size.current
+        paginationOption.props.pageSizeOptions = this.data.data.size.list
+        paginationOption.props.total = this.data.data.num.total
         return paginationOption
       }
     },

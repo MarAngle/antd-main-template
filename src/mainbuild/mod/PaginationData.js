@@ -74,6 +74,48 @@ class PaginationData {
   getOption() {
     return this.option
   }
+  // 计算总页码
+  countTotalPage () {
+    this.data.page.total = _func.getNum(this.data.num.total / this.data.size.current, 'ceil', 0)
+  }
+  setTotal(num) {
+    this.data.num.total = num
+    this.countTotalPage()
+  }
+  // 设置当前页
+  setPage (current) {
+    this.data.page.current = current
+  }
+  // 获取总页码
+  getTotalPage () {
+    return this.data.page.total
+  }
+  // 更改页面条数
+  setSize ({ page, size }) {
+    this.setPage(page)
+    this.data.size.current = size
+    this.countTotalPage()
+  }
+  // 获取当前页
+  getPage () {
+    return this.data.page.current
+  }
+  // 获取当前size
+  getSize () {
+    return this.data.size.current
+  }
+  // 获取当前数据
+  getCurrent () {
+    return {
+      page: this.getPage(),
+      size: this.getSize()
+    }
+  }
+  // 重置
+  reset () {
+    this.setTotal(0)
+    this.setPage(1)
+  }
 }
 
 export default PaginationData
