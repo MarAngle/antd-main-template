@@ -18,7 +18,7 @@ class BaseData extends DefaultData {
     update
   }) {
     this.status = new StatusData(status)
-    this.life = new LifeData(life)
+    this.module.life = new LifeData(life)
     this.promise = new PromiseData()
     if (update) {
       this.update = new UpdateData(update)
@@ -54,15 +54,15 @@ class BaseData extends DefaultData {
   // 生命周期函数
   // 设置生命周期函数
   setLifeData (payload) {
-    this.life.setData(payload)
+    this.module.life.setData(payload)
   }
   // 触发特定的生命周期函数
-  triggerLifeData (payload) {
-    this.life.triggerData(payload)
+  triggerLifeData (payload, ...args) {
+    this.triggerLifeData(payload, ...args)
   }
   // 触发生命周期
-  triggerLife (type) {
-    this.life.trigger(type)
+  triggerLife (type, ...args) {
+    this.triggerLife(type, ...args)
   }
 
   // 更新相关操作
@@ -246,18 +246,18 @@ class BaseData extends DefaultData {
   triggerGetData (...args) {
     return this.setPromise('load', new Promise((resolve, reject) => {
       // 触发生命周期加载前事件
-      this.life.trigger('beforeLoad')
+      this.triggerLife('beforeLoad', ...args)
       this.setStatus('loading', 'load')
       args.unshift('getData')
       this.triggerMethod(...args).then(res => {
         this.setStatus('loaded', 'load')
         // 触发生命周期加载完成事件
-        this.life.trigger('loaded')
+        this.triggerLife('loaded', ...args)
         resolve(res)
       }, res => {
         this.setStatus('unload', 'load')
         // 触发生命周期加载失败事件
-        this.life.trigger('loadFail')
+        this.triggerLife('loadFail', ...args)
         reject(res)
       })
     }))
@@ -267,35 +267,35 @@ class BaseData extends DefaultData {
     return this.setPromise('update', new Promise((resolve, reject) => {
       this.setStatus('updating', 'update')
       // 触发生命周期更新前事件
-      this.life.trigger('beforeUpdate')
+      this.triggerLife('beforeUpdate', ...args)
       args.unshift('updateData')
       this.triggerMethod(...args).then(res => {
         this.setStatus('updated', 'update')
         // 触发生命周期更新完成事件
-        this.life.trigger('updated')
+        this.triggerLife('updated', ...args)
         resolve(res)
       }, res => {
         this.setStatus('updated', 'update')
         // 触发生命周期加载失败事件
-        this.life.trigger('updateFail')
+        this.triggerLife('updateFail', ...args)
         reject(res)
       })
     }))
   }
   // 销毁回调操作
-  destroy () {
-    this.triggerLife('beforeDestroy')
+  destroy (...args) {
+    this.triggerLife('beforeDestroy', ...args)
     this.reset()
-    this.triggerLife('destroyed')
+    this.triggerLife('destroyed', ...args)
   }
   // 重置回调操作=>不清楚额外数据以及生命周期函数
-  reset () {
-    this.triggerLife('beforeReset')
+  reset (...args) {
+    this.triggerLife('beforeReset', ...args)
     // 重置状态
     this.resetStatus()
     // 重置更新
     this.resetUpdate()
-    this.triggerLife('reseted')
+    this.triggerLife('reseted', ...args)
   }
 }
 export default BaseData

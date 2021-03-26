@@ -52,19 +52,19 @@ class LifeData extends SimpleData {
     }
   }
   // 触发生命周期指定函数
-  triggerData ({ type, name }, payload) {
+  triggerData ({ type, name }, ...args) {
     let func = this.data[type].data.get(name)
     if (func) {
-      func(payload)
+      func(...args)
     }
   }
   // 触发生命周期
-  trigger (type, payload) {
+  trigger (type, ...args) {
     for (let key of this.data[type].data.keys()) {
       this.triggerData({
         type: type,
         name: key
-      }, payload)
+      }, ...args)
     }
   }
   // 清除生命周期
