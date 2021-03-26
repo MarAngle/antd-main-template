@@ -11,7 +11,7 @@ class ChoiceData extends DefaultData {
       id: [],
       list: []
     }
-    this.reset = {
+    this.resetOption = {
       load: false,
       reload: false,
       update: false,
@@ -39,7 +39,7 @@ class ChoiceData extends DefaultData {
   initChoiceData(initdata = {}) {
     if (initdata.reset) {
       for (let n in initdata.reset) {
-        this.reset[n] = initdata.reset[n]
+        this.resetOption[n] = initdata.reset[n]
       }
     }
     if (initdata.option) {
@@ -83,18 +83,18 @@ class ChoiceData extends DefaultData {
   checkReset(option = {}) {
     let from = option.from
     let reset
-    if (this.reset[from] !== undefined) {
-      if (this.reset[from] && typeof this.reset[from] == 'object') {
+    if (this.resetOption[from] !== undefined) {
+      if (this.resetOption[from] && typeof this.resetOption[from] == 'object') {
         let act = option.act
         if (!act) {
-          this._printInfo(`checkReset函数中对应的from:${from}未定义act,可定义:${this.reset[from].keys()}`)
-        } else if (this.reset[from][act] !== undefined) {
-          reset = this.reset[from][act]
+          this._printInfo(`checkReset函数中对应的from:${from}未定义act,可定义:${this.resetOption[from].keys()}`)
+        } else if (this.resetOption[from][act] !== undefined) {
+          reset = this.resetOption[from][act]
         } else {
-          this._printInfo(`checkReset函数中对应的from:${from}中不存在act:${act},可定义:${this.reset[from].keys()}`)
+          this._printInfo(`checkReset函数中对应的from:${from}中不存在act:${act},可定义:${this.resetOption[from].keys()}`)
         }
       } else {
-        reset = this.reset[from]
+        reset = this.resetOption[from]
       }
     } else {
       this._printInfo(`checkReset函数未找到对应的from:${from}`)

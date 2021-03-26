@@ -109,7 +109,6 @@ class ListData extends ComplexDataWithSearch {
       if (this.module.pagination && page.prop && page.data) {
         this.setPageData(page.data, page.prop)
       }
-      choice = this.formatChoiceOption(choice, 'reload')
       // 根据设置和传值自动进行当前选项的重置操作
       this.autoChoiceReset(choice, 'reload')
       this.loadData(force, ...args).then(res => {
@@ -120,15 +119,6 @@ class ListData extends ComplexDataWithSearch {
       })
     })
   }
-  // 设置choice选项
-  // choiceForceByAct (act, data) {
-  //   let optionList = this.option.getData('list')
-  //   if (act == 'set') {
-  //     optionList.choice.force = data
-  //   } else if (act == 'get') {
-  //     return optionList.choice.force
-  //   }
-  // }
   autoChoiceReset(data) {
     this.module.choice.autoReset(data)
   }
@@ -138,13 +128,6 @@ class ListData extends ComplexDataWithSearch {
   resetChoice(force) {
     this.module.choice.reset(force)
   }
-  // 重置选择项
-  // resetChoice (force) {
-  //   let optionList = this.option.getData('list')
-  //   if (force || optionList.choice.reset || this.choiceForceByAct('get')) {
-  //     this.setChoice([], [])
-  //   }
-  // }
   // // 从列表获取数据并从数组删除数据
   // getTotalChoiceItem (id, totallist) {
   //   for (let n in totallist) {
