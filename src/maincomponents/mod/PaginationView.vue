@@ -5,7 +5,11 @@
   <div
     class="mainpagination"
   >
-    <a-pagination v-bind="paginationOption.props" v-on="paginationOption.on" />
+    <a-pagination
+      v-bind="paginationOption.props"
+      @change="onChange"
+      @showSizeChange="onSizeChange"
+    />
   </div>
 </template>
 
@@ -48,6 +52,20 @@
       }
     },
     methods: {
+      onChange(current) {
+        this.data.setPage(current)
+        this.$emit('change', 'page', current)
+      },
+      onSizeChange(current, size) {
+        this.data.setSize({
+          page: current,
+          size: size
+        })
+        this.$emit('change', 'size', {
+          page: current,
+          size: size
+        })
+      }
     }
   }
 </script>

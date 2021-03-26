@@ -122,13 +122,13 @@ class ListData extends ComplexDataWithSearch {
         }
       } else {
         option = {
-          choicereset: true
+          // choicereset: true
         }
       }
       if (this.module.pagination && option.pageprop && option.pagedata) {
         this.setPageData(option.pagedata, option.pageprop)
       }
-      this.choiceForceByAct('set', option.choicereset)
+      // this.choiceForceByAct('set', option.choicereset)
       this.loadData(force, ...args).then(res => {
         resolve(res)
       }, err => {

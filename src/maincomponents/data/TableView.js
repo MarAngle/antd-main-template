@@ -1,5 +1,6 @@
 import _func from '@/maindata/func/index'
 import AutoText from './../mod/AutoText'
+import PaginationView from './../mod/PaginationView'
 
 export default {
   name: 'TableView',
@@ -52,6 +53,11 @@ export default {
       type: Object,
       required: false,
       default: null
+    },
+    paginationChange: {
+      type: [Boolean, Function],
+      required: false,
+      default: true
     }
   },
   data() {
@@ -178,12 +184,14 @@ export default {
       if (this.currentPaginationData) {
         let option = {
           props: {
-            data: this.currentPaginationData,
+            data: this.currentPaginationData
+          },
+          on: {
             change: this.onPaginationChange
           }
         }
         renderPagination = (
-          <LocalPaginationView { ...option } />
+          <PaginationView { ...option } />
         )
       }
       return renderPagination
@@ -191,6 +199,18 @@ export default {
     // 分页回调
     onPaginationChange(prop, current) {
       this.$emit('pagination', prop, current)
+      console.log(prop, current, this.paginationChange)
+      if (this.paginationChange) {
+        if (this.paginationChange === true) {
+          // auto
+          this.maindata.reloadData({
+            pageprop: prop,
+            pagedata: current
+          }, true).then(() => {}, () => {})
+        } else {
+          this.paginationChange(prop, current)
+        }
+      }
     },
     onChoiceChange(id, list) {
       this.$emit('choice', id, list)
