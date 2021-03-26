@@ -199,14 +199,13 @@ export default {
     // 分页回调
     onPaginationChange(prop, current) {
       this.$emit('pagination', prop, current)
-      console.log(prop, current, this.paginationChange)
       if (this.paginationChange) {
         if (this.paginationChange === true) {
           // auto
           this.maindata.reloadData({
             pageprop: prop,
             pagedata: current
-          }, true).then(() => {}, () => {})
+          }, true, 'page').then(() => {}, () => {})
         } else {
           this.paginationChange(prop, current)
         }

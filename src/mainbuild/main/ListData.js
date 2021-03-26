@@ -6,25 +6,7 @@ import ChoiceData from './../mod/ChoiceData'
 class ListData extends ComplexDataWithSearch {
   constructor (initdata = {}) {
     super(initdata)
-    // this.option.addStruct('list', {
-    //   choice: {
-    //     show: false,
-    //     reset: 'reset',
-    //     force: false,
-    //     newReset: {
-    //       load: false,
-    //       update: false,
-    //       page: false,
-    //       pageSize: false
-    //     },
-    //     props: {}
-    //   }
-    // })
     this.module.choice = new ChoiceData(initdata.choice)
-    // this.choice = {
-    //   idlist: [],
-    //   itemlist: []
-    // }
     this._initListData(initdata)
   }
   _initListData ({ option, pagination }) {

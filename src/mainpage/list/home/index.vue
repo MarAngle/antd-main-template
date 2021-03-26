@@ -135,11 +135,17 @@ export default {
     },
     onDefaultMenuBySearch() {
       this.maindata.setSearch()
-      this.maindata.reloadData(true)
+      this.maindata.reloadData(true, true, {
+        from: 'search',
+        act: 'set'
+      })
     },
     onDefaultMenuByReset() {
       this.maindata.resetSearch()
-      this.maindata.reloadData(true)
+      this.maindata.reloadData(true, true, {
+        from: 'search',
+        act: 'reset'
+      })
     },
     buildMainList () {
       this.mainlist = this.maindata.getDictionaryPageList('list')
