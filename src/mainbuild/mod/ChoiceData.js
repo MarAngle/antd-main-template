@@ -64,28 +64,40 @@ class ChoiceData extends DefaultData {
     this.data.id = id
     this.data.list = list
   }
-  auto(data) {
-    let reset = this.check(data)
-    this.reset(reset)
+  autoReset(option, defaultOption) {
+    option = this.formatResetOption(option, defaultOption)
+    let force = this.checkReset(option)
+    this.reset(force)
   }
-  check(data = {}) {
-    let from = data.from
+  formatResetOption(option, defaultOption = 'load') {
+    if (!option) {
+      option = defaultOption
+    }
+    if (typeof option != 'object') {
+      option = {
+        from: option
+      }
+    }
+    return option
+  }
+  checkReset(option = {}) {
+    let from = option.from
     let reset
     if (this.reset[from] !== undefined) {
       if (this.reset[from] && typeof this.reset[from] == 'object') {
-        let act = data.act
+        let act = option.act
         if (!act) {
-          this._printInfo(`check函数中对应的from:${from}未定义act,可定义:${this.reset[from].keys()}`)
+          this._printInfo(`checkReset函数中对应的from:${from}未定义act,可定义:${this.reset[from].keys()}`)
         } else if (this.reset[from][act] !== undefined) {
           reset = this.reset[from][act]
         } else {
-          this._printInfo(`check函数中对应的from:${from}中不存在act:${act},可定义:${this.reset[from].keys()}`)
+          this._printInfo(`checkReset函数中对应的from:${from}中不存在act:${act},可定义:${this.reset[from].keys()}`)
         }
       } else {
         reset = this.reset[from]
       }
     } else {
-      this._printInfo(`check函数未找到对应的from:${from}`)
+      this._printInfo(`checkReset函数未找到对应的from:${from}`)
     }
     return reset
   }

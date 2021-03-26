@@ -111,7 +111,7 @@ class ListData extends ComplexDataWithSearch {
       }
       choice = this.formatChoiceOption(choice, 'reload')
       // 根据设置和传值自动进行当前选项的重置操作
-      this.autoChoice(choice)
+      this.autoChoiceReset(choice, 'reload')
       this.loadData(force, ...args).then(res => {
         resolve(res)
       }, err => {
@@ -129,19 +129,8 @@ class ListData extends ComplexDataWithSearch {
   //     return optionList.choice.force
   //   }
   // }
-  formatChoiceOption(option, defaultOption = 'load') {
-    if (!option) {
-      option = defaultOption
-    }
-    if (typeof option != 'object') {
-      option = {
-        from: option
-      }
-    }
-    return option
-  }
-  autoChoice(data) {
-    this.module.choice.auto(data)
+  autoChoiceReset(data) {
+    this.module.choice.autoReset(data)
   }
   changeChoice(id, list) {
     this.module.choice.changeData(id, list)
