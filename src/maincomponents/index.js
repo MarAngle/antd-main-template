@@ -9,7 +9,6 @@ function LoadViews (_views, mod = '') {
   viewlist.forEach(item => {
     let viewitem = _views(item)
     let viewdata = viewitem.default || viewitem
-    console.log(`Local${mod}${viewdata.name}`)
     Vue.component(`Local${mod}${viewdata.name}`, viewdata)
   })
 }

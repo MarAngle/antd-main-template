@@ -4,7 +4,7 @@
 }
 </style>
 <template>
-  <span class="AutoIndex">{{ currentIndex }}</span>
+  <span class="AutoIndex" v-bind="$attrs" v-on="$listeners">{{ currentIndex }}</span>
 </template>
 
 <script>

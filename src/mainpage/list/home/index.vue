@@ -40,7 +40,7 @@
         ></LocalFormView>
         <LocalTableView :maindata="maindata" :columnList="mainlist" >
           <template slot="_index" slot-scope="slotProps">
-            <LocalModAutoIndex :index="slotProps.index" :maindata="maindata" />
+            <LocalModAutoIndex :index="slotProps.index" :maindata="maindata" :style="{ color: 'red' }" />
           </template>
           <span slot="name-title" >
             <span>自定义标题</span>
@@ -99,12 +99,6 @@ export default {
     operateStatus () { // 操作判断值 operating operated
       let operateStatus = this.maindata.getStatus()
       return operateStatus.value
-    }
-  },
-  watch: {
-    'maindata.module.choice.data.id': function(val) {
-      console.log(val)
-      console.log(this.maindata.module.choice.data.list)
     }
   },
   mounted () {
