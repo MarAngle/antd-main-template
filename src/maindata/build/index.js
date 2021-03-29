@@ -4,7 +4,7 @@ import _func from '@/maindata/func/index'
 
 option.setData({
   list: {
-    format: function (ditem, prop, data) {
+    format: function (ditem, mod, data) {
       if (data) {
         if (!data.dataIndex) {
           data.dataIndex = ditem.prop
@@ -39,62 +39,62 @@ option.setData({
             }
           }
         }
-        ditem.mod[prop] = data
+        ditem.mod[mod] = data
       }
     },
-    unformat: function (ditem, prop) {
+    unformat: function (ditem, mod) {
       let pitem = {
-        ...ditem.mod[prop],
+        ...ditem.mod[mod],
         func: ditem.func
       }
       if (!pitem.title) {
-        pitem.title = ditem.getInterface('label', prop)
+        pitem.title = ditem.getInterface('label', mod)
       }
       return pitem
     }
   },
   info: {
-    unformat: function (ditem, prop, { targetitem }) {
+    unformat: function (ditem, mod, { targetitem }) {
       let pitem = {
         prop: ditem.prop,
-        label: ditem.getInterface('label', prop),
-        showtype: ditem.getInterface('showtype', prop),
-        layout: ditem.getLayout(prop)
+        label: ditem.getInterface('label', mod),
+        showtype: ditem.getInterface('showtype', mod),
+        layout: ditem.getLayout(mod)
       }
       let target = ditem.triggerFunc('show', targetitem[ditem.prop], {
         targetitem: targetitem,
-        type: prop
+        type: mod
       })
       pitem.data = target
       return pitem
     }
   },
   edit: {
-    format: function (ditem, prop, data) {
+    format: function (ditem, mod, data) {
       if (data.type == 'edit') {
-        ditem.mod[prop] = ditem.mod.edit
+        ditem.mod[mod] = ditem.mod.edit
       } else {
         // data.prop = ditem.prop
         data.parent = ditem
-        ditem.mod[prop] = new EditData(data, {
+        ditem.mod[mod] = new EditData(data, {
           // type: ditem.getInterface('type', prop),
         })
       }
     },
-    unformat: function (ditem, prop) {
+    unformat: function (ditem, mod) {
       let pitem = {
         prop: ditem.prop,
-        label: ditem.getInterface('label', prop),
-        originprop: ditem.getInterface('originprop', prop),
-        type: ditem.getInterface('type', prop),
+        label: ditem.getInterface('label', mod),
+        originprop: ditem.getInterface('originprop', mod),
+        type: ditem.getInterface('type', mod),
         func: ditem.func,
-        layout: ditem.getLayout(prop),
-        edit: ditem.mod[prop]
+        layout: ditem.getLayout(mod),
+        edit: ditem.mod[mod]
       }
       // pitem.edit.readyData()
       return pitem
     },
-    build: function (data, prop, payload) {
+    build: function (data, mod, payload) {
       data.form = {
         num: 0,
         dom: null,
