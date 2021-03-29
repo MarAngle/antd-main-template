@@ -36,9 +36,6 @@ class ListData extends ComplexDataWithSearch {
   // 加载设置项
   _initListDataOption (option) {
     if (option) {
-      // if (option.list) {
-      //   this.option.setData('list', option.list)
-      // }
     }
   }
   // 加载分页器
