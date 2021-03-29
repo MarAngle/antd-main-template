@@ -117,7 +117,17 @@ export default {
             } else if (type == 'array') {
               data = data.join(',')
             }
-            if (pitem.ellipsis || pitem.autoWrap) {
+            let contentSlotProp = pitem.dataIndex
+            let contentSlot = this.$scopedSlots[contentSlotProp]
+            if (contentSlot) {
+              return contentSlot({
+                text: data,
+                record: record,
+                index: index,
+                item: pitem,
+                list: this.columnList
+              })
+            } else if (pitem.ellipsis || pitem.autoWrap) {
               // 自动省略切自动换行?
               let AutoTextOption = {
                 props: {
@@ -177,6 +187,9 @@ export default {
     },
     renderList() {
       let renderList = []
+      for (let i = 0; i < this.currentColumnList.length; i++) {
+
+      }
       return renderList
     },
     renderPagination() {
