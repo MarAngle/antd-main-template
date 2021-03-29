@@ -40,10 +40,16 @@ export default {
   },
   data() {
     return {
+      page: this._func.page,
       menu: {
         show: false,
         open: false
       }
+    }
+  },
+  watch: {
+    'page.recount.main': function() {
+      this.checkHeight('resize')
     }
   },
   mounted() {
@@ -54,18 +60,14 @@ export default {
       this.menu.show = false
       this.$nextTick(() => {
         let currentHeight = this.$refs.mainContent.clientHeight
+        console.log(from, currentHeight)
         if (currentHeight > this.height) {
           this.menu.show = true
         }
-        this.checkOpen()
-        // this.menu.show = this.menu.show
       })
     },
     toggleOpen() {
       this.menu.open = !this.menu.open
-    },
-    checkOpen() {
-
     }
   }
 }
