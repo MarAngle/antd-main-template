@@ -27,7 +27,10 @@ let maindata = new ListData({
   option: {
   },
   choice: {
-    show: true
+    show: true,
+    reset: {
+      page: true
+    }
   },
   dictionary: {
     layout: {
