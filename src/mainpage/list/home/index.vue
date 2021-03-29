@@ -40,9 +40,7 @@
         ></LocalFormView>
         <LocalTableView :maindata="maindata" :columnList="mainlist" >
           <template slot="_index" slot-scope="slotProps">
-            <span class="menulist">
-              <a>{{ CountIndex(slotProps.index) }}</a>
-            </span>
+            <LocalModAutoIndex :index="slotProps.index" :maindata="maindata" />
           </template>
           <span slot="name-title" >
             <span>自定义标题</span>
@@ -118,13 +116,6 @@ export default {
       this.maindata.loadData(this.initType).then(res => {}, res => {
         console.error(res)
       })
-    },
-    CountIndex (index, countpage) {
-      let num = index + 1
-      if (countpage) {
-        num = num + (this.maindata.getPageData('page') - 1) * this.maindata.getPageData('size')
-      }
-      return num
     },
     onSearchMenu(act) {
       if (act == 'search') {

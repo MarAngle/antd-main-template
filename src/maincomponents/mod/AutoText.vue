@@ -7,15 +7,17 @@
 }
 .auto{
   display: inline-block;
-  cursor: pointer;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
 }
+.isAuto{
+  cursor: pointer;
+}
 
 </style>
 <template>
-  <p ref="main" class="AutoText auto" >
+  <p ref="main" class="AutoText" :class="{ auto: auto, isAuto: isEllipsis }" >
     <a-tooltip v-bind="tipOption" >
       <span ref="size" class="content" >{{ text }}</span>
     </a-tooltip>
@@ -60,7 +62,7 @@ export default {
     auto: {
       type: Boolean,
       required: false,
-      default: false
+      default: true
     },
     tip: {
       type: [String, Object],
