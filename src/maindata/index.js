@@ -1,4 +1,6 @@
 import Vue from 'vue'
+// 全局自定义指令
+import '@/maindirective/index'
 // 全局组件
 import '@/maincomponents/index'
 // 实现类
