@@ -24,11 +24,12 @@
   }
 }
 .demoList{
+  background-color: #ccc;
   display: flex;
   flex-wrap: wrap;
   flex-direction: row;
   .demoItem{
-    width: 30%;
+    width: 100px;
     margin-right: 10px;
     height: 30px;
     line-height: 30px;
@@ -41,9 +42,14 @@
     <a-button @click="onBuild">创建</a-button>
     <div class="mainpagein">
       <a-spin :spinning="loadStatus == 'loading'">
-        <div class="demoList" v-line="30">
+        <!-- <div class="demoList" v-line="30">
           <div class="demoItem" v-for="val of 10" :key="val">{{ val }}</div>
-        </div>
+        </div> -->
+        <LocalModAutoMenu :height="30">
+          <div class="demoList">
+            <div class="demoItem" v-for="val of 10" :key="val">{{ val }}</div>
+          </div>
+        </LocalModAutoMenu>
         <LocalFormView
           v-if="maindata.searchData.show"
           :form="maindata.searchData.form.build.form"
