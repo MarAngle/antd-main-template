@@ -68,7 +68,7 @@ class ChoiceData extends DefaultData {
     return new EmptyData()
   }
   // 数据变更=>id作为唯一基准
-  changeData(idList, currentList, idProp) {
+  changeData(idList, currentList = [], idProp) {
     let totalList = currentList
     for (let n = 0; n < this.data.list.length; n++) {
       let item = this.data.list[n]
@@ -82,6 +82,17 @@ class ChoiceData extends DefaultData {
       list[i] = this.formatItemFromList(id, totalList, idProp)
     }
     this.setData(idList, list)
+  }
+  // 添加选择
+  addData(idList, list = [], idProp) {
+    let currentIdList = this.data.id
+    for (let i = 0; i < idList.length; i++) {
+      let id = idList[i]
+      if (currentIdList.indexOf(id) < 0) {
+        currentIdList.push(id)
+      }
+    }
+    this.changeData(idList, list, idProp)
   }
   setData(idList, list) {
     this.data.id = idList
