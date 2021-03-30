@@ -96,5 +96,49 @@ class SearchData extends ComplexData {
       return this.post[type]
     }
   }
+  reset() {
+    this.resetFormData('reset')
+  }
+  install(target) {
+    let dict = [
+      {
+        prop: 'setSearch',
+        originProp: 'setData'
+      },
+      {
+        prop: 'getSearch',
+        originProp: 'getData'
+      },
+      {
+        prop: 'resetSearch',
+        func: (...args) => {
+          this.resetFormData('reset', ...args)
+        }
+      }
+    ]
+    for (let n = 0; n < dict.length; n++) {
+      let dictData = dict[n]
+      if (!target[dictData.prop]) {
+        if (dict.func) {
+          target[dictData.prop] = (...args) => {
+            return dict.func(...args)
+          }
+        } else {
+          target[dictData.prop] = (...args) => {
+            return this[dictData.originProp](...args)
+          }
+        }
+      } else {
+        target._printInfo(`存在${dictData.prop}方法,${this._selfName()}install=>${dictData.originProp}失败`)
+      }
+    }
+    target.setLifeData({
+      type: 'reseted',
+      func: () => {
+        this.reset()
+      }
+    })
+    console.log(this)
+  }
 }
 export default SearchData

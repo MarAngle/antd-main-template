@@ -355,7 +355,7 @@ let maindata = new ListData({
       })
     }
   },
-  searchdata: {
+  search: {
     dictionary: {
       list: [
         {
