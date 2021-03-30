@@ -195,13 +195,33 @@ export default {
     renderPagination() {
       let renderPagination = null
       if (this.currentPaginationData) {
+        const paginationSlotList = [
+          {
+            prop: 'pagination_default',
+            originProp: 'default'
+          },
+          {
+            prop: 'pagination_front',
+            originProp: 'front'
+          },
+          {
+            prop: 'pagination_end',
+            originProp: 'end'
+          }
+        ]
         let option = {
           props: {
             data: this.currentPaginationData
           },
           on: {
             change: this.onPaginationChange
-          }
+          },
+          scopedSlots: {}
+        }
+        for (let n in paginationSlotList) {
+          let dictData = paginationSlotList[n]
+          let slotData = this.$scopedSlots[dictData.prop]
+          option.scopedSlots[dictData.originProp] = slotData
         }
         renderPagination = (
           <PaginationView { ...option } />

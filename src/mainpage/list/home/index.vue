@@ -69,6 +69,11 @@
               <a>修改</a>
             </span>
           </template>
+          <template slot="pagination_default">
+            <span style="padding-right: 10px;">
+              已选择: {{ maindata.getChoiceData('id').length }}
+            </span>
+          </template>
         </LocalTableView>
       </a-spin>
     </div>
@@ -124,6 +129,9 @@ export default {
     this.pageLoad()
   },
   methods: {
+    onDemo(data) {
+      console.log(data)
+    },
     pageLoad () {
       this.buildMainList()
       this.maindata.loadData(this.initType).then(res => {}, res => {

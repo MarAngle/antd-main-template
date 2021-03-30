@@ -21,11 +21,24 @@
     v-bind="currentMainOption.props"
   >
     <div class="PaginationViewLine">
-      <slot></slot>
+      <slot
+        :data="data"
+        :page="data.data.page.current"
+        :size="data.data.size.current"
+        :total="data.data.page.total"
+        :totalNum="data.data.num.total"
+      ></slot>
     </div>
     <div class="PaginationViewLine">
       <div class="PaginationViewLineItem">
-        <slot name="front"></slot>
+        <slot
+          name="front"
+          :data="data"
+          :page="data.data.page.current"
+          :size="data.data.size.current"
+          :total="data.data.page.total"
+          :totalNum="data.data.num.total"
+        ></slot>
       </div>
       <div class="PaginationViewLineItem">
         <a-pagination
@@ -35,7 +48,14 @@
         />
       </div>
       <div class="PaginationViewLineItem">
-        <slot name="end"></slot>
+        <slot
+          name="end"
+          :data="data"
+          :page="data.data.page.current"
+          :size="data.data.size.current"
+          :total="data.data.page.total"
+          :totalNum="data.data.num.total"
+        ></slot>
       </div>
     </div>
   </div>
