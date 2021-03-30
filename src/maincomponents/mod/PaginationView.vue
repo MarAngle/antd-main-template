@@ -1,16 +1,43 @@
 <style lang='less' scoped>
-
+.PaginationView{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: stretch;
+  .PaginationViewLine{
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    &:last-child{
+      justify-content: flex-end;
+    }
+  }
+}
 </style>
 <template>
   <div
-    class="mainpagination"
+    class="PaginationView"
     v-bind="currentMainOption.props"
   >
-    <a-pagination
-      v-bind="currentOption.props"
-      @change="onChange"
-      @showSizeChange="onSizeChange"
-    />
+    <div class="PaginationViewLine">
+      <slot></slot>
+    </div>
+    <div class="PaginationViewLine">
+      <div class="PaginationViewLineItem">
+        <slot name="front"></slot>
+      </div>
+      <div class="PaginationViewLineItem">
+        <a-pagination
+          v-bind="currentOption.props"
+          @change="onChange"
+          @showSizeChange="onSizeChange"
+        />
+      </div>
+      <div class="PaginationViewLineItem">
+        <slot name="end"></slot>
+      </div>
+    </div>
   </div>
 </template>
 
