@@ -421,5 +421,41 @@ class DictionaryList extends DefaultData {
     }
     return editData
   }
+  install(target) {
+    let dict = [
+      {
+        prop: 'analyzeDictionaryOption',
+        func: function(dictionaryOption, from) {
+          return dictionaryOption
+        }
+      },
+      {
+        prop: 'setExtra',
+        originProp: 'setData'
+      },
+      {
+        prop: 'getExtra',
+        originProp: 'getData'
+      },
+      {
+        prop: 'clearExtra',
+        originProp: 'clearData'
+      },
+      {
+        prop: 'resetExtra',
+        originProp: 'reset'
+      }
+    ]
+    for (let n = 0; n < dict.length; n++) {
+      let dictData = dict[n]
+      if (!target[dictData.prop]) {
+        target[dictData.prop] = (...args) => {
+          this[dictData.originProp](...args)
+        }
+      } else {
+        target._printInfo(`存在${dictData.prop}方法,${this._selfName()}install=>${dictData.originProp}失败`)
+      }
+    }
+  }
 }
 export default DictionaryList

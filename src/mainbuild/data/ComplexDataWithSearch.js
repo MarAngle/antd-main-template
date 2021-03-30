@@ -1,11 +1,12 @@
 import ComplexData from './ComplexData'
-import SearchData from './../mod/SearchData'
+import ModuleData from './../mod/ModuleData'
 
 class ComplexDataWithSearch extends ComplexData {
   constructor (initdata = {}) {
     super(initdata)
-    this._initComplexDataWithSearch(initdata)
-    this._initComplexDataWithSearchLife()
+    this.module = new ModuleData(initdata, this)
+    // this._initComplexDataWithSearch(initdata)
+    // this._initComplexDataWithSearchLife()
   }
   _initComplexDataWithSearch ({ searchdata }) {
     if (searchdata) {

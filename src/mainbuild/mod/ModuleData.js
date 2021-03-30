@@ -1,21 +1,14 @@
 
-import ExtraData from './../mod/ExtraData'
-import ParentData from './../mod/ParentData'
+import SearchData from './../mod/SearchData'
 
 const dict = {
   list: [
     {
-      originProp: 'extra',
-      prop: 'extra',
-      FUNC: ExtraData,
+      originProp: 'search',
+      prop: 'search',
+      FUNC: SearchData,
       build: true
     }
-    // {
-    //   originProp: 'parent',
-    //   prop: 'parent',
-    //   FUNC: ParentData,
-    //   build: true
-    // }
   ]
 }
 
@@ -32,6 +25,9 @@ class ModuleData {
         this.data[dictData.prop].install(target)
       }
     }
+  }
+  getModule(prop) {
+    return this.data[prop]
   }
 }
 
