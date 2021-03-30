@@ -46,7 +46,7 @@
     <a-button @click="onBuild">创建</a-button>
     <div class="mainpagein">
       <a-spin :spinning="loadStatus == 'loading'">
-        <LocalModAutoMenu :height="40">
+        <LocalModAutoMenu :height="59" :menuStyle="{ lineHeight: 40 }" >
           <LocalFormView
             v-if="maindata.searchData.show"
             :form="maindata.searchData.form.build.form"

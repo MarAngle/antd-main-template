@@ -560,7 +560,7 @@ export default {
             rules: item.edit.rules.getData(payload.type)
           }
         }
-        if (item.layout.type == 'grid') {
+        if (this.layout != 'inline' && item.layout.type == 'grid') {
           if (_func.getType(item.layout.data.label) == 'object') {
             mainOption.props.labelCol = item.layout.data.label
           } else {

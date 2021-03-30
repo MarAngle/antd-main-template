@@ -6,6 +6,7 @@
     overflow: hidden;
   }
   .menu{
+    cursor: pointer;
     position: absolute;
     top: 0;
     right: 0;
@@ -21,13 +22,13 @@
 }
 </style>
 <template>
-  <div ref="mainContent" class="AutoMenu" :class="{ menuShow: menu.show }" :style="{ height: !menu.show ? 'auto' : menu.open ? 'auto' : height + 'px' }">
+  <div ref="mainContent" class="AutoMenu" :class="{ menuShow: menu.show }" :style="currentMainStyle">
     <slot ref="content"></slot>
-    <div v-show="menu.show" class="menu" :style="{ height: height + 'px', lineHeight: height + 'px' }" @click="toggleOpen" >
+    <div v-show="menu.show" class="menu" :style="currentMenuStyle" @click="toggleOpen" >
       <div>
         <p>
-          <a-icon class="icon" :type="menu.open ? 'up' : 'down' " />
-          <span>{{ menu.open ? '关闭' : '打开' }}</span>
+          <a-icon class="icon" :type="currentMenuOption.icon" />
+          <span>{{ currentMenuOption.text }}</span>
         </p>
       </div>
     </div>
@@ -42,6 +43,21 @@ export default {
     height: {
       type: Number,
       required: true
+    },
+    menuStyle: {
+      type: Object,
+      required: false,
+      default: null
+    },
+    closeOption: {
+      type: Object,
+      required: false,
+      default: null
+    },
+    openOption: {
+      type: Object,
+      required: false,
+      default: null
     }
   },
   data() {
@@ -50,6 +66,61 @@ export default {
       menu: {
         show: false,
         open: false
+      }
+    }
+  },
+  computed: {
+    currentMainStyle: function() {
+      let currentMainStyle = {}
+      if (this.menu.show && !this.menu.open) {
+        currentMainStyle.height = this.height + 'px'
+      }
+      return currentMainStyle
+    },
+    currentMenuStyle: function() {
+      let currentMenuStyle = {}
+      if (this.menu.show) {
+        currentMenuStyle.height = this.height + 'px'
+        currentMenuStyle.lineHeight = this.height + 'px'
+        if (this.menuStyle) {
+          for (let n in this.menuStyle) {
+            currentMenuStyle[n] = this.menuStyle[n]
+          }
+        }
+      }
+      return currentMenuStyle
+    },
+    currentCloseOption: function() {
+      let currentCloseOption = {
+        icon: 'up',
+        text: '关闭',
+        style: {}
+      }
+      if (this.closeOption) {
+        for (let n in this.closeOption) {
+          currentCloseOption[n] = this.closeOption[n]
+        }
+      }
+      return currentCloseOption
+    },
+    currentOpenOption: function() {
+      let currentOpenOption = {
+        icon: 'down',
+        text: '打开',
+        style: {}
+      }
+      if (this.openOption) {
+        for (let n in this.openOption) {
+          currentOpenOption[n] = this.openOption[n]
+        }
+      }
+      return currentOpenOption
+    },
+    currentMenuOption() {
+      if (this.menu.open) {
+        return this.currentOpenOption
+      } else {
+        return this.currentCloseOption
       }
     }
   },
