@@ -206,10 +206,10 @@ class DictionaryList extends DefaultData {
   }
 
   // 获取字典
-  getItem (data, act = 'prop') {
-    if (act == 'prop') {
+  getItem (data, from = 'prop') {
+    if (from == 'prop') {
       return this.data.get(data)
-    } else if (act == 'id') {
+    } else if (from == 'id') {
       for (let ditem of this.data.values()) {
         if (ditem[this.getIdProp()] == data) {
           return ditem
