@@ -1,16 +1,7 @@
 
-import SearchData from './../mod/SearchData'
-
-const dict = {
-  list: [
-    {
-      originProp: 'search',
-      prop: 'search',
-      FUNC: SearchData,
-      build: true
-    }
-  ]
-}
+import SearchData from './SearchData'
+import PaginationData from './PaginationData'
+import ChoiceData from './ChoiceData'
 
 class ModuleData {
   constructor (initdata = {}, target) {
@@ -18,20 +9,30 @@ class ModuleData {
     this.initModule(initdata, target)
   }
   initModule(initdata, target) {
-    // for (let n = 0; n < dict.list.length; n++) {
-    //   let dictData = dict.list[n]
-    //   if (dictData.build || initdata[dictData.originProp] !== undefined) {
-    //     this.data[dictData.prop] = new dictData.FUNC(initdata[dictData.originProp])
-    //     this.data[dictData.prop].install(target)
-    //   }
-    // }
-    let searchInitData = initdata.search
-    if (searchInitData) {
-      searchInitData.parent = target
+    // search数据加载
+    this.initSearchModule(initdata.search, target)
+    // pagination数据加载
+    this.initPaginationModule(initdata.pagination, target)
+  }
+  initSearchModule(initData, target) {
+    if (initData) {
+      initData.parent = target
     }
-    console.log(searchInitData)
-    this.data.search = new SearchData(searchInitData)
+    this.data.search = new SearchData(initData)
     this.data.search.install(target)
+  }
+  initPaginationModule(initData, target) {
+    if (initData !== undefined) {
+      this.data.pagination = new PaginationData(initData)
+      this.data.pagination.install(target)
+    } else {
+      this.data.pagination = {
+        getter: () => {
+          this._printInfo('err')
+          return null
+        }
+      }
+    }
   }
   getModule(prop) {
     return this.data[prop]

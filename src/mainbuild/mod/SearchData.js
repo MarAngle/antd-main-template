@@ -138,7 +138,6 @@ class SearchData extends ComplexData {
         this.reset()
       }
     })
-    console.log(this)
   }
 }
 export default SearchData

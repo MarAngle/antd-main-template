@@ -421,4 +421,6 @@ maindata.setLifeData({
   }
 })
 
+console.log(maindata)
+
 export default maindata

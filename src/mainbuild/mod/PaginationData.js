@@ -116,6 +116,61 @@ class PaginationData {
     this.setTotal(0)
     this.setPage(1)
   }
+  install(target) {
+    let dict = [
+      {
+        prop: 'getPageData',
+        func: (prop) => {
+          let res
+          if (prop == 'page') {
+            res = this.getPage()
+          } else if (prop == 'size') {
+            res = this.getSize()
+          } else if (prop == 'num') {
+            res = this.getTotal()
+          } else {
+            res = this.getCurrent()
+          }
+          return res
+        }
+      },
+      {
+        prop: 'setPageData',
+        func: (data, prop = 'page') => {
+          if (prop == 'page') {
+            this.setPage(data)
+          } else if (prop == 'size') {
+            this.setSize(data) // { page, size }
+          } else if (prop == 'num') {
+            this.setTotal(data)
+          }
+        }
+      }
+    ]
+    for (let n = 0; n < dict.length; n++) {
+      let dictData = dict[n]
+      if (!target[dictData.prop]) {
+        if (dict.func) {
+          target[dictData.prop] = (...args) => {
+            return dict.func(...args)
+          }
+        } else {
+          target[dictData.prop] = (...args) => {
+            return this[dictData.originProp](...args)
+          }
+        }
+      } else {
+        target._printInfo(`存在${dictData.prop}方法,${this._selfName()}install=>${dictData.originProp}失败`)
+      }
+    }
+    target.setLifeData({
+      type: 'reseted',
+      func: () => {
+        this.reset()
+      }
+    })
+    console.log(this, target)
+  }
 }
 
 export default PaginationData
