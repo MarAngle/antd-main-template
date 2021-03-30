@@ -18,7 +18,7 @@ class BaseData extends DefaultData {
     update
   }) {
     this.status = new StatusData(status)
-    this.module.life = new LifeData(life)
+    this.life = new LifeData(life)
     this.promise = new PromiseData()
     if (update) {
       this.update = new UpdateData(update)
@@ -54,15 +54,15 @@ class BaseData extends DefaultData {
   // 生命周期函数
   // 设置生命周期函数
   setLifeData (payload) {
-    this.module.life.setData(payload)
+    this.life.setData(payload)
   }
   // 触发特定的生命周期函数
   triggerLifeData (payload, ...args) {
-    this.module.life.triggerData(payload, ...args)
+    this.life.triggerData(payload, ...args)
   }
   // 触发生命周期
   triggerLife (type, ...args) {
-    this.module.life.trigger(type, ...args)
+    this.life.trigger(type, ...args)
   }
 
   // 更新相关操作

@@ -6,10 +6,8 @@ import ParentData from './../mod/ParentData'
 class DefaultData extends SimpleData {
   constructor (initdata = {}) {
     super(initdata)
-    this.module = {
-      extra: new ExtraData(),
-      parent: new ParentData()
-    }
+    this.extra = new ExtraData()
+    this.parent = new ParentData()
     this.initDefaultData(initdata)
   }
   initDefaultData ({ name, prop, parent, extra, func, methods }) {
@@ -48,17 +46,17 @@ class DefaultData extends SimpleData {
   // --- 父数据相关 --- //
   // 设置父实例
   setParent (data) {
-    this.module.parent.setData(data)
+    this.parent.setData(data)
   }
   // 获取上级实例
   getParent (n) {
-    return this.module.parent.getData(n)
+    return this.parent.getData(n)
   }
   // --额外数据相关--*/
   // 加载额外数据
   initExtra (extraData) {
     if (extraData) {
-      let fg = this.module.extra.initData(extraData)
+      let fg = this.extra.initData(extraData)
       if (!fg) {
         this._printInfo(`设置ExtrData出错`)
       }
@@ -66,19 +64,19 @@ class DefaultData extends SimpleData {
   }
   // 设置额外数据
   setExtra (prop, data) {
-    this.module.extra.setData(prop, data)
+    this.extra.setData(prop, data)
   }
   // 获取额外数据
   getExtra (prop) {
-    return this.module.extra.getData(prop)
+    return this.extra.getData(prop)
   }
   // 清除额外数据
   clearExtra (prop) {
-    this.module.extra.clearData(prop)
+    this.extra.clearData(prop)
   }
   // 重置额外数据
   resetExtra () {
-    this.module.extra.reset()
+    this.extra.reset()
   }
   _selfName () {
     let parent = this.getParent()
