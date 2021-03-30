@@ -11,6 +11,12 @@
     right: 0;
     width: 100px;
     text-align: center;
+    P{
+      margin: 0;
+      .icon{
+        margin-right: 5px;
+      }
+    }
   }
 }
 </style>
@@ -20,7 +26,7 @@
     <div v-show="menu.show" class="menu" :style="{ height: height + 'px', lineHeight: height + 'px' }" @click="toggleOpen" >
       <div>
         <p>
-          <a-icon :type="menu.open ? 'up' : 'down' " />
+          <a-icon class="icon" :type="menu.open ? 'up' : 'down' " />
           <span>{{ menu.open ? '关闭' : '打开' }}</span>
         </p>
       </div>
@@ -53,14 +59,17 @@ export default {
     }
   },
   mounted() {
-    this.checkHeight('mounted')
+    // 重要，antd的布局在第一次加载时可能存在宽度的判断错误，如同左侧菜单栏不存在时的宽度一样，避免问题加载2次后在进行判断
+    this.$nextTick(() => {
+      this.checkHeight('mounted')
+    })
   },
   methods: {
     checkHeight(from) {
       this.menu.show = false
       this.$nextTick(() => {
         let currentHeight = this.$refs.mainContent.clientHeight
-        console.log(from, currentHeight)
+        console.log(from, currentHeight, this.$refs.mainContent.clientWidth)
         if (currentHeight > this.height) {
           this.menu.show = true
         }

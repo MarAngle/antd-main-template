@@ -47,7 +47,7 @@
         </div> -->
         <LocalModAutoMenu :height="30">
           <div class="demoList">
-            <div class="demoItem" v-for="val of 9" :key="val">{{ val }}</div>
+            <div class="demoItem" v-for="val of 8" :key="val">{{ val }}</div>
           </div>
         </LocalModAutoMenu>
         <LocalFormView
