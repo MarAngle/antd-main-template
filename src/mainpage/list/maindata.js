@@ -413,4 +413,6 @@ let maindata = new ListData({
   pagination: true
 })
 
+console.log(maindata.getDictionaryItem('id'), maindata.searchData.getDictionaryItem('name'))
+
 export default maindata

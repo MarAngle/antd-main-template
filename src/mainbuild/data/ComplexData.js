@@ -77,7 +77,7 @@ class ComplexData extends BaseData {
     }
   }
   getDictionaryItem(data, from) {
-    return this.dictionaryList.getPropData(data, from)
+    return this.dictionaryList.getItem(data, from)
   }
   // 设置字典唯一值
   setDictionaryPropData (data, target, prop) {
