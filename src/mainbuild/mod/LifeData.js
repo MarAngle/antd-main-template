@@ -40,22 +40,33 @@ class LifeData extends SimpleData {
     return key
   }
   // 设置生命周期回调
-  setData ({ type, name, func, repalce }) {
+  setData ({ type, name, immediate, once, func, repalce }) {
     if (!name) {
       name = this.countName()
     }
     if (this.data[type].data.has(name) && !repalce) {
-      console.error(`生命周期存在当前值:${name}`)
+      this._printInfo(`生命周期存在当前值:${name}`)
+    } else if (!func) {
+      this._printInfo(`生命周期${type}:${name}设置中未存在func`)
     } else {
-      this.data[type].data.set(name, func)
+      this.data[type].data.set(name, {
+        once: once,
+        func: func
+      })
+      if (immediate) {
+        this.triggerData({ type, name })
+      }
       return name
     }
   }
   // 触发生命周期指定函数
   triggerData ({ type, name }, ...args) {
-    let func = this.data[type].data.get(name)
-    if (func) {
-      func(...args)
+    let data = this.data[type].data.get(name)
+    if (data.func) {
+      data.func(...args)
+      if (data.once) {
+        this.deleteData({ type, name })
+      }
     }
   }
   // 触发生命周期
