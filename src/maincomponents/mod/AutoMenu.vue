@@ -69,7 +69,6 @@ export default {
       this.menu.show = false
       this.$nextTick(() => {
         let currentHeight = this.$refs.mainContent.clientHeight
-        console.log(from, currentHeight, this.$refs.mainContent.clientWidth)
         if (currentHeight > this.height) {
           this.menu.show = true
         }

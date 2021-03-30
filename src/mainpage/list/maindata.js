@@ -363,16 +363,37 @@ let maindata = new ListData({
           name: '名称',
           originprop: 'name',
           mod: {
-            list: {
-              width: 120
-            },
             info: {},
             edit: {
               type: 'input',
               required: true,
               option: {
                 type: 'text',
-                innerWidth: '100px'
+                innerWidth: '160px'
+              },
+              on: {
+                change(value) {
+                  console.log(value)
+                }
+              }
+            },
+            build: {
+              type: 'edit'
+            }
+          }
+        },
+        {
+          prop: 'id',
+          name: 'ID',
+          originprop: 'id',
+          mod: {
+            info: {},
+            edit: {
+              type: 'input',
+              required: true,
+              option: {
+                type: 'text',
+                innerWidth: '160px'
               },
               on: {
                 change(value) {

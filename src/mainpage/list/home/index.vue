@@ -46,23 +46,17 @@
     <a-button @click="onBuild">创建</a-button>
     <div class="mainpagein">
       <a-spin :spinning="loadStatus == 'loading'">
-        <div class="demoList" v-line="30">
-          <div class="demoItem" v-for="val of 9" :key="val">{{ val }}</div>
-        </div>
-        <LocalModAutoMenu :height="30">
-          <div class="demoList">
-            <div class="demoItem" v-for="val of 8" :key="val">{{ val }}</div>
-          </div>
+        <LocalModAutoMenu :height="40">
+          <LocalFormView
+            v-if="maindata.searchData.show"
+            :form="maindata.searchData.form.build.form"
+            :mainlist="maindata.searchData.form.build.mainlist"
+            :layout="'inline'"
+            :type="'build'"
+            :footMenu="maindata.searchData.menu"
+            @menu="onSearchMenu"
+          ></LocalFormView>
         </LocalModAutoMenu>
-        <LocalFormView
-          v-if="maindata.searchData.show"
-          :form="maindata.searchData.form.build.form"
-          :mainlist="maindata.searchData.form.build.mainlist"
-          :layout="'inline'"
-          :type="'build'"
-          :footMenu="maindata.searchData.menu"
-          @menu="onSearchMenu"
-        ></LocalFormView>
         <LocalTableView :maindata="maindata" :columnList="mainlist" >
           <template slot="_index" slot-scope="slotProps">
             <LocalModAutoIndex :index="slotProps.index" :maindata="maindata" :style="{ color: 'red' }" />
