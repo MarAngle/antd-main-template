@@ -29,11 +29,15 @@
   flex-wrap: wrap;
   flex-direction: row;
   .demoItem{
+    box-sizing: border-box;
     width: 100px;
     margin-right: 10px;
     height: 30px;
     line-height: 30px;
+    text-align: center;
+    border: 1px #eee solid;
   }
+  margin-bottom: 10px;
 }
 
 </style>
@@ -42,9 +46,9 @@
     <a-button @click="onBuild">创建</a-button>
     <div class="mainpagein">
       <a-spin :spinning="loadStatus == 'loading'">
-        <!-- <div class="demoList" v-line="30">
-          <div class="demoItem" v-for="val of 10" :key="val">{{ val }}</div>
-        </div> -->
+        <div class="demoList" v-line="30">
+          <div class="demoItem" v-for="val of 9" :key="val">{{ val }}</div>
+        </div>
         <LocalModAutoMenu :height="30">
           <div class="demoList">
             <div class="demoItem" v-for="val of 8" :key="val">{{ val }}</div>
