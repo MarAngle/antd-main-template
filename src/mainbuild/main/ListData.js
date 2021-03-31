@@ -1,25 +1,13 @@
 import _func from '@/maindata/func/index'
 import ComplexDataWithSearch from './../data/ComplexDataWithSearch'
-import ChoiceData from './../mod/ChoiceData'
 
 class ListData extends ComplexDataWithSearch {
   constructor (initdata = {}) {
     super(initdata)
-    this.module.choice = new ChoiceData(initdata.choice)
     this._initListData(initdata)
   }
-  _initListData ({ option, pagination }) {
+  _initListData ({ option }) {
     this._initListDataOption(option)
-    this._initListDataLife()
-  }
-  // 加载生命周期
-  _initListDataLife () {
-    this.setLifeData({
-      type: 'reseted',
-      func: () => {
-        this.resetListData()
-      }
-    })
   }
   // 加载设置项
   _initListDataOption (option) {
@@ -56,31 +44,26 @@ class ListData extends ComplexDataWithSearch {
       })
     })
   }
-  autoChoiceReset(data) {
-    this.module.choice.autoReset(data)
-  }
-  changeChoice(idList, currentList, idProp) {
-    if (!idProp) {
-      idProp = this.getDictionaryPropData('prop', 'id')
-    }
-    this.module.choice.changeData(idList, currentList, idProp)
-  }
-  resetChoice(force) {
-    this.module.choice.reset(force)
-  }
-  // 获取选项
-  getChoice () {
-    return this.module.choice
-  }
-  // 获取选项
-  getChoiceData (prop) {
-    return this.module.choice.getData(prop)
-  }
-  // 重置， 清除检索，清除选择项，分页器恢复，数据清除
-  resetListData () {
-    this.resetChoice(true)
-    this.resetPageData()
-  }
+  // autoChoiceReset(data) {
+  //   this.module.choice.autoReset(data)
+  // }
+  // changeChoice(idList, currentList, idProp) {
+  //   if (!idProp) {
+  //     idProp = this.getDictionaryPropData('prop', 'id')
+  //   }
+  //   this.module.choice.changeData(idList, currentList, idProp)
+  // }
+  // resetChoice(force) {
+  //   this.module.choice.reset(force)
+  // }
+  // // 获取选项
+  // getChoice () {
+  //   return this.module.choice
+  // }
+  // // 获取选项
+  // getChoiceData (prop) {
+  //   return this.module.choice.getData(prop)
+  // }
   // --数据相关--*/
   // 获取对象
   getItem (data, type = 'index') {

@@ -13,6 +13,8 @@ class ModuleData {
     this.initSearchModule(initdata.search, target)
     // pagination数据加载
     this.initPaginationModule(initdata.pagination, target)
+    // choice数据加载
+    this.initChoiceModule(initdata.choice, target)
   }
   initSearchModule(initData, target) {
     if (initData) {
@@ -24,6 +26,10 @@ class ModuleData {
   initPaginationModule(initData, target) {
     this.data.pagination = new PaginationData(initData)
     this.data.pagination.install(target)
+  }
+  initChoiceModule(initData, target) {
+    this.data.choice = new ChoiceData(initData)
+    this.data.choice.install(target)
   }
   getModule(prop) {
     return this.data[prop]

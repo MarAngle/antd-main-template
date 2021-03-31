@@ -158,7 +158,7 @@ export default {
       return list
     },
     rowSelection() {
-      let choice = this.maindata.module.choice
+      let choice = this.maindata.module.data.choice
       if (choice.getShow()) {
         let option = choice.getOption()
         return {

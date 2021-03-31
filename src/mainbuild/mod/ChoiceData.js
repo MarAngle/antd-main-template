@@ -142,6 +142,59 @@ class ChoiceData extends DefaultData {
       this.setData([], [])
     }
   }
+  install(target) {
+    let dict = [
+      {
+        prop: 'autoChoiceReset',
+        originProp: 'autoReset'
+      },
+      {
+        prop: 'changeChoice',
+        func: (idList, currentList, idProp) => {
+          if (!idProp) {
+            idProp = target.getDictionaryPropData('prop', 'id')
+          }
+          this.changeData(idList, currentList, idProp)
+        }
+      },
+      {
+        prop: 'resetChoice',
+        originProp: 'reset'
+      },
+      {
+        prop: 'getChoice',
+        func: () => {
+          return this
+        }
+      },
+      {
+        prop: 'getChoiceData',
+        originProp: 'getData'
+      }
+    ]
+    for (let n = 0; n < dict.length; n++) {
+      let dictData = dict[n]
+      if (!target[dictData.prop]) {
+        if (dictData.func) {
+          target[dictData.prop] = (...args) => {
+            return dictData.func(...args)
+          }
+        } else {
+          target[dictData.prop] = (...args) => {
+            return this[dictData.originProp](...args)
+          }
+        }
+      } else {
+        target._printInfo(`存在${dictData.prop}方法,${this._selfName()}install=>${dictData.originProp}失败`)
+      }
+    }
+    target.setLifeData({
+      type: 'reseted',
+      func: () => {
+        this.reset(true)
+      }
+    })
+  }
 }
 
 export default ChoiceData
