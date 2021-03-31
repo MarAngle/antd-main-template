@@ -84,21 +84,6 @@ class StatusData {
       this.data[n].reset()
     }
   }
-  install (target) {
-    target.setLifeData({
-      type: 'reseted',
-      name: 'AutoStatusDataReset',
-      func: () => {
-        this.reset()
-      }
-    })
-  }
-  uninstall(target) {
-    target.setLifeData({
-      type: 'reseted',
-      name: 'AutoStatusDataReset'
-    })
-  }
   _selfName () {
     return `[${this.constructor.name}]`
   }

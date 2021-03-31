@@ -122,66 +122,19 @@ class PaginationData {
     this.setTotal(0)
     this.setPage(1)
   }
-  install(target) {
-    let dict = [
-      {
-        prop: 'isPaginationInit',
-        originProp: 'isInit'
-      },
-      {
-        prop: 'getPageData',
-        func: (prop) => {
-          let res
-          if (this.isInit()) {
-            if (prop == 'page') {
-              res = this.getPage()
-            } else if (prop == 'size') {
-              res = this.getSize()
-            } else if (prop == 'num') {
-              res = this.getTotal()
-            } else {
-              res = this.getCurrent()
-            }
-          }
-          return res
-        }
-      },
-      {
-        prop: 'setPageData',
-        func: (data, prop = 'page') => {
-          if (this.isInit()) {
-            if (prop == 'page') {
-              this.setPage(data)
-            } else if (prop == 'size') {
-              this.setSize(data) // { page, size }
-            } else if (prop == 'num') {
-              this.setTotal(data)
-            }
-          }
-        }
-      }
-    ]
-    for (let n = 0; n < dict.length; n++) {
-      let dictData = dict[n]
-      if (!target[dictData.prop]) {
-        if (dictData.func) {
-          target[dictData.prop] = (...args) => {
-            return dictData.func(...args)
-          }
-        } else {
-          target[dictData.prop] = (...args) => {
-            return this[dictData.originProp](...args)
-          }
-        }
-      } else {
-        target._printInfo(`存在${dictData.prop}方法,${this._selfName()}install=>${dictData.originProp}失败`)
-      }
-    }
+  install (target) {
     target.setLifeData({
       type: 'reseted',
+      name: 'AutoPaginationDataReset',
       func: () => {
         this.reset()
       }
+    })
+  }
+  uninstall(target) {
+    target.setLifeData({
+      type: 'reseted',
+      name: 'AutoPaginationDataReset'
     })
   }
 }

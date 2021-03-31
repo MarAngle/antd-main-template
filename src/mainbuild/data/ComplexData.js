@@ -24,16 +24,6 @@ class ComplexData extends BaseData {
   }) {
     this._initComplexDataOption(option)
     this.initDictionary(dictionary)
-    this._initComplexDataLife()
-  }
-  // 加载生命周期函数
-  _initComplexDataLife () {
-    this.setLifeData({
-      type: 'reseted',
-      func: () => {
-        this.resetComplexData()
-      }
-    })
   }
   // 加载设置选项
   _initComplexDataOption (option) {

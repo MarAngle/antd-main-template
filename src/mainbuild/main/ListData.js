@@ -12,16 +12,6 @@ class ListData extends ComplexDataWithSearch {
   _initListData ({ option, pagination }) {
     this._initListDataOption(option)
     this._initPagination(pagination)
-    this._initListDataLife()
-  }
-  // 加载生命周期
-  _initListDataLife () {
-    this.setLifeData({
-      type: 'reseted',
-      func: () => {
-        this.resetListData()
-      }
-    })
   }
   // 加载设置项
   _initListDataOption (option) {
@@ -115,11 +105,6 @@ class ListData extends ComplexDataWithSearch {
   // 获取选项
   getChoiceData (prop) {
     return this.getModule('choice').getData(prop)
-  }
-  // 重置， 清除检索，清除选择项，分页器恢复，数据清除
-  resetListData () {
-    this.resetChoice(true)
-    this.resetPageData()
   }
   // --数据相关--*/
   // 获取对象
