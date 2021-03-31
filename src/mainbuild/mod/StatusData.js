@@ -3,6 +3,7 @@ import StatusDataItem from './StatusDataItem'
 class StatusData {
   constructor (initdata = {}) {
     this.data = {}
+    this.installLifeData = []
     this._initMain(initdata)
   }
   _initMain ({
@@ -82,6 +83,21 @@ class StatusData {
     for (let n in this.data) {
       this.data[n].reset()
     }
+  }
+  install (target) {
+    target.setLifeData({
+      type: 'reseted',
+      name: 'AutoStatusDataReset',
+      func: () => {
+        this.reset()
+      }
+    })
+  }
+  uninstall(target) {
+    target.setLifeData({
+      type: 'reseted',
+      name: 'AutoStatusDataReset'
+    })
   }
   _selfName () {
     return `[${this.constructor.name}]`

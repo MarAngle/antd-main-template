@@ -18,6 +18,12 @@ class ModuleData {
     }
   }
   setData(prop, data) {
+    if (this.data[prop]) {
+      // 存在旧数据时需要对旧数据进行卸载操作
+      if (this.data[prop].uninstall) {
+        this.data[prop].uninstall(this.getParent())
+      }
+    }
     this.data[prop] = data
     if (data.install) {
       data.install(this.getParent())

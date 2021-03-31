@@ -13,12 +13,12 @@ class BaseData extends DefaultData {
     this.triggerLife('created')
   }
   _initBaseData ({
-    status,
     life,
+    status,
     update
   }) {
-    this.setModule('status', new StatusData(status))
     this.setModule('life', new LifeData(life))
+    this.setModule('status', new StatusData(status))
     this.setModule('promise', new PromiseData())
     if (update) {
       this.setModule('update', new UpdateData(update))
@@ -54,7 +54,7 @@ class BaseData extends DefaultData {
   // 生命周期函数
   // 设置生命周期函数
   setLifeData (payload) {
-    this.getModule('life').setData(payload)
+    return this.getModule('life').setData(payload)
   }
   // 触发特定的生命周期函数
   triggerLifeData (payload, ...args) {
@@ -63,6 +63,14 @@ class BaseData extends DefaultData {
   // 触发生命周期
   triggerLife (type, ...args) {
     this.getModule('life').trigger(type, ...args)
+  }
+  // 清楚指定类型的所有生命周期回调
+  clearLife (type, ...args) {
+    this.getModule('life').clear(type, ...args)
+  }
+  // 清楚指定类型指定name的生命周期回调
+  deleteLifeData (type, ...args) {
+    this.getModule('life').deleteData(type, ...args)
   }
 
   // 更新相关操作
