@@ -7,11 +7,11 @@ class ComplexDataWithSearch extends ComplexData {
     this._initComplexDataWithSearch(initdata)
     this._initComplexDataWithSearchLife()
   }
-  _initComplexDataWithSearch ({ searchdata }) {
-    if (searchdata) {
-      searchdata.parent = this
+  _initComplexDataWithSearch ({ search }) {
+    if (search) {
+      search.parent = this
     }
-    this.setModule('search', new SearchData(searchdata))
+    this.setModule('search', new SearchData(search))
   }
   _initComplexDataWithSearchLife () {
     this.setLifeData({
