@@ -150,9 +150,9 @@ class PaginationData {
     for (let n = 0; n < dict.length; n++) {
       let dictData = dict[n]
       if (!target[dictData.prop]) {
-        if (dict.func) {
+        if (dictData.func) {
           target[dictData.prop] = (...args) => {
-            return dict.func(...args)
+            return dictData.func(...args)
           }
         } else {
           target[dictData.prop] = (...args) => {
@@ -169,7 +169,6 @@ class PaginationData {
         this.reset()
       }
     })
-    console.log(this, target)
   }
 }
 

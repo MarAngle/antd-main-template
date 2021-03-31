@@ -22,7 +22,7 @@ class ModuleData {
     this.data.search.install(target)
   }
   initPaginationModule(initData, target) {
-    if (initData !== undefined) {
+    if (initData) {
       this.data.pagination = new PaginationData(initData)
       this.data.pagination.install(target)
     } else {
