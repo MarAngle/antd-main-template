@@ -22,17 +22,8 @@ class ModuleData {
     this.data.search.install(target)
   }
   initPaginationModule(initData, target) {
-    if (initData) {
-      this.data.pagination = new PaginationData(initData)
-      this.data.pagination.install(target)
-    } else {
-      this.data.pagination = {
-        getter: () => {
-          this._printInfo('err')
-          return null
-        }
-      }
-    }
+    this.data.pagination = new PaginationData(initData)
+    this.data.pagination.install(target)
   }
   getModule(prop) {
     return this.data[prop]

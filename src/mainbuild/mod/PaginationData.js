@@ -28,17 +28,23 @@ class PaginationData {
     this.option = {
       props: {}
     }
-    this._initMain(initdata)
+    this.initMain(initdata)
   }
-  _initMain (initdata) {
+  initMain (initdata) {
     if (initdata) {
       if (initdata === true) {
         initdata = {}
       }
-      this.status.init = true
+      this.setInit(true)
       this.initSize(initdata.size)
       this.initOption(initdata.props, initdata.option)
     }
+  }
+  isInit() {
+    return this.status.init
+  }
+  setInit(init) {
+    this.status.init = init
   }
   initSize(size) {
     if (!size) {
