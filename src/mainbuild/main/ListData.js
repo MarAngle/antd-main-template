@@ -42,7 +42,7 @@ class ListData extends ComplexDataWithSearch {
             data: 1
           }
         }
-        if (this.module.data.pagination && page.prop && page.data) {
+        if (this.isPaginationInit() && page.prop && page.data) {
           this.setPageData(page.data, page.prop)
         }
       }

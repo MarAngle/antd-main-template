@@ -125,17 +125,23 @@ class PaginationData {
   install(target) {
     let dict = [
       {
+        prop: 'isPaginationInit',
+        originProp: 'isInit'
+      },
+      {
         prop: 'getPageData',
         func: (prop) => {
           let res
-          if (prop == 'page') {
-            res = this.getPage()
-          } else if (prop == 'size') {
-            res = this.getSize()
-          } else if (prop == 'num') {
-            res = this.getTotal()
-          } else {
-            res = this.getCurrent()
+          if (this.isInit()) {
+            if (prop == 'page') {
+              res = this.getPage()
+            } else if (prop == 'size') {
+              res = this.getSize()
+            } else if (prop == 'num') {
+              res = this.getTotal()
+            } else {
+              res = this.getCurrent()
+            }
           }
           return res
         }
@@ -143,12 +149,14 @@ class PaginationData {
       {
         prop: 'setPageData',
         func: (data, prop = 'page') => {
-          if (prop == 'page') {
-            this.setPage(data)
-          } else if (prop == 'size') {
-            this.setSize(data) // { page, size }
-          } else if (prop == 'num') {
-            this.setTotal(data)
+          if (this.isInit()) {
+            if (prop == 'page') {
+              this.setPage(data)
+            } else if (prop == 'size') {
+              this.setSize(data) // { page, size }
+            } else if (prop == 'num') {
+              this.setTotal(data)
+            }
           }
         }
       }
