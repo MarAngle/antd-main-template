@@ -29,7 +29,9 @@ let maindata = new ListData({
   choice: {
     show: true,
     reset: {
-      page: true
+      page: {
+        page: true
+      }
     }
   },
   dictionary: {
@@ -412,15 +414,5 @@ let maindata = new ListData({
   extradata: {},
   pagination: true
 })
-
-maindata.setLifeData({
-  type: 'loaded',
-  once: true,
-  func: () => {
-    console.log('loaded')
-  }
-})
-
-console.log(maindata)
 
 export default maindata

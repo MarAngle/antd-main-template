@@ -238,7 +238,10 @@ export default {
           this.maindata.reloadData({
             prop: prop,
             data: current
-          }, 'page', true).then(() => {}, () => {})
+          }, {
+            from: 'page',
+            act: prop
+          }, true).then(() => {}, (err) => { console.error(err) })
         } else {
           this.paginationChange(prop, current)
         }
