@@ -1,5 +1,5 @@
-
 import SimpleData from './../data/SimpleData'
+import IdData from './IdData'
 
 /*
 传参问题不能用apply解决，避免箭头函数产生的this指向错误问题
@@ -15,7 +15,16 @@ destroyed
 */
 
 const defaultList = ['created', 'beforeLoad', 'loaded', 'loadFail', 'beforeUpdate', 'updated', 'updateFail', 'beforeReset', 'reseted', 'beforeDestroy', 'destroyed']
-let key = 0
+let id = new IdData({
+  list: [
+    {
+      type: 'time'
+    },
+    {
+      type: 'id'
+    }
+  ]
+})
 
 class LifeData extends SimpleData {
   constructor (initdata = {}) {
@@ -36,8 +45,7 @@ class LifeData extends SimpleData {
   }
   // 计算名称
   countName () {
-    key++
-    return key
+    return id.getData()
   }
   // 设置生命周期回调
   setData ({ type, name, immediate, once, func, repalce }) {

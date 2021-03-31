@@ -125,7 +125,7 @@ class PaginationData {
   install (target) {
     target.setLifeData({
       type: 'reseted',
-      name: 'AutoPaginationDataReset',
+      // name: 'AutoPaginationDataReset',
       func: () => {
         this.reset()
       }
