@@ -102,7 +102,7 @@ class SearchData extends ComplexData {
   install (target) {
     target.setLifeData({
       type: 'reseted',
-      name: 'AutoSearchDataReset',
+      name: 'AutoModuleSearchDataReseted',
       func: () => {
         this.reset()
       }
@@ -111,7 +111,7 @@ class SearchData extends ComplexData {
   uninstall(target) {
     target.setLifeData({
       type: 'reseted',
-      name: 'AutoSearchDataReset'
+      name: 'AutoModuleSearchDataReseted'
     })
   }
   // install(target) {

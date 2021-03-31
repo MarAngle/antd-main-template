@@ -17,6 +17,18 @@ class ComplexData extends BaseData {
     */
     this.setModule('dictionary', new DictionaryList())
     this._initComplexData(initdata)
+    this._initComplexDataLife()
+  }
+  // 加载生命周期函数
+  _initComplexDataLife() {
+    this.setLifeData({
+      type: 'reseted',
+      name: 'AutoComplexDataReseted',
+      func: () => {
+        this.resetDataList()
+        this.resetDataCurrent()
+      }
+    })
   }
   _initComplexData ({
     option,
@@ -116,6 +128,16 @@ class ComplexData extends BaseData {
   // 格式化Form数据
   getEditData (formData, modlist, type) {
     return this.getModule('dictionary').getEditData(formData, modlist, type)
+  }
+  // 重置data.list
+  resetDataList() {
+    _func.clearArray(this.data.list)
+  }
+  // 重置data.list
+  resetDataCurrent() {
+    for (let n in this.data.current) {
+      delete this.data.current[n]
+    }
   }
 }
 

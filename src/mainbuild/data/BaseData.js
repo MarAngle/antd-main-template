@@ -95,7 +95,7 @@ class BaseData extends DefaultData {
   }
   // 重置更新
   resetUpdate (payload) {
-    this.triggerUpdateMethod('reset', payload, true)
+    this.triggerUpdateMethod('reset', payload)
   }
   triggerUpdateMethod (method, payload, hideError) {
     if (this.getModule('update')) {
@@ -301,8 +301,6 @@ class BaseData extends DefaultData {
     this.triggerLife('beforeReset', ...args)
     // 重置状态
     this.resetStatus()
-    // 重置更新
-    this.resetUpdate()
     this.triggerLife('reseted', ...args)
   }
 }

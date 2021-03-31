@@ -107,6 +107,21 @@ class UpdateData extends DefaultData {
     this.clear()
     this.resetNum()
   }
+  install (target) {
+    target.setLifeData({
+      type: 'reseted',
+      name: 'AutoModuleUpdateDataReseted',
+      func: () => {
+        this.reset()
+      }
+    })
+  }
+  uninstall(target) {
+    target.setLifeData({
+      type: 'reseted',
+      name: 'AutoModuleUpdateDataReseted'
+    })
+  }
 }
 
 export default UpdateData
