@@ -48,12 +48,12 @@
       <a-spin :spinning="loadStatus == 'loading'">
         <LocalModAutoMenu :height="59" :menuStyle="{ lineHeight: '40px' }" >
           <LocalFormView
-            v-if="maindata.module.data.search.show"
-            :form="maindata.module.data.search.form.build.form"
-            :mainlist="maindata.module.data.search.form.build.mainlist"
+            v-if="maindata.getModule('search').show"
+            :form="maindata.getModule('search').form.build.form"
+            :mainlist="maindata.getModule('search').form.build.mainlist"
             :layout="'inline'"
             :type="'build'"
-            :footMenu="maindata.module.data.search.menu"
+            :footMenu="maindata.getModule('search').menu"
             @menu="onSearchMenu"
           ></LocalFormView>
         </LocalModAutoMenu>

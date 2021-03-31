@@ -8,7 +8,7 @@ import PromiseData from './../mod/PromiseData'
 class BaseData extends DefaultData {
   constructor (initdata = {}) {
     super(initdata)
-    this.option = new OptionData()
+    this.setModule('option', new OptionData())
     this._initBaseData(initdata)
     this.triggerLife('created')
   }
@@ -17,11 +17,11 @@ class BaseData extends DefaultData {
     life,
     update
   }) {
-    this.status = new StatusData(status)
-    this.life = new LifeData(life)
-    this.promise = new PromiseData()
+    this.setModule('status', new StatusData(status))
+    this.setModule('life', new LifeData(life))
+    this.setModule('promise', new PromiseData())
     if (update) {
-      this.update = new UpdateData(update)
+      this.setModule('update', new UpdateData(update))
     }
   }
   /**
@@ -31,38 +31,38 @@ class BaseData extends DefaultData {
    * @param {*} act 操作判断值 count模式下启用，可选不传/init/reset，基本不用传
    */
   setStatus (data, prop = 'operate', act) {
-    this.status.setData(prop, data, act)
+    this.getModule('status').setData(prop, data, act)
   }
   // 获取对应状态的值
   getStatus (prop = 'operate') {
-    return this.status.getData(prop)
+    return this.getModule('status').getData(prop)
   }
   // 恢复状态
   resetStatus () {
-    this.status.reset()
+    this.getModule('status').reset()
   }
   // promise相关函数
   setPromise (prop, promisedata) {
-    return this.promise.setData(prop, promisedata)
+    return this.getModule('promise').setData(prop, promisedata)
   }
   getPromise (prop) {
-    return this.promise.getData(prop)
+    return this.getModule('promise').getData(prop)
   }
   triggerPromise (prop, option = {}) {
-    return this.promise.triggerData(prop, option)
+    return this.getModule('promise').triggerData(prop, option)
   }
   // 生命周期函数
   // 设置生命周期函数
   setLifeData (payload) {
-    this.life.setData(payload)
+    this.getModule('life').setData(payload)
   }
   // 触发特定的生命周期函数
   triggerLifeData (payload, ...args) {
-    this.life.triggerData(payload, ...args)
+    this.getModule('life').triggerData(payload, ...args)
   }
   // 触发生命周期
   triggerLife (type, ...args) {
-    this.life.trigger(type, ...args)
+    this.getModule('life').trigger(type, ...args)
   }
 
   // 更新相关操作
@@ -90,9 +90,9 @@ class BaseData extends DefaultData {
     this.triggerUpdateMethod('reset', payload, true)
   }
   triggerUpdateMethod (method, payload, hideError) {
-    if (this.update) {
-      if (this.update[method]) {
-        this.update[method](payload)
+    if (this.getModule('update')) {
+      if (this.getModule('update')[method]) {
+        this.getModule('update')[method](payload)
       } else {
         this._printInfo(`更新模块不存在${method}方法`)
       }

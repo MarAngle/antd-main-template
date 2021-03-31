@@ -6,7 +6,7 @@ import ChoiceData from './../mod/ChoiceData'
 class ListData extends ComplexDataWithSearch {
   constructor (initdata = {}) {
     super(initdata)
-    this.module.choice = new ChoiceData(initdata.choice)
+    this.setModule('choice', new ChoiceData(initdata.choice))
     this._initListData(initdata)
   }
   _initListData ({ option, pagination }) {
@@ -31,42 +31,42 @@ class ListData extends ComplexDataWithSearch {
   // 加载分页器
   _initPagination (pagination) {
     if (pagination) {
-      this.module.pagination = new PaginationData(pagination)
+      this.setModule('pagination', new PaginationData(pagination))
     } else {
-      this.module.pagination = null
+      this.setModule('pagination', null)
     }
   }
   // 获取分页器数据
   getPageData (prop) {
     let res
-    if (this.module.pagination) {
+    if (this.getModule('pagination')) {
       if (prop == 'page') {
-        res = this.module.pagination.getPage()
+        res = this.getModule('pagination').getPage()
       } else if (prop == 'size') {
-        res = this.module.pagination.getSize()
+        res = this.getModule('pagination').getSize()
       } else if (prop == 'num') {
-        res = this.module.pagination.getTotal()
+        res = this.getModule('pagination').getTotal()
       } else {
-        res = this.module.pagination.getCurrent()
+        res = this.getModule('pagination').getCurrent()
       }
     }
     return res
   }
   // 重置分页器
   resetPageData () {
-    if (this.module.pagination) {
-      this.module.pagination.reset()
+    if (this.getModule('pagination')) {
+      this.getModule('pagination').reset()
     }
   }
   // 设置分页器数据
   setPageData (data, prop = 'page') {
-    if (this.module.pagination) {
+    if (this.getModule('pagination')) {
       if (prop == 'page') {
-        this.module.pagination.setPage(data)
+        this.getModule('pagination').setPage(data)
       } else if (prop == 'size') {
-        this.module.pagination.setSize(data) // { page, size }
+        this.getModule('pagination').setSize(data) // { page, size }
       } else if (prop == 'num') {
-        this.module.pagination.setTotal(data)
+        this.getModule('pagination').setTotal(data)
       }
     }
   }
@@ -86,7 +86,7 @@ class ListData extends ComplexDataWithSearch {
             data: 1
           }
         }
-        if (this.module.pagination && page.prop && page.data) {
+        if (this.getModule('pagination') && page.prop && page.data) {
           this.setPageData(page.data, page.prop)
         }
       }
@@ -101,24 +101,20 @@ class ListData extends ComplexDataWithSearch {
     })
   }
   autoChoiceReset(data) {
-    this.module.choice.autoReset(data)
+    this.getModule('choice').autoReset(data)
   }
   changeChoice(idList, currentList, idProp) {
     if (!idProp) {
       idProp = this.getDictionaryPropData('prop', 'id')
     }
-    this.module.choice.changeData(idList, currentList, idProp)
+    this.getModule('choice').changeData(idList, currentList, idProp)
   }
   resetChoice(force) {
-    this.module.choice.reset(force)
-  }
-  // 获取选项
-  getChoice () {
-    return this.module.choice
+    this.getModule('choice').reset(force)
   }
   // 获取选项
   getChoiceData (prop) {
-    return this.module.choice.getData(prop)
+    return this.getModule('choice').getData(prop)
   }
   // 重置， 清除检索，清除选择项，分页器恢复，数据清除
   resetListData () {

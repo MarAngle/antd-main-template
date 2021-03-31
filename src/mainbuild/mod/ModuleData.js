@@ -1,11 +1,19 @@
 class ModuleData {
-  constructor (initdata = {}) {
+  constructor (initdata) {
     this.data = {}
+    this.initData(initdata)
   }
-  setModule(prop, data) {
+  initData(initdata) {
+    if (initdata && typeof initdata == 'object') {
+      for (let n in initdata) {
+        this.setData(n, initdata[n])
+      }
+    }
+  }
+  setData(prop, data) {
     this.data[prop] = data
   }
-  getModule(prop) {
+  getData(prop) {
     return this.data[prop]
   }
 }

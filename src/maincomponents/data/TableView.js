@@ -158,7 +158,7 @@ export default {
       return list
     },
     rowSelection() {
-      let choice = this.maindata.module.data.choice
+      let choice = this.maindata.getModule('choice')
       if (choice.getShow()) {
         let option = choice.getOption()
         return {
@@ -174,7 +174,7 @@ export default {
       if (this.paginationData) {
         return this.paginationData
       } else {
-        return this.maindata.module.data.pagination
+        return this.maindata.getModule('pagination')
       }
     }
   },
