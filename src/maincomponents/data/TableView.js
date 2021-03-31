@@ -174,7 +174,7 @@ export default {
       if (this.paginationData) {
         return this.paginationData
       } else {
-        return this.maindata.module.pagination
+        return this.maindata.module.data.pagination
       }
     }
   },
