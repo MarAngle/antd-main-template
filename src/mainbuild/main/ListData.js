@@ -1,6 +1,5 @@
 import _func from '@/maindata/func/index'
 import ComplexDataWithSearch from './../data/ComplexDataWithSearch'
-import PaginationData from './../mod/PaginationData'
 import ChoiceData from './../mod/ChoiceData'
 
 class ListData extends ComplexDataWithSearch {
@@ -11,7 +10,6 @@ class ListData extends ComplexDataWithSearch {
   }
   _initListData ({ option, pagination }) {
     this._initListDataOption(option)
-    // this._initPagination(pagination)
     this._initListDataLife()
   }
   // 加载生命周期
@@ -28,48 +26,6 @@ class ListData extends ComplexDataWithSearch {
     if (option) {
     }
   }
-  // 加载分页器
-  // _initPagination (pagination) {
-  //   if (pagination) {
-  //     this.module.pagination = new PaginationData(pagination)
-  //   } else {
-  //     this.module.pagination = null
-  //   }
-  // }
-  // 获取分页器数据
-  // getPageData (prop) {
-  //   let res
-  //   if (this.module.pagination) {
-  //     if (prop == 'page') {
-  //       res = this.module.pagination.getPage()
-  //     } else if (prop == 'size') {
-  //       res = this.module.pagination.getSize()
-  //     } else if (prop == 'num') {
-  //       res = this.module.pagination.getTotal()
-  //     } else {
-  //       res = this.module.pagination.getCurrent()
-  //     }
-  //   }
-  //   return res
-  // }
-  // // 重置分页器
-  // resetPageData () {
-  //   if (this.module.pagination) {
-  //     this.module.pagination.reset()
-  //   }
-  // }
-  // // 设置分页器数据
-  // setPageData (data, prop = 'page') {
-  //   if (this.module.pagination) {
-  //     if (prop == 'page') {
-  //       this.module.pagination.setPage(data)
-  //     } else if (prop == 'size') {
-  //       this.module.pagination.setSize(data) // { page, size }
-  //     } else if (prop == 'num') {
-  //       this.module.pagination.setTotal(data)
-  //     }
-  //   }
-  // }
   // 格式化列表数据
   formatData (datalist = [], totalnum, type, option) {
     this.formatListData(this.data.list, datalist, type, option)
@@ -86,7 +42,7 @@ class ListData extends ComplexDataWithSearch {
             data: 1
           }
         }
-        if (this.module.pagination && page.prop && page.data) {
+        if (this.module.data.pagination && page.prop && page.data) {
           this.setPageData(page.data, page.prop)
         }
       }
