@@ -1,7 +1,7 @@
 class StatusDataItem {
   constructor (initdata) {
     if (!initdata || !initdata.list || initdata.list.length <= 0) {
-      console.error('StatusDataItem需要设置初始化数据,并设置列表')
+      console.error(`StatusDataItem需要设置初始化数据,并设置列表`)
     }
     this.option = {
       type: 'default'
