@@ -143,7 +143,7 @@ export default {
     value: {
       immediate: true,
       handler: function(data) {
-        this.setData(data, 'value')
+        this.buildData(data, 'value')
       }
     }
   },
@@ -223,28 +223,147 @@ export default {
         this.emitData()
       }
     },
-    setData(data, from, unemit) {
+    buildDataItem(targetdata, origindata) {
+      let type = this._func.getType(origindata)
+      if (type == 'file') {
+        targetdata.name = origindata.name
+        targetdata.data = origindata
+        targetdata.url = ''
+      } else if (type == 'object') {
+        targetdata.data = origindata.data
+        targetdata.name = origindata.name
+        targetdata.url = origindata.url
+      } else {
+        targetdata.data = origindata
+        targetdata.name = origindata
+        targetdata.url = ''
+      }
+    },
+    isEmpty(data) {
+      let res = {}
       if (!this.multiple) {
-        if (this.file.data === data) {
-          unemit = true
-        } else {
-          if (data) {
-
-          } else {
-            this.clearData()
+        res.act = data
+        if (!res.act) {
+          res.clearData = data
+        }
+      } else {
+        res.act = data && data.length
+        if (!res.act && this._func.isArray(data)) {
+          res.clearData = data
+        }
+      }
+      return res
+    },
+    // 检查文件列表
+    checkFileList(data) {
+      if (!this._func.isArray(data)) {
+        data = []
+      }
+      if (!this._func.isArray(this.file.data)) {
+        this.file.data = []
+      }
+      if (this.file.data === data) {
+        return true
+      } else {
+        // 添加不同新数据
+        for (let n = 0; n < data.length; n++) {
+          let oitem = data[n]
+          let item = {}
+          this.buildDataItem(item, oitem)
+          data.splice(n, 1, item)
+        }
+        for (let n = 0; n < this.file.list.length; n++) {
+          let targetitem = this.file.list[n]
+          for (let i = 0; i < data.length; i++) {
+            let originitem = data[i]
+            // 删除相同子数据
+            if (targetitem.data == originitem.data) {
+              data.splice(i, 1)
+              i--
+              break
+            }
           }
+        }
+        if (data.length == 0) {
+          return true
+        } else {
+          return false
         }
       }
     },
-    clearData() {
-      this.file.name = ''
-      this.file.url = ''
-      if (this.file.data !== undefined) {
-        this.file.data = undefined
+    buildData(data, from, unemit) {
+      let res = this.isEmpty(data)
+      if (res.act) {
+        if (!this.multiple) {
+          if (this.file.data !== data) {
+            this.buildDataItem(this.file, data)
+          } else {
+            // 此数据与原数据相同时不需要再次emit
+            if (from == 'value') {
+              unemit = true
+            }
+          }
+        } else {
+          if (!this.checkFileList(data)) {
+            if (this.maxNum && this.file.list.length + data.length > this.maxNum) {
+              data.length = this.maxNum - this.file.list.length
+              this._func.showmsg(`文件数量限制${this.maxNum}!`, 'error')
+            }
+            // 添加不同新数据
+            for (let n = 0; n < data.length; n++) {
+              let oitem = data[n]
+              this.file.list.push(oitem)
+              this.file.data.push(oitem.data)
+            }
+          }
+        }
+      } else {
+        this.clearData(res.clearData)
+      }
+      if (!unemit) {
+        this.emitData()
       }
     },
-    clearMultipleData() {
-
+    emitData() {
+      let data = this.file.data
+      this.$emit('input', data)
+      this.$emit('change', data)
+    },
+    clearData(data) {
+      this.file.name = ''
+      this.file.url = ''
+      if (!this.multiple) {
+        if (this.file.data !== undefined) {
+          this.file.data = undefined
+        }
+      } else {
+        data = data || []
+        this.file.data = data
+      }
+      this.file.list = []
+    },
+    onLoading(data) {
+      this.loading = data
+      this.$emit('loading', this.loading)
+    },
+    onChange(file) {
+      if (!this.upload) {
+        this.buildData(file, 'origin')
+      } else {
+        if (this.fileUpload) {
+          this.onLoading(true)
+          this.fileUpload({ file }).then(res => {
+            this.onLoading(false)
+            this.buildData(res, 'origin')
+          }, res => {
+            this.onLoading(false)
+            this.clearData()
+            this.emitData()
+          })
+        } else {
+          this._func.showmsg('未定义上传文件函数，请检查代码!', 'error')
+        }
+      }
     }
   }
 }
