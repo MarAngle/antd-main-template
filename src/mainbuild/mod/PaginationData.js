@@ -22,7 +22,7 @@ class PaginationData {
         list: []
       },
       num: {
-        total: 1
+        total: 0
       }
     }
     this.option = {
@@ -82,15 +82,16 @@ class PaginationData {
   }
   // 计算总页码
   countTotalPage () {
-    this.data.page.total = _func.getNum(this.data.num.total / this.data.size.current, 'ceil', 0)
+    let total = _func.getNum(this.data.num.total / this.data.size.current, 'ceil', 0)
+    this.data.page.total = total <= 0 ? 1 : total
   }
   setTotal(num) {
-    this.data.num.total = num
+    this.data.num.total = num < 0 ? 0 : num
     this.countTotalPage()
   }
   // 设置当前页
   setPage (current) {
-    this.data.page.current = current
+    this.data.page.current = current <= 0 ? 1 : current
   }
   // 获取总页码
   getTotalPage () {
