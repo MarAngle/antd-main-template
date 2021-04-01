@@ -9,7 +9,8 @@ let environment = {
     real: ''
   },
   canUse: {
-    proxy: false
+    Proxy: false,
+    Symbol: false
   }
 }
 
@@ -27,11 +28,20 @@ environment.getEnvMode = function (prop = 'data') {
 }
 
 environment.checkUse = function() {
+  const showError = false
+  this.checkUseItem('Proxy', 'Proxy', showError)
+  this.checkUseItem('Symbol', 'Symbol', showError)
+}
+environment.checkUseItem = function(Name, prop, showError) {
   try {
-    if (window.Proxy) {
-      this.setCanUse('proxy', true)
+    if (window[Name]) {
+      this.setCanUse(prop || Name, true)
     }
-  } catch (e) {}
+  } catch (e) {
+    if (showError) {
+      console.error(e)
+    }
+  }
 }
 
 environment.setCanUse = function(prop, data) {

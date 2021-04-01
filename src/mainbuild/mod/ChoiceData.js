@@ -77,7 +77,7 @@ class ChoiceData extends DefaultData {
         return item
       }
     }
-    return new EmptyData()
+    return new EmptyData('ChoiceData空选项数据')
   }
   // 数据变更=>id作为唯一基准
   changeData(idList, currentList = [], idProp) {
