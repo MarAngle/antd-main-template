@@ -277,8 +277,8 @@ export default {
         } else if (isArray && data.length == 0) {
           isEmpty = true
         }
-        if (isEmpty) {
-          // 当前数据为空数据时
+        if (isEmpty || !isArray) {
+          // 当前数据为空数据或者不为数组数据时
           this.clearData(data)
         } else if (this.file.data === data) {
           // 当前数据与传递数据一致
@@ -287,7 +287,22 @@ export default {
           }
         } else {
           if (!this.checkFileList(data)) {
-
+            // 传入列表和当前列表不相对一致
+            if (this.maxNum && this.file.list.length + data.length > this.maxNum) {
+              data.length = this.maxNum - this.file.list.length
+              this._func.showmsg(`文件数量限制${this.maxNum}!`, 'error')
+            }
+            // 添加不同新数据
+            for (let n = 0; n < data.length; n++) {
+              let oitem = data[n]
+              this.file.list.push(oitem)
+              this.file.data.push(oitem.data)
+            }
+          } else {
+            // 此处说明传入列表的data与当前列表的data一致
+            if (from == 'value') {
+              unemit = true
+            }
           }
         }
       }
@@ -326,39 +341,31 @@ export default {
     },
     // 检查文件列表
     checkFileList(data) {
-      if (!this._func.isArray(data)) {
-        data = []
+      // 此处不论是data还是fileList都应该是数组数据不需要进行额外检查
+      // 对传入的数组数据进行数据的格式化
+      // 考虑进行数据的额外判断减少依赖
+      for (let n = 0; n < data.length; n++) {
+        let oitem = data[n]
+        let item = {}
+        this.buildDataItem(item, oitem)
+        data.splice(n, 1, item)
       }
-      if (!this._func.isArray(this.file.data)) {
-        this.file.data = []
-      }
-      if (this.file.data === data) {
-        return true
-      } else {
-        // 添加不同新数据
-        for (let n = 0; n < data.length; n++) {
-          let oitem = data[n]
-          let item = {}
-          this.buildDataItem(item, oitem)
-          data.splice(n, 1, item)
-        }
-        for (let n = 0; n < this.file.list.length; n++) {
-          let targetitem = this.file.list[n]
-          for (let i = 0; i < data.length; i++) {
-            let originitem = data[i]
-            // 删除相同子数据
-            if (targetitem.data == originitem.data) {
-              data.splice(i, 1)
-              i--
-              break
-            }
+      for (let n = 0; n < this.file.list.length; n++) {
+        let targetitem = this.file.list[n]
+        for (let i = 0; i < data.length; i++) {
+          let originitem = data[i]
+          // 删除相同子数据
+          if (targetitem.data == originitem.data) {
+            data.splice(i, 1)
+            i--
+            break
           }
         }
-        if (data.length == 0) {
-          return true
-        } else {
-          return false
-        }
+      }
+      if (data.length == 0) {
+        return true
+      } else {
+        return false
       }
     }
   }
