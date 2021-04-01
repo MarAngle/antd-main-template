@@ -1,5 +1,6 @@
 import _func from '@/maindata/func/index'
 import moment from 'moment'
+import PaginationView from './../mod/PaginationView'
 import UploadFile from './../mod/UploadFile'
 // 事件相关
 class EventData {
@@ -686,15 +687,17 @@ export default {
           return <a-select-option {...optionOption}>{itemData[dict.label]}</a-select-option>
         })
         if (item.edit.pagination) {
-          let defaultProps = {
-            simple: true,
-            paddingTop: 5,
-            paddingBittom: 10
-          }
           let paginationOption = {
             props: {
-              paginationdata: item.edit.pagination,
-              ...defaultProps
+              data: item.edit.pagination,
+              option: {
+                props: {
+                  simple: true
+                }
+              },
+              mainOption: {
+                props: {}
+              }
             },
             on: {
               change: function (...args) {
@@ -718,7 +721,7 @@ export default {
             }
           }
           paginationAreaOption = this._func.mergeData(paginationAreaOption, item.edit.localOption.paginationArea)
-          let pagination = <localPaginationView {...paginationOption} />
+          let pagination = <PaginationView {...paginationOption} />
           itemOption.props.dropdownRender = (menuNode, props) => {
             return (
               <div>
