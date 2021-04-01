@@ -15,7 +15,7 @@
 
 <script>
 export default {
-  name: 'InputFileView',
+  name: 'InputFile',
   data () {
     return {
     }

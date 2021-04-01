@@ -1,6 +1,6 @@
 import _func from '@/maindata/func/index'
 import moment from 'moment'
-import FileView from './../mod/FileView'
+import UploadFile from './../mod/UploadFile'
 // 事件相关
 class EventData {
   constructor () {
@@ -753,7 +753,7 @@ export default {
         )
       } else if (item.edit.type == 'file') {
         renderTypeItem = (
-          <FileView
+          <UploadFile
             {...itemOption}
           />
         )

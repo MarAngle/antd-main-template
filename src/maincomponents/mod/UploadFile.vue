@@ -1,10 +1,10 @@
 <style lang="less" scoped>
-.FileView{
+.UploadFile{
   *{
     box-sizing: border-box;
   }
   width: 100%;
-  .FileViewDataArea{
+  .UploadFileDataArea{
     border-radius: 1px;
     line-height: 28px;
     height: 28px;
@@ -21,14 +21,14 @@
   }
   &.bottom{
     display: inline-block;
-    .FileViewMenu{
+    .UploadFileMenu{
       display: block;
     }
-    .FileViewData{
+    .UploadFileData{
       width: 100%;
       margin-top: 10px;
       display: block;
-      .FileViewDataArea{
+      .UploadFileDataArea{
         display: block;
         width: 100%;
         display: flex;
@@ -48,7 +48,7 @@
     }
   }
   &.end, &.start{
-    .FileViewMenu{
+    .UploadFileMenu{
       display: inline;
     }
     .delete{
@@ -56,15 +56,15 @@
     }
   }
   &.end{
-    .FileViewData{
-      .FileViewDataArea{
+    .UploadFileData{
+      .UploadFileDataArea{
         margin-left: 10px;
       }
     }
   }
   &.start{
-    .FileViewData{
-      .FileViewDataArea{
+    .UploadFileData{
+      .UploadFileDataArea{
         margin-right: 10px;
       }
     }
@@ -72,8 +72,8 @@
 }
 </style>
 <template>
-  <span class="FileView" :class="layout">
-    <InputFileView
+  <span class="UploadFile" :class="layout">
+    <InputFile
       style="display: none"
       ref="inputfile"
       :accept="accept"
@@ -84,34 +84,34 @@
       :maxSize="maxSize"
       @change="onChange"
     />
-    <span class="FileViewData" v-if="layout == 'start'">
+    <span class="UploadFileData" v-if="layout == 'start'">
       <template v-if="!multiple && file.name">
-        <span class="FileViewDataArea">
+        <span class="UploadFileDataArea">
           <span>{{ file.name }}</span>
           <a-icon class="delete" type="delete" @click="onDelete()" ></a-icon>
         </span>
       </template>
       <template v-else-if="multiple && file.list.length > 0">
-        <span class="FileViewDataArea" v-for="(val, index) in file.list" :key="index">
+        <span class="UploadFileDataArea" v-for="(val, index) in file.list" :key="index">
           <span>{{ val.name }}</span>
           <a-icon class="delete" type="delete" @click="onDelete(index, val)" ></a-icon>
         </span>
       </template>
     </span>
-    <span class="FileViewMenu" @click="onOpen">
+    <span class="UploadFileMenu" @click="onOpen">
       <slot>
         <a-button :loading="loading" :disabled="disabled" icon="upload" >{{ placeholder }}</a-button>
       </slot>
     </span>
-    <span class="FileViewData" v-if="layout != 'start'">
+    <span class="UploadFileData" v-if="layout != 'start'">
       <template v-if="!multiple && file.name">
-        <span class="FileViewDataArea">
+        <span class="UploadFileDataArea">
           <span>{{ file.name }}</span>
           <a-icon class="delete" type="delete" @click="onDelete" ></a-icon>
         </span>
       </template>
       <template v-else-if="multiple && file.list.length > 0">
-        <span class="FileViewDataArea" v-for="(val, index) in file.list" :key="index">
+        <span class="UploadFileDataArea" v-for="(val, index) in file.list" :key="index">
           <span>{{ val.name }}</span>
           <a-icon class="delete" type="delete" @click="onDelete(index, val)" ></a-icon>
         </span>
@@ -121,12 +121,12 @@
 </template>
 
 <script>
-import InputFileView from './InputFileView'
+import InputFile from './InputFile'
 
 export default {
-  name: 'FileView',
+  name: 'UploadFile',
   components: {
-    InputFileView
+    InputFile
   },
   data () {
     return {
