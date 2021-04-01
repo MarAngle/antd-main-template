@@ -129,6 +129,7 @@ export default {
       } else if (this.edit == 'build') {
         this.form.data = this.maindata.getDictionaryFormData(this.modlist, this.type)
       }
+      console.log(this.form.data)
     },
     onMenu() {
       console.log(this.form.data)

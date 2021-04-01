@@ -143,7 +143,7 @@ export default {
     value: {
       immediate: true,
       handler: function(data) {
-        this.buildData(data)
+        this.buildData(data, 'value')
       }
     }
   },
@@ -291,12 +291,17 @@ export default {
         }
       }
     },
-    buildData(data, unemit) {
+    buildData(data, from, unemit) {
       let res = this.isEmpty(data)
       if (res.act) {
         if (!this.multiple) {
           if (this.file.data !== data) {
             this.buildDataItem(this.file, data)
+          } else {
+            // 此数据与原数据相同时不需要再次emit
+            if (from == 'value') {
+              unemit = true
+            }
           }
         } else {
           if (!this.checkFileList(data)) {
@@ -320,8 +325,8 @@ export default {
       }
     },
     emitData() {
-      let data
-      data = this.file.data
+      let data = this.file.data
+      console.log(data)
       this.$emit('input', data)
       this.$emit('change', data)
     },
@@ -344,13 +349,13 @@ export default {
     },
     onChange(file) {
       if (!this.upload) {
-        this.buildData(file)
+        this.buildData(file, 'origin')
       } else {
         if (this.fileUpload) {
           this.onLoading(true)
           this.fileUpload({ file }).then(res => {
             this.onLoading(false)
-            this.buildData(res)
+            this.buildData(res, 'origin')
           }, res => {
             this.onLoading(false)
             this.clearData()
