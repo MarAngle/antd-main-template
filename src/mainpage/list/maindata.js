@@ -84,7 +84,7 @@ let maindata = new ListData({
             on: {
               change(value, { formData }) {
                 console.log(value)
-                formData.file = []
+                formData.file = undefined
               }
             }
           },
@@ -212,16 +212,14 @@ let maindata = new ListData({
             required: true,
             option: {
               upload: true,
-              multiple: true,
               fileUpload: function({ file }) {
                 return new Promise((resolve) => {
-                  console.log(file)
-                  resolve([{
+                  resolve({
                     id: 1,
                     url: '',
-                    data: 'url' + file[0].name,
-                    name: file[0].name
-                  }])
+                    data: 'url' + file.name,
+                    name: file.name
+                  })
                 })
               }
             }

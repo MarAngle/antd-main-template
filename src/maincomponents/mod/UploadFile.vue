@@ -286,6 +286,11 @@ export default {
         if (isEmpty || !isArray) {
           // 当前数据为空数据或者不为数组数据时
           this.clearData(data)
+          if (from == 'value' && isArray) {
+            // 空数组情况下
+            // 可能出现外部原因修改值为空数组的情况时不触发change事件导致的rule失效，此问题根据具体项目要求制定
+            unemit = true
+          }
         } else if (this.file.data === data) {
           // 当前数据与传递数据一致
           if (from == 'value') {
