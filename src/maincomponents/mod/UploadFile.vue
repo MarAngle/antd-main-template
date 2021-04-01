@@ -210,6 +210,11 @@ export default {
   mounted() {
   },
   methods: {
+    emitData() {
+      let data = this.file.data
+      this.$emit('input', data)
+      this.$emit('change', data)
+    },
     onOpen() {
       this.$refs['inputfile'].$el.click()
     },
@@ -221,6 +226,29 @@ export default {
         this.file.data.splice(index, 1)
         this.file.list.splice(index, 1)
         this.emitData()
+      }
+    },
+    onLoading(data) {
+      this.loading = data
+      this.$emit('loading', this.loading)
+    },
+    onChange(file) {
+      if (!this.upload) {
+        this.setData(file, 'origin')
+      } else {
+        if (this.fileUpload) {
+          this.onLoading(true)
+          this.fileUpload({ file }).then(res => {
+            this.onLoading(false)
+            this.setData(res, 'origin')
+          }, res => {
+            this.onLoading(false)
+            this.clearData()
+            this.emitData()
+          })
+        } else {
+          this._func.showmsg('未定义上传文件函数，请检查代码!', 'error')
+        }
       }
     },
     setData(data, from, unemit) {
