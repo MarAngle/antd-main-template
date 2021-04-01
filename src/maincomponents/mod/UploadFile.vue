@@ -210,14 +210,17 @@ export default {
   mounted() {
   },
   methods: {
+    // 传递数据
     emitData() {
       let data = this.file.data
       this.$emit('input', data)
       this.$emit('change', data)
     },
+    // open文件选框
     onOpen() {
       this.$refs['inputfile'].$el.click()
     },
+    // 删除
     onDelete(index, item) {
       if (!this.multiple) {
         this.clearData()
@@ -228,10 +231,12 @@ export default {
         this.emitData()
       }
     },
+    // loading
     onLoading(data) {
       this.loading = data
       this.$emit('loading', this.loading)
     },
+    // 文件变更
     onChange(file) {
       if (!this.upload) {
         this.setData(file, 'origin')
@@ -251,6 +256,7 @@ export default {
         }
       }
     },
+    // 设置当前数据
     setData(data, from, unemit) {
       if (!this.multiple) {
         // 单文件模式
@@ -310,6 +316,7 @@ export default {
         this.emitData()
       }
     },
+    // 创建文件对象
     buildFileData(targetdata, origindata) {
       let type = this._func.getType(origindata)
       if (type == 'file') {
@@ -326,6 +333,18 @@ export default {
         targetdata.url = ''
       }
     },
+    // 创建文件列表
+    buildFileList(data) {
+      // 考虑进行数据的额外判断减少依赖
+      for (let n = 0; n < data.length; n++) {
+        // 对传入的数组数据进行数据的格式化
+        let oitem = data[n]
+        let item = {}
+        this.buildFileData(item, oitem)
+        data.splice(n, 1, item)
+      }
+    },
+    // 清楚数据
     clearData(data) {
       this.file.name = ''
       this.file.url = ''
@@ -342,14 +361,7 @@ export default {
     // 检查文件列表
     checkFileList(data) {
       // 此处不论是data还是fileList都应该是数组数据不需要进行额外检查
-      // 考虑进行数据的额外判断减少依赖
-      for (let n = 0; n < data.length; n++) {
-        // 对传入的数组数据进行数据的格式化
-        let oitem = data[n]
-        let item = {}
-        this.buildFileData(item, oitem)
-        data.splice(n, 1, item)
-      }
+      this.buildFileList(data)
       for (let n = 0; n < this.file.list.length; n++) {
         let targetitem = this.file.list[n]
         for (let i = 0; i < data.length; i++) {
