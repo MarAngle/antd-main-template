@@ -270,10 +270,11 @@ export default {
       } else {
         // 多选模式
         let isEmpty = false
+        let isArray = this._func.isArray(data)
         // 传值为空或者为空数组时判断为空数据
         if (!data) {
           isEmpty = true
-        } else if (this._func.isArray(data) && data.length == 0) {
+        } else if (isArray && data.length == 0) {
           isEmpty = true
         }
         if (isEmpty) {
@@ -359,7 +360,7 @@ export default {
           return false
         }
       }
-    },
+    }
   }
 }
 </script>
