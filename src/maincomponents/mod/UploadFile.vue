@@ -342,12 +342,12 @@ export default {
     // 检查文件列表
     checkFileList(data) {
       // 此处不论是data还是fileList都应该是数组数据不需要进行额外检查
-      // 对传入的数组数据进行数据的格式化
       // 考虑进行数据的额外判断减少依赖
       for (let n = 0; n < data.length; n++) {
+        // 对传入的数组数据进行数据的格式化
         let oitem = data[n]
         let item = {}
-        this.buildDataItem(item, oitem)
+        this.buildFileData(item, oitem)
         data.splice(n, 1, item)
       }
       for (let n = 0; n < this.file.list.length; n++) {
