@@ -317,8 +317,10 @@ export default {
       }
     },
     // 创建文件对象
-    buildFileData(targetdata, origindata) {
-      let type = this._func.getType(origindata)
+    buildFileData(targetdata, origindata, type) {
+      if (!type) {
+        type = this._func.getType(origindata)
+      }
       if (type == 'file') {
         targetdata.name = origindata.name
         targetdata.data = origindata
@@ -339,9 +341,12 @@ export default {
       for (let n = 0; n < data.length; n++) {
         // 对传入的数组数据进行数据的格式化
         let oitem = data[n]
-        let item = {}
-        this.buildFileData(item, oitem)
-        data.splice(n, 1, item)
+        let oitemType = this._func.getType(oitem)
+        if (oitemType != 'object') {
+          let item = {}
+          this.buildFileData(item, oitem, oitemType)
+          data.splice(n, 1, item)
+        }
       }
     },
     // 清楚数据
