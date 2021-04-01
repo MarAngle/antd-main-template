@@ -245,7 +245,7 @@ export default {
           this.onLoading(true)
           this.fileUpload({ file }).then(res => {
             this.onLoading(false)
-            this.setData(res, 'origin')
+            this.setData(res, 'upload')
           }, res => {
             this.onLoading(false)
             this.clearData()
@@ -292,7 +292,7 @@ export default {
             unemit = true
           }
         } else {
-          if (!this.checkFileList(data)) {
+          if (!this.checkFileList(data, from)) {
             // 传入列表和当前列表不相对一致
             if (this.maxNum && this.file.list.length + data.length > this.maxNum) {
               data.length = this.maxNum - this.file.list.length
@@ -334,7 +334,7 @@ export default {
       }
     },
     // 创建文件列表
-    buildFileList(data) {
+    buildFileList(data, from) {
       // 考虑进行数据的额外判断减少依赖
       for (let n = 0; n < data.length; n++) {
         // 对传入的数组数据进行数据的格式化
@@ -359,9 +359,9 @@ export default {
       this.file.list = []
     },
     // 检查文件列表
-    checkFileList(data) {
+    checkFileList(data, from) {
       // 此处不论是data还是fileList都应该是数组数据不需要进行额外检查
-      this.buildFileList(data)
+      this.buildFileList(data, from)
       for (let n = 0; n < this.file.list.length; n++) {
         let targetitem = this.file.list[n]
         for (let i = 0; i < data.length; i++) {
