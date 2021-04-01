@@ -225,15 +225,36 @@ export default {
     },
     setData(data, from, unemit) {
       if (!this.multiple) {
+        // 单文件模式
         if (this.file.data === data) {
-          unemit = true
-        } else {
-          if (data) {
-
-          } else {
-            this.clearData()
+          // 当前数据与传递数据一致时做操作？？？
+          if (from == 'value') {
+            unemit = true
           }
+        } else if (data) {
+          // 数据不一致切存在值时进行赋值操作
+          this.buildFileData(this.file, data)
+        } else {
+          // 数据不一致，传值为空时进行clear操作
+          // 理论上存在一个值=>非und与当前值为und时会出发到此处，进行上传操作避免问题
+          this.clearData()
         }
+      }
+    },
+    buildFileData(targetdata, origindata) {
+      let type = this._func.getType(origindata)
+      if (type == 'file') {
+        targetdata.name = origindata.name
+        targetdata.data = origindata
+        targetdata.url = ''
+      } else if (type == 'object') {
+        targetdata.data = origindata.data
+        targetdata.name = origindata.name
+        targetdata.url = origindata.url
+      } else {
+        targetdata.data = origindata
+        targetdata.name = origindata
+        targetdata.url = ''
       }
     },
     clearData() {
