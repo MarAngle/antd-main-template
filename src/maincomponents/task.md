@@ -10,12 +10,12 @@
 
 ----
 ## 进行中
-- formview添加文件上传和菜单
 - 日期范围选择器的范围限制属性设置
 - 
 
 ----
 ## 已完成
+- formview添加文件上传和菜单
 - TableList组件的JSX化
 - formview实现插槽传递，最好能通过v-model形式传递
 - 日期修改时格式化为moment
