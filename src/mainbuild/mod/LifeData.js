@@ -55,16 +55,16 @@ class LifeData extends SimpleData {
       }
     }
   }
+  check(type) {
+    return this.data[type]
+  }
   get(type) {
     this.build(type)
     return this.data[type]
   }
-  check(type) {
-    return this.data[type]
-  }
   // 设置生命周期回调
   on (type, data) {
-    this.build(type)
+    let lifeItem = this.get(type)
     let dataType = typeof data
     let next = true
     if (dataType == 'function') {
@@ -79,15 +79,15 @@ class LifeData extends SimpleData {
         if (!data.name) {
           data.name = this.buildName()
         }
-        if (this.data[type].data.has(data.name) && !data.repalce) {
+        if (lifeItem.data.has(data.name) && !data.repalce) {
           this._printInfo(`生命周期存在当前值:${data.name}`)
         } else {
-          this.data[type].data.set(data.name, {
+          lifeItem.data.set(data.name, {
             once: data.once,
             func: data.func
           })
           if (data.immediate) {
-            this.triggerData({ type, name: data.name })
+            this.triggerData(type, data.name)
           }
           return data.name
         }
@@ -100,7 +100,7 @@ class LifeData extends SimpleData {
     return false
   }
   // 触发生命周期指定函数
-  triggerData ({ type, name }, ...args) {
+  triggerData (type, name, ...args) {
     let data = this.data[type].data.get(name)
     if (data.func) {
       data.func(...args)
@@ -111,24 +111,25 @@ class LifeData extends SimpleData {
   }
   // 触发生命周期
   trigger (type, ...args) {
-    this.build(type)
-    for (let key of this.data[type].data.keys()) {
-      this.triggerData({
-        type: type,
-        name: key
-      }, ...args)
+    let lifeItem = this.get(type)
+    if (lifeItem) {
+      for (let key of lifeItem.data.keys()) {
+        this.triggerData(type, key, ...args)
+      }
     }
   }
   // 删除生命周期指定函数
   off (type, name) {
-    if (this.check(type)) {
-      return this.data[type].data.delete(name)
+    let lifeItem = this.get(type)
+    if (lifeItem) {
+      return lifeItem.data.delete(name)
     }
   }
   // 清除生命周期
   clear (type) {
-    if (this.check(type)) {
-      this.data[type].data.clear()
+    let lifeItem = this.get(type)
+    if (lifeItem) {
+      lifeItem.data.clear()
     }
   }
   reset () {
