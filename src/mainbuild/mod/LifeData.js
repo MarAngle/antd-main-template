@@ -39,6 +39,7 @@ class LifeData extends SimpleData {
   _initMain ({ list }) {
     this.initList(list)
   }
+  // 加载生命周期状态列表
   initList (list = []) {
     for (let n in list) {
       this.build(list[n])
@@ -48,6 +49,7 @@ class LifeData extends SimpleData {
   buildId () {
     return lifeId.getData()
   }
+  // 创建对应的生命周期 auto = true
   build(name, auto = true) {
     if (!this.data[name] && auto) {
       this.data[name] = {
@@ -55,6 +57,15 @@ class LifeData extends SimpleData {
       }
     }
   }
+  // 设置生命周期对应函数回调
+  setData(name, lifeItem, data) {
+    lifeItem.data.set(data.id, data)
+    if (data.immediate) {
+      this.emit(name, data.id)
+    }
+    return data.id
+  }
+  // 获取对应生命周期对象
   get(name, auto) {
     this.build(name, auto)
     return this.data[name]
@@ -79,14 +90,7 @@ class LifeData extends SimpleData {
         if (lifeItem.data.has(data.id) && !data.repalce) {
           this._printInfo(`生命周期[${name}]存在当前值:${data.id}`)
         } else {
-          lifeItem.data.set(data.id, {
-            once: data.once,
-            func: data.func
-          })
-          if (data.immediate) {
-            this.emit(name, data.id)
-          }
-          return data.id
+          return this.setData(name, lifeItem, data)
         }
       } else {
         this._printInfo(`生命周期[${name}]设置(${data.id || '-'})未定义func`)
@@ -138,6 +142,7 @@ class LifeData extends SimpleData {
       lifeItem.data.clear()
     }
   }
+  // 重置
   reset () {
     for (let n in this.data) {
       this.clear(n)
