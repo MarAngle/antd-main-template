@@ -9,13 +9,17 @@ import IdData from './IdData'
 created
 beforeLoad
 loaded
-unload 加载失败
+loadFail
+beforeUpdate
+updated
+updateFail
+beforeReset
+reseted
 beforeDestroy
 destroyed
 */
 
-const defaultList = ['created', 'beforeLoad', 'loaded', 'loadFail', 'beforeUpdate', 'updated', 'updateFail', 'beforeReset', 'reseted', 'beforeDestroy', 'destroyed']
-let id = new IdData({
+let lifeId = new IdData({
   list: [
     {
       type: 'time'
@@ -36,16 +40,15 @@ class LifeData extends SimpleData {
     this._initData(list)
   }
   _initData (list = []) {
-    let finalList = defaultList.concat(list)
-    for (let n in finalList) {
-      this.data[finalList[n]] = {
+    for (let n in list) {
+      this.data[list[n]] = {
         data: new Map()
       }
     }
   }
   // 计算名称
   countName () {
-    return id.getData()
+    return lifeId.getData()
   }
   // 设置生命周期回调
   setData ({ type, name, immediate, once, func, repalce }) {
