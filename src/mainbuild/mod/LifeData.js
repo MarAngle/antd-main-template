@@ -48,18 +48,15 @@ class LifeData extends SimpleData {
   buildName () {
     return lifeId.getData()
   }
-  build(type) {
-    if (!this.check(type)) {
+  build(type, auto = true) {
+    if (!this.data[type] && auto) {
       this.data[type] = {
         data: new Map()
       }
     }
   }
-  check(type) {
-    return this.data[type]
-  }
-  get(type) {
-    this.build(type)
+  get(type, auto) {
+    this.build(type, auto)
     return this.data[type]
   }
   // 设置生命周期回调
@@ -80,7 +77,7 @@ class LifeData extends SimpleData {
           data.name = this.buildName()
         }
         if (lifeItem.data.has(data.name) && !data.repalce) {
-          this._printInfo(`生命周期存在当前值:${data.name}`)
+          this._printInfo(`生命周期[${type}]存在当前值:${data.name}`)
         } else {
           lifeItem.data.set(data.name, {
             once: data.once,
@@ -92,7 +89,7 @@ class LifeData extends SimpleData {
           return data.name
         }
       } else {
-        this._printInfo(`生命周期(${type}:${data.name || '-'})设置中未定义func`)
+        this._printInfo(`生命周期[${type}]设置(${data.name || '-'})未定义func`)
       }
     } else {
       this._printInfo(`生命周期${type}设置data参数需要object或者function`)
@@ -101,12 +98,21 @@ class LifeData extends SimpleData {
   }
   // 触发生命周期指定函数
   triggerData (type, name, ...args) {
-    let data = this.data[type].data.get(name)
-    if (data.func) {
-      data.func(...args)
-      if (data.once) {
-        this.deleteData({ type, name })
+    let lifeItem = this.get(type)
+    if (lifeItem) {
+      let data = lifeItem.data.get(name)
+      if (data) {
+        if (data.func) {
+          data.func(...args)
+          if (data.once) {
+            this.off(type, name)
+          }
+        }
+      } else {
+        this._printInfo(`生命周期[${type}]不存在当前值(${name})`)
       }
+    } else {
+      this._printInfo(`不存在当前生命周期[${type}]`)
     }
   }
   // 触发生命周期
