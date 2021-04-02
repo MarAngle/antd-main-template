@@ -133,8 +133,11 @@ export default {
       console.log(data)
     },
     pageLoad () {
-      this.maindata.onLife('buildCancel', () => {
-        this.menu.main.title = '生命周期回调'
+      this.maindata.onLife('buildCancel', {
+        index: 0,
+        func: () => {
+          this.menu.main.title = '生命周期回调'
+        }
       })
       this.buildMainList()
       this.maindata.loadData(this.initType).then(res => {}, res => {
