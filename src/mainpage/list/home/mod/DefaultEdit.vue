@@ -134,12 +134,14 @@ export default {
     onMenu(act) {
       console.log(this.form.data)
       if (act == 'ok') {
-        this.form.ref.validate(valid => {
-          if (valid) {
-            let postdata = this.maindata.getEditData(this.form.data, this.modlist, this.type)
-            console.log(postdata)
-          }
-        })
+        // this.form.ref.validate(valid => {
+        //   if (valid) {
+        //     let postdata = this.maindata.getEditData(this.form.data, this.modlist, this.type)
+        //     console.log(postdata)
+        //   }
+        // })
+        this.maindata.triggerLife('buildCancel')
+      } else {
       }
     }
   }

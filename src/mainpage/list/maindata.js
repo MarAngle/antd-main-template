@@ -416,12 +416,4 @@ let maindata = new ListData({
   pagination: true
 })
 
-let a = maindata.onLife('opened', {
-  once: true,
-  func: () => {
-    console.log(a, maindata.data.list.length)
-    // maindata.offLife('opened', a)
-  }
-})
-
 export default maindata

@@ -133,6 +133,9 @@ export default {
       console.log(data)
     },
     pageLoad () {
+      this.maindata.onLife('buildCancel', () => {
+        this.menu.main.title = '生命周期回调'
+      })
       this.buildMainList()
       this.maindata.loadData(this.initType).then(res => {}, res => {
         console.error(res)
@@ -175,8 +178,8 @@ export default {
       this.setMenu('main', 'edit', 'change', '修改', index, record)
     },
     onBuild() {
-      this.maindata.reset()
-      // this.setMenu('main', 'build', 'build', '创建', 0, null)
+      // this.maindata.reset()
+      this.setMenu('main', 'build', 'build', '创建', 0, null)
     }
   }
 }
