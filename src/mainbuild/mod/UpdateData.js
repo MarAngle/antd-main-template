@@ -108,8 +108,7 @@ class UpdateData extends DefaultData {
     this.resetNum()
   }
   install (target) {
-    target.setLifeData({
-      type: 'reseted',
+    target.onLife('reseted', {
       name: 'AutoModuleUpdateDataReseted',
       func: () => {
         this.reset()
@@ -117,10 +116,7 @@ class UpdateData extends DefaultData {
     })
   }
   uninstall(target) {
-    target.setLifeData({
-      type: 'reseted',
-      name: 'AutoModuleUpdateDataReseted'
-    })
+    target.offLife('reseted', 'AutoModuleUpdateDataReseted')
   }
 }
 

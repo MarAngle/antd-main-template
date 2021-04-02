@@ -155,8 +155,7 @@ class ChoiceData extends DefaultData {
     }
   }
   install (target) {
-    target.setLifeData({
-      type: 'reseted',
+    target.onLife('reseted', {
       name: 'AutoModuleChoiceDataReseted',
       func: () => {
         this.reset(true)
@@ -164,10 +163,7 @@ class ChoiceData extends DefaultData {
     })
   }
   uninstall(target) {
-    target.setLifeData({
-      type: 'reseted',
-      name: 'AutoModuleChoiceDataReseted'
-    })
+    target.offLife('reseted', 'AutoModuleChoiceDataReseted')
   }
 }
 

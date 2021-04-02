@@ -100,8 +100,7 @@ class SearchData extends ComplexData {
     this.resetFormData('reset')
   }
   install (target) {
-    target.setLifeData({
-      type: 'reseted',
+    target.onLife('reseted', {
       name: 'AutoModuleSearchDataReseted',
       func: () => {
         this.reset()
@@ -109,10 +108,7 @@ class SearchData extends ComplexData {
     })
   }
   uninstall(target) {
-    target.setLifeData({
-      type: 'reseted',
-      name: 'AutoModuleSearchDataReseted'
-    })
+    target.offLife('reseted', 'AutoModuleSearchDataReseted')
   }
   // install(target) {
   //   let dict = [

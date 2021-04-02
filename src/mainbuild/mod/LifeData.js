@@ -84,7 +84,7 @@ class LifeData extends SimpleData {
             func: data.func
           })
           if (data.immediate) {
-            this.triggerData(type, data.name)
+            this.emit(type, data.name)
           }
           return data.name
         }
@@ -97,7 +97,7 @@ class LifeData extends SimpleData {
     return false
   }
   // 触发生命周期指定函数
-  triggerData (type, name, ...args) {
+  emit (type, name, ...args) {
     let lifeItem = this.get(type)
     if (lifeItem) {
       let data = lifeItem.data.get(name)
@@ -120,7 +120,7 @@ class LifeData extends SimpleData {
     let lifeItem = this.get(type)
     if (lifeItem) {
       for (let key of lifeItem.data.keys()) {
-        this.triggerData(type, key, ...args)
+        this.emit(type, key, ...args)
       }
     }
   }
@@ -146,6 +146,7 @@ class LifeData extends SimpleData {
   // 销毁
   destroy () {
     this.reset()
+    this.data = {}
   }
 }
 
