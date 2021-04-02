@@ -131,14 +131,16 @@ export default {
       }
       console.log(this.form.data)
     },
-    onMenu() {
+    onMenu(act) {
       console.log(this.form.data)
-      this.form.ref.validate(valid => {
-        if (valid) {
-          let postdata = this.maindata.getEditData(this.form.data, this.modlist, this.type)
-          console.log(postdata)
-        }
-      })
+      if (act == 'ok') {
+        this.form.ref.validate(valid => {
+          if (valid) {
+            let postdata = this.maindata.getEditData(this.form.data, this.modlist, this.type)
+            console.log(postdata)
+          }
+        })
+      }
     }
   }
 }

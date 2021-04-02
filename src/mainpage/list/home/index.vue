@@ -175,7 +175,8 @@ export default {
       this.setMenu('main', 'edit', 'change', '修改', index, record)
     },
     onBuild() {
-      this.setMenu('main', 'build', 'build', '创建', 0, null)
+      this.maindata.reset()
+      // this.setMenu('main', 'build', 'build', '创建', 0, null)
     }
   }
 }
