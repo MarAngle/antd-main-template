@@ -37,38 +37,67 @@ class LifeData extends SimpleData {
     this._initMain(initdata)
   }
   _initMain ({ list }) {
-    this._initData(list)
+    this.initList(list)
   }
-  _initData (list = []) {
+  initList (list = []) {
     for (let n in list) {
-      this.data[list[n]] = {
+      this.build(list[n])
+    }
+  }
+  // 计算名称
+  buildName () {
+    return lifeId.getData()
+  }
+  build(type) {
+    if (!this.check(type)) {
+      this.data[type] = {
         data: new Map()
       }
     }
   }
-  // 计算名称
-  countName () {
-    return lifeId.getData()
+  get(type) {
+    this.build(type)
+    return this.data[type]
+  }
+  check(type) {
+    return this.data[type]
   }
   // 设置生命周期回调
-  setData ({ type, name, immediate, once, func, repalce }) {
-    if (!name) {
-      name = this.countName()
-    }
-    if (this.data[type].data.has(name) && !repalce) {
-      this._printInfo(`生命周期存在当前值:${name}`)
-    } else if (!func) {
-      this._printInfo(`生命周期${type}:${name}设置中未存在func`)
-    } else {
-      this.data[type].data.set(name, {
-        once: once,
-        func: func
-      })
-      if (immediate) {
-        this.triggerData({ type, name })
+  on (type, data) {
+    this.build(type)
+    let dataType = typeof data
+    let next = true
+    if (dataType == 'function') {
+      data = {
+        func: data
       }
-      return name
+    } else if (dataType != 'object') {
+      next = false
     }
+    if (next) {
+      if (data.func) {
+        if (!data.name) {
+          data.name = this.buildName()
+        }
+        if (this.data[type].data.has(data.name) && !data.repalce) {
+          this._printInfo(`生命周期存在当前值:${data.name}`)
+        } else {
+          this.data[type].data.set(data.name, {
+            once: data.once,
+            func: data.func
+          })
+          if (data.immediate) {
+            this.triggerData({ type, name: data.name })
+          }
+          return data.name
+        }
+      } else {
+        this._printInfo(`生命周期(${type}:${data.name || '-'})设置中未定义func`)
+      }
+    } else {
+      this._printInfo(`生命周期${type}设置data参数需要object或者function`)
+    }
+    return false
   }
   // 触发生命周期指定函数
   triggerData ({ type, name }, ...args) {
@@ -82,6 +111,7 @@ class LifeData extends SimpleData {
   }
   // 触发生命周期
   trigger (type, ...args) {
+    this.build(type)
     for (let key of this.data[type].data.keys()) {
       this.triggerData({
         type: type,
@@ -89,19 +119,26 @@ class LifeData extends SimpleData {
       }, ...args)
     }
   }
+  // 删除生命周期指定函数
+  off (type, name) {
+    if (this.check(type)) {
+      return this.data[type].data.delete(name)
+    }
+  }
   // 清除生命周期
   clear (type) {
-    this.data[type].data.clear()
+    if (this.check(type)) {
+      this.data[type].data.clear()
+    }
   }
-  // 删除生命周期指定函数
-  deleteData ({ type, name }) {
-    return this.data[type].data.delete(name)
-  }
-  // 销毁
-  destroy () {
+  reset () {
     for (let n in this.data) {
       this.clear(n)
     }
+  }
+  // 销毁
+  destroy () {
+    this.reset()
   }
 }
 
