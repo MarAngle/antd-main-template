@@ -125,7 +125,7 @@ class PaginationData {
   }
   install (target) {
     target.onLife('reseted', {
-      name: 'AutoModulePaginationDataReseted',
+      id: 'AutoModulePaginationDataReseted',
       func: () => {
         this.reset()
       }

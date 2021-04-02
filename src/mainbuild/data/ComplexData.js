@@ -21,7 +21,7 @@ class ComplexData extends BaseData {
   // 加载生命周期函数
   _initComplexDataLife() {
     this.onLife('reseted', {
-      name: 'AutoComplexDataReseted',
+      id: 'AutoComplexDataReseted',
       func: () => {
         this.resetDataList()
         this.resetDataCurrent()

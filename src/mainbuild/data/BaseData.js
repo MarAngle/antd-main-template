@@ -53,24 +53,24 @@ class BaseData extends DefaultData {
   }
   // 生命周期函数
   // 设置生命周期函数
-  onLife (type, data) {
-    return this.getModule('life').on(type, data)
+  onLife (name, data) {
+    return this.getModule('life').on(name, data)
   }
   // 触发特定的生命周期函数
-  emitLife (type, name, ...args) {
-    this.getModule('life').emit(type, name, ...args)
+  emitLife (name, id, ...args) {
+    this.getModule('life').emit(name, id, ...args)
   }
   // 清楚指定类型指定name的生命周期回调
-  offLife (type, name) {
-    this.getModule('life').off(type, name)
+  offLife (name, id) {
+    this.getModule('life').off(name, id)
   }
   // 触发生命周期
-  triggerLife (type, name, ...args) {
-    this.getModule('life').trigger(type, name, ...args)
+  triggerLife (name, id, ...args) {
+    this.getModule('life').trigger(name, id, ...args)
   }
   // 清楚指定类型的所有生命周期回调
-  clearLife (type) {
-    this.getModule('life').clear(type)
+  clearLife (name) {
+    this.getModule('life').clear(name)
   }
   // 生命周期重置
   resetLife () {

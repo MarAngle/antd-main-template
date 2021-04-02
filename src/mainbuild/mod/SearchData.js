@@ -101,7 +101,7 @@ class SearchData extends ComplexData {
   }
   install (target) {
     target.onLife('reseted', {
-      name: 'AutoModuleSearchDataReseted',
+      id: 'AutoModuleSearchDataReseted',
       func: () => {
         this.reset()
       }
