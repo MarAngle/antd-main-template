@@ -15,8 +15,7 @@ class ListData extends ComplexDataWithSearch {
   }
   // 加载设置项
   _initListDataOption (option) {
-    if (option) {
-    }
+    if (option) {}
   }
   // 加载分页器
   _initPagination (pagination) {

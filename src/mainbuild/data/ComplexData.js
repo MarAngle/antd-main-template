@@ -116,7 +116,7 @@ class ComplexData extends BaseData {
     this.getModule('dictionary').formatTreeData(targetlist, originlist, type, option)
   }
   // 格式化独立数据
-  formatItemData (originitem, targetitem, type, option = {}) {
+  formatItemData (targetitem, originitem, type, option = {}) {
     if (!option.type) {
       option.type = 'add'
     }

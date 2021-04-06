@@ -58,6 +58,21 @@ export const asyncRouterMap = [
             meta: { title: '列表', keepAlive: false, permission: ['dashboard'] }
           }
         ]
+      },
+      {
+        path: '/info',
+        name: 'info',
+        redirect: '/info/home',
+        component: RouteView,
+        meta: { title: '信息管理', keepAlive: true, icon: bxAnaalyse, permission: ['dashboard'] },
+        children: [
+          {
+            path: '/info/home',
+            name: 'InfoHome',
+            component: () => import('@/mainpage/info/home/index'),
+            meta: { title: '信息', keepAlive: false, permission: ['dashboard'] }
+          }
+        ]
       }
       // forms
       // {

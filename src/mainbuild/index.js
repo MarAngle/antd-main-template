@@ -1,12 +1,15 @@
+import SimpleData from './data/SimpleData'
+import DefaultData from './data/DefaultData'
 import BaseData from './data/BaseData'
 import ComplexData from './data/ComplexData'
 import ComplexDataWithSearch from './data/ComplexDataWithSearch'
 import DataPool from './data/DataPool'
-import DefaultData from './data/DefaultData'
 import SelectList from './data/SelectList'
 
+import ChoiceData from './mod/ChoiceData'
 import DictionaryData from './mod/DictionaryData'
 import DictionaryList from './mod/DictionaryList'
+import EmptyData from './mod/EmptyData'
 import ExtraData from './mod/ExtraData'
 import IdData from './mod/IdData'
 import InstrcutionData from './mod/InstrcutionData'
@@ -22,6 +25,7 @@ import StatusDataItem from './mod/StatusDataItem'
 import UpdateData from './mod/UpdateData'
 
 import ListData from './main/ListData'
+import InfoData from './main/InfoData'
 import option from './option'
 // // -----
 // const _data = require.context('./data', false, /\.js$/)
@@ -60,14 +64,17 @@ import option from './option'
 // // -----
 
 export {
+  SimpleData,
+  DefaultData,
   BaseData,
   ComplexData,
   ComplexDataWithSearch,
   DataPool,
-  DefaultData,
   SelectList,
+  ChoiceData,
   DictionaryData,
   DictionaryList,
+  EmptyData,
   ExtraData,
   IdData,
   InstrcutionData,
@@ -82,5 +89,6 @@ export {
   StatusDataItem,
   UpdateData,
   ListData,
+  InfoData,
   option
 }
