@@ -17,6 +17,7 @@ if (process.env.NODE_ENV !== 'production' || process.env.VUE_APP_PREVIEW === 'tr
   require('./services/article')
   // 自定义
   require('./services/list')
+  require('./services/info')
 
   Mock.setup({
     timeout: 800 // setter delay time

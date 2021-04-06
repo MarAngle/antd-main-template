@@ -337,11 +337,10 @@ let maindata = new InfoData({
       return new Promise((resolve, reject) => {
         let postdata = this.getSearch()
         _func.get({
-          url: preurl + '/list/getdata',
+          url: preurl + '/info/getdata',
           params: postdata
         }).then(res => {
-          this.formatData(res.data.data[0])
-          console.log(this)
+          this.formatData(res.data.data)
           resolve(res)
         }, res => {
           reject(res)
