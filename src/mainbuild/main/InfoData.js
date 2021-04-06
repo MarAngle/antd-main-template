@@ -6,7 +6,7 @@ class InfoData extends ComplexDataWithSearch {
     super(initdata)
     this._initInfoData(initdata)
   }
-  _initInfoData ({ option, pagination }) {
+  _initInfoData ({ option }) {
     this._initInfoDataOption(option)
   }
   // 加载设置项
