@@ -58,15 +58,17 @@ class LifeData extends SimpleData {
     }
   }
   // 设置生命周期对应函数回调
-  setDataByIndex(lifeItem, data, index) {
-    if (index === undefined || index == 'end') {
+  setDataByIndex(lifeItem, data, name) {
+    if (data.index === undefined || data.index == 'end') {
       lifeItem.data.set(data.id, data)
     } else {
-      if (index == 'start') {
-        index = 0
+      console.log(lifeItem, data.index, name)
+      if (data.index == 'start') {
+        data.index = 0
       }
       let lifeList = []
-      for (let [key, value] in lifeItem.data.entries()) {
+      console.log(Object.entries(lifeItem.data))
+      for (let [key, value] of Object.entries(lifeItem.data)) {
         console.log(key, value)
       }
     }
@@ -96,10 +98,7 @@ class LifeData extends SimpleData {
         if (lifeItem.data.has(data.id) && !data.repalce) {
           this._printInfo(`生命周期[${name}]存在当前值:${data.id}`)
         } else {
-          this.setDataByIndex(lifeItem, {
-            once: data.once,
-            func: data.func
-          }, data.index)
+          this.setDataByIndex(lifeItem, data, name)
           if (data.immediate) {
             this.emit(name, data.id)
           }
