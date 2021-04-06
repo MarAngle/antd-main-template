@@ -46,17 +46,16 @@
     <a-button @click="onBuild">创建</a-button>
     <div class="mainpagein">
       <a-spin :spinning="loadStatus == 'loading'">
-        <LocalModAutoMenu :height="59" :menuStyle="{ lineHeight: '40px' }" >
-          <LocalFormView
-            v-if="maindata.getModule('search').show"
-            :form="maindata.getModule('search').form.build.form"
-            :mainlist="maindata.getModule('search').form.build.mainlist"
-            :layout="'inline'"
-            :type="'build'"
-            :footMenu="maindata.getModule('search').menu"
-            @menu="onSearchMenu"
-          ></LocalFormView>
-        </LocalModAutoMenu>
+        <LocalFormView
+          v-if="maindata.getModule('search').show"
+          :form="maindata.getModule('search').form.build.form"
+          :mainlist="maindata.getModule('search').form.build.mainlist"
+          :layout="'inline'"
+          :type="'build'"
+          :footMenu="maindata.getModule('search').menu"
+          @menu="onSearchMenu"
+        ></LocalFormView>
+        <LocalTreeSelect :data="maindata.data.list"></LocalTreeSelect>
       </a-spin>
     </div>
     <DefaultEdit
