@@ -416,18 +416,4 @@ let maindata = new ListData({
   pagination: true
 })
 
-maindata.onLife('loaded', {
-  once: false,
-  func: function() {
-    console.log(1)
-  }
-})
-maindata.onLife('loaded', {
-  once: false,
-  index: 'start',
-  func: function() {
-    console.log(this, maindata)
-  }
-})
-
 export default maindata

@@ -62,14 +62,25 @@ class LifeData extends SimpleData {
     if (data.index === undefined || data.index == 'end') {
       lifeItem.data.set(data.id, data)
     } else {
-      console.log(lifeItem, data.index, name)
       if (data.index == 'start') {
         data.index = 0
       }
-      let lifeList = []
-      console.log(Object.entries(lifeItem.data))
-      for (let [key, value] of Object.entries(lifeItem.data)) {
-        console.log(key, value)
+      let size = lifeItem.data.size
+      if (data.index < size) {
+        let mapList = []
+        lifeItem.data.forEach(function(value) {
+          mapList.push(value)
+        })
+        lifeItem.data.clear()
+        for (let n = 0; n < size; n++) {
+          let mapItem = mapList[n]
+          if (data.index == n) {
+            lifeItem.data.set(data.id, data)
+          }
+          lifeItem.data.set(mapItem.id, mapItem)
+        }
+      } else {
+        lifeItem.data.set(data.id, data)
       }
     }
   }
