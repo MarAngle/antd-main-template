@@ -27,7 +27,7 @@
 </style>
 <template>
   <div class="mainpage" >
-    <a-button @click="onBuild">创建</a-button>
+    <a-button @click="onchange">创建</a-button>
     <div class="mainpagein">
       <a-spin :spinning="loadStatus == 'loading'">
         <LocalModAutoMenu :height="59" :menuStyle="{ lineHeight: '40px' }" >
@@ -43,7 +43,7 @@
         </LocalModAutoMenu>
       </a-spin>
     </div>
-    <!-- <DefaultEdit
+    <DefaultEdit
       :maindata="maindata"
       :title="menu.main.title"
       :show.sync="menu.main.show"
@@ -51,18 +51,18 @@
       :type="menu.main.type"
       :data="menu.main.data"
       :index="menu.main.index"
-    /> -->
+    />
   </div>
 </template>
 
 <script>
 import maindata from './../maindata'
-// import DefaultEdit from './mod/DefaultEdit'
+import DefaultEdit from './mod/DefaultEdit'
 
 export default {
   name: `main${maindata.prop}info`,
   components: {
-    // DefaultEdit
+    DefaultEdit
   },
   data () {
     return {
@@ -146,9 +146,9 @@ export default {
     onMenuChange({ record, index }) {
       this.setMenu('main', 'edit', 'change', '修改', index, record)
     },
-    onBuild() {
+    onchange() {
       // this.maindata.reset()
-      this.setMenu('main', 'build', 'build', '创建', 0, null)
+      this.setMenu('main', 'edit', 'change', '修改', 0, this.maindata.data.current)
     }
   }
 }
