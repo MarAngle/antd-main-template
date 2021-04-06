@@ -57,24 +57,6 @@
             @menu="onSearchMenu"
           ></LocalFormView>
         </LocalModAutoMenu>
-        <LocalTableView :maindata="maindata" :columnList="mainlist" >
-          <template slot="_index" slot-scope="slotProps">
-            <LocalModAutoIndex :index="slotProps.index" :maindata="maindata" :style="{ color: 'red' }" />
-          </template>
-          <span slot="name-title" >
-            <span>自定义标题</span>
-          </span>
-          <template slot="button" slot-scope="slotProps">
-            <span class="menulist" @click="onMenuChange(slotProps)">
-              <a>修改</a>
-            </span>
-          </template>
-          <template slot="pagination_default">
-            <span style="padding-right: 10px;">
-              已选择: {{ maindata.getChoiceData('id').length }}
-            </span>
-          </template>
-        </LocalTableView>
       </a-spin>
     </div>
     <DefaultEdit

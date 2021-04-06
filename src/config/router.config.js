@@ -73,6 +73,21 @@ export const asyncRouterMap = [
             meta: { title: '信息', keepAlive: false, permission: ['dashboard'] }
           }
         ]
+      },
+      {
+        path: '/tree',
+        name: 'tree',
+        redirect: '/tree/home',
+        component: RouteView,
+        meta: { title: '树形管理', keepAlive: true, icon: bxAnaalyse, permission: ['dashboard'] },
+        children: [
+          {
+            path: '/tree/home',
+            name: 'TreeHome',
+            component: () => import('@/mainpage/tree/home/index'),
+            meta: { title: '组织树', keepAlive: false, permission: ['dashboard'] }
+          }
+        ]
       }
       // forms
       // {

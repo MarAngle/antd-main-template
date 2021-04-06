@@ -336,12 +336,11 @@ let maindata = new TreeData({
     getData: function () {
       return new Promise((resolve, reject) => {
         let postdata = this.getSearch()
-        postdata.pageSize = this.getPageData('size')
-        postdata.pageNo = this.getPageData('page')
         _func.get({
-          url: preurl + '/list/getdata',
+          url: preurl + '/tree/getdata',
           params: postdata
         }).then(res => {
+          console.log(res.data.data)
           this.formatData(res.data.data, res.data.totalCount)
           resolve(res)
         }, res => {

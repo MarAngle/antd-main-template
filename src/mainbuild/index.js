@@ -26,6 +26,7 @@ import UpdateData from './mod/UpdateData'
 
 import ListData from './main/ListData'
 import InfoData from './main/InfoData'
+import TreeData from './main/TreeData'
 import option from './option'
 // // -----
 // const _data = require.context('./data', false, /\.js$/)
@@ -90,5 +91,6 @@ export {
   UpdateData,
   ListData,
   InfoData,
+  TreeData,
   option
 }
