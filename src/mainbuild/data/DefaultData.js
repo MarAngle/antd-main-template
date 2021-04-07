@@ -6,7 +6,7 @@ import ParentData from './../mod/ParentData'
 
 class DefaultData extends SimpleData {
   constructor (initdata = {}) {
-    super(initdata)
+    super()
     this.module = new ModuleData({
       extra: new ExtraData(),
       parent: new ParentData()

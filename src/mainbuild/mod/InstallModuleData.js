@@ -1,10 +1,12 @@
 
+import SimpleData from './../data/SimpleData'
 import SearchData from './SearchData'
 import PaginationData from './PaginationData'
 import ChoiceData from './ChoiceData'
 
-class ModuleData {
+class ModuleData extends SimpleData {
   constructor (initdata = {}, target) {
+    super()
     this.data = {}
     this.initModule(initdata, target)
   }

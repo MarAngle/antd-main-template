@@ -1,7 +1,9 @@
 import _func from '@/maindata/func/index'
+import SimpleData from './../data/SimpleData'
 
-class ExtraData {
+class ExtraData extends SimpleData {
   constructor (data = {}) {
+    super()
     this.data = {}
     this._initMain(data)
   }

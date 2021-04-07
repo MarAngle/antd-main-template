@@ -1,5 +1,8 @@
-class StatusDataItem {
+import SimpleData from './../data/SimpleData'
+
+class StatusDataItem extends SimpleData {
   constructor (initdata) {
+    super()
     if (!initdata || !initdata.list || initdata.list.length <= 0) {
       console.error(`StatusDataItem需要设置初始化数据,并设置列表`)
     }

@@ -1,6 +1,8 @@
+import SimpleData from './../data/SimpleData'
 
-class InstrcutionData {
+class InstrcutionData extends SimpleData {
   constructor (initdata) {
+    super()
     this.option = [] // 传参描述
     this.structure = {} // 结构描述
     this.initMain(initdata)

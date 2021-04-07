@@ -1,5 +1,8 @@
-class ParentData {
+import SimpleData from './../data/SimpleData'
+
+class ParentData extends SimpleData {
   constructor (parentData) {
+    super()
     this.data = null
     this._initMain(parentData)
   }

@@ -1,6 +1,8 @@
+import SimpleData from './../data/SimpleData'
 
-class PromiseData {
+class PromiseData extends SimpleData {
   constructor (initdata) {
+    super()
     this.data = {}
     if (initdata) {
       this.initMain(initdata)

@@ -1,7 +1,9 @@
+import SimpleData from './../data/SimpleData'
 import StatusDataItem from './StatusDataItem'
 
-class StatusData {
+class StatusData extends SimpleData {
   constructor (initdata = {}) {
+    super()
     this.data = {}
     this.installLifeData = []
     this._initMain(initdata)

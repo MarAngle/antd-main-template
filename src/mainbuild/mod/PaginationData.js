@@ -1,5 +1,6 @@
 import _func from '@/maindata/func/index'
 import install from './../utils/install'
+import SimpleData from './../data/SimpleData'
 
 let id = install.getId('PaginationData')
 
@@ -10,8 +11,9 @@ let defaultdata = {
   }
 }
 
-class PaginationData {
+class PaginationData extends SimpleData {
   constructor (initdata) {
+    super()
     this.status = {
       init: false
     }

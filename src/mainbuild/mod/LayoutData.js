@@ -1,8 +1,10 @@
 import _func from '@/maindata/func/index'
 import InterfaceData from './InterfaceData'
+import SimpleData from './../data/SimpleData'
 
-class LayoutData {
+class LayoutData extends SimpleData {
   constructor (maindata) {
+    super()
     this.initData(maindata)
   }
   initData (maindata) {

@@ -1,5 +1,8 @@
-class ModuleData {
+import SimpleData from './../data/SimpleData'
+
+class ModuleData extends SimpleData {
   constructor (initdata, parent) {
+    super()
     this.data = {}
     this.initData(initdata)
     this.setParent(parent)

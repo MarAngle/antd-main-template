@@ -1,7 +1,9 @@
 import _func from '@/maindata/func/index'
+import SimpleData from './../data/SimpleData'
 
-class IdData {
+class IdData extends SimpleData {
   constructor (initdata) {
+    super()
     this.list = []
     if (initdata) {
       this.initMain(initdata)
