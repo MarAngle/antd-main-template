@@ -415,14 +415,14 @@ let maindata = new ListData({
   extradata: {},
   life: {
     data: {
-      created: function() {
-        console.log('created')
+      created: function(target) {
+        console.log('created', target)
       },
-      BaseDataCreated: function() {
-        console.log('BaseDataCreated')
+      BaseDataCreated: function(target) {
+        console.log('BaseDataCreated', target)
       },
-      ComplexDataCreated: function() {
-        console.log('ComplexDataCreated')
+      ComplexDataCreated: function(target) {
+        console.log('ComplexDataCreated', target)
       }
     }
   },
