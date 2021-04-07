@@ -44,6 +44,7 @@
 <template>
   <div class="mainpage" >
     <a-button @click="onBuild">创建</a-button>
+    <a-button @click="onReset">reset</a-button>
     <div class="mainpagein">
       <a-spin :spinning="loadStatus == 'loading'">
         <LocalModAutoMenu :height="59" :menuStyle="{ lineHeight: '40px' }" >
@@ -181,8 +182,10 @@ export default {
       this.setMenu('main', 'edit', 'change', '修改', index, record)
     },
     onBuild() {
-      // this.maindata.reset()
       this.setMenu('main', 'build', 'build', '创建', 0, null)
+    },
+    onReset() {
+      this.maindata.reset()
     }
   }
 }

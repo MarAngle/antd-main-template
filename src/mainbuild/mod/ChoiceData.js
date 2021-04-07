@@ -1,6 +1,9 @@
 import _func from '@/maindata/func/index'
 import DefaultData from './../data/DefaultData'
 import EmptyData from './EmptyData'
+import install from './../utils/install'
+
+let id = install.getId('ChoiceData')
 
 class ChoiceData extends DefaultData {
   constructor (initdata = {}) {
@@ -155,15 +158,16 @@ class ChoiceData extends DefaultData {
     }
   }
   install (target) {
+    this.AutoModuleInstallLifeName = id.getData()
     target.onLife('reseted', {
-      id: 'AutoModuleChoiceDataReseted',
+      id: this.AutoModuleInstallLifeName + 'Reseted',
       func: () => {
         this.reset(true)
       }
     })
   }
   uninstall(target) {
-    target.offLife('reseted', 'AutoModuleChoiceDataReseted')
+    target.offLife('reseted', this.AutoModuleInstallLifeName + 'Reseted')
   }
 }
 

@@ -1,4 +1,7 @@
 import _func from '@/maindata/func/index'
+import install from './../utils/install'
+
+let id = install.getId('PaginationData')
 
 let defaultdata = {
   size: {
@@ -124,15 +127,16 @@ class PaginationData {
     this.setPage(1)
   }
   install (target) {
+    this.AutoModuleInstallLifeName = id.getData()
     target.onLife('reseted', {
-      id: 'AutoModulePaginationDataReseted',
+      id: this.AutoModuleInstallLifeName + 'Reseted',
       func: () => {
         this.reset()
       }
     })
   }
   uninstall(target) {
-    target.offLife('reseted', 'AutoModulePaginationDataReseted')
+    target.offLife('reseted', this.AutoModuleInstallLifeName + 'Reseted')
   }
 }
 
