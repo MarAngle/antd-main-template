@@ -13,13 +13,19 @@ class DefaultData extends SimpleData {
     }, this)
     this.initDefaultData(initdata)
   }
-  initDefaultData ({ name, prop, parent, extra, func, methods }) {
+  initDefaultData ({ name, prop, data, parent, extra, func, methods }) {
     this.name = name || ''
     this.prop = prop || ''
+    this._initData(data)
     this.setParent(parent)
     this.initExtra(extra)
     this.initFunc(func)
     this.initMethods(methods)
+  }
+  _initData(data) {
+    if (data) {
+      this.data = data
+    }
   }
   // 加载func中的函数
   initFunc (func) {

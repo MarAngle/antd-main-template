@@ -1,10 +1,14 @@
 import _func from '@/maindata/func/index'
+import utils from './../utils/index'
 import DefaultData from './DefaultData'
 import OptionData from './../mod/OptionData'
 
 // 本地选择器数据格式化
 class SelectList extends DefaultData {
   constructor (initdata = {}) {
+    initdata.data = utils.formatData(initdata.data, {
+      list: []
+    })
     super(initdata)
     this.option = new OptionData({
       dataTarget: {
@@ -25,27 +29,22 @@ class SelectList extends DefaultData {
       equal: '==',
       deep: true
     })
-    this.data = {
-      list: []
-    }
-    this.unhitData = {
-    }
-    this.undefData = {
-    }
+    this.unhitData = {}
+    this.undefData = {}
     this.format = {
       type: false
     }
     this._initSelectList(initdata)
   }
   _initSelectList ({
-    data,
+    list,
     option,
     format,
     unhitData,
     undefData
   }) {
     this._initOption(option)
-    this._initDataList(data)
+    this._initDataList(list)
     this._initFormat(format)
     this._initUnhitData(unhitData)
     this._initUndefData(undefData)
@@ -55,16 +54,16 @@ class SelectList extends DefaultData {
     this.option.initData(option)
   }
   // 加载数据
-  _initDataList (data) {
-    if (data) {
-      let dataType = _func.getType(data)
+  _initDataList (list) {
+    if (list) {
+      let dataType = _func.getType(list)
       let dataOption
       let dataList
       if (dataType == 'array') {
-        dataList = data
+        dataList = list
       } else {
-        dataList = data.list
-        dataOption = data.option
+        dataList = list.list
+        dataOption = list.option
       }
       if (dataOption) {
         this.data.list = _func.formatList(dataList, dataOption)

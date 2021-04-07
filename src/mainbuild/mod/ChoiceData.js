@@ -1,4 +1,5 @@
 import _func from '@/maindata/func/index'
+import utils from './../utils/index'
 import DefaultData from './../data/DefaultData'
 import EmptyData from './EmptyData'
 import install from './../utils/install'
@@ -7,13 +8,13 @@ let id = install.getId('ChoiceData')
 
 class ChoiceData extends DefaultData {
   constructor (initdata = {}) {
+    initdata.data = utils.formatData(initdata.data, {
+      id: [],
+      list: []
+    })
     super(initdata)
     this.status = {
       show: false
-    }
-    this.data = {
-      id: [],
-      list: []
     }
     this.resetOption = {
       load: false,

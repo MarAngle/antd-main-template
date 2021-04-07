@@ -5,7 +5,7 @@ let preurl = 'http://$local'
 
 let areaSelect = new SelectList({
   name: '区域',
-  data: [
+  list: [
     {
       value: 1,
       label: '开发区'
@@ -415,5 +415,7 @@ let maindata = new ListData({
   extradata: {},
   pagination: true
 })
+
+console.log(maindata.data)
 
 export default maindata

@@ -1,14 +1,15 @@
 import _func from '@/maindata/func/index'
+import utils from './../utils/index'
 import BaseData from './BaseData'
 import DictionaryList from './../mod/DictionaryList'
 
 class ComplexData extends BaseData {
   constructor (initdata = {}) {
-    super(initdata)
-    this.data = {
+    initdata.data = utils.formatData(initdata.data, {
       list: [],
       current: {}
-    }
+    })
+    super(initdata)
     /*
     build: {
       limit: [] // 存在值则对应的模块在非对象模块时不参与构建整个数据
