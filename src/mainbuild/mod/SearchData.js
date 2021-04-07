@@ -32,6 +32,7 @@ class SearchData extends ComplexData {
       this.initSearchData(initdata)
       this.initFormData()
     }
+    this.triggerCreateLife('SearchData')
   }
 
   initSearchData({

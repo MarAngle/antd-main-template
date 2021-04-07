@@ -6,6 +6,7 @@ class TreeData extends ComplexDataWithSearch {
   constructor (initdata = {}) {
     super(initdata)
     this._initTreeData(initdata)
+    this.triggerCreateLife('TreeData')
   }
   _initTreeData ({ option }) {
     this._initTreeDataOption(option)

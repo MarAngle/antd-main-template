@@ -10,7 +10,7 @@ class BaseData extends DefaultData {
     super(initdata)
     this.setModule('option', new OptionData())
     this._initBaseData(initdata)
-    this.triggerLife('created')
+    this.triggerCreateLife('BaseData')
   }
   _initBaseData ({
     life,
@@ -65,8 +65,19 @@ class BaseData extends DefaultData {
     this.getModule('life').off(name, id)
   }
   // 触发生命周期
-  triggerLife (name, id, ...args) {
-    this.getModule('life').trigger(name, id, ...args)
+  triggerCreateLife (env) {
+    if (!env) {
+      this._printInfo('triggerCreateLife函数需要传递env参数')
+    }
+    if (env == this.constructor.name) {
+      this.triggerLife('created', this)
+    } else {
+      this.triggerLife(env + 'Created', this)
+    }
+  }
+  // 触发生命周期
+  triggerLife (name, ...args) {
+    this.getModule('life').trigger(name, ...args)
   }
   // 清楚指定类型的所有生命周期回调
   clearLife (name) {

@@ -18,6 +18,7 @@ class ComplexData extends BaseData {
     this.setModule('dictionary', new DictionaryList())
     this._initComplexData(initdata)
     this._initComplexDataLife()
+    this.triggerCreateLife('ComplexData')
   }
   // 加载生命周期函数
   _initComplexDataLife() {

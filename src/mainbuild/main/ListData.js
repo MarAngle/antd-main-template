@@ -8,6 +8,7 @@ class ListData extends ComplexDataWithSearch {
     super(initdata)
     this.setModule('choice', new ChoiceData(initdata.choice))
     this._initListData(initdata)
+    this.triggerCreateLife('ListData')
   }
   _initListData ({ option, pagination }) {
     this._initListDataOption(option)

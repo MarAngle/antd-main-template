@@ -5,6 +5,7 @@ class ComplexDataWithSearch extends ComplexData {
   constructor (initdata = {}) {
     super(initdata)
     this._initComplexDataWithSearch(initdata)
+    this.triggerCreateLife('ComplexDataWithSearch')
   }
   _initComplexDataWithSearch ({ search }) {
     if (search) {

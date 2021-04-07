@@ -6,6 +6,7 @@ class EditData extends BaseData {
   constructor(editdata, payload) {
     super(editdata)
     this._initMainByEditData(editdata, payload)
+    this.triggerCreateLife('EditData')
   }
   _initMainByEditData(editdata, payload = {}) {
     this.initMain(editdata, payload)

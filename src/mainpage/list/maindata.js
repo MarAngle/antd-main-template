@@ -416,6 +416,16 @@ let maindata = new ListData({
   pagination: true
 })
 
+maindata.onLife('created', () => {
+  console.log('created')
+})
+maindata.onLife('BaseDataCreated', () => {
+  console.log('BaseDataCreated')
+})
+maindata.onLife('ListDataCreated', () => {
+  console.log('ListDataCreated')
+})
+
 console.log(maindata.data)
 
 export default maindata

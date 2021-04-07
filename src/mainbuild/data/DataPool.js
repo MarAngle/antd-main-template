@@ -14,6 +14,7 @@ class DataPool extends BaseData {
     if (!this.check) {
       this._printInfo('需要传递check函数作为相同对象判断!')
     }
+    this.triggerCreateLife('DataPool')
   }
   _initDataPool ({
     option

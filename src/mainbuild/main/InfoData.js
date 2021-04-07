@@ -5,6 +5,7 @@ class InfoData extends ComplexDataWithSearch {
   constructor (initdata = {}) {
     super(initdata)
     this._initInfoData(initdata)
+    this.triggerCreateLife('InfoData')
   }
   _initInfoData ({ option }) {
     this._initInfoDataOption(option)
