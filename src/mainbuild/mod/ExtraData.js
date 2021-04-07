@@ -45,9 +45,6 @@ class ExtraData extends SimpleData {
   reset () {
     this.clearData()
   }
-  _selfName () {
-    return `[CLASS:${this.constructor.name}]`
-  }
 }
 
 export default ExtraData

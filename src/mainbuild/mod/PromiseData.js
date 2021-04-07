@@ -40,9 +40,6 @@ class PromiseData extends SimpleData {
       }
     })
   }
-  _selfName () {
-    return `[${this.constructor.name}]`
-  }
 }
 
 export default PromiseData

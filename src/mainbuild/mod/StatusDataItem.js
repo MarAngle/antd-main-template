@@ -88,9 +88,6 @@ class StatusDataItem extends SimpleData {
   reset () {
     this.setData(this.default, 'reset')
   }
-  _selfName () {
-    return `[${this.constructor.name}]`
-  }
 }
 
 export default StatusDataItem

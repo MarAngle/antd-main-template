@@ -69,9 +69,6 @@ class IdData extends SimpleData {
     }
     return data
   }
-  _selfName () {
-    return `[${this.constructor.name}]`
-  }
 }
 
 export default IdData

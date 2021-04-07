@@ -31,9 +31,6 @@ class ParentData extends SimpleData {
       return null
     }
   }
-  _selfName () {
-    return `[${this.constructor.name}]`
-  }
 }
 
 export default ParentData

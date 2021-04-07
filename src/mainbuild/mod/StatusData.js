@@ -86,8 +86,5 @@ class StatusData extends SimpleData {
       this.data[n].reset()
     }
   }
-  _selfName () {
-    return `[${this.constructor.name}]`
-  }
 }
 export default StatusData
