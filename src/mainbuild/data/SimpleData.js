@@ -1,4 +1,7 @@
 class SimpleData {
+  constructor() {
+    this.$LocalTempData = {}
+  }
   _getPrintInfo (content) {
     return `${this._selfName()}:${content}`
   }
