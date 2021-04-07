@@ -54,6 +54,9 @@ class BaseData extends DefaultData {
   // 生命周期函数
   // 设置生命周期函数
   onLife (name, data) {
+    if (this.AutoCreateLifeName && this.AutoCreateLifeName.indexOf(name) > -1) {
+      this._printInfo(`正在创建一个属于创建生命周期的回调函数${name}，如此函数不是创建生命周期回调请修改函数名，否则请检查代码，理论上当你在设置这个触发函数时创建已经完成，此函数可能永远不会被触发！`)
+    }
     return this.getModule('life').on(name, data)
   }
   // 触发特定的生命周期函数
@@ -69,11 +72,17 @@ class BaseData extends DefaultData {
     if (!env) {
       this._printInfo('triggerCreateLife函数需要传递env参数')
     }
+    let lifeName
     if (env == this.constructor.name) {
-      this.triggerLife('created', this)
+      lifeName = 'created'
     } else {
-      this.triggerLife(env + 'Created', this)
+      lifeName = env + 'Created'
     }
+    if (!this.AutoCreateLifeName) {
+      this.AutoCreateLifeName = []
+    }
+    this.AutoCreateLifeName.push(lifeName)
+    this.triggerLife(lifeName, this)
   }
   // 触发生命周期
   triggerLife (name, ...args) {

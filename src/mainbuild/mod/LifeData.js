@@ -1,3 +1,4 @@
+import _func from '@/maindata/func/index'
 import SimpleData from './../data/SimpleData'
 import IdData from './IdData'
 
@@ -29,20 +30,28 @@ let lifeId = new IdData({
     }
   ]
 })
-
 class LifeData extends SimpleData {
   constructor (initdata = {}) {
     super(initdata)
     this.data = {}
     this._initMain(initdata)
   }
-  _initMain ({ list }) {
-    this.initList(list)
+  _initMain ({ data }) {
+    this.initData(data)
   }
   // 加载生命周期状态列表
-  initList (list = []) {
-    for (let n in list) {
-      this.build(list[n])
+  initData (data = {}) {
+    for (let n in data) {
+      let item = data[n]
+      let type = _func.getType(item)
+      if (type == 'array') {
+        for (let i = 0; i < item.length; i++) {
+          let itemData = item[i]
+          this.on(n, itemData, 'init')
+        }
+      } else {
+        this.on(n, item, 'init')
+      }
     }
   }
   // 计算名称

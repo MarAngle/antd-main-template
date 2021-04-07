@@ -413,18 +413,23 @@ let maindata = new ListData({
     }
   },
   extradata: {},
+  life: {
+    data: {
+      created: function() {
+        console.log('created')
+      },
+      BaseDataCreated: function() {
+        console.log('BaseDataCreated')
+      },
+      ComplexDataCreated: function() {
+        console.log('ComplexDataCreated')
+      }
+    }
+  },
   pagination: true
 })
 
-maindata.onLife('created', () => {
-  console.log('created')
-})
-maindata.onLife('BaseDataCreated', () => {
-  console.log('BaseDataCreated')
-})
-maindata.onLife('ListDataCreated', () => {
-  console.log('ListDataCreated')
-})
+maindata.onLife('created', () => {})
 
 console.log(maindata.data)
 
