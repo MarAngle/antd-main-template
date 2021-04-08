@@ -168,33 +168,43 @@ class SelectList extends DefaultData {
   }
   // 获取全列表，可根据format条件筛选
   getList(payload) {
-    let list = []
-    if (!payload.format && !payload.filter) {
-      list = this.data.list
-    } else if (payload.format) {
-      for (let n in this.data.list) {
-        if (payload.format(this.data.list[n])) {
-          list.push(this.data.list[n])
-        }
-      }
+    if (!payload) {
+      payload = {}
     } else {
-      for (let n in this.data.list) {
-        let item = this.data.list[n]
-        let push = false
-        if (!item.filter) {
-          push = true
-        } else {
-          if (item.filter.indexOf(payload.filter) > -1) {
-            push = true
-          }
-        }
-        if (push) {
-          list.push(this.data.list[n])
+      let type = _func.getType(payload)
+      if (type != 'object') {
+        payload = {
+          filter: payload
         }
       }
     }
-    if (payload.deep === undefined) {
-      payload.deep = true
+    let list = []
+    if (!payload.filter) {
+      list = this.data.list
+    } else {
+      let type = _func.getType(payload.filter)
+      if (type == 'function') {
+        for (let n in this.data.list) {
+          if (payload.filter(this.data.list[n])) {
+            list.push(this.data.list[n])
+          }
+        }
+      } else {
+        for (let n in this.data.list) {
+          let item = this.data.list[n]
+          let push = false
+          if (!item.filter) {
+            push = true
+          } else {
+            if (item.filter.indexOf(payload.filter) > -1) {
+              push = true
+            }
+          }
+          if (push) {
+            list.push(this.data.list[n])
+          }
+        }
+      }
     }
     if (payload.deep) {
       list = _func.deepClone(list, payload.deepOption)

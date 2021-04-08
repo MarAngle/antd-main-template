@@ -8,18 +8,23 @@ let areaSelect = new SelectList({
   list: [
     {
       value: 1,
-      label: '开发区'
+      label: '开发区',
+      filter: 'a'
     },
     {
       value: 2,
-      label: '东港区'
+      label: '东港区',
+      filter: 'a'
     },
     {
       value: 3,
-      label: '新市区'
+      label: '新市区',
+      filter: 'b'
     }
   ]
 })
+
+console.log(areaSelect.getList('a'))
 
 let maindata = new ListData({
   name: '终端信息管理',
@@ -415,22 +420,22 @@ let maindata = new ListData({
   extradata: {},
   life: {
     data: {
-      created: function(target) {
-        console.log('created', target)
-      },
-      BaseDataCreated: function(target) {
-        console.log('BaseDataCreated', target)
-      },
-      ComplexDataCreated: function(target) {
-        console.log('ComplexDataCreated', target)
-      }
+      // created: function(target) {
+      //   console.log('created', target)
+      // },
+      // BaseDataCreated: function(target) {
+      //   console.log('BaseDataCreated', target)
+      // },
+      // ComplexDataCreated: function(target) {
+      //   console.log('ComplexDataCreated', target)
+      // }
     }
   },
   pagination: true
 })
 
-maindata.onLife('created', () => {})
+// maindata.onLife('created', () => {})
 
-console.log(maindata.data)
+// console.log(maindata.data)
 
 export default maindata
