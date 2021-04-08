@@ -47,7 +47,7 @@
     <a-button @click="onReset">reset</a-button>
     <div class="mainpagein">
       <a-spin :spinning="loadStatus == 'loading'">
-        <LocalModAutoSearchMenu :height="59" :menuStyle="{ lineHeight: '40px' }" >
+        <LocalModAutoSearchMenu :height="59" :defaultOpen="true" :menuStyle="{ lineHeight: '40px' }" >
           <LocalFormView
             v-if="maindata.getModule('search').show"
             :form="maindata.getModule('search').form.build.form"

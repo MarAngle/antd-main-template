@@ -10,7 +10,6 @@
     position: absolute;
     top: 0;
     right: 0;
-    width: 100px;
     text-align: center;
     P{
       margin: 0;
@@ -44,6 +43,10 @@ export default {
       type: Number,
       required: true
     },
+    defaultOpen: {
+      type: Boolean,
+      required: false
+    },
     menuStyle: {
       type: Object,
       required: false,
@@ -65,7 +68,7 @@ export default {
       page: this._func.page,
       menu: {
         show: false,
-        open: false
+        open: this.defaultOpen
       }
     }
   },
@@ -78,7 +81,9 @@ export default {
       return currentMainStyle
     },
     currentMenuStyle: function() {
-      let currentMenuStyle = {}
+      let currentMenuStyle = {
+        width: '70px'
+      }
       if (this.menu.show) {
         currentMenuStyle.height = this.height + 'px'
         currentMenuStyle.lineHeight = this.height + 'px'
@@ -92,8 +97,8 @@ export default {
     },
     currentCloseOption: function() {
       let currentCloseOption = {
-        icon: 'up',
-        text: '关闭',
+        icon: 'down',
+        text: '打开',
         style: {}
       }
       if (this.closeOption) {
@@ -105,8 +110,8 @@ export default {
     },
     currentOpenOption: function() {
       let currentOpenOption = {
-        icon: 'down',
-        text: '打开',
+        icon: 'up',
+        text: '关闭',
         style: {}
       }
       if (this.openOption) {
@@ -147,6 +152,7 @@ export default {
     },
     toggleOpen() {
       this.menu.open = !this.menu.open
+      this.$emit('open', this.menu.open)
     }
   }
 }
