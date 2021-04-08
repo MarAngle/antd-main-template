@@ -1,11 +1,10 @@
 <style lang='less' scoped>
 .AutoSearchMenu{
-  margin-top: 24px;
+  margin-top: 19px;
   /deep/.ant-form-inline{
     .ant-form-item{
-      margin-bottom: 24px;
+      margin-bottom: 19px;
       &.ant-form-item-with-help{
-        min-height: auto;
         margin-bottom: 0;
       }
     }
