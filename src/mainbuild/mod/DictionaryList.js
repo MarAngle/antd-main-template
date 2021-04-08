@@ -287,10 +287,10 @@ class DictionaryList extends DefaultData {
       option = _func.getLimitData(option)
     }
     if (ditem.isOrigin(type)) {
+      // 当前字典存在对应模块直接按照build模式进行
       build = true
     } else if (option.getLimit(type)) {
-      // 存在允许值则说明需要额外构建，理论上此处不需要
-      // 暂时不需要此操作，暂存，等待后期考虑
+      // 理论上设置为允许值可在此时构建出对应字段，通过vue.set进行赋值，解决数据不能双向绑定和提前构建对象结构，双向绑定问题通过vue.set解决，对象结构暂不考虑，因此此处暂时不做处理
       build = false
       isOther = false
     }
