@@ -10,7 +10,8 @@ let environment = {
   },
   canUse: {
     Proxy: false,
-    Symbol: false
+    Symbol: false,
+    MutationObserver: false
   }
 }
 
@@ -31,6 +32,7 @@ environment.checkUse = function() {
   const showError = false
   this.checkUseItem('Proxy', 'Proxy', showError)
   this.checkUseItem('Symbol', 'Symbol', showError)
+  this.checkUseItem('MutationObserver', 'MutationObserver', showError)
 }
 environment.checkUseItem = function(Name, prop, showError) {
   try {

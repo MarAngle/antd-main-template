@@ -47,7 +47,7 @@
     <a-button @click="onReset">reset</a-button>
     <div class="mainpagein">
       <a-spin :spinning="loadStatus == 'loading'">
-        <LocalModAutoMenu :height="59" :menuStyle="{ lineHeight: '40px' }" >
+        <LocalModAutoSearchMenu :height="59" :menuStyle="{ lineHeight: '40px' }" >
           <LocalFormView
             v-if="maindata.getModule('search').show"
             :form="maindata.getModule('search').form.build.form"
@@ -57,7 +57,7 @@
             :footMenu="maindata.getModule('search').menu"
             @menu="onSearchMenu"
           ></LocalFormView>
-        </LocalModAutoMenu>
+        </LocalModAutoSearchMenu>
         <LocalTableView :maindata="maindata" :columnList="mainlist" >
           <template slot="_index" slot-scope="slotProps">
             <LocalModAutoIndex :index="slotProps.index" :maindata="maindata" :style="{ color: 'red' }" />
