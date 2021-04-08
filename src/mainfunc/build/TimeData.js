@@ -1,10 +1,62 @@
-// 限制数据格式
-// 需要保证次数据对象传递到initdata中依然能生成一个Timedatad对象，保证数据的一致性
+
+let timeOption = {
+  data: {
+    year: {
+      func: 'getFullYear',
+      name: 'Y',
+      min: 2,
+      offset: 0
+    },
+    month: {
+      func: 'getMonth',
+      name: 'M',
+      offset: 0
+    },
+    day: {
+      func: 'getDate',
+      name: 'D',
+      offset: 0
+    },
+    hour: {
+      func: 'getHours',
+      name: 'H',
+      offset: 0
+    },
+    min: {
+      func: 'getMinutes',
+      name: 'm',
+      offset: 0
+    },
+    sec: {
+      func: 'getSeconds',
+      name: 's',
+      offset: 0
+    }
+  }
+}
+
 class TimeData {
-  constructor (initdata = {}, autoType) {
-    this.type = 'forbid'
-    this.list = []
-    this._initMain(initdata, autoType)
+  constructor (data, format) {
+    this.option = {
+      format: ''
+    }
+    this.time = {}
+    this.data = ''
+    this.build(data, format)
+  }
+  build(data, format) {
+    if (!format) {
+      let time = new Date(data)
+      for (let n in timeOption.data) {
+        let timeItem = timeOption.data[n]
+        this.time[n] = time[timeItem.func]() + timeItem.offset
+      }
+    } else {
+
+    }
+  }
+  format() {
+
   }
   _selfName () {
     return `[${this.constructor.name}]`
