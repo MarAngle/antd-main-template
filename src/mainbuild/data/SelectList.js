@@ -3,15 +3,15 @@ import utils from './../utils/index'
 import DefaultData from './DefaultData'
 import OptionData from './../mod/OptionData'
 
-// 本地选择器数据格式化
+// 本地选择器数据
 class SelectList extends DefaultData {
-  constructor (initdata = {}) {
+  constructor(initdata = {}) {
     initdata.data = utils.formatData(initdata.data, {
       list: []
     })
     super(initdata)
     this.option = new OptionData({
-      dataTarget: {
+      prop: {
         value: 'value',
         label: 'label'
       },
@@ -36,7 +36,7 @@ class SelectList extends DefaultData {
     }
     this._initSelectList(initdata)
   }
-  _initSelectList ({
+  _initSelectList({
     list,
     option,
     format,
@@ -50,11 +50,11 @@ class SelectList extends DefaultData {
     this._initUndefData(undefData)
   }
   // 加载设置
-  _initOption (option = {}) {
+  _initOption(option = {}) {
     this.option.initData(option)
   }
   // 加载数据
-  initDataList (list) {
+  initDataList(list) {
     if (list) {
       let dataType = _func.getType(list)
       let dataOption
@@ -66,14 +66,24 @@ class SelectList extends DefaultData {
         dataOption = list.option
       }
       if (dataOption) {
-        this.data.list = _func.formatList(dataList, dataOption)
-      } else {
-        this.data.list = dataList
+        dataList = _func.formatList(dataList, dataOption)
       }
+      for (let n = 0; n < dataList.length; n++) {
+        let dataItem = dataList[n]
+        if (dataItem.filter) {
+          let type = _func.getType(dataItem.filter)
+          if (type != 'array') {
+            dataItem.filter = [ dataItem.filter ]
+          }
+        } else {
+          dataItem.filter = false
+        }
+      }
+      this.data.list = dataList
     }
   }
   // 加载格式化设置
-  _initFormat (format) {
+  _initFormat(format) {
     if (format) {
       let formatType = _func.getType(format)
       if (formatType == 'object') {
@@ -89,11 +99,16 @@ class SelectList extends DefaultData {
           head: this.format,
           foot: ''
         }
+      } else if (formatType == 'function') {
+        this.format = {
+          type: 'function',
+          data: this.format
+        }
       }
     }
   }
   // 加载未命中数据
-  _initUnhitData (unhitData) {
+  _initUnhitData(unhitData) {
     if (unhitData) {
       this.unhitData = unhitData
     } else {
@@ -111,7 +126,7 @@ class SelectList extends DefaultData {
     }
   }
   // 加载未定义数据， 默认等同于未命中数据
-  _initUndefData (undefData) {
+  _initUndefData(undefData) {
     if (undefData) {
       this.undefData = undefData
     } else {
@@ -132,25 +147,27 @@ class SelectList extends DefaultData {
     }
   }
   // 根据数据格式化value，差异化使用
-  formatValue (value) {
+  formatValue(value) {
     if (!this.format.type) {
       return value
     } else if (this.format.type == 'number') {
       return Number(value) + this.format.offset
     } else if (this.format.type == 'string') {
       return this.format.head + value + this.format.foot
+    } else if (this.format.type == 'function') {
+      return this.format.data(value)
     }
   }
   // 获取未命中默认值
-  getUnhitData () {
+  getUnhitData() {
     return this.unhitData
   }
   // 获取未定义默认值
-  getUndefData () {
+  getUndefData() {
     return this.undefData
   }
   // 获取全列表，可根据format条件筛选
-  getList (payload = {}) {
+  getList(payload) {
     let list = []
     if (!payload.format && !payload.filter) {
       list = this.data.list
@@ -163,13 +180,15 @@ class SelectList extends DefaultData {
     } else {
       for (let n in this.data.list) {
         let item = this.data.list[n]
-        let push = true
-        if (item.filter) {
-          if (item.filter) {
-
+        let push = false
+        if (!item.filter) {
+          push = true
+        } else {
+          if (item.filter.indexOf(payload.filter) > -1) {
+            push = true
           }
         }
-        if (payload.format(this.data.list[n])) {
+        if (push) {
           list.push(this.data.list[n])
         }
       }
@@ -183,7 +202,7 @@ class SelectList extends DefaultData {
     return list
   }
   // 检查value数据是否相同
-  checkItem (itemvalue, value) {
+  checkItem(itemvalue, value) {
     let equal = this.option.getData('equal')
     value = this.formatValue(value)
     if (equal == '===') {
@@ -193,10 +212,10 @@ class SelectList extends DefaultData {
     }
   }
   // 检查undef值判断，可重写
-  checkUndef (value) {
+  checkUndef(value) {
     return value === undefined
   }
-  formatItemByDeep (item, { deep, deepOption }) {
+  formatItemByDeep(item, { deep, deepOption }) {
     if (deep === undefined) {
       deep = this.option.getData('deep')
     }
@@ -206,15 +225,15 @@ class SelectList extends DefaultData {
     return item
   }
   // 获取对象
-  getItem (value, payload = {}) {
+  getItem(value, payload = {}) {
     let res
     if (this.checkUndef(value)) {
       res = this.getUndefData()
     } else {
       let prop = payload.prop
       if (!prop) {
-        let dataTarget = this.option.getData('dataTarget')
-        prop = dataTarget.value
+        let propData = this.option.getData('prop')
+        prop = propData.value
       }
       for (let n in this.data.list) {
         let item = this.data.list[n]
@@ -231,7 +250,7 @@ class SelectList extends DefaultData {
     return res
   }
   // 根据index获取对象
-  getItemByIndex (index, payload = {}) {
+  getItemByIndex(index, payload = {}) {
     let res = this.data.list[index]
     if (!res) {
       res = this.getUnhitData()
