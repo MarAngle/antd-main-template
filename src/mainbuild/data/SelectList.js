@@ -44,7 +44,7 @@ class SelectList extends DefaultData {
     undefData
   }) {
     this._initOption(option)
-    this._initDataList(list)
+    this.initDataList(list)
     this._initFormat(format)
     this._initUnhitData(unhitData)
     this._initUndefData(undefData)
@@ -54,7 +54,7 @@ class SelectList extends DefaultData {
     this.option.initData(option)
   }
   // 加载数据
-  _initDataList (list) {
+  initDataList (list) {
     if (list) {
       let dataType = _func.getType(list)
       let dataOption
@@ -152,10 +152,23 @@ class SelectList extends DefaultData {
   // 获取全列表，可根据format条件筛选
   getList (payload = {}) {
     let list = []
-    if (!payload.format) {
+    if (!payload.format && !payload.filter) {
       list = this.data.list
+    } else if (payload.format) {
+      for (let n in this.data.list) {
+        if (payload.format(this.data.list[n])) {
+          list.push(this.data.list[n])
+        }
+      }
     } else {
       for (let n in this.data.list) {
+        let item = this.data.list[n]
+        let push = true
+        if (item.filter) {
+          if (item.filter) {
+
+          }
+        }
         if (payload.format(this.data.list[n])) {
           list.push(this.data.list[n])
         }
