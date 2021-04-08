@@ -29,7 +29,7 @@ class LimitData {
     }
   }
   _selfName () {
-    return `[LimitData]`
+    return `[${this.constructor.name}]`
   }
 }
 export default LimitData
