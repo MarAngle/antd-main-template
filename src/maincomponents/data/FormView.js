@@ -627,7 +627,7 @@ export default {
       if (!itemOption.style.width) {
         if (_func.getType(width) == 'number') {
           itemOption.style.width = width + 'px'
-        } else {
+        } else if (width) {
           itemOption.style.width = width
         }
       }

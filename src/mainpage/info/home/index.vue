@@ -39,6 +39,7 @@
           :footMenu="maindata.getModule('search').menu"
           @menu="onSearchMenu"
         ></LocalFormView>
+        <LocalInfoView :maindata="maindata" type="info" :data="maindata.data.current" ></LocalInfoView>
       </a-spin>
     </div>
     <DefaultEdit
@@ -66,7 +67,6 @@ export default {
     return {
       initType: true,
       maindata: maindata,
-      mainlist: [],
       menu: {
         main: {
           show: false,
@@ -103,7 +103,6 @@ export default {
           this.menu.main.title = '生命周期回调'
         }
       })
-      this.buildMainList()
       this.maindata.loadData(this.initType).then(res => {}, res => {
         console.error(res)
       })
@@ -128,9 +127,6 @@ export default {
         from: 'search',
         act: 'reset'
       }, true)
-    },
-    buildMainList () {
-      this.mainlist = this.maindata.getDictionaryPageList('list')
     },
     setMenu(prop, type, edit, title, index, data) {
       this.menu[prop].type = type

@@ -350,6 +350,11 @@ let maindata = new InfoData({
   },
   search: {
     dictionary: {
+      layout: {
+        default: {
+          type: 'width'
+        }
+      },
       list: [
         {
           prop: 'name',
@@ -361,8 +366,7 @@ let maindata = new InfoData({
               type: 'input',
               required: true,
               option: {
-                type: 'text',
-                innerWidth: '160px'
+                type: 'text'
               },
               on: {
                 change(value) {

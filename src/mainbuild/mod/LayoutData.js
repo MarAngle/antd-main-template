@@ -3,20 +3,20 @@ import InterfaceData from './InterfaceData'
 import SimpleData from './../data/SimpleData'
 
 class LayoutData extends SimpleData {
-  constructor (maindata) {
+  constructor (initdata) {
     super()
-    this.initData(maindata)
+    this.initData(initdata)
   }
-  initData (maindata) {
-    if (!maindata) {
-      maindata = {
+  initData (initdata) {
+    if (!initdata) {
+      initdata = {
         default: undefined
       }
     }
-    for (let n in maindata) {
-      maindata[n] = this.formatLayout(maindata[n])
+    for (let n in initdata) {
+      initdata[n] = this.formatLayout(initdata[n])
     }
-    this.data = new InterfaceData(maindata)
+    this.data = new InterfaceData(initdata)
   }
   formatLayout(data) {
     if (!data) {
@@ -26,9 +26,15 @@ class LayoutData extends SimpleData {
       data.type = 'grid'
     }
     if (!data.data) {
-      data.data = {
-        label: 8,
-        content: 16
+      if (data.type == 'grid') {
+        data.data = {
+          label: 8,
+          content: 16
+        }
+      } else if (data.type == 'width') {
+        data.data = {
+          width: undefined
+        }
       }
     }
     return data
