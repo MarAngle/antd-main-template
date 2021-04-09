@@ -19,7 +19,7 @@
 <template>
   <p ref="main" class="AutoText" :class="{ auto: auto, isAuto: isEllipsis }" v-bind="$attrs" v-on="$listeners" >
     <a-tooltip v-bind="tipOption" >
-      <span ref="size" class="content" >{{ text }}</span>
+      <span ref="size" >{{ text }}</span>
     </a-tooltip>
   </p>
 </template>

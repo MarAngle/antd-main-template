@@ -6,7 +6,7 @@ const totalCount = 5701
 const getData = (options) => {
   const parameters = getQueryParameters(options)
   const result = []
-  let mainSize = 10
+  let mainSize = 8
   for (let i = 1; i < mainSize; i++) {
     let childItem = BuildTreeData(0, i, 1)
     result.push(childItem)
@@ -42,7 +42,7 @@ function BuildTreeData (parentId, index, deep) {
     dateRange: [Mock.mock('@datetime'), Mock.mock('@datetime')]
   }
   let childNum = Mock.mock('@integer(0, 10)')
-  if (deep < 5 && childNum > 0) {
+  if (deep < 4 && childNum > 0) {
     data.children = []
     for (let i = 1; i < childNum; i++) {
       let childItem = BuildTreeData(id, i, deep + 1)
