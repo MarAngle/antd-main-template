@@ -15,11 +15,11 @@ class InfoData extends ComplexDataWithSearch {
     if (option) {}
   }
   // 格式化信息数据
-  formatData (origindata = {}, reset, type, option) {
-    if (reset) {
-      this.data.current = {}
+  formatData (origindata = {}, type = 'list', option = {}) {
+    if (!option.type) {
+      option.type = 'add'
     }
-    this.formatItemData(this.data.current, origindata, reset, type, option)
+    this.updateItem(this.data.current, origindata, type, option)
   }
   // 数据重新拉取
   reloadData (force, ...args) {
