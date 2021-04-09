@@ -26,21 +26,39 @@ class LayoutData extends SimpleData {
       data.type = 'grid'
     }
     if (!data.data) {
-      if (data.type == 'grid') {
-        data.data = {
-          label: 8,
-          content: 16
+      data.data = {}
+    }
+    if (!data.grid) {
+      data.grid = 24
+    }
+    if (data.type == 'grid') {
+      if (!data.data.label) {
+        data.data.label = {
+          span: 8
         }
-      } else if (data.type == 'width') {
-        data.data = {
-          width: undefined
+      } else if (_func.getType(data.data.label) !== 'object') {
+        data.data.label = {
+          span: data.data.label
         }
+      }
+      if (!data.data.content) {
+        data.data.content = {
+          span: 16
+        }
+      } else if (_func.getType(data.data.content) !== 'object') {
+        data.data.content = {
+          span: data.data.content
+        }
+      }
+    } else if (data.type == 'width') {
+      if (!data.data.width) {
+        data.data.width = undefined
       }
     }
     return data
   }
   setData (prop, data) {
-    this.data.setData(prop, data)
+    this.data.setData(prop, this.formatLayout(data))
   }
   getData (prop) {
     return this.data.getData(prop)
