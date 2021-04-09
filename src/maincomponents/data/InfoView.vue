@@ -25,6 +25,18 @@
             </slot>
           </a-col>
         </a-row>
+        <div v-else >
+          <div class="itemLabel" :style="{ width: val.layout.width }" >
+            <slot :name="val.prop + '-label'" :data="val" :index="index" >
+              <p>{{ val.label }}</p>
+            </slot>
+          </div>
+          <div class="itemContent" >
+            <slot :name="val.prop + '-content'" :data="val" :index="index" >
+              <p>{{ val.data }}</p>
+            </slot>
+          </div>
+        </div>
       </div>
     </div>
   </div>
