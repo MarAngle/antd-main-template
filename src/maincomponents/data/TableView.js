@@ -252,7 +252,7 @@ export default {
     },
     onChoiceChange(idList, currentList) {
       this.$emit('choice', idList, currentList)
-      this.maindata.changeChoice(idList, currentList)
+      this.maindata.changeChoice(idList, currentList, 'auto')
     }
   },
   // 主模板

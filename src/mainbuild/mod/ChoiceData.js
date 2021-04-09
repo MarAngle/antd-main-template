@@ -86,20 +86,25 @@ class ChoiceData extends DefaultData {
     return new EmptyData('ChoiceData空选项数据')
   }
   // 数据变更=>id作为唯一基准
-  changeData(idList, currentList = [], idProp) {
-    let totalList = currentList
-    for (let n = 0; n < this.data.list.length; n++) {
-      let item = this.data.list[n]
-      if (totalList.indexOf(item) < 0) {
-        totalList.push(item)
+  changeData(idList, currentList = [], check = 'auto', idProp) {
+    // check 'auto'/'force'
+    if (check == 'force' || idList.length != currentList.length) {
+      let totalList = currentList
+      for (let n = 0; n < this.data.list.length; n++) {
+        let item = this.data.list[n]
+        if (totalList.indexOf(item) < 0) {
+          totalList.push(item)
+        }
       }
+      let list = []
+      for (let i = 0; i < idList.length; i++) {
+        let id = idList[i]
+        list[i] = this.formatItemFromList(id, totalList, idProp)
+      }
+      this.setData(idList, list)
+    } else {
+      this.setData(idList, currentList)
     }
-    let list = []
-    for (let i = 0; i < idList.length; i++) {
-      let id = idList[i]
-      list[i] = this.formatItemFromList(id, totalList, idProp)
-    }
-    this.setData(idList, list)
   }
   // 添加选择
   addData(idList, list = [], idProp) {
