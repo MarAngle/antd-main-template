@@ -60,7 +60,9 @@ class ChoiceData extends DefaultData {
       }
     }
     if (initdata.option) {
-      this.option = initdata.option
+      this.option = {
+        ...initdata.option
+      }
     }
   }
   getOption() {
