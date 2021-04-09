@@ -130,7 +130,7 @@ export default {
                 item: pitem,
                 list: this.columnList
               })
-            } else if (pitem.ellipsis || pitem.autoWrap) {
+            } else if (pitem.ellipsis && pitem.autoText) {
               // 自动省略切自动换行?
               let AutoTextOption = {
                 props: {

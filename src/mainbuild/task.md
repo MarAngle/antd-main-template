@@ -25,7 +25,6 @@
 - 选择相关数量过大时的延迟问题
     =>通过添加检查数据方法进行
     =>当前idlist.length == itemlist.length 时默认不做检查加快速度
-- list中autoText的可选操作
 
 ----
 ## 未完成
@@ -44,6 +43,7 @@
 
 ----
 ## 已完成
+- list中AutoText的可选操作
 - 自动menu下拉的判断
     =>form表单可能存在的label属性会导致问题
     =>通过对search的line模式下的form表单的样式重置解决问题

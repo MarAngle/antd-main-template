@@ -18,8 +18,8 @@ option.setData({
         if (data.ellipsis === undefined) {
           data.ellipsis = true
         }
-        if (data.autoWrap === undefined) {
-          data.autoWrap = true
+        if (data.autoText === undefined) {
+          data.autoText = true
         }
         if (data.customCell) {
           let type = _func.getType(data.customCell)
