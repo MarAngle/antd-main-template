@@ -1,22 +1,29 @@
 <style lang='less' scoped >
 .InfoView{
   padding: 10px 10px;
+  p{
+    margin: 0;
+    line-height: 32px;
+    padding: 4px 0;
+  }
 }
 </style>
 <template>
   <div class="InfoView">
     <div class="listArea">
       <div class="item" v-for="(val, index) in mainlist" :key="val.prop" >
-        <div class="itemLabel">
-          <slot :name="val.prop + '-label'" :data="val" :index="index" >
-            <p>{{ val.label }}</p>
-          </slot>
-        </div>
-        <div class="itemContent">
-          <slot :name="val.prop + '-content'" :data="val" :index="index" >
-            <p>{{ val.data }}</p>
-          </slot>
-        </div>
+        <a-row type="flex" v-if="val.layout.type == 'grid'">
+          <a-col class="itemLabel" v-bind="val.layout.label" >
+            <slot :name="val.prop + '-label'" :data="val" :index="index" >
+              <p>{{ val.label }}</p>
+            </slot>
+          </a-col>
+          <a-col class="itemContent" v-bind="val.layout.content" >
+            <slot :name="val.prop + '-content'" :data="val" :index="index" >
+              <p>{{ val.data }}</p>
+            </slot>
+          </a-col>
+        </a-row>
       </div>
     </div>
   </div>

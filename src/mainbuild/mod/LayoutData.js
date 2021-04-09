@@ -25,34 +25,31 @@ class LayoutData extends SimpleData {
     if (!data.type) {
       data.type = 'grid'
     }
-    if (!data.data) {
-      data.data = {}
-    }
     if (!data.grid) {
       data.grid = 24
     }
     if (data.type == 'grid') {
-      if (!data.data.label) {
-        data.data.label = {
+      if (!data.label) {
+        data.label = {
           span: 8
         }
-      } else if (_func.getType(data.data.label) !== 'object') {
-        data.data.label = {
-          span: data.data.label
+      } else if (_func.getType(data.label) !== 'object') {
+        data.label = {
+          span: data.label
         }
       }
-      if (!data.data.content) {
-        data.data.content = {
+      if (!data.content) {
+        data.content = {
           span: 16
         }
-      } else if (_func.getType(data.data.content) !== 'object') {
-        data.data.content = {
-          span: data.data.content
+      } else if (_func.getType(data.content) !== 'object') {
+        data.content = {
+          span: data.content
         }
       }
     } else if (data.type == 'width') {
-      if (!data.data.width) {
-        data.data.width = undefined
+      if (!data.width) {
+        data.width = undefined
       }
     }
     return data

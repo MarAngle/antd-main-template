@@ -562,18 +562,18 @@ export default {
           }
         }
         if (this.layout != 'inline' && item.layout.type == 'grid') {
-          if (_func.getType(item.layout.data.label) == 'object') {
-            mainOption.props.labelCol = item.layout.data.label
+          if (_func.getType(item.layout.label) == 'object') {
+            mainOption.props.labelCol = item.layout.label
           } else {
             mainOption.props.labelCol = {
-              span: item.layout.data.label
+              span: item.layout.label
             }
           }
-          if (_func.getType(item.layout.data.content) == 'object') {
-            mainOption.props.wrapperCol = item.layout.data.content
+          if (_func.getType(item.layout.content) == 'object') {
+            mainOption.props.wrapperCol = item.layout.content
           } else {
             mainOption.props.wrapperCol = {
-              span: item.layout.data.content
+              span: item.layout.content
             }
           }
         }
@@ -641,7 +641,7 @@ export default {
       let typeFormatData = typeFormat.getData(item.edit.type)
       itemOption = typeFormatData.option(itemOption, item, payload)
       if (item.layout.type == 'width') {
-        this.autoSetItemWidth(itemOption, item.layout.data.width)
+        this.autoSetItemWidth(itemOption, item.layout.width)
       } else if (item.edit.option.innerWidth) {
         this.autoSetItemWidth(itemOption, item.edit.option.innerWidth)
       }
