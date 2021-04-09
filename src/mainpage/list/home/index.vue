@@ -75,6 +75,11 @@
               已选择: {{ maindata.getChoiceData('id').length }}
             </span>
           </template>
+          <template slot="expandedRowRender">
+            <span style="padding-right: 10px;">
+              额外展开行
+            </span>
+          </template>
         </LocalTableView>
       </a-spin>
     </div>

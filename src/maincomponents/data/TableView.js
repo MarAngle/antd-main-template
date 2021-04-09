@@ -94,6 +94,9 @@ export default {
       if (!currentTableOption.props.rowSelection) {
         currentTableOption.props.rowSelection = this.rowSelection
       }
+      if (this.$scopedSlots.expandedRowRender) {
+        currentTableOption.props.expandedRowRender = this.$scopedSlots.expandedRowRender
+      }
       return currentTableOption
     },
     currentListData () {
