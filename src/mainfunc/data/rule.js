@@ -1,8 +1,10 @@
 
-let config = {
+let base = {
   num: '0-9',
-  smallLetter: 'a-z',
-  bigLetter: 'A-Z',
+  letter: {
+    small: 'a-z',
+    big: 'A-Z'
+  },
   text: '\u4e00-\u9fa5'
 }
 
