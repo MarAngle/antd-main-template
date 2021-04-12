@@ -56,7 +56,7 @@ rule.build = function(item) {
     item.end = '$'
   }
   let regData = this.buildNext(item.init, this.base)
-  regData = item.start + '[' + regData + ']' + item.end
+  regData = item.start + '[' + regData + ']{1,}' + item.end
   data.data = new RegExp(regData)
   return data
 }
@@ -119,7 +119,5 @@ rule.check = function(data, option) {
 }
 
 rule.init()
-
-console.log(rule.check('12345', 'letterAndNum'))
 
 export default rule
