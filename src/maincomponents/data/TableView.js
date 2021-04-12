@@ -97,6 +97,9 @@ export default {
       if (this.$scopedSlots.expandedRowRender) {
         currentTableOption.props.expandedRowRender = this.$scopedSlots.expandedRowRender
       }
+      if (!currentTableOption.ref) {
+        currentTableOption.ref = 'tableView'
+      }
       return currentTableOption
     },
     currentListData () {

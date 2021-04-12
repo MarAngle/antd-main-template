@@ -63,7 +63,8 @@
           :columnList="mainlist"
           :tableOption="{
             props: {
-              expandedRowKeys: expandList
+              expandedRowKeys: expandList,
+              expandRowByClick: true
             },
             on: {
               expandedRowsChange: expandedRowsChange
