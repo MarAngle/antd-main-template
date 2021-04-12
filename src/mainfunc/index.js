@@ -11,8 +11,14 @@ let mainfunc = {
 mainfunc._initMod = function (mod, methodList) {
   if (methodList) {
     for (let i in methodList) {
-      let methodName = methodList[i]
-      this._appendMethod(methodName, mod[methodName], mod)
+      let methodData = methodList[i]
+      if (typeof methodData != 'object') {
+        methodData = {
+          originprop: methodData,
+          prop: methodData
+        }
+      }
+      this._appendMethod(methodData.prop, mod[methodData.originprop], mod)
     }
   } else {
     for (let n in mod) {
@@ -41,7 +47,12 @@ mainfunc.init = function ({ require }) {
 }
 
 mainfunc._initMod(_environment)
-mainfunc._initMod(_rule)
+mainfunc._initMod(_rule, [
+  {
+    originprop: 'check',
+    prop: 'checkRule'
+  }
+])
 mainfunc._initMod(_utils)
 mainfunc._initMod(_notice)
 
