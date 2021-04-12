@@ -7,30 +7,30 @@ let mainfunc = {
   BASEDATA: {}
 }
 
-mainfunc._initMod = function (mod, funcList) {
-  if (funcList) {
-    for (let i in funcList) {
-      let funcName = funcList[i]
-      this._appendFunc(funcName, mod[funcName], mod)
+mainfunc._initMod = function (mod, methodList) {
+  if (methodList) {
+    for (let i in methodList) {
+      let methodName = methodList[i]
+      this._appendMethod(methodName, mod[methodName], mod)
     }
   } else {
     for (let n in mod) {
       if (typeof mod[n] == 'function') {
-        this._appendFunc(n, mod[n], mod)
+        this._appendMethod(n, mod[n], mod)
       }
     }
   }
 }
 
-mainfunc._appendFunc = function (funcName, funcData, target) {
-  if (!this[funcName]) {
-    if (funcData) {
-      this[funcName] = funcData.bind(target)
+mainfunc._appendMethod = function (methodName, methodData, target) {
+  if (!this[methodName]) {
+    if (methodData) {
+      this[methodName] = methodData.bind(target)
     } else {
-      console.error(`func appendFunc error: ${funcName} is not defined`)
+      console.error(`func appendMethod error: ${methodName} is not defined`)
     }
   } else {
-    console.error(`func appendFunc error: ${funcName} is defined`)
+    console.error(`func appendMethod error: ${methodName} is defined`)
   }
 }
 

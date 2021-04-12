@@ -1,14 +1,13 @@
 
-let base = {
-  num: '0-9',
-  letter: {
-    small: 'a-z',
-    big: 'A-Z'
-  },
-  text: '\u4e00-\u9fa5'
-}
-
 let rule = {
+  base: {
+    num: '0-9',
+    letter: {
+      small: 'a-z',
+      big: 'A-Z'
+    },
+    text: '\u4e00-\u9fa5'
+  },
   data: {
     mobile: {
       method: 'reg',
@@ -39,6 +38,10 @@ let rule = {
       data: /^[\u4e00-\u9fa5]{0,}$/
     }
   }
+}
+
+rule.init = function() {
+
 }
 
 export default rule
