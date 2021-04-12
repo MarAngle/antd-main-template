@@ -1,5 +1,6 @@
 import Require from './build/Require'
 import _environment from './data/environment'
+import _rule from './data/rule'
 import _utils from './data/utils'
 import _notice from '@/mainnotice/index'
 
@@ -40,6 +41,7 @@ mainfunc.init = function ({ require }) {
 }
 
 mainfunc._initMod(_environment)
+mainfunc._initMod(_rule)
 mainfunc._initMod(_utils)
 mainfunc._initMod(_notice)
 

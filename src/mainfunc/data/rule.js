@@ -1,3 +1,4 @@
+import _utils from './utils'
 
 let rule = {
   base: {
@@ -13,35 +14,66 @@ let rule = {
       method: 'reg',
       data: /^((\+?86)|(\(\+86\)))?1\d{10}$/
     },
-    // 数字，包括小数+-
+    integer: {
+      init: ['num']
+    },
     num: {
       method: 'reg',
       data: /^(-|\+)?\d+(\.\d+)?$/
     },
-    // 整数+-
-    integerNum: {
-      method: 'reg',
-      data: /^(-|\+)?\d+$/
-    },
-    // 英文字母
     letter: {
-      method: 'reg',
-      data: /^[a-zA-Z]+$/
-    },
-    // 英文字母加整数
-    letterNum: {
-      method: 'reg',
-      data: /^[0-9a-zA-Z]*$/
-    },
-    text: {
-      method: 'reg',
-      data: /^[\u4e00-\u9fa5]{0,}$/
+      init: ['letter']
     }
   }
 }
 
-rule.init = function() {
-
+rule.init = function () {
+  for (let n in this.data) {
+    let item = this.data[n]
+    if (item.init) {
+      let regData = this.initNext(item.init, this.base)
+      item.method = 'reg'
+      if (item.start === undefined) {
+        item.start = '^'
+      }
+      if (item.end === undefined) {
+        item.end = '$'
+      }
+      regData = item.start + '[' + regData + ']' + item.end
+      item.data = new RegExp(regData)
+      console.log(item.data)
+    }
+  }
 }
+
+rule.initNext = function(propList, data) {
+  let regStr = ''
+  if (propList === true) {
+    for (let n in data) {
+      let info = data[n]
+      if (_utils.getType(info) == 'object') {
+        regStr += this.initNext(true, info)
+      } else {
+        regStr += info
+      }
+    }
+  } else {
+    let type = _utils.getType(propList)
+    if (type == 'array') {
+      for (let i = 0; i < propList.length; i++) {
+        let prop = propList[i]
+        let info = data[prop]
+        if (_utils.getType(info) == 'object') {
+          regStr += this.initNext(_utils.getType(prop) == 'array' ? prop : true, info)
+        } else {
+          regStr += info
+        }
+      }
+    }
+  }
+  return regStr
+}
+
+rule.init()
 
 export default rule
