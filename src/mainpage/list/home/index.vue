@@ -58,7 +58,18 @@
             @menu="onSearchMenu"
           ></LocalFormView>
         </LocalModAutoSearchMenu>
-        <LocalTableView :maindata="maindata" :columnList="mainlist" >
+        <LocalTableView
+          :maindata="maindata"
+          :columnList="mainlist"
+          :tableOption="{
+            props: {
+              expandedRowKeys: expandList
+            },
+            on: {
+              expandedRowsChange: expandedRowsChange
+            }
+          }"
+        >
           <template slot="_index" slot-scope="slotProps">
             <LocalModAutoIndex :index="slotProps.index" :maindata="maindata" :style="{ color: 'red' }" />
           </template>
@@ -109,6 +120,7 @@ export default {
       initType: true,
       maindata: maindata,
       mainlist: [],
+      expandList: [],
       menu: {
         main: {
           show: false,
@@ -135,6 +147,9 @@ export default {
     this.pageLoad()
   },
   methods: {
+    expandedRowsChange(keys) {
+      this.expandList = keys
+    },
     onDemo(data) {
       console.log(data)
     },
