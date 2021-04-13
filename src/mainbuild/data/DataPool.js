@@ -12,7 +12,7 @@ class DataPool extends BaseData {
     }
     this._initDataPool(initdata)
     if (!this.check) {
-      this._printInfo('需要传递check函数作为相同对象判断!')
+      this.printInfo('需要传递check函数作为相同对象判断!')
     }
     this.triggerCreateLife('DataPool')
   }
@@ -98,7 +98,7 @@ class DataPool extends BaseData {
   // 根据属性值获取对象
   getItemByProp (prop, data) {
     if (!prop) {
-      this._printInfo('获取ITEM必须定义prop!')
+      this.printInfo('获取ITEM必须定义prop!')
       return false
     }
     for (let n in this.data.list) {

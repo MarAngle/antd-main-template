@@ -9,17 +9,17 @@ const instrcutionData = {
       describe: '全局缓存保存字段'
     },
     {
-      prop: '_getPrintInfo',
+      prop: 'getPrintInfo',
       type: 'function',
       describe: '输出信息生成函数'
     },
     {
-      prop: '_printInfo',
+      prop: 'printInfo',
       type: 'function',
       describe: '信息输出函数'
     },
     {
-      prop: '_selfName',
+      prop: 'selfName',
       type: 'function',
       describe: '名称获取函数'
     }
@@ -30,16 +30,16 @@ class SimpleData {
   constructor() {
     this.$LocalTempData = {}
   }
-  _getPrintInfo (content) {
-    return `${this._selfName()}:${content}`
+  getPrintInfo (content) {
+    return `${this.selfName()}:${content}`
   }
-  _printInfo (content, type = 'error', nextContent, nextType = type) {
-    console[type](this._getPrintInfo(content))
+  printInfo (content, type = 'error', nextContent, nextType = type) {
+    console[type](this.getPrintInfo(content))
     if (nextContent) {
       console[nextType](nextContent)
     }
   }
-  _selfName () {
+  selfName () {
     return `[CLASS:${this.constructor.name}]`
   }
 }

@@ -116,7 +116,7 @@ class LifeData extends SimpleData {
           data.id = this.buildId()
         }
         if (lifeItem.data.has(data.id) && !data.repalce) {
-          this._printInfo(`生命周期[${name}]存在当前值:${data.id}`)
+          this.printInfo(`生命周期[${name}]存在当前值:${data.id}`)
         } else {
           this.setDataByIndex(lifeItem, data, name)
           if (data.immediate) {
@@ -125,10 +125,10 @@ class LifeData extends SimpleData {
           return data.id
         }
       } else {
-        this._printInfo(`生命周期[${name}]设置(${data.id || '-'})未定义func`)
+        this.printInfo(`生命周期[${name}]设置(${data.id || '-'})未定义func`)
       }
     } else {
-      this._printInfo(`生命周期${name}设置data参数需要object或者function`)
+      this.printInfo(`生命周期${name}设置data参数需要object或者function`)
     }
     return false
   }
@@ -145,10 +145,10 @@ class LifeData extends SimpleData {
           }
         }
       } else {
-        this._printInfo(`生命周期[${name}]不存在当前值(${id})`)
+        this.printInfo(`生命周期[${name}]不存在当前值(${id})`)
       }
     } else {
-      this._printInfo(`不存在当前生命周期[${name}]`)
+      this.printInfo(`不存在当前生命周期[${name}]`)
     }
   }
   // 触发生命周期

@@ -57,7 +57,7 @@ class BaseData extends DefaultData {
   // 设置生命周期函数
   onLife (name, data) {
     if (this.$LocalTempData.AutoCreateLifeNameList.indexOf(name) > -1) {
-      this._printInfo(`正在创建一个属于创建生命周期的回调函数${name}，如此函数不是创建生命周期回调请修改函数名，否则请检查代码，理论上当你在设置这个触发函数时创建已经完成，此函数可能永远不会被触发！`)
+      this.printInfo(`正在创建一个属于创建生命周期的回调函数${name}，如此函数不是创建生命周期回调请修改函数名，否则请检查代码，理论上当你在设置这个触发函数时创建已经完成，此函数可能永远不会被触发！`)
     }
     return this.getModule('life').on(name, data)
   }
@@ -72,7 +72,7 @@ class BaseData extends DefaultData {
   // 触发生命周期
   triggerCreateLife (env) {
     if (!env) {
-      this._printInfo('triggerCreateLife函数需要传递env参数')
+      this.printInfo('triggerCreateLife函数需要传递env参数')
     }
     let lifeName
     if (env == this.constructor.name) {
@@ -129,10 +129,10 @@ class BaseData extends DefaultData {
       if (this.getModule('update')[method]) {
         this.getModule('update')[method](payload)
       } else {
-        this._printInfo(`更新模块不存在${method}方法`)
+        this.printInfo(`更新模块不存在${method}方法`)
       }
     } else if (!hideError) {
-      this._printInfo(`未定义更新模块`)
+      this.printInfo(`未定义更新模块`)
     }
   }
   // 自动加载或者更新数据
@@ -202,7 +202,7 @@ class BaseData extends DefaultData {
         }
       }
       this.triggerPromise('load', {
-        errmsg: this._getPrintInfo(`promise模块无load数据(load状态:${loadStatus.value})`)
+        errmsg: this.getPrintInfo(`promise模块无load数据(load状态:${loadStatus.value})`)
       }).then(res => {
         resolve(res)
       }, res => {
@@ -226,7 +226,7 @@ class BaseData extends DefaultData {
         }
       }
       this.triggerPromise('update', {
-        errmsg: this._getPrintInfo(`promise模块无update数据(update状态:${updateStatus.value})`)
+        errmsg: this.getPrintInfo(`promise模块无update数据(update状态:${updateStatus.value})`)
       }).then(res => {
         resolve(res)
       }, res => {
@@ -249,7 +249,7 @@ class BaseData extends DefaultData {
           reject(res)
         })
       } else {
-        this._printInfo(`未定义${target}函数，triggerMethod函数触发失败！`)
+        this.printInfo(`未定义${target}函数，triggerMethod函数触发失败！`)
         reject({ status: 'fail', code: 'noMethod' })
       }
     })
@@ -267,11 +267,11 @@ class BaseData extends DefaultData {
             reject(res)
           })
         } else {
-          this._printInfo(`当前操作状态为:${operate.label}，${target}函数操作互斥，triggerMethodByOperate函数失败！`)
+          this.printInfo(`当前操作状态为:${operate.label}，${target}函数操作互斥，triggerMethodByOperate函数失败！`)
           reject({ status: 'fail', code: 'clash' })
         }
       } else {
-        this._printInfo(`未定义${target}函数，triggerMethodByOperate函数触发失败！`)
+        this.printInfo(`未定义${target}函数，triggerMethodByOperate函数触发失败！`)
         reject({ status: 'fail', code: 'noMethod' })
       }
     })

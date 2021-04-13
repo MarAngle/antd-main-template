@@ -41,10 +41,10 @@ class DefaultData extends SimpleData {
       if (this[n]) {
         let type = _func.getType(this[n])
         if (type !== 'function') {
-          this._printInfo(`自定义函数${n}存在同名属性，未生效!`)
+          this.printInfo(`自定义函数${n}存在同名属性，未生效!`)
           build = false
         } else {
-          this._printInfo(`method:${n}已被改写!`, 'warn')
+          this.printInfo(`method:${n}已被改写!`, 'warn')
         }
       }
       if (build) {
@@ -78,7 +78,7 @@ class DefaultData extends SimpleData {
     if (extraData) {
       let fg = this.getModule('extra').initData(extraData)
       if (!fg) {
-        this._printInfo(`设置ExtrData出错`)
+        this.printInfo(`设置ExtrData出错`)
       }
     }
   }
@@ -98,11 +98,11 @@ class DefaultData extends SimpleData {
   resetExtra () {
     this.getModule('extra').reset()
   }
-  _selfName () {
+  selfName () {
     let parent = this.getParent()
     let pre
-    if (parent && parent._selfName) {
-      pre = `(${parent._selfName()})-`
+    if (parent && parent.selfName) {
+      pre = `(${parent.selfName()})-`
     }
     if (!pre) {
       pre = ``

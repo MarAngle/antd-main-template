@@ -145,7 +145,7 @@ class SearchData extends ComplexData {
   //         }
   //       }
   //     } else {
-  //       target._printInfo(`存在${dictData.prop}方法,${this._selfName()}install=>${dictData.originProp}失败`)
+  //       target.printInfo(`存在${dictData.prop}方法,${this.selfName()}install=>${dictData.originProp}失败`)
   //     }
   //   }
   //   target.setLifeData({
