@@ -85,12 +85,12 @@ const instrcutionData = {
       data: [
         {
           prop: 'extra',
-          class: 'ExtraData',
+          extend: 'ExtraData',
           describe: '属性'
         },
         {
           prop: 'parent',
-          class: 'ParentData',
+          extend: 'ParentData',
           describe: '属性'
         }
       ]

@@ -1,7 +1,7 @@
 import InstrcutionData from './../mod/InstrcutionData'
 
 let instrcution = {
-  data: {}
+  data: new Map()
 }
 
 instrcution.build = function(instrcutionData, prop, extendsProp) {
@@ -10,7 +10,7 @@ instrcution.build = function(instrcutionData, prop, extendsProp) {
     extendsData = this.data[extendsProp]
   }
   instrcutionData.name = prop
-  this.data[prop] = new InstrcutionData(instrcutionData, extendsData)
+  this.data.set(prop, new InstrcutionData(instrcutionData, this.data, extendsProp))
   console.log(this.data)
 }
 

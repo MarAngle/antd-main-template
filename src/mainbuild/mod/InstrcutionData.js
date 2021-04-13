@@ -1,17 +1,34 @@
 
 class InstrcutionData {
-  constructor(initdata, extendsData) {
-    this.extendsData = extendsData
+  constructor(initdata, instrcutionMap, extendsProp) {
     this.build = {}
     this.data = {}
     if (initdata) {
-      this.initData(initdata)
+      this.initData(initdata, instrcutionMap, extendsProp)
     }
   }
-  initData({ name, build, data }) {
+  initData({ name, build, data }, instrcutionMap, extendsProp) {
+    this.setDataMap(instrcutionMap)
+    this.setExtend(extendsProp)
     this.setName(name)
     this.setBuild(build, this.build)
     this.setData(data, this.data)
+  }
+  setDataMap(instrcutionMap) {
+    this.dataMap = instrcutionMap
+  }
+  getDataMap() {
+    return this.dataMap
+  }
+  getDataMapItem(prop) {
+    let instrcutionMap = this.getDataMap()
+    if (prop && instrcutionMap.has(prop)) {
+      return instrcutionMap.get(prop)
+    }
+    return null
+  }
+  setExtend(extendsProp) {
+    this.extend = this.getDataMapItem(extendsProp)
   }
   setName(name) {
     this.name = name
@@ -24,6 +41,9 @@ class InstrcutionData {
         type: originitem.type,
         required: originitem.required,
         describe: originitem.describe
+      }
+      if (originitem.extend) {
+        item.extend = this.getDataMapItem(originitem.extend)
       }
       data[originitem.prop] = item
       if (originitem.data) {
@@ -38,8 +58,10 @@ class InstrcutionData {
       let item = {
         prop: originitem.prop,
         type: originitem.type,
-        class: originitem.class,
         describe: originitem.describe
+      }
+      if (originitem.extend) {
+        item.extend = this.getDataMapItem(originitem.extend)
       }
       data[originitem.prop] = item
       if (originitem.data) {
