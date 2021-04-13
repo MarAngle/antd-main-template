@@ -1,3 +1,4 @@
+import _func from '@/mainfunc/index'
 
 const dict = {
   base: ['prop', 'describe'],
@@ -82,7 +83,12 @@ class InstrcutionData {
     let origindata = this[type]
     let data = {}
     this.getDataNext(data, origindata, type)
-    return data
+    if (this.extend) {
+      let extendData = this.extend.getData(type)
+      return _func.mergeData(extendData, data)
+    } else {
+      return data
+    }
   }
   getDataNext(data, origindata, type) {
     for (let n in origindata) {
