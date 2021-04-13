@@ -10,7 +10,8 @@ class InstrcutionData {
       this.setData(initdata)
     }
   }
-  setData({ build, data }) {
+  setData({ name, build, data }) {
+    this.name = name
     this.setDataNext(build, this.data.build, 'build')
     this.setDataNext(data, this.data.data)
   }

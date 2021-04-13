@@ -9,6 +9,7 @@ instrcution.build = function(instrcutionData, prop, extendsProp) {
   if (extendsProp) {
     extendsData = this.data[extendsProp]
   }
+  instrcutionData.name = prop
   this.data[prop] = new InstrcutionData(instrcutionData, extendsData)
   console.log(this.data)
 }
