@@ -27,45 +27,46 @@ class RuleData {
     }
     // 类型
     this.type = initdata.type || 'reg'
+    this.needMerge = initdata.needMerge
     if (initdata.build) {
       this.buildData(initdata)
     } else {
       this.data = initdata.data
     }
     // 是否组合模式
-    this.compose = this.formatCompose(initdata.compose)
+    this.merge = this.formatMerge(initdata.merge)
   }
-  formatCompose(composeData) {
-    if (composeData) {
-      if (composeData === true) {
-        composeData = {}
+  formatMerge(mergeData) {
+    if (mergeData) {
+      if (mergeData === true) {
+        mergeData = {}
       }
-      if (!composeData.limit) {
-        composeData.limit = {}
+      if (!mergeData.limit) {
+        mergeData.limit = {}
       }
-      if (composeData.limit.start === undefined) {
-        composeData.limit.start = '^'
+      if (mergeData.limit.start === undefined) {
+        mergeData.limit.start = '^'
       }
-      if (composeData.limit.end === undefined) {
-        composeData.limit.end = '$'
+      if (mergeData.limit.end === undefined) {
+        mergeData.limit.end = '$'
       }
-      if (!composeData.num) {
-        composeData.num = {}
+      if (!mergeData.num) {
+        mergeData.num = {}
       }
-      if (composeData.num.min === undefined) {
-        composeData.num.min = '1'
+      if (mergeData.num.min === undefined) {
+        mergeData.num.min = '1'
       }
-      if (composeData.num.max === undefined) {
-        composeData.num.max = ''
+      if (mergeData.num.max === undefined) {
+        mergeData.num.max = ''
       }
     }
-    return composeData
+    return mergeData
   }
-  buildRegStr(regData, composeData) {
-    return `${composeData.limit.start}[${regData}]{${composeData.num.min},${composeData.num.max}}${composeData.limit.start}`
+  buildRegStr(regData, mergeData) {
+    return `${mergeData.limit.start}[${regData}]{${mergeData.num.min},${mergeData.num.max}}${mergeData.limit.start}`
   }
   buildData(initdata) {
-    initdata.compose = true
+    this.needMerge = true
     if (this.type == 'reg') {
       let regData = this.buildRegData(initdata.build, base)
       this.data = regData
@@ -101,12 +102,12 @@ class RuleData {
   check(data, option = {}) {
     if (this.type == 'reg') {
       let reg = this.data
-      if (option.compose) {
-        option.compose = this.formatCompose(option.compose)
+      if (option.merge) {
+        option.merge = this.formatMerge(option.merge)
       }
-      let compose = option.compose || this.compose
-      if (compose) {
-        reg = this.buildRegStr(reg, compose)
+      let merge = option.merge || this.merge
+      if (merge) {
+        reg = this.buildRegStr(reg, merge)
       }
       let type = _utils.getType(reg)
       if (type != 'reg') {
