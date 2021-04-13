@@ -27,7 +27,6 @@ class RuleData {
     }
     // 类型
     this.type = initdata.type || 'reg'
-    this.needMerge = initdata.needMerge
     if (initdata.build) {
       this.buildData(initdata)
     } else {
@@ -63,11 +62,16 @@ class RuleData {
     return mergeData
   }
   buildRegStr(regData, mergeData) {
-    return `${mergeData.limit.start}[${regData}]{${mergeData.num.min},${mergeData.num.max}}${mergeData.limit.start}`
+    return `${mergeData.limit.start}[${regData}]{${mergeData.num.min},${mergeData.num.max}}${mergeData.limit.end}`
+  }
+  buildReg(regData, mergeData) {
+    return new RegExp(this.buildRegStr(regData, mergeData))
   }
   buildData(initdata) {
-    this.needMerge = true
     if (this.type == 'reg') {
+      if (initdata.merge === undefined) {
+        initdata.merge = true
+      }
       let regData = this.buildRegData(initdata.build, base)
       this.data = regData
     }
@@ -107,7 +111,7 @@ class RuleData {
       }
       let merge = option.merge || this.merge
       if (merge) {
-        reg = this.buildRegStr(reg, merge)
+        reg = this.buildReg(reg, merge)
       }
       let type = _utils.getType(reg)
       if (type != 'reg') {

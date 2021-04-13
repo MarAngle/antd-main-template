@@ -47,4 +47,11 @@ rule.check = function(data, prop, ...args) {
   }
 }
 
+// console.log(rule.data)
+// console.log(rule.check('123', 'num'))
+// console.log(rule.check('123a', 'num'))
+// console.log(rule.check('123a', 'letterAndNum'))
+// console.log(rule.check('123a阿斯顿', 'letterAndNum'))
+// console.log(rule.check('123a阿斯顿', 'letterAndNumAndText'))
+
 export default rule
