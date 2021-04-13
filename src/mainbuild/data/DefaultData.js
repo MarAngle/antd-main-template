@@ -208,4 +208,6 @@ class DefaultData extends SimpleData {
 
 DefaultData.buildInstrcution(instrcutionData, 'SimpleData')
 
+console.log(DefaultData.getInstrcution('data'))
+
 export default DefaultData

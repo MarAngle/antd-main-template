@@ -11,7 +11,6 @@ instrcution.build = function(instrcutionData, prop, extendsProp) {
   }
   instrcutionData.name = prop
   this.data.set(prop, new InstrcutionData(instrcutionData, this.data, extendsProp))
-  console.log(this.data)
 }
 
 instrcution.get = function(prop, type) {
@@ -23,5 +22,7 @@ instrcution.get = function(prop, type) {
     return null
   }
 }
+
+console.log(instrcution)
 
 export default instrcution

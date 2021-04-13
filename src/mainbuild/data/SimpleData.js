@@ -54,6 +54,4 @@ class SimpleData {
 
 SimpleData.buildInstrcution(instrcutionData)
 
-console.log(SimpleData.getInstrcution('build'))
-
 export default SimpleData

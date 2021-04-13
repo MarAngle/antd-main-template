@@ -85,15 +85,18 @@ class InstrcutionData {
     return data
   }
   getDataNext(data, origindata, type) {
-    let dictItem = dict[type]
-    this.formatData(data, origindata, dictItem)
-    data.from = this.name
-    if (dictItem.extend && origindata.extend) {
-      data.data = origindata.extend.getData()
-    }
-    if (dictItem.data && origindata.data) {
-      data.data = {}
-      this.getDataNext(data.data, origindata.data, type)
+    for (let n in origindata) {
+      data[n] = {}
+      let dictItem = dict[type]
+      this.formatData(data[n], origindata[n], dictItem)
+      data[n].from = this.name
+      // if (dictItem.extend && origindata[n].extend) {
+      //   data[n].data = origindata[n].extend.getData()
+      // }
+      if (dictItem.data && origindata[n].data) {
+        data[n].data = {}
+        this.getDataNext(data[n].data, origindata[n].data, type)
+      }
     }
   }
 }
