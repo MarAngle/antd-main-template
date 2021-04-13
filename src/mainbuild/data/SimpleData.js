@@ -1,4 +1,4 @@
-import InstrcutionData from './../mod/InstrcutionData'
+import instrcution from './../utils/instrcution'
 
 const instrcutionData = {
   build: [],
@@ -44,12 +44,14 @@ class SimpleData {
   }
 }
 
-SimpleData.$instrcution = new InstrcutionData(instrcutionData)
-
-SimpleData.buildInstrcution = function(data) {
-  this.$instrcution.setData(data)
+SimpleData.buildInstrcution = function(instrcutionData, prop) {
+  if (!prop) {
+    prop = this.name
+  }
+  console.log(this.name)
+  instrcution.build(instrcutionData, prop)
 }
 
-console.log(SimpleData.$instrcution)
+SimpleData.buildInstrcution(instrcutionData, 'SimpleData')
 
 export default SimpleData

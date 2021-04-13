@@ -10,7 +10,7 @@ class InstrcutionData {
     }
   }
   setData({ build, data }) {
-    this.setDataNext(build, this.data.build)
+    this.setDataNext(build, this.data.build, 'build')
     this.setDataNext(data, this.data.data)
   }
   setDataNext(list, data) {
@@ -19,6 +19,7 @@ class InstrcutionData {
       let item = {
         prop: originitem.prop,
         type: originitem.type,
+        required: originitem.required,
         describe: originitem.describe
       }
       data.set(originitem.prop, item)
