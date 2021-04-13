@@ -51,6 +51,10 @@ mainfunc._initMod(_rule, [
   {
     originprop: 'check',
     prop: 'checkRule'
+  },
+  {
+    originprop: 'build',
+    prop: 'buildRule'
   }
 ])
 mainfunc._initMod(_utils)

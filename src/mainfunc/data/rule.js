@@ -29,36 +29,22 @@ let rule = {
   }
 }
 
-console.log(rule.data)
-
-console.log(rule.data.letter.check('1233'))
-
-rule.check = function(data, option) {
-  let type = _utils.getType(option)
-  if (type != 'object') {
-    option = {
-      prop: option
-    }
+rule.build = function(option, prop) {
+  let ruleItem = new RuleData(option)
+  if (prop) {
+    this.data[prop] = ruleItem
   }
-  if (!option.type) {
-    option.type = 'prop'
-  }
-  let ruleItem
-  if (option.type == 'build') {
-    ruleItem = this.build(option)
+  return ruleItem
+}
+
+rule.check = function(data, prop, ...args) {
+  let ruleItem = this.data[prop]
+  if (ruleItem) {
+    return ruleItem.check(data, ...args)
   } else {
-    ruleItem = this.data[option.prop]
+    console.error(`rule不存在${prop}校验规则，请检查代码`)
+    return null
   }
-  let fg = ruleItem.data.test(data)
-  if (fg) {
-    if (option.size) {
-      let dataSize = data.length
-      if (dataSize < option.size.min || dataSize > option.size.max) {
-        fg = false
-      }
-    }
-  }
-  return fg
 }
 
 export default rule
