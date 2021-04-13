@@ -7,7 +7,11 @@ let rule = {
       small: 'a-z',
       big: 'A-Z'
     },
-    text: '\u4e00-\u9fa5'
+    text: '\u4e00-\u9fa5',
+    bd: {
+      z: '，。？！‘’”“<>%',
+      y: ',.?!\'\'""《》%'
+    }
   },
   data: {
     mobile: {
