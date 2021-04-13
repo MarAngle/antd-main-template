@@ -52,19 +52,22 @@ class InstrcutionData {
   setName(name) {
     this.name = name
   }
+  formatData(item, originitem, dictItem) {
+    for (let n in dict.base) {
+      let prop = dict.base[n]
+      item[prop] = originitem[prop]
+    }
+    for (let n in dictItem.prop) {
+      let prop = dictItem.prop[n]
+      item[prop] = originitem[prop]
+    }
+  }
   setData(list, data, type) {
     for (let n = 0; n < list.length; n++) {
       let originitem = list[n]
-      let item = {}
-      for (let n in dict.base) {
-        let prop = dict.base[n]
-        item[prop] = originitem[prop]
-      }
       let dictItem = dict[type]
-      for (let n in dictItem.prop) {
-        let prop = dictItem.prop[n]
-        item[prop] = originitem[prop]
-      }
+      let item = {}
+      this.formatData(item, originitem, dictItem)
       if (dictItem.extend && originitem.extend) {
         item.extend = this.getDataMapItem(originitem.extend)
       }
@@ -73,6 +76,24 @@ class InstrcutionData {
         item.data = {}
         this.setData(originitem.data, item.data, type)
       }
+    }
+  }
+  getData(type) {
+    let origindata = this[type]
+    let data = {}
+    this.getDataNext(data, origindata, type)
+    return data
+  }
+  getDataNext(data, origindata, type) {
+    let dictItem = dict[type]
+    this.formatData(data, origindata, dictItem)
+    data.from = this.name
+    if (dictItem.extend && origindata.extend) {
+      data.data = origindata.extend.getData()
+    }
+    if (dictItem.data && origindata.data) {
+      data.data = {}
+      this.getDataNext(data.data, origindata.data, type)
     }
   }
 }
