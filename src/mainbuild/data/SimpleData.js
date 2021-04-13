@@ -7,7 +7,9 @@ const instrcutionData = {
       prop: '$LocalTempData',
       type: 'object',
       describe: '全局缓存保存字段'
-    },
+    }
+  ],
+  method: [
     {
       prop: 'getPrintInfo',
       type: 'function',

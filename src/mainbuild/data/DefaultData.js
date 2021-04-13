@@ -80,8 +80,8 @@ const instrcutionData = {
     },
     {
       prop: 'module',
-      type: 'object',
-      describe: '模块保存位置',
+      extend: 'ModuleData',
+      describe: '模块数据',
       data: [
         {
           prop: 'extra',
@@ -95,7 +95,8 @@ const instrcutionData = {
         }
       ]
     }
-  ]
+  ],
+  method: []
 }
 
 class DefaultData extends SimpleData {

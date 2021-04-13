@@ -3,16 +3,18 @@ class InstrcutionData {
   constructor(initdata, instrcutionMap, extendsProp) {
     this.build = {}
     this.data = {}
+    this.method = {}
     if (initdata) {
       this.initData(initdata, instrcutionMap, extendsProp)
     }
   }
-  initData({ name, build, data }, instrcutionMap, extendsProp) {
+  initData({ name, build = [], data = [], method = [] }, instrcutionMap, extendsProp) {
     this.setDataMap(instrcutionMap)
     this.setExtend(extendsProp)
     this.setName(name)
     this.setBuild(build, this.build)
     this.setData(data, this.data)
+    this.setMethod(method, this.method)
   }
   setDataMap(instrcutionMap) {
     this.dataMap = instrcutionMap
@@ -68,6 +70,16 @@ class InstrcutionData {
         item.data = {}
         this.setData(originitem.data, item.data)
       }
+    }
+  }
+  setMethod(list, data) {
+    for (let n = 0; n < list.length; n++) {
+      let originitem = list[n]
+      let item = {
+        prop: originitem.prop,
+        describe: originitem.describe
+      }
+      data[originitem.prop] = item
     }
   }
 }
