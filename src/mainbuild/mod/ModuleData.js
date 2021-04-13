@@ -5,52 +5,14 @@ const instrcutionData = {
     {
       prop: 'initdata',
       type: 'object',
-      describe: '构建参数',
-      required: true,
-      data: [
-        {
-          prop: 'name',
-          type: 'string',
-          required: false,
-          describe: '名称'
-        },
-        {
-          prop: 'prop',
-          type: 'string',
-          required: false,
-          describe: '属性'
-        },
-        {
-          prop: 'data',
-          type: 'object',
-          required: false,
-          describe: 'data属性赋值'
-        },
-        {
-          prop: 'parent',
-          type: 'object',
-          required: false,
-          describe: '父数据'
-        },
-        {
-          prop: 'extra',
-          type: 'object',
-          required: false,
-          describe: 'extra数据'
-        },
-        {
-          prop: 'func',
-          type: 'object',
-          required: false,
-          describe: 'func函数，将会挂载到跟属性func上，this指向实例'
-        },
-        {
-          prop: 'methods',
-          type: 'object',
-          required: false,
-          describe: 'methods函数，将会挂载到实例上，this不做操作'
-        }
-      ]
+      describe: '接受object,每个属性就是对应的module',
+      required: false
+    },
+    {
+      prop: 'parent',
+      type: 'object',
+      describe: 'parent父实例',
+      required: false
     }
   ],
   data: [

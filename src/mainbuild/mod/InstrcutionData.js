@@ -1,4 +1,21 @@
 
+const dict = {
+  base: ['prop', 'describe'],
+  build: {
+    prop: ['type', 'required'],
+    extend: true,
+    data: true
+  },
+  data: {
+    prop: ['type'],
+    extend: true,
+    data: true
+  },
+  method: {
+    prop: []
+  }
+}
+
 class InstrcutionData {
   constructor(initdata, instrcutionMap, extendsProp) {
     this.build = {}
@@ -12,9 +29,9 @@ class InstrcutionData {
     this.setDataMap(instrcutionMap)
     this.setExtend(extendsProp)
     this.setName(name)
-    this.setBuild(build, this.build)
-    this.setData(data, this.data)
-    this.setMethod(method, this.method)
+    this.setData(build, this.build, 'build')
+    this.setData(data, this.data, 'data')
+    this.setData(method, this.method, 'method')
   }
   setDataMap(instrcutionMap) {
     this.dataMap = instrcutionMap
@@ -35,51 +52,27 @@ class InstrcutionData {
   setName(name) {
     this.name = name
   }
-  setBuild(list, data) {
+  setData(list, data, type) {
     for (let n = 0; n < list.length; n++) {
       let originitem = list[n]
-      let item = {
-        prop: originitem.prop,
-        type: originitem.type,
-        required: originitem.required,
-        describe: originitem.describe
+      let item = {}
+      for (let n in dict.base) {
+        let prop = dict.base[n]
+        item[prop] = originitem[prop]
       }
-      if (originitem.extend) {
+      let dictItem = dict[type]
+      for (let n in dictItem.prop) {
+        let prop = dictItem.prop[n]
+        item[prop] = originitem[prop]
+      }
+      if (dictItem.extend && originitem.extend) {
         item.extend = this.getDataMapItem(originitem.extend)
       }
       data[originitem.prop] = item
-      if (originitem.data) {
+      if (dictItem.data && originitem.data) {
         item.data = {}
-        this.setBuild(originitem.data, item.data)
+        this.setData(originitem.data, item.data, type)
       }
-    }
-  }
-  setData(list, data) {
-    for (let n = 0; n < list.length; n++) {
-      let originitem = list[n]
-      let item = {
-        prop: originitem.prop,
-        type: originitem.type,
-        describe: originitem.describe
-      }
-      if (originitem.extend) {
-        item.extend = this.getDataMapItem(originitem.extend)
-      }
-      data[originitem.prop] = item
-      if (originitem.data) {
-        item.data = {}
-        this.setData(originitem.data, item.data)
-      }
-    }
-  }
-  setMethod(list, data) {
-    for (let n = 0; n < list.length; n++) {
-      let originitem = list[n]
-      let item = {
-        prop: originitem.prop,
-        describe: originitem.describe
-      }
-      data[originitem.prop] = item
     }
   }
 }
