@@ -1,42 +1,32 @@
-import SimpleData from './../data/SimpleData'
 
-class InstrcutionData extends SimpleData {
-  constructor (initdata) {
-    super()
-    this.option = [] // 传参描述
-    this.structure = {} // 结构描述
-    this.initMain(initdata)
-  }
-  initMain ({ option, structure }) {
-    this.initOption(option)
-    this.initStructure(structure)
-  }
-  initOption (option) {
-    this.option = []
-    for (let n in option) {
-      let oitem = option[n]
-      let item = this.buildOptionItem(oitem)
-      this.option.push(item)
+class InstrcutionData {
+  constructor(initdata) {
+    this.data = {
+      build: new Map(),
+      data: new Map()
+    }
+    if (initdata) {
+      this.setData(initdata)
     }
   }
-
-  buildOptionItem (oitem) {
-    let item = {}
-    // for (let n in oitem) {
-    //   if (optionData[n]) {
-    //     item[n] = oitem[n]
-    //   } else {
-    //     item[n] = this.buildOptionItem(oitem[n])
-    //   }
-    // }
-    // if (oitem.data) {
-    //   item.data = this.buildOptionItem(oitem.data)
-    // }
-    return item
+  setData({ build, data }) {
+    this.setDataNext(build, this.data.build)
+    this.setDataNext(data, this.data.data)
   }
-
-  initStructure (structure) {
-
+  setDataNext(list, data) {
+    for (let n = 0; n < list.length; n++) {
+      let originitem = list[n]
+      let item = {
+        prop: originitem.prop,
+        type: originitem.type,
+        describe: originitem.describe
+      }
+      data.set(originitem.prop, item)
+      if (originitem.data) {
+        item.data = new Map()
+        this.setDataNext(originitem.data, item.data)
+      }
+    }
   }
 }
 export default InstrcutionData
