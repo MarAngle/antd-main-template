@@ -2,20 +2,21 @@
 class InstrcutionData {
   constructor(initdata, extendsData) {
     this.extendsData = extendsData
-    this.data = {
-      build: new Map(),
-      data: new Map()
-    }
+    this.build = {}
+    this.data = {}
     if (initdata) {
-      this.setData(initdata)
+      this.initData(initdata)
     }
   }
-  setData({ name, build, data }) {
-    this.name = name
-    this.setDataNext(build, this.data.build, 'build')
-    this.setDataNext(data, this.data.data)
+  initData({ name, build, data }) {
+    this.setName(name)
+    this.setBuild(build, this.build)
+    this.setData(data, this.data)
   }
-  setDataNext(list, data) {
+  setName(name) {
+    this.name = name
+  }
+  setBuild(list, data) {
     for (let n = 0; n < list.length; n++) {
       let originitem = list[n]
       let item = {
@@ -24,10 +25,26 @@ class InstrcutionData {
         required: originitem.required,
         describe: originitem.describe
       }
-      data.set(originitem.prop, item)
+      data[originitem.prop] = item
       if (originitem.data) {
-        item.data = new Map()
-        this.setDataNext(originitem.data, item.data)
+        item.data = {}
+        this.setBuild(originitem.data, item.data)
+      }
+    }
+  }
+  setData(list, data) {
+    for (let n = 0; n < list.length; n++) {
+      let originitem = list[n]
+      let item = {
+        prop: originitem.prop,
+        type: originitem.type,
+        class: originitem.class,
+        describe: originitem.describe
+      }
+      data[originitem.prop] = item
+      if (originitem.data) {
+        item.data = {}
+        this.setData(originitem.data, item.data)
       }
     }
   }
