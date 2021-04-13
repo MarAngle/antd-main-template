@@ -77,7 +77,7 @@ class RuleData {
       for (let n in data) {
         let info = data[n]
         if (_utils.getType(info) == 'object') {
-          regStr += this.buildNext(true, info)
+          regStr += this.buildRegData(true, info)
         } else {
           regStr += info
         }
@@ -89,7 +89,7 @@ class RuleData {
           let prop = propList[i]
           let info = data[prop]
           if (_utils.getType(info) == 'object') {
-            regStr += this.buildNext(_utils.getType(prop) == 'array' ? prop : true, info)
+            regStr += this.buildRegData(_utils.getType(prop) == 'array' ? prop : true, info)
           } else {
             regStr += info
           }
