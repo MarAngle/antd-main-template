@@ -205,6 +205,6 @@ class DefaultData extends SimpleData {
   }
 }
 
-DefaultData.buildInstrcution(instrcutionData)
+DefaultData.buildInstrcution(instrcutionData, 'SimpleData')
 
 export default DefaultData

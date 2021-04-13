@@ -4,8 +4,12 @@ let instrcution = {
   data: {}
 }
 
-instrcution.build = function(instrcutionData, prop) {
-  this.data[prop] = new InstrcutionData(instrcutionData)
+instrcution.build = function(instrcutionData, prop, extendsProp) {
+  let extendsData
+  if (extendsProp) {
+    extendsData = this.data[extendsProp]
+  }
+  this.data[prop] = new InstrcutionData(instrcutionData, extendsData)
   console.log(this.data)
 }
 

@@ -42,16 +42,11 @@ class SimpleData {
   selfName () {
     return `[CLASS:${this.constructor.name}]`
   }
-}
-
-SimpleData.buildInstrcution = function(instrcutionData, prop) {
-  if (!prop) {
-    prop = this.name
+  static buildInstrcution(instrcutionData, extendsProp) {
+    instrcution.build(instrcutionData, this.name, extendsProp)
   }
-  console.log(this.name)
-  instrcution.build(instrcutionData, prop)
 }
 
-SimpleData.buildInstrcution(instrcutionData, 'SimpleData')
+SimpleData.buildInstrcution(instrcutionData)
 
 export default SimpleData

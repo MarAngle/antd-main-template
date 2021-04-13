@@ -1,6 +1,7 @@
 
 class InstrcutionData {
-  constructor(initdata) {
+  constructor(initdata, extendsData) {
+    this.extendsData = extendsData
     this.data = {
       build: new Map(),
       data: new Map()
