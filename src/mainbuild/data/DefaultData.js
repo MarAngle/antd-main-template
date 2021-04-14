@@ -189,17 +189,17 @@ class DefaultData extends SimpleData {
           },
           {
             prop: 'module',
-            extend: 'ModuleData',
+            class: 'ModuleData',
             describe: '模块数据',
             data: [
               {
                 prop: 'extra',
-                extend: 'ExtraData',
+                class: 'ExtraData',
                 describe: '属性'
               },
               {
                 prop: 'parent',
-                extend: 'ParentData',
+                class: 'ParentData',
                 describe: '属性'
               }
             ]

@@ -1,15 +1,15 @@
 import _func from '@/mainfunc/index'
 
 const dict = {
-  base: ['prop', 'describe'],
+  base: ['prop', 'extend', 'describe'],
   build: {
     prop: ['type', 'required'],
-    extend: true,
+    class: true,
     data: true
   },
   data: {
     prop: ['type'],
-    extend: true,
+    class: true,
     data: true
   },
   method: {
@@ -73,8 +73,8 @@ class InstrcutionData {
       let dictItem = dict[type]
       let item = {}
       this.formatData(item, originitem, dictItem)
-      if (dictItem.extend && originitem.extend) {
-        item.extend = this.getDataMapItem(originitem.extend)
+      if (dictItem.class && originitem.class) {
+        item.class = this.getDataMapItem(originitem.class)
       }
       data[originitem.prop] = item
       if (dictItem.data && originitem.data) {
@@ -104,8 +104,8 @@ class InstrcutionData {
       let dictItem = dict[type]
       this.formatData(data[n], origindata[n], dictItem)
       data[n].from = this.prop
-      if (dictItem.extend && origindata[n].extend) {
-        data[n].extend = origindata[n].extend.getData(type)
+      if (dictItem.class && origindata[n].class) {
+        data[n].class = origindata[n].class.getData(type)
       }
       if (dictItem.data && origindata[n].data) {
         data[n].data = {}

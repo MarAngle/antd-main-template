@@ -366,27 +366,28 @@ class BaseData extends DefaultData {
         data: [
           {
             prop: 'module',
-            extend: 'ModuleData',
+            class: 'ModuleData',
+            extend: true,
             describe: '模块数据',
             data: [
               {
                 prop: 'life',
-                extend: 'LifeData',
+                class: 'LifeData',
                 describe: '属性'
               },
               {
                 prop: 'status',
-                extend: 'StatusData',
+                class: 'StatusData',
                 describe: '属性'
               },
               {
                 prop: 'promise',
-                extend: 'PromiseData',
+                class: 'PromiseData',
                 describe: '属性'
               },
               {
                 prop: 'update',
-                extend: 'UpdateData',
+                class: 'UpdateData',
                 describe: '属性'
               }
             ]
