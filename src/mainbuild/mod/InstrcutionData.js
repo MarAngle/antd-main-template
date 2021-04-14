@@ -93,10 +93,54 @@ class InstrcutionData {
     this.getDataNext(data.data, origindata, type)
     if (this.extend) {
       let extendData = this.extend.getData(type)
-      return _func.mergeData(extendData, data)
+      return this.mergeData(extendData, data)
     } else {
       return data
     }
+  }
+  mergeDataOld(data, currentdata) {
+    if (!currentdata) {
+      currentdata = {}
+    }
+    for (let n in currentdata) {
+      let type = this.getType(currentdata[n])
+      if (type == 'object') {
+        if (!data[n]) {
+          data[n] = {}
+        }
+        this.mergeData(data[n], currentdata[n])
+      } else {
+        data[n] = currentdata[n]
+      }
+    }
+    return data
+  }
+  mergeData(data, currentdata) {
+    console.log(currentdata.extend)
+    if (currentdata.extend !== true) {
+      for (let n in currentdata) {
+        let type = _func.getType(currentdata[n])
+        if (type == 'object') {
+          if (!data[n]) {
+            data[n] = {}
+          }
+          this.mergeData(data[n], currentdata[n])
+        } else {
+          data[n] = currentdata[n]
+        }
+      }
+    } else {
+      // 依赖选项跟属性以data为主，describe合并
+      data.describe += currentdata.describe
+      // data.describe = data.describe.concat(currentdata.describe)
+      if (currentdata.data) {
+        if (!data.data) {
+          data.data = {}
+        }
+        this.mergeData(data.data, currentdata.data)
+      }
+    }
+    return data
   }
   getDataNext(data, origindata, type) {
     for (let n in origindata) {
