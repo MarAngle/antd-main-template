@@ -18,18 +18,20 @@ const dict = {
 }
 
 class InstrcutionData {
-  constructor(initdata, instrcutionMap, extendsProp) {
+  constructor(initdata, instrcutionMap) {
+    this.describe = ''
     this.build = {}
     this.data = {}
     this.method = {}
     if (initdata) {
-      this.initData(initdata, instrcutionMap, extendsProp)
+      this.initData(initdata, instrcutionMap)
     }
   }
-  initData({ name, build = [], data = [], method = [] }, instrcutionMap, extendsProp) {
+  initData({ prop, describe, extend, build = [], data = [], method = [] }, instrcutionMap) {
     this.setDataMap(instrcutionMap)
-    this.setExtend(extendsProp)
-    this.setName(name)
+    this.setProp(prop)
+    this.setDescribe(describe)
+    this.setExtend(extend)
     this.setData(build, this.build, 'build')
     this.setData(data, this.data, 'data')
     this.setData(method, this.method, 'method')
@@ -47,11 +49,14 @@ class InstrcutionData {
     }
     return null
   }
+  setProp(prop) {
+    this.prop = prop
+  }
+  setDescribe(describe) {
+    this.describe = describe
+  }
   setExtend(extendsProp) {
     this.extend = this.getDataMapItem(extendsProp)
-  }
-  setName(name) {
-    this.name = name
   }
   formatData(item, originitem, dictItem) {
     for (let n in dict.base) {
@@ -81,8 +86,12 @@ class InstrcutionData {
   }
   getData(type) {
     let origindata = this[type]
-    let data = {}
-    this.getDataNext(data, origindata, type)
+    let data = {
+      describe: this.describe,
+      prop: this.prop,
+      data: {}
+    }
+    this.getDataNext(data.data, origindata, type)
     if (this.extend) {
       let extendData = this.extend.getData(type)
       return _func.mergeData(extendData, data)
@@ -95,7 +104,7 @@ class InstrcutionData {
       data[n] = {}
       let dictItem = dict[type]
       this.formatData(data[n], origindata[n], dictItem)
-      data[n].from = this.name
+      data[n].from = this.prop
       if (dictItem.extend && origindata[n].extend) {
         data[n].extend = origindata[n].extend.getData(type)
       }

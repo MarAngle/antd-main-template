@@ -6,7 +6,7 @@ import ParentData from './../mod/ParentData'
 
 const instrcutionData = {
   extend: 'Simple',
-  describe: 'DefaultData数据，实现module/extra/parent数据的加载，实现func/method的挂载',
+  describe: '实现module/extra/parent数据的加载，实现func/method的挂载',
   build: [
     {
       prop: 'initdata',

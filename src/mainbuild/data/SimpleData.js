@@ -1,6 +1,7 @@
 import instrcution from './../utils/instrcution'
 
 const instrcutionData = {
+  describe: '基础类，所有其他类都继承于此，可实现全局定制功能，此处实现基本的信息输出和说明挂载',
   build: [],
   data: [
     {
@@ -44,8 +45,9 @@ class SimpleData {
   selfName () {
     return `[CLASS:${this.constructor.name}]`
   }
-  static buildInstrcution(instrcutionData, extendsProp) {
-    instrcution.build(instrcutionData, this.name, extendsProp)
+  static buildInstrcution(instrcutionData) {
+    instrcutionData.prop = this.name
+    instrcution.build(instrcutionData)
   }
   static getInstrcution(type) {
     return instrcution.get(this.name, type)
