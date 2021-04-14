@@ -1,4 +1,19 @@
 <style lang='less' scoped>
+.InstrcutionViewTarget{
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: flex-start;
+  .InstrcutionViewTargetView{
+    width: 100%;
+    flex: auto;
+  }
+  .InstrcutionViewTargetMenu{
+    width: 60px;
+    text-align: center;
+    flex: none;
+  }
+}
 </style>
 <template>
   <div class="InstrcutionView">
@@ -7,7 +22,12 @@
         <InstrcutionView :data="slotProps.target" :type="type" ></InstrcutionView>
       </template>
       <template slot="target" slot-scope="slotProps">
-        <InstrcutionView :data="slotProps.target" :type="type" ></InstrcutionView>
+        <div class="InstrcutionViewTarget">
+          <InstrcutionView class="InstrcutionViewTargetView" :data="slotProps.target" :type="type" v-show="showTarget"></InstrcutionView>
+          <div class="InstrcutionViewTargetMenu" @click="showTarget = !showTarget" >
+            <p>{{ showTarget ? '关闭' : '查看' }}</p>
+          </div>
+        </div>
       </template>
     </InstrcutionItem>
   </div>
@@ -33,6 +53,7 @@ export default {
   },
   data () {
     return {
+      showTarget: false
     }
   },
   mounted () {
