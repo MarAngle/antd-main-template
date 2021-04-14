@@ -39,10 +39,6 @@ export default {
     this.pageLoad()
   },
   methods: {
-    showData(data) {
-      console.log(data)
-      return data
-    },
     pageLoad () {
     }
   }

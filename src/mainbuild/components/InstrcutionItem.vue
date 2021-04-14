@@ -9,10 +9,10 @@
   }
   .InstrcutionItemInfo{
     .InstrcutionItemInfoItem{
-      padding: 0 10px;
+      // padding: 0 10px;
       margin: 5px 0;
       border-radius: 4px;
-      border: 1px #ccc solid;
+      border-bottom: 1px #ccc solid;
       display: flex;
       flex-direction: row;
       justify-content: flex-start;
@@ -24,6 +24,15 @@
       .InstrcutionItemInfoItemContent{
         width: 100%;
         flex: auto;
+        .InstrcutionItemInfoItemDataItem{
+          padding: 0 10px;
+          margin: 5px 0;
+          border-radius: 4px;
+          border: 1px #ccc solid;
+        }
+      }
+      &:last-child{
+        border-bottom: none;
       }
     }
   }
@@ -80,7 +89,9 @@
           <h4>TARGET</h4>
         </div>
         <div class="InstrcutionItemInfoItemContent">
-          <slot name="target" :target="data.class" />
+          <div class="InstrcutionItemInfoItemDataItem">
+            <slot name="target" :target="data.class" />
+          </div>
         </div>
       </div>
       <div class="InstrcutionItemInfoItem" v-if="data.data" >
@@ -88,7 +99,7 @@
           <h4>数据</h4>
         </div>
         <div class="InstrcutionItemInfoItemContent">
-          <div v-for="(val, index) in data.data" :key="index">
+          <div class="InstrcutionItemInfoItemDataItem" v-for="(val, index) in data.data" :key="index">
             <slot name="default" :target="val" />
           </div>
         </div>
@@ -124,12 +135,7 @@ export default {
     this.pageLoad()
   },
   methods: {
-    showData(data) {
-      console.log(data)
-      return data
-    },
     pageLoad () {
-      console.log(this)
     }
   }
 }
