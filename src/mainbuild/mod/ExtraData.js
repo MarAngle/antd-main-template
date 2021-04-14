@@ -1,6 +1,24 @@
 import _func from '@/maindata/func/index'
 import SimpleData from './../data/SimpleData'
 
+const instrcutionData = {
+  build: [
+    {
+      prop: 'data',
+      type: 'object',
+      describe: '额外数据对象',
+      required: false
+    }
+  ],
+  data: [
+    {
+      prop: 'data',
+      type: 'object',
+      describe: '额外数据保存位置'
+    }
+  ],
+  method: []
+}
 class ExtraData extends SimpleData {
   constructor (data = {}) {
     super()
@@ -46,5 +64,7 @@ class ExtraData extends SimpleData {
     this.clearData()
   }
 }
+
+ExtraData.buildInstrcution(instrcutionData, 'SimpleData')
 
 export default ExtraData

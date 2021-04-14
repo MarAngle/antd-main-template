@@ -97,7 +97,7 @@ class InstrcutionData {
       this.formatData(data[n], origindata[n], dictItem)
       data[n].from = this.name
       if (dictItem.extend && origindata[n].extend) {
-        data[n].extend = origindata[n].extend.getData()
+        data[n].extend = origindata[n].extend.getData(type)
       }
       if (dictItem.data && origindata[n].data) {
         data[n].data = {}
