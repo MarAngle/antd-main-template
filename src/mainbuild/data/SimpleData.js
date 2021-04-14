@@ -1,34 +1,5 @@
 import instrcution from './../utils/instrcution'
 
-const instrcutionData = {
-  describe: '基础类，所有其他类都继承于此，可实现全局定制功能，此处实现基本的信息输出和说明挂载',
-  build: [],
-  data: [
-    {
-      prop: '$LocalTempData',
-      type: 'object',
-      describe: '全局缓存保存字段'
-    }
-  ],
-  method: [
-    {
-      prop: 'getPrintInfo',
-      type: 'function',
-      describe: '输出信息生成函数'
-    },
-    {
-      prop: 'printInfo',
-      type: 'function',
-      describe: '信息输出函数'
-    },
-    {
-      prop: 'selfName',
-      type: 'function',
-      describe: '名称获取函数'
-    }
-  ]
-}
-
 class SimpleData {
   constructor() {
     this.$LocalTempData = {}
@@ -45,15 +16,51 @@ class SimpleData {
   selfName () {
     return `[CLASS:${this.constructor.name}]`
   }
+  static initInstrcution() {
+    if (this.instrcutionShow()) {
+      const instrcutionData = {
+        describe: '基础类，所有其他类都继承于此，可实现全局定制功能，此处实现基本的信息输出和说明挂载',
+        build: [],
+        data: [
+          {
+            prop: '$LocalTempData',
+            type: 'object',
+            describe: '全局缓存保存字段'
+          }
+        ],
+        method: [
+          {
+            prop: 'getPrintInfo',
+            type: 'function',
+            describe: '输出信息生成函数'
+          },
+          {
+            prop: 'printInfo',
+            type: 'function',
+            describe: '信息输出函数'
+          },
+          {
+            prop: 'selfName',
+            type: 'function',
+            describe: '名称获取函数'
+          }
+        ]
+      }
+      instrcutionData.prop = this.name
+      this.buildInstrcution(instrcutionData)
+    }
+  }
   static buildInstrcution(instrcutionData) {
-    instrcutionData.prop = this.name
     instrcution.build(instrcutionData)
   }
   static getInstrcution(type) {
     return instrcution.get(this.name, type)
   }
+  static instrcutionShow() {
+    return instrcution.getShow()
+  }
 }
 
-SimpleData.buildInstrcution(instrcutionData)
+SimpleData.initInstrcution()
 
 export default SimpleData
