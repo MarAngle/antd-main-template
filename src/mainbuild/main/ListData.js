@@ -10,13 +10,8 @@ class ListData extends ComplexDataWithSearch {
     this._initListData(initdata)
     this.triggerCreateLife('ListData')
   }
-  _initListData ({ option, pagination }) {
-    this._initListDataOption(option)
+  _initListData ({ pagination }) {
     this._initPagination(pagination)
-  }
-  // 加载设置项
-  _initListDataOption (option) {
-    if (option) {}
   }
   // 加载分页器
   _initPagination (pagination) {

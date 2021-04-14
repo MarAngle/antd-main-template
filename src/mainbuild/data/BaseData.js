@@ -8,18 +8,17 @@ import PromiseData from './../mod/PromiseData'
 class BaseData extends DefaultData {
   constructor (initdata = {}) {
     super(initdata)
+    this.setModule('option', new OptionData())
     // 创建生命周期的名称列表-自动
     this.$LocalTempData.AutoCreateLifeNameList = []
     this._initBaseData(initdata)
     this.triggerCreateLife('BaseData')
   }
   _initBaseData ({
-    option,
     life,
     status,
     update
   }) {
-    this.setModule('option', new OptionData(option))
     this.setModule('life', new LifeData(life))
     this.setModule('status', new StatusData(status))
     this.setModule('promise', new PromiseData())
@@ -341,12 +340,6 @@ class BaseData extends DefaultData {
             prop: 'initdata',
             extend: true,
             data: [
-              {
-                prop: 'option',
-                type: 'object',
-                required: false,
-                describe: 'option设置项数据加载'
-              },
               {
                 prop: 'life',
                 type: 'object',
