@@ -1,6 +1,9 @@
 <style lang='less' scoped>
 
 .InstrcutionItem{
+  padding: 0 10px;
+  border-radius: 4px;
+  border: 1px #ccc solid;
   h4,p{
     margin: 0;
     font-size: 14px;
@@ -71,13 +74,21 @@
           </div>
         </div>
       </div>
+      <div class="InstrcutionItemInfoItem" v-if="data.class" >
+        <div class="InstrcutionItemInfoItemLabel">
+          <h4>类</h4>
+        </div>
+        <div class="InstrcutionItemInfoItemContent">
+          <InstrcutionView :data="data.class" ></InstrcutionView>
+        </div>
+      </div>
       <div class="InstrcutionItemInfoItem" v-if="data.data" >
         <div class="InstrcutionItemInfoItemLabel">
           <h4>数据</h4>
         </div>
         <div class="InstrcutionItemInfoItemContent">
           <div v-for="(val, index) in data.data" :key="index">
-            <InstrcutionItem :data="data.data" ></InstrcutionItem>
+            <InstrcutionItem :data="val" ></InstrcutionItem>
           </div>
         </div>
       </div>
@@ -86,8 +97,13 @@
 </template>
 
 <script>
+import InstrcutionView from './InstrcutionView'
+
 export default {
   name: `InstrcutionItem`,
+  components: {
+    InstrcutionView
+  },
   props: {
     data: {
       type: Object,

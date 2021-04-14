@@ -3,7 +3,8 @@
 </style>
 <template>
   <div>
-    <InstrcutionItem :data="data" :indent="10" />
+    <InstrcutionItem :data="data" :indent="10">
+    </InstrcutionItem>
   </div>
 </template>
 
