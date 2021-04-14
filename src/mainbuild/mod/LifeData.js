@@ -185,6 +185,40 @@ class LifeData extends SimpleData {
     this.reset()
     this.data = {}
   }
+  static initInstrcution() {
+    if (this.instrcutionShow()) {
+      const instrcutionData = {
+        extend: 'SimpleData',
+        describe: '生命周期数据格式',
+        build: [
+          {
+            prop: 'initdata',
+            type: 'object',
+            describe: '加载数据',
+            data: [
+              {
+                prop: 'data',
+                type: 'object',
+                describe: '生命周期设置数据(key=>value)'
+              }
+            ]
+          }
+        ],
+        data: [
+          {
+            prop: 'data',
+            type: 'object',
+            describe: '生命周期数据保存位置'
+          }
+        ],
+        method: []
+      }
+      instrcutionData.prop = this.name
+      this.buildInstrcution(instrcutionData)
+    }
+  }
 }
+
+LifeData.initInstrcution()
 
 export default LifeData
