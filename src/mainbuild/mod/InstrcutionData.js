@@ -99,13 +99,14 @@ class InstrcutionData {
   getData(type) {
     let origindata = this[type]
     let data = {
-      describe: this.describe,
       prop: this.prop,
+      describe: this.describe,
       data: {}
     }
     this.getDataNext(data.data, origindata, type)
     if (this.extend) {
       let extendData = this.extend.getData(type)
+      data.describe = extendData.describe.concat(data.describe)
       return this.mergeData(extendData, data)
     } else {
       return data
