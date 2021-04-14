@@ -1,9 +1,4 @@
 <style lang='less' scoped>
-.InstrcutionView{
-  // border-radius: 4px;
-  // border: 1px #ccc solid;
-  // margin-top: 10px;
-}
 </style>
 <template>
   <div class="InstrcutionView">
