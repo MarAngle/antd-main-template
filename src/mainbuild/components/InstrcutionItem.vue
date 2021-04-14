@@ -1,18 +1,69 @@
-<style>
+<style lang='less' scoped>
+
+.InstrcutionItem{
+  h4,p{
+    margin: 0;
+    font-size: 14px;
+    line-height: 24px;
+    margin: 4px 0;
+  }
+  .InstrcutionItemInfo{
+    .InstrcutionItemInfoItem{
+      display: flex;
+      flex-direction: row;
+      justify-content: flex-start;
+      align-items: flex-start;
+      .InstrcutionItemInfoItemLabel{
+        width: 60px;
+        flex: none;
+      }
+      .InstrcutionItemInfoItemContent{
+        width: 100%;
+        flex: auto;
+      }
+    }
+  }
+}
 
 </style>
 <template>
-  <div class="InstrcutionItem" >
+  <div class="InstrcutionItem" :style="{ marginLeft: indent + 'px' }" >
     <div class="InstrcutionItemInfo" >
       <div class="InstrcutionItemInfoItem">
         <div class="InstrcutionItemInfoItemLabel">
-          属性值
+          <h4>属性</h4>
         </div>
-        <div class="InstrcutionItemInfoItemContent">{{ data.prop }}</div>
+        <div class="InstrcutionItemInfoItemContent">
+          <p>{{ data.prop }}</p>
+        </div>
       </div>
       <div class="InstrcutionItemInfoItem">
         <div class="InstrcutionItemInfoItemLabel">
-          描述
+          <h4>类型</h4>
+        </div>
+        <div class="InstrcutionItemInfoItemContent">
+          <p>{{ data.type || '-' }}</p>
+        </div>
+      </div>
+      <div class="InstrcutionItemInfoItem">
+        <div class="InstrcutionItemInfoItemLabel">
+          <h4>来源</h4>
+        </div>
+        <div class="InstrcutionItemInfoItemContent">
+          <p>{{ data.from || '-' }}</p>
+        </div>
+      </div>
+      <div class="InstrcutionItemInfoItem">
+        <div class="InstrcutionItemInfoItemLabel">
+          <h4>必选</h4>
+        </div>
+        <div class="InstrcutionItemInfoItemContent">
+          <p>{{ data.required ? '是' : '否' }}</p>
+        </div>
+      </div>
+      <div class="InstrcutionItemInfoItem">
+        <div class="InstrcutionItemInfoItemLabel">
+          <h4>描述</h4>
         </div>
         <div class="InstrcutionItemInfoItemContent">
           <div v-for="(val, index) in data.describe" :key="index">
