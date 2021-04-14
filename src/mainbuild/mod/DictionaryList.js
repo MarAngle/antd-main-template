@@ -181,9 +181,7 @@ class DictionaryList extends DefaultData {
         initdata.option.build = this.getBuildOption()
       }
       initdata.parent = ditem
-      ditem.dictionaryList = new DictionaryList(initdata, {
-        layout: payload.layout
-      })
+      ditem.dictionaryList = new DictionaryList(initdata, {})
     } else if (type == 'self') {
       ditem.dictionaryList = this
     }
@@ -421,5 +419,134 @@ class DictionaryList extends DefaultData {
     }
     return editData
   }
+  static initInstrcution() {
+    if (this.instrcutionShow()) {
+      const instrcutionData = {
+        extend: 'DefaultData',
+        describe: '字典列表数据',
+        build: [
+          {
+            prop: 'initdata',
+            extend: true,
+            data: [
+              {
+                prop: 'option',
+                type: 'object',
+                describe: '设置项数据'
+              },
+              {
+                prop: 'parent',
+                type: 'object',
+                describe: '父实例'
+              },
+              {
+                prop: 'layout',
+                type: 'object',
+                describe: 'layout数据'
+              },
+              {
+                prop: 'list',
+                type: 'array',
+                describe: '字典构建数据'
+              }
+            ]
+          },
+          {
+            prop: 'payload',
+            type: 'object',
+            describe: 'payload数据',
+            data: [
+              {
+                prop: 'type',
+                type: 'object',
+                describe: '构建类型[init/push/replace]'
+              }
+            ]
+          }
+        ],
+        data: [
+          {
+            prop: 'option',
+            type: 'object',
+            describe: '设置数据保存位置'
+          },
+          {
+            prop: 'propData',
+            type: 'object',
+            describe: 'propData',
+            data: [
+              {
+                prop: 'id',
+                type: 'object',
+                describe: 'ID值对象',
+                data: [
+                  {
+                    prop: 'prop',
+                    type: 'string',
+                    describe: 'ID属性值'
+                  },
+                  {
+                    prop: 'data',
+                    type: 'string',
+                    describe: 'ID值'
+                  }
+                ]
+              },
+              {
+                prop: 'parentId',
+                type: 'object',
+                describe: '父ID值对象',
+                data: [
+                  {
+                    prop: 'prop',
+                    type: 'string',
+                    describe: '父ID属性值'
+                  },
+                  {
+                    prop: 'data',
+                    type: 'string',
+                    describe: '父ID值'
+                  }
+                ]
+              },
+              {
+                prop: 'children',
+                type: 'object',
+                describe: 'children值对象',
+                data: [
+                  {
+                    prop: 'prop',
+                    type: 'string',
+                    describe: 'children属性值'
+                  },
+                  {
+                    prop: 'data',
+                    type: 'string',
+                    describe: 'children值'
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            prop: 'num',
+            type: 'number',
+            describe: '列表重构判断值'
+          },
+          {
+            prop: 'data',
+            type: 'map',
+            describe: '字典保存位置'
+          }
+        ],
+        method: []
+      }
+      instrcutionData.prop = this.name
+      this.buildInstrcution(instrcutionData)
+    }
+  }
 }
+
+DictionaryList.initInstrcution()
+
 export default DictionaryList
