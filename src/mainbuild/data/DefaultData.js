@@ -215,6 +215,4 @@ class DefaultData extends SimpleData {
 
 DefaultData.initInstrcution()
 
-console.log(DefaultData.getInstrcution('data'))
-
 export default DefaultData

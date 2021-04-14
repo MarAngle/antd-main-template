@@ -330,5 +330,78 @@ class BaseData extends DefaultData {
     this.resetStatus()
     this.triggerLife('reseted', ...args)
   }
+  static initInstrcution() {
+    if (this.instrcutionShow()) {
+      const instrcutionData = {
+        extend: 'DefaultData',
+        describe: '实现option/status/update/life/promise数据的加载,需要定义getData函数',
+        build: [
+          {
+            prop: 'initdata',
+            type: 'object',
+            describe: '构建参数',
+            required: true,
+            data: [
+              {
+                prop: 'life',
+                type: 'object',
+                required: false,
+                describe: 'life加载数据,仅此处定义created生命周期时可实现触发'
+              },
+              {
+                prop: 'status',
+                type: 'object',
+                required: false,
+                describe: 'status加载数据'
+              },
+              {
+                prop: 'update',
+                type: 'object',
+                required: false,
+                describe: 'update加载数据'
+              }
+            ]
+          }
+        ],
+        data: [
+          {
+            prop: 'module',
+            extend: 'ModuleData',
+            describe: '模块数据',
+            data: [
+              {
+                prop: 'life',
+                extend: 'LifeData',
+                describe: '属性'
+              },
+              {
+                prop: 'status',
+                extend: 'StatusData',
+                describe: '属性'
+              },
+              {
+                prop: 'promise',
+                extend: 'PromiseData',
+                describe: '属性'
+              },
+              {
+                prop: 'update',
+                extend: 'UpdateData',
+                describe: '属性'
+              }
+            ]
+          }
+        ],
+        method: []
+      }
+      instrcutionData.prop = this.name
+      this.buildInstrcution(instrcutionData)
+    }
+  }
 }
+
+BaseData.initInstrcution()
+
+console.log(BaseData.getInstrcution('data'))
+
 export default BaseData
