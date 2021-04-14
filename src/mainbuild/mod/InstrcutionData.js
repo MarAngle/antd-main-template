@@ -1,7 +1,7 @@
 import _func from '@/mainfunc/index'
 
 const dict = {
-  base: ['prop', 'extend', 'describe'],
+  base: ['prop', 'extend'],
   build: {
     prop: ['type', 'required'],
     class: true,
@@ -52,7 +52,11 @@ class InstrcutionData {
     this.prop = prop
   }
   setDescribe(describe) {
-    this.describe = describe
+    if (_func.getType(describe) != 'array') {
+      this.describe = [describe]
+    } else {
+      this.describe = [...describe]
+    }
   }
   setExtend(extend) {
     this.extend = this.getDataMapItem(extend)
@@ -65,6 +69,11 @@ class InstrcutionData {
     for (let n in dictItem.prop) {
       let prop = dictItem.prop[n]
       item[prop] = originitem[prop]
+    }
+    if (_func.getType(originitem.describe) != 'array') {
+      item.describe = [originitem.describe]
+    } else {
+      item.describe = [...originitem.describe]
     }
   }
   setData(list, data, type) {
@@ -98,25 +107,7 @@ class InstrcutionData {
       return data
     }
   }
-  mergeDataOld(data, currentdata) {
-    if (!currentdata) {
-      currentdata = {}
-    }
-    for (let n in currentdata) {
-      let type = this.getType(currentdata[n])
-      if (type == 'object') {
-        if (!data[n]) {
-          data[n] = {}
-        }
-        this.mergeData(data[n], currentdata[n])
-      } else {
-        data[n] = currentdata[n]
-      }
-    }
-    return data
-  }
   mergeData(data, currentdata) {
-    console.log(currentdata.extend)
     if (currentdata.extend !== true) {
       for (let n in currentdata) {
         let type = _func.getType(currentdata[n])
@@ -131,8 +122,7 @@ class InstrcutionData {
       }
     } else {
       // 依赖选项跟属性以data为主，describe合并
-      data.describe += currentdata.describe
-      // data.describe = data.describe.concat(currentdata.describe)
+      data.describe = data.describe.concat(currentdata.describe)
       if (currentdata.data) {
         if (!data.data) {
           data.data = {}
