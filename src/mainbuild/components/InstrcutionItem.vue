@@ -27,7 +27,7 @@
 
 </style>
 <template>
-  <div class="InstrcutionItem" :style="{ marginLeft: indent + 'px' }" >
+  <div class="InstrcutionItem">
     <div class="InstrcutionItemInfo" >
       <div class="InstrcutionItemInfoItem">
         <div class="InstrcutionItemInfoItemLabel">
@@ -68,6 +68,16 @@
         <div class="InstrcutionItemInfoItemContent">
           <div v-for="(val, index) in data.describe" :key="index">
             <p>{{ val }}</p>
+          </div>
+        </div>
+      </div>
+      <div class="InstrcutionItemInfoItem" v-if="data.data" >
+        <div class="InstrcutionItemInfoItemLabel">
+          <h4>数据</h4>
+        </div>
+        <div class="InstrcutionItemInfoItemContent">
+          <div v-for="(val, index) in data.data" :key="index">
+            <InstrcutionItem :data="data.data" ></InstrcutionItem>
           </div>
         </div>
       </div>
