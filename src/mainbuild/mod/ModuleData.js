@@ -1,6 +1,8 @@
 import SimpleData from './../data/SimpleData'
 
 const instrcutionData = {
+  extend: 'SimpleData',
+  describe: '实现模块加载功能',
   build: [
     {
       prop: 'initdata',
@@ -67,6 +69,6 @@ class ModuleData extends SimpleData {
   }
 }
 
-ModuleData.buildInstrcution(instrcutionData, 'SimpleData')
+ModuleData.buildInstrcution(instrcutionData)
 
 export default ModuleData

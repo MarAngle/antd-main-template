@@ -2,6 +2,8 @@ import _func from '@/maindata/func/index'
 import SimpleData from './../data/SimpleData'
 
 const instrcutionData = {
+  extend: 'SimpleData',
+  describe: '实现额外数据的保存功能',
   build: [
     {
       prop: 'data',
@@ -65,6 +67,6 @@ class ExtraData extends SimpleData {
   }
 }
 
-ExtraData.buildInstrcution(instrcutionData, 'SimpleData')
+ExtraData.buildInstrcution(instrcutionData)
 
 export default ExtraData

@@ -1,5 +1,26 @@
 import SimpleData from './../data/SimpleData'
 
+const instrcutionData = {
+  extend: 'SimpleData',
+  describe: '实现父实例的挂载',
+  build: [
+    {
+      prop: 'data',
+      type: 'object',
+      describe: '父实例',
+      required: false
+    }
+  ],
+  data: [
+    {
+      prop: 'data',
+      type: 'object',
+      describe: '父实例数据保存位置'
+    }
+  ],
+  method: []
+}
+
 class ParentData extends SimpleData {
   constructor (parentData) {
     super()
@@ -32,5 +53,7 @@ class ParentData extends SimpleData {
     }
   }
 }
+
+ParentData.buildInstrcution(instrcutionData)
 
 export default ParentData
