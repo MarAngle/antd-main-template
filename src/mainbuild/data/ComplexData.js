@@ -31,15 +31,9 @@ class ComplexData extends BaseData {
     })
   }
   _initComplexData ({
-    option,
     dictionary
   }) {
-    this._initComplexDataOption(option)
     this.initDictionary(dictionary)
-  }
-  // 加载设置选项
-  _initComplexDataOption (option) {
-    if (option) {}
   }
   // 设置字典列表
   initDictionary (dictionaryOption) {
@@ -139,6 +133,54 @@ class ComplexData extends BaseData {
       delete this.data.current[n]
     }
   }
+  static initInstrcution() {
+    if (this.instrcutionShow()) {
+      const instrcutionData = {
+        extend: 'BaseData',
+        describe: '实现DictionaryList数据的加载',
+        build: [
+          {
+            prop: 'initdata',
+            extend: true,
+            data: [
+              {
+                prop: 'option',
+                type: 'object',
+                required: false,
+                describe: 'option设置（暂无）'
+              },
+              {
+                prop: 'dictionary',
+                type: 'object',
+                required: false,
+                describe: 'dictionary加载数据'
+              }
+            ]
+          }
+        ],
+        data: [
+          {
+            prop: 'module',
+            extend: true,
+            data: [
+              {
+                prop: 'dictionary',
+                class: 'DictionaryList',
+                describe: '属性'
+              }
+            ]
+          }
+        ],
+        method: []
+      }
+      instrcutionData.prop = this.name
+      this.buildInstrcution(instrcutionData)
+    }
+  }
 }
+
+ComplexData.initInstrcution()
+
+console.log(ComplexData.getInstrcution('data'))
 
 export default ComplexData

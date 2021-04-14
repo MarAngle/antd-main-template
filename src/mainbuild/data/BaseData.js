@@ -10,15 +10,16 @@ class BaseData extends DefaultData {
     super(initdata)
     // 创建生命周期的名称列表-自动
     this.$LocalTempData.AutoCreateLifeNameList = []
-    this.setModule('option', new OptionData())
     this._initBaseData(initdata)
     this.triggerCreateLife('BaseData')
   }
   _initBaseData ({
+    option,
     life,
     status,
     update
   }) {
+    this.setModule('option', new OptionData(option))
     this.setModule('life', new LifeData(life))
     this.setModule('status', new StatusData(status))
     this.setModule('promise', new PromiseData())
@@ -338,10 +339,14 @@ class BaseData extends DefaultData {
         build: [
           {
             prop: 'initdata',
-            type: 'object',
-            describe: '构建参数',
-            required: true,
+            extend: true,
             data: [
+              {
+                prop: 'option',
+                type: 'object',
+                required: false,
+                describe: 'option设置项数据加载'
+              },
               {
                 prop: 'life',
                 type: 'object',
@@ -368,6 +373,11 @@ class BaseData extends DefaultData {
             prop: 'module',
             extend: true,
             data: [
+              {
+                prop: 'option',
+                class: 'OptionData',
+                describe: '属性'
+              },
               {
                 prop: 'life',
                 class: 'LifeData',
@@ -400,7 +410,5 @@ class BaseData extends DefaultData {
 }
 
 BaseData.initInstrcution()
-
-console.log(BaseData.getInstrcution('data'))
 
 export default BaseData

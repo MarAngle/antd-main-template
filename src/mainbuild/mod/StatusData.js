@@ -5,7 +5,6 @@ class StatusData extends SimpleData {
   constructor (initdata = {}) {
     super()
     this.data = {}
-    this.installLifeData = []
     this._initMain(initdata)
   }
   _initMain ({
@@ -86,5 +85,50 @@ class StatusData extends SimpleData {
       this.data[n].reset()
     }
   }
+  static initInstrcution() {
+    if (this.instrcutionShow()) {
+      const instrcutionData = {
+        extend: 'SimpleData',
+        describe: '状态数据',
+        build: [
+          {
+            prop: 'initdata',
+            data: [
+              {
+                prop: 'list',
+                type: 'array',
+                describe: '单独状态数据',
+                data: [
+                  {
+                    prop: 'prop',
+                    type: 'string',
+                    describe: '属性值'
+                  },
+                  {
+                    prop: 'data',
+                    type: 'object',
+                    describe: 'StatusDataItem初始化参数'
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        data: [
+          {
+            prop: 'data',
+            type: 'object',
+            describe: 'StatusDataItem实例保存位置'
+          }
+        ],
+        method: []
+      }
+      instrcutionData.prop = this.name
+      this.buildInstrcution(instrcutionData)
+    }
+  }
 }
+
+StatusData.initInstrcution()
+
 export default StatusData
