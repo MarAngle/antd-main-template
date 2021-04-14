@@ -181,6 +181,4 @@ class ComplexData extends BaseData {
 
 ComplexData.initInstrcution()
 
-console.log(ComplexData.getInstrcution('data'))
-
 export default ComplexData
