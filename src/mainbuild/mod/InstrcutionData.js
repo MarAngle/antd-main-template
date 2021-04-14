@@ -96,9 +96,9 @@ class InstrcutionData {
       let dictItem = dict[type]
       this.formatData(data[n], origindata[n], dictItem)
       data[n].from = this.name
-      // if (dictItem.extend && origindata[n].extend) {
-      //   data[n].data = origindata[n].extend.getData()
-      // }
+      if (dictItem.extend && origindata[n].extend) {
+        data[n].extend = origindata[n].extend.getData()
+      }
       if (dictItem.data && origindata[n].data) {
         data[n].data = {}
         this.getDataNext(data[n].data, origindata[n].data, type)
