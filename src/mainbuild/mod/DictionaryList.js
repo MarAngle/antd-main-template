@@ -435,11 +435,6 @@ class DictionaryList extends DefaultData {
                 describe: '设置项数据'
               },
               {
-                prop: 'parent',
-                type: 'object',
-                describe: '父实例'
-              },
-              {
                 prop: 'layout',
                 type: 'object',
                 describe: 'layout数据'
