@@ -19,7 +19,6 @@ const dict = {
 
 class InstrcutionData {
   constructor(initdata, instrcutionMap) {
-    this.describe = ''
     this.build = {}
     this.data = {}
     this.method = {}
@@ -55,8 +54,8 @@ class InstrcutionData {
   setDescribe(describe) {
     this.describe = describe
   }
-  setExtend(extendsProp) {
-    this.extend = this.getDataMapItem(extendsProp)
+  setExtend(extend) {
+    this.extend = this.getDataMapItem(extend)
   }
   formatData(item, originitem, dictItem) {
     for (let n in dict.base) {
