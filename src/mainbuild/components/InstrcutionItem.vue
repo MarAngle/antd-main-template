@@ -66,7 +66,7 @@
           <p>{{ data.from || '-' }}</p>
         </div>
       </div>
-      <div class="InstrcutionItemInfoItem">
+      <div class="InstrcutionItemInfoItem" v-if="checkShow('build')">
         <div class="InstrcutionItemInfoItemLabel">
           <h4>必选</h4>
         </div>
@@ -121,20 +121,31 @@ export default {
       type: Object,
       required: true
     },
-    indent: {
-      type: Number,
+    type: {
+      type: String,
       required: false,
-      default: 10
+      default: 'data'
     }
   },
   data () {
     return {
+      list: ['data', 'build', 'method']
     }
   },
   mounted () {
     this.pageLoad()
   },
   methods: {
+    checkShow(type) {
+      let show = true
+      if (type) {
+        if (this._func.getType(type) != 'array') {
+          type = [type]
+        }
+        show = type.indexOf(this.type) > -1
+      }
+      return show
+    },
     pageLoad () {
     }
   }

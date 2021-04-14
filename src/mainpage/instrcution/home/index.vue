@@ -3,7 +3,6 @@
 </style>
 <template>
   <div class="mainpage" >
-    {{ maindata }}
     <InstrcutionView :data="maindata" />
   </div>
 </template>

@@ -7,12 +7,12 @@
 </style>
 <template>
   <div class="InstrcutionView">
-    <InstrcutionItem :data="data" :indent="10">
+    <InstrcutionItem :data="data" :type="type">
       <template slot="default" slot-scope="slotProps">
-        <InstrcutionView :data="slotProps.target" ></InstrcutionView>
+        <InstrcutionView :data="slotProps.target" :type="type" ></InstrcutionView>
       </template>
       <template slot="target" slot-scope="slotProps">
-        <InstrcutionView :data="slotProps.target" ></InstrcutionView>
+        <InstrcutionView :data="slotProps.target" :type="type" ></InstrcutionView>
       </template>
     </InstrcutionItem>
   </div>
@@ -29,6 +29,11 @@ export default {
     data: {
       type: Object,
       required: true
+    },
+    type: {
+      type: String,
+      required: false,
+      default: 'data'
     }
   },
   data () {
