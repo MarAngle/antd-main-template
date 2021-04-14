@@ -367,7 +367,6 @@ class BaseData extends DefaultData {
           {
             prop: 'module',
             extend: true,
-            describe: '模块数据1',
             data: [
               {
                 prop: 'life',

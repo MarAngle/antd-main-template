@@ -71,7 +71,11 @@ class InstrcutionData {
       item[prop] = originitem[prop]
     }
     if (_func.getType(originitem.describe) != 'array') {
-      item.describe = [originitem.describe]
+      if (originitem.describe) {
+        item.describe = [originitem.describe]
+      } else {
+        item.describe = []
+      }
     } else {
       item.describe = [...originitem.describe]
     }
