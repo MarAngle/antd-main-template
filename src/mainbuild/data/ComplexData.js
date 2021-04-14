@@ -166,7 +166,7 @@ class ComplexData extends BaseData {
               {
                 prop: 'dictionary',
                 class: 'DictionaryList',
-                describe: '属性'
+                describe: '字典列表数据'
               }
             ]
           }

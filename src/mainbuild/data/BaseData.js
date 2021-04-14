@@ -370,33 +370,44 @@ class BaseData extends DefaultData {
         ],
         data: [
           {
+            prop: '$LocalTempData',
+            extend: true,
+            data: [
+              {
+                prop: 'AutoCreateLifeNameList',
+                class: 'array',
+                describe: '保存继承链条中生命周期的名称的列表'
+              }
+            ]
+          },
+          {
             prop: 'module',
             extend: true,
             data: [
               {
                 prop: 'option',
                 class: 'OptionData',
-                describe: '属性'
+                describe: '设置项数据'
               },
               {
                 prop: 'life',
                 class: 'LifeData',
-                describe: '属性'
+                describe: '生命周期数据'
               },
               {
                 prop: 'status',
                 class: 'StatusData',
-                describe: '属性'
+                describe: '状态数据'
               },
               {
                 prop: 'promise',
                 class: 'PromiseData',
-                describe: '属性'
+                describe: 'promise数据'
               },
               {
                 prop: 'update',
                 class: 'UpdateData',
-                describe: '属性'
+                describe: '更新数据'
               }
             ]
           }
