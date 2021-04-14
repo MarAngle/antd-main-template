@@ -1,9 +1,19 @@
-<style>
-
+<style lang='less' scoped>
+.InstrcutionView{
+  // border-radius: 4px;
+  // border: 1px #ccc solid;
+  // margin-top: 10px;
+}
 </style>
 <template>
-  <div>
+  <div class="InstrcutionView">
     <InstrcutionItem :data="data" :indent="10">
+      <template slot="default" slot-scope="slotProps">
+        <InstrcutionView :data="slotProps.target" ></InstrcutionView>
+      </template>
+      <template slot="target" slot-scope="slotProps">
+        <InstrcutionView :data="slotProps.target" ></InstrcutionView>
+      </template>
     </InstrcutionItem>
   </div>
 </template>
@@ -29,6 +39,10 @@ export default {
     this.pageLoad()
   },
   methods: {
+    showData(data) {
+      console.log(data)
+      return data
+    },
     pageLoad () {
     }
   }

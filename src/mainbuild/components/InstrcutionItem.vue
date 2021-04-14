@@ -1,9 +1,6 @@
 <style lang='less' scoped>
 
 .InstrcutionItem{
-  padding: 0 10px;
-  border-radius: 4px;
-  border: 1px #ccc solid;
   h4,p{
     margin: 0;
     font-size: 14px;
@@ -12,6 +9,10 @@
   }
   .InstrcutionItemInfo{
     .InstrcutionItemInfoItem{
+      padding: 0 10px;
+      margin: 5px 0;
+      border-radius: 4px;
+      border: 1px #ccc solid;
       display: flex;
       flex-direction: row;
       justify-content: flex-start;
@@ -76,10 +77,10 @@
       </div>
       <div class="InstrcutionItemInfoItem" v-if="data.class" >
         <div class="InstrcutionItemInfoItemLabel">
-          <h4>类</h4>
+          <h4>TARGET</h4>
         </div>
         <div class="InstrcutionItemInfoItemContent">
-          <InstrcutionView :data="data.class" ></InstrcutionView>
+          <slot name="target" :target="data.class" />
         </div>
       </div>
       <div class="InstrcutionItemInfoItem" v-if="data.data" >
@@ -88,7 +89,7 @@
         </div>
         <div class="InstrcutionItemInfoItemContent">
           <div v-for="(val, index) in data.data" :key="index">
-            <InstrcutionItem :data="val" ></InstrcutionItem>
+            <slot name="default" :target="val" />
           </div>
         </div>
       </div>
@@ -123,7 +124,12 @@ export default {
     this.pageLoad()
   },
   methods: {
+    showData(data) {
+      console.log(data)
+      return data
+    },
     pageLoad () {
+      console.log(this)
     }
   }
 }
