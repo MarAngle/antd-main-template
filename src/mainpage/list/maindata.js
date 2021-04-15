@@ -419,6 +419,9 @@ let maindata = new ListData({
   },
   extradata: {},
   life: {
+    dictionaryListUpdated: function(...args) {
+      console.log('dictionaryListUpdated', ...args)
+    },
     created: function(target) {
       console.log('created', target)
     },

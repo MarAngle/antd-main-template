@@ -423,6 +423,17 @@ class DictionaryList extends DefaultData {
     }
     return editData
   }
+  install (target) {
+    this.onLife('updated', {
+      id: target.$getModuleName('dictionaryListUpdated'),
+      func: (...args) => {
+        target.triggerLife('dictionaryListUpdated', ...args)
+      }
+    })
+  }
+  uninstall (target) {
+    this.offLife('updated', target.$getModuleName('dictionaryListUpdated'))
+  }
   static initInstrcution() {
     if (this.instrcutionShow()) {
       const instrcutionData = {
