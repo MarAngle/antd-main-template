@@ -1,7 +1,6 @@
 import _func from '@/maindata/func/index'
 import AutoText from './../mod/AutoText'
 import PaginationView from './../mod/PaginationView'
-import './../style/TableView.less'
 
 export default {
   name: 'TableView',
@@ -101,7 +100,6 @@ export default {
       if (!currentTableOption.ref) {
         currentTableOption.ref = 'TableView'
       }
-      currentTableOption.class = 'TableView'
       return currentTableOption
     },
     currentListData () {
