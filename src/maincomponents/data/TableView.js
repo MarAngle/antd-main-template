@@ -1,6 +1,7 @@
 import _func from '@/maindata/func/index'
 import AutoText from './../mod/AutoText'
 import PaginationView from './../mod/PaginationView'
+import './../style/TableView.less'
 
 export default {
   name: 'TableView',
@@ -98,8 +99,9 @@ export default {
         currentTableOption.props.expandedRowRender = this.$scopedSlots.expandedRowRender
       }
       if (!currentTableOption.ref) {
-        currentTableOption.ref = 'tableView'
+        currentTableOption.ref = 'TableView'
       }
+      currentTableOption.class = 'TableView'
       return currentTableOption
     },
     currentListData () {

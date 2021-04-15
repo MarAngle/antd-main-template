@@ -92,7 +92,7 @@ let maindata = new ListData({
         originprop: 'name',
         mod: {
           list: {
-            width: 120
+            width: 'auto'
           },
           info: {},
           edit: {
