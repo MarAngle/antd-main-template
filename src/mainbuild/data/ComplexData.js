@@ -150,6 +150,11 @@ class ComplexData extends BaseData {
                 describe: 'option设置（暂无）'
               },
               {
+                prop: 'data',
+                extend: true,
+                describe: '默认传递list[]和current{}'
+              },
+              {
                 prop: 'dictionary',
                 type: 'object',
                 required: false,
