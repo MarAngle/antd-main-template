@@ -65,6 +65,33 @@ let maindata = new ListData({
         originprop: 'name',
         mod: {
           list: {
+            width: 120,
+            autoText: false,
+            align: 'left'
+          },
+          info: {},
+          edit: {
+            type: 'input',
+            required: true,
+            option: {
+              type: 'text',
+              innerWidth: '100px'
+            }
+          },
+          build: {
+            type: 'edit'
+          },
+          change: {
+            type: 'edit'
+          }
+        }
+      },
+      {
+        prop: 'extra',
+        name: 'E名称',
+        originprop: 'name',
+        mod: {
+          list: {
             width: 120
           },
           info: {},
@@ -74,12 +101,6 @@ let maindata = new ListData({
             option: {
               type: 'text',
               innerWidth: '100px'
-            },
-            on: {
-              change(value, { formData }) {
-                console.log(value)
-                formData.file = undefined
-              }
             }
           },
           build: {

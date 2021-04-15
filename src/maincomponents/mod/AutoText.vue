@@ -1,12 +1,12 @@
 <style scoped>
 .AutoText{
+  display: inline-block;
   width: 100%;
   margin: 0;
   word-wrap: break-word;
   word-break: break-all;
 }
 .auto{
-  display: inline-block;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
