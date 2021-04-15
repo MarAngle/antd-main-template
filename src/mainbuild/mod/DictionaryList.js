@@ -442,7 +442,14 @@ class DictionaryList extends DefaultData {
               {
                 prop: 'list',
                 type: 'array',
-                describe: '字典构建数据'
+                describe: '字典构建数据',
+                data: [
+                  {
+                    prop: '...',
+                    type: 'object',
+                    class: 'DictionaryData'
+                  }
+                ]
               }
             ]
           },
@@ -531,7 +538,14 @@ class DictionaryList extends DefaultData {
           {
             prop: 'data',
             type: 'map',
-            describe: '字典保存位置'
+            describe: '字典保存位置',
+            data: [
+              {
+                prop: '...',
+                type: 'object',
+                class: 'DictionaryData'
+              }
+            ]
           }
         ],
         method: []
