@@ -1,8 +1,5 @@
 import _func from '@/maindata/func/index'
-import install from './../utils/install'
 import SimpleData from './../data/SimpleData'
-
-let id = install.getId('PaginationData')
 
 let defaultdata = {
   size: {
@@ -129,16 +126,15 @@ class PaginationData extends SimpleData {
     this.setPage(1)
   }
   install (target) {
-    this.$LocalTempData.AutoModuleInstallLifeName = id.getData()
     target.onLife('reseted', {
-      id: this.$LocalTempData.AutoModuleInstallLifeName + 'Reseted',
+      id: this.$getModuleName('Reseted'),
       func: () => {
         this.reset()
       }
     })
   }
   uninstall(target) {
-    target.offLife('reseted', this.$LocalTempData.AutoModuleInstallLifeName + 'Reseted')
+    target.offLife('reseted', this.$getModuleName('Reseted'))
   }
 }
 

@@ -1,8 +1,14 @@
 import instrcution from './../utils/instrcution'
+import install from './../utils/install'
 
 class SimpleData {
   constructor() {
-    this.$LocalTempData = {}
+    this.$LocalTempData = {
+      module: {
+        id: install.getId(this.constructor.name)
+      }
+    }
+    this.$setModuleName()
   }
   getPrintInfo (content) {
     return `${this.selfName()}:${content}`
@@ -15,6 +21,12 @@ class SimpleData {
   }
   selfName () {
     return `[CLASS:${this.constructor.name}]`
+  }
+  $setModuleName () {
+    this.$LocalTempData.module.name = this.$LocalTempData.module.id.getData()
+  }
+  $getModuleName (data = '') {
+    return this.$LocalTempData.module.name + data
   }
   static initInstrcution() {
     if (this.instrcutionShow()) {

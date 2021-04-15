@@ -35,6 +35,9 @@
 - choice选项的宽度限定
 - 详情界面布局
     =>除layout布局外考虑其他布局，考虑换行
+- 考虑统一install/uninstall的实现，SimpleData/ModuleData中实现
+    =>S中实现将会全局挂载对应方法和数据
+    =>M中实现会在install时自行挂载，导致的问题是不通过M挂载时不能install,可定制性差，可读性差
 
 ----
 ## 未完成
@@ -42,7 +45,6 @@
 - 列表实现本地分页，考虑从数据池结构实现
 - 插件化
 - 日期范围选择器的范围限制属性设置
-- DictionaryList在字典列表创建修改时触发生命周期
 
 ----
 ## 进行中
@@ -56,10 +58,11 @@
 - 根据moment类型优化时间相关函数
 - 全数据data/build说明编写
 - 全数据method说明编写
-- 调整=>DefaultData设置生命周期相关
+- DictionaryList在字典列表创建修改时触发生命周期
 
 ----
 ## 已完成
+- 调整=>DefaultData设置生命周期相关
 - DictionaryList中buildItemDictionary函数payload.layout理论上需要根据ditem数据和payload.layout按照权重进行判断,DD对应判断更新
     =>仅按照DL的layout作为基准，基准仅存在一个
 - 说明数据需要考虑覆盖问题，在依赖字段上进行扩展字段=>仅表示扩展字段，实现方法待定
