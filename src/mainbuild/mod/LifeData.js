@@ -40,7 +40,10 @@ class LifeData extends SimpleData {
     this.initData(data)
   }
   // 加载生命周期状态列表
-  initData (data = {}) {
+  initData (data = {}, reset = true) {
+    if (reset) {
+      this.reset()
+    }
     for (let n in data) {
       let item = data[n]
       let type = _func.getType(item)

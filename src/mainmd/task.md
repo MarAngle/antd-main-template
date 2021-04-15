@@ -56,6 +56,7 @@
 - 根据moment类型优化时间相关函数
 - 全数据data/build说明编写
 - 全数据method说明编写
+- 调整=>DefaultData设置生命周期相关
 
 ----
 ## 已完成

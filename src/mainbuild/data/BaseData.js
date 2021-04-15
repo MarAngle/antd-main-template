@@ -2,24 +2,19 @@ import DefaultData from './DefaultData'
 import OptionData from './../mod/OptionData'
 import StatusData from './../mod/StatusData'
 import UpdateData from './../mod/UpdateData'
-import LifeData from './../mod/LifeData'
 import PromiseData from './../mod/PromiseData'
 
 class BaseData extends DefaultData {
   constructor (initdata = {}) {
     super(initdata)
     this.setModule('option', new OptionData())
-    // 创建生命周期的名称列表-自动
-    this.$LocalTempData.AutoCreateLifeNameList = []
     this._initBaseData(initdata)
     this.triggerCreateLife('BaseData')
   }
   _initBaseData ({
-    life,
     status,
     update
   }) {
-    this.setModule('life', new LifeData(life))
     this.setModule('status', new StatusData(status))
     this.setModule('promise', new PromiseData())
     if (update) {
@@ -52,52 +47,6 @@ class BaseData extends DefaultData {
   }
   triggerPromise (prop, option = {}) {
     return this.getModule('promise').triggerData(prop, option)
-  }
-  // 生命周期函数
-  // 设置生命周期函数
-  onLife (name, data) {
-    if (this.$LocalTempData.AutoCreateLifeNameList.indexOf(name) > -1) {
-      this.printInfo(`正在创建一个属于创建生命周期的回调函数${name}，如此函数不是创建生命周期回调请修改函数名，否则请检查代码，理论上当你在设置这个触发函数时创建已经完成，此函数可能永远不会被触发！`)
-    }
-    return this.getModule('life').on(name, data)
-  }
-  // 触发特定的生命周期函数
-  emitLife (name, id, ...args) {
-    this.getModule('life').emit(name, id, ...args)
-  }
-  // 清楚指定类型指定name的生命周期回调
-  offLife (name, id) {
-    this.getModule('life').off(name, id)
-  }
-  // 触发生命周期
-  triggerCreateLife (env) {
-    if (!env) {
-      this.printInfo('triggerCreateLife函数需要传递env参数')
-    }
-    let lifeName
-    if (env == this.constructor.name) {
-      lifeName = 'created'
-    } else {
-      lifeName = env + 'Created'
-    }
-    this.$LocalTempData.AutoCreateLifeNameList.push(lifeName)
-    this.triggerLife(lifeName, this)
-  }
-  // 触发生命周期
-  triggerLife (name, ...args) {
-    this.getModule('life').trigger(name, ...args)
-  }
-  // 清楚指定类型的所有生命周期回调
-  clearLife (name) {
-    this.getModule('life').clear(name)
-  }
-  // 生命周期重置
-  resetLife () {
-    this.getModule('life').reset()
-  }
-  // 生命周期重置
-  destroyLife () {
-    this.getModule('life').destroy()
   }
 
   // 更新相关操作

@@ -29,7 +29,6 @@ class DictionaryList extends DefaultData {
         data: ''
       }
     }
-    this.num = 0
     this.data = new Map()
     if (initdata) {
       this.initMain(initdata, payload)
@@ -130,7 +129,10 @@ class DictionaryList extends DefaultData {
       }
       this.initPropData(initdata)
     }
-    this.num++
+    // 触发update生命周期
+    this.triggerLife('updated', {
+      type: payload.type
+    })
   }
   initPropData (initdata = {}) {
     let list = ['id', 'parentId', 'children']
@@ -531,11 +533,6 @@ class DictionaryList extends DefaultData {
                 ]
               }
             ]
-          },
-          {
-            prop: 'num',
-            type: 'number',
-            describe: '列表重构判断值'
           },
           {
             prop: 'data',
