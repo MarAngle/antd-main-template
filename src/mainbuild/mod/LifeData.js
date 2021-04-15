@@ -31,13 +31,12 @@ let lifeId = new IdData({
   ]
 })
 class LifeData extends SimpleData {
-  constructor (initdata = {}) {
-    super(initdata)
+  constructor (initdata) {
+    super()
     this.data = {}
-    this._initMain(initdata)
-  }
-  _initMain ({ data }) {
-    this.initData(data)
+    if (initdata) {
+      this.initData(initdata)
+    }
   }
   // 加载生命周期状态列表
   initData (data = {}, reset = true) {
@@ -195,16 +194,9 @@ class LifeData extends SimpleData {
         describe: '生命周期数据格式',
         build: [
           {
-            prop: 'initdata',
+            prop: 'data',
             type: 'object',
-            describe: '加载数据',
-            data: [
-              {
-                prop: 'data',
-                type: 'object',
-                describe: '生命周期设置数据(key=>value)'
-              }
-            ]
+            describe: '生命周期设置数据(key=>value)'
           }
         ],
         data: [

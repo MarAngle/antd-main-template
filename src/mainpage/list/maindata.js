@@ -419,16 +419,14 @@ let maindata = new ListData({
   },
   extradata: {},
   life: {
-    data: {
-      // created: function(target) {
-      //   console.log('created', target)
-      // },
-      // BaseDataCreated: function(target) {
-      //   console.log('BaseDataCreated', target)
-      // },
-      // ComplexDataCreated: function(target) {
-      //   console.log('ComplexDataCreated', target)
-      // }
+    created: function(target) {
+      console.log('created', target)
+    },
+    BaseDataCreated: function(target) {
+      console.log('BaseDataCreated', target)
+    },
+    ComplexDataCreated: function(target) {
+      console.log('ComplexDataCreated', target)
     }
   },
   pagination: true

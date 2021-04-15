@@ -290,12 +290,6 @@ class BaseData extends DefaultData {
             extend: true,
             data: [
               {
-                prop: 'life',
-                type: 'object',
-                required: false,
-                describe: 'life加载数据,仅此处定义created生命周期时可实现触发'
-              },
-              {
                 prop: 'status',
                 type: 'object',
                 required: false,
@@ -330,11 +324,6 @@ class BaseData extends DefaultData {
                 prop: 'option',
                 class: 'OptionData',
                 describe: '设置项数据'
-              },
-              {
-                prop: 'life',
-                class: 'LifeData',
-                describe: '生命周期数据'
               },
               {
                 prop: 'status',
