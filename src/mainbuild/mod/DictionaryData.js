@@ -191,6 +191,39 @@ class DictionaryData extends DefaultData {
   }
   static initInstrcution() {
     if (this.instrcutionShow()) {
+      const funcList = [
+        {
+          prop: 'defaultGetData',
+          type: 'function',
+          describe: '默认获取数据的接口，存在默认值，默认按照type获取showprop进行解析'
+        },
+        {
+          prop: 'show',
+          type: 'function',
+          describe: '默认获取展示数据的接口，不存在时调用defaultGetData'
+        },
+        {
+          prop: 'edit',
+          type: 'function',
+          describe: '默认获取编辑数据的接口，不存在时调用defaultGetData'
+        },
+        {
+          prop: 'unedit',
+          type: 'function',
+          describe: '编辑数据转换为正常数据的转换函数'
+        },
+        {
+          prop: 'check',
+          type: 'function',
+          describe: '判断编辑数据是否存在的判断函数,默认为当前值不同于defaultdata'
+        },
+        {
+          prop: 'format',
+          type: 'function',
+          describe: 'edit接口数据转换为本地数据的格式化数据'
+        }
+      ]
+
       const instrcutionData = {
         extend: 'DefaultData',
         describe: '字典数据',
@@ -250,15 +283,43 @@ class DictionaryData extends DefaultData {
                 describe: 'layout数据'
               },
               {
+                prop: 'func',
+                extend: true,
+                data: funcList
+              },
+              {
                 prop: 'mod',
                 type: 'object',
                 describe: '模块对象设置数据',
                 data: [
                   {
-                    prop: 'list',
+                    prop: 'object',
                     type: 'object',
-                    describe: '模块对象设置数据',
-                    data: []
+                    describe: '数据说明',
+                    data: [
+                      {
+                        prop: 'formatType',
+                        type: 'string',
+                        describe: [
+                          '格式化类型',
+                          '可能的值为list/info/edit(build/change)',
+                          '默认格式化类型为当前prop，可通过设置此值指定模式，一般适应于单数据多同一模块情况'
+                        ]
+                      },
+                      {
+                        prop: 'type',
+                        type: 'string',
+                        describe: [
+                          '编辑模块=>prop[build/change]||formatType[edit/build/change]时可设置',
+                          '值为edit时此模块数据直接指向edit模块对应值，对于编辑模块数据统一的字典可如此设置'
+                        ]
+                      },
+                      {
+                        prop: '...',
+                        type: 'string',
+                        describe: '各模块对应可设置数据参照maindata/build/index中format(保存)/unformat(解析)进行'
+                      }
+                    ]
                   }
                 ]
               }
