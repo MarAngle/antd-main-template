@@ -125,7 +125,7 @@ class DictionaryList extends DefaultData {
         }
         if (act.children) {
           // 构建子字典列表
-          this.buildItemDictionary(ditem, ditemOption, payload)
+          this.buildItemDictionary(ditem, ditemOption)
         }
       }
       this.initPropData(initdata)
@@ -166,7 +166,7 @@ class DictionaryList extends DefaultData {
     return type
   }
   // 创建字典的字典列表
-  buildItemDictionary (ditem, originOption, payload, isChildren = true) {
+  buildItemDictionary (ditem, originOption, isChildren = true) {
     let type = this.analyzeBuildData(ditem, originOption)
     if (type == 'build') {
       let initdata = this.analyzeInitData(originOption.dictionary)
@@ -181,7 +181,9 @@ class DictionaryList extends DefaultData {
         initdata.option.build = this.getBuildOption()
       }
       initdata.parent = ditem
-      ditem.dictionaryList = new DictionaryList(initdata, {})
+      ditem.dictionaryList = new DictionaryList(initdata, {
+        layout: this.getLayout()
+      })
     } else if (type == 'self') {
       ditem.dictionaryList = this
     }

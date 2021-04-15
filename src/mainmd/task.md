@@ -42,7 +42,6 @@
 - 列表实现本地分页，考虑从数据池结构实现
 - 插件化
 - 日期范围选择器的范围限制属性设置
-- DictionaryList中buildItemDictionary函数payload.layout理论上需要根据ditem数据和payload.layout按照权重进行判断,DD对应判断更新
 - DictionaryList在字典列表创建修改时触发生命周期
 
 ----
@@ -60,6 +59,8 @@
 
 ----
 ## 已完成
+- DictionaryList中buildItemDictionary函数payload.layout理论上需要根据ditem数据和payload.layout按照权重进行判断,DD对应判断更新
+    =>仅按照DL的layout作为基准，基准仅存在一个
 - 说明数据需要考虑覆盖问题，在依赖字段上进行扩展字段=>仅表示扩展字段，实现方法待定
 - 说明相关函数
 - form表单加载中状态判断，文件上传时限制操作等
