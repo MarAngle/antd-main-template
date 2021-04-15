@@ -239,7 +239,7 @@ class DictionaryData extends DefaultData {
               },
               {
                 prop: 'originprop',
-                type: 'InterfaceData',
+                type: 'string/object',
                 describe: '数据来源接口对应的字段值，默认为prop'
               },
               {
@@ -249,32 +249,32 @@ class DictionaryData extends DefaultData {
               },
               {
                 prop: 'type',
-                type: 'InterfaceData',
+                type: 'string/object',
                 describe: '保存的数据类型判断值，默认为string,存在showprop时的默认值为object'
               },
               {
                 prop: 'modtype',
-                type: 'InterfaceData',
+                type: 'string/object',
                 describe: '???'
               },
               {
                 prop: 'label',
-                type: 'InterfaceData',
+                type: 'string/object',
                 describe: '名称取值，不存在时取name字段作为InterfaceData的默认值'
               },
               {
                 prop: 'order',
-                type: 'any',
+                type: 'string/object',
                 describe: '排序判断值，占位，暂无用途'
               },
               {
                 prop: 'showprop',
-                type: 'InterfaceData',
+                type: 'string/object',
                 describe: '显示属性值，指定模块显示指定属性，object/array数据'
               },
               {
                 prop: 'showtype',
-                type: 'InterfaceData',
+                type: 'string/object',
                 describe: '显示类型属性值，指定模块通过此值判断类型，占位，暂未启用'
               },
               {
@@ -340,77 +340,102 @@ class DictionaryData extends DefaultData {
         ],
         data: [
           {
-            prop: 'option',
-            type: 'object',
-            describe: '设置数据保存位置'
+            prop: 'originfrom',
+            type: 'string/array',
+            describe: '数据来源接口判断值，默认为[list]'
           },
           {
-            prop: 'propData',
+            prop: 'prop',
+            extend: true,
+            describe: '本地唯一属性值，不存在时通过originprop的默认值为基准'
+          },
+          {
+            prop: 'layout',
+            type: 'LayoutData',
+            describe: 'layout数据'
+          },
+          {
+            prop: 'interface',
             type: 'object',
-            describe: 'propData',
+            describe: 'InterfaceData数据类保存位置',
             data: [
               {
-                prop: 'id',
-                type: 'object',
-                describe: 'ID值对象',
-                data: [
-                  {
-                    prop: 'prop',
-                    type: 'string',
-                    describe: 'ID属性值'
-                  },
-                  {
-                    prop: 'data',
-                    type: 'string',
-                    describe: 'ID值'
-                  }
-                ]
+                prop: 'originprop',
+                type: 'InterfaceData',
+                describe: '数据来源接口对应的字段值，默认为prop'
               },
               {
-                prop: 'parentId',
-                type: 'object',
-                describe: '父ID值对象',
-                data: [
-                  {
-                    prop: 'prop',
-                    type: 'string',
-                    describe: '父ID属性值'
-                  },
-                  {
-                    prop: 'data',
-                    type: 'string',
-                    describe: '父ID值'
-                  }
-                ]
+                prop: 'type',
+                type: 'InterfaceData',
+                describe: '保存的数据类型判断值，默认为string,存在showprop时的默认值为object'
               },
               {
-                prop: 'children',
-                type: 'object',
-                describe: 'children值对象',
-                data: [
-                  {
-                    prop: 'prop',
-                    type: 'string',
-                    describe: 'children属性值'
-                  },
-                  {
-                    prop: 'data',
-                    type: 'string',
-                    describe: 'children值'
-                  }
-                ]
+                prop: 'modtype',
+                type: 'InterfaceData',
+                describe: '???'
+              },
+              {
+                prop: 'label',
+                type: 'InterfaceData',
+                describe: '名称取值，不存在时取name字段作为InterfaceData的默认值'
+              },
+              {
+                prop: 'order',
+                type: 'InterfaceData',
+                describe: '排序判断值，占位，暂无用途'
+              },
+              {
+                prop: 'showprop',
+                type: 'InterfaceData',
+                describe: '显示属性值，指定模块显示指定属性，object/array数据'
+              },
+              {
+                prop: 'showtype',
+                type: 'InterfaceData',
+                describe: '显示类型属性值，指定模块通过此值判断类型，占位，暂未启用'
               }
             ]
           },
           {
-            prop: 'num',
-            type: 'number',
-            describe: '列表重构判断值'
+            prop: 'func',
+            extend: true,
+            data: funcList
           },
           {
-            prop: 'data',
-            type: 'map',
-            describe: '字典保存位置'
+            prop: 'mod',
+            type: 'object',
+            describe: '模块对象设置数据',
+            data: [
+              {
+                prop: 'object',
+                type: 'object',
+                describe: '数据说明',
+                data: [
+                  {
+                    prop: 'formatType',
+                    type: 'string',
+                    describe: [
+                      '格式化类型',
+                      '可能的值为list/info/edit(build/change)',
+                      '默认格式化类型为当前prop，可通过设置此值指定模式，一般适应于单数据多同一模块情况'
+                    ]
+                  },
+                  {
+                    prop: 'type',
+                    type: 'string',
+                    describe: [
+                      '编辑模块=>prop[build/change]||formatType[edit/build/change]时可设置',
+                      '值为edit时此模块数据直接指向edit模块对应值，对于编辑模块数据统一的字典可如此设置'
+                    ]
+                  },
+                  {
+                    prop: '...',
+                    type: 'string',
+                    describe: '各模块对应可设置数据参照maindata/build/index中format(保存)/unformat(解析)进行'
+                  }
+                ]
+              }
+            ]
           }
         ],
         method: []
