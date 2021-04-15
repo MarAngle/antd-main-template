@@ -1,11 +1,8 @@
 import _func from '@/maindata/func/index'
-import install from './../utils/install'
 import DefaultData from './../data/DefaultData'
 /**
  * 需要设置methods: trigger
 */
-
-let id = install.getId('UpdateData')
 
 class UpdateData extends DefaultData {
   constructor (initdata = {}) {
@@ -110,16 +107,15 @@ class UpdateData extends DefaultData {
     this.resetNum()
   }
   install (target) {
-    this.$LocalTempData.AutoModuleInstallLifeName = id.getData()
     target.onLife('reseted', {
-      id: this.$LocalTempData.AutoModuleInstallLifeName + 'Reseted',
+      id: this.$getModuleName('Reseted'),
       func: () => {
         this.reset()
       }
     })
   }
   uninstall(target) {
-    target.offLife('reseted', this.$LocalTempData.AutoModuleInstallLifeName + 'Reseted')
+    target.offLife('reseted', this.$getModuleName('Reseted'))
   }
   static initInstrcution() {
     if (this.instrcutionShow()) {

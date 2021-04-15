@@ -1,9 +1,6 @@
 import Vue from 'vue'
 import _func from '@/maindata/func/index'
-import install from './../utils/install'
 import ComplexData from './../data/ComplexData'
-
-let id = install.getId('SearchData')
 
 const defaultMenu = [
   {
@@ -104,16 +101,15 @@ class SearchData extends ComplexData {
     this.resetFormData('reset')
   }
   install (target) {
-    this.$LocalTempData.AutoModuleInstallLifeName = id.getData()
     target.onLife('reseted', {
-      id: this.$LocalTempData.AutoModuleInstallLifeName + 'Reseted',
+      id: this.$getModuleName('Reseted'),
       func: () => {
         this.reset()
       }
     })
   }
   uninstall(target) {
-    target.offLife('reseted', this.$LocalTempData.AutoModuleInstallLifeName + 'Reseted')
+    target.offLife('reseted', this.$getModuleName('Reseted'))
   }
   // install(target) {
   //   let dict = [
