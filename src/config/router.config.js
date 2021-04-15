@@ -115,7 +115,13 @@ export const asyncRouterMap = [
             path: '/instrcution/home',
             name: 'instrcutionHome',
             component: () => import('@/mainpage/instrcution/home/index'),
-            meta: { title: '说明列表', keepAlive: false, permission: ['dashboard'] }
+            meta: { title: '数据', keepAlive: false, permission: ['dashboard'] }
+          },
+          {
+            path: '/instrcution/build',
+            name: 'instrcutionBuild',
+            component: () => import('@/mainpage/instrcution/build/index'),
+            meta: { title: '参数', keepAlive: false, permission: ['dashboard'] }
           }
         ]
       }
