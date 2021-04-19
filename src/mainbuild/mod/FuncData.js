@@ -32,7 +32,7 @@ class FuncData extends SimpleData {
     return lifeId.getData()
   }
   // 设置生命周期对应函数回调
-  setDataByIndex(data) {
+  pushData(data) {
     if (data.index === undefined || data.index == 'end') {
       this.data.set(data.id, data)
     } else {
@@ -59,6 +59,21 @@ class FuncData extends SimpleData {
     }
   }
   build(data) {
+    let res = false
+    if (data) {
+      let isArray = _func.isArray(data)
+      if (isArray) {
+        res = []
+        for (let n = 0; n < data.length; n++) {
+          res.push(this.formatData(data[n]))
+        }
+      } else {
+        res = this.formatData(data)
+      }
+    }
+    return res
+  }
+  formatData(data) {
     let dataType = typeof data
     let next = true
     if (dataType == 'function') {
@@ -66,7 +81,6 @@ class FuncData extends SimpleData {
         func: data
       }
     } else if (dataType != 'object') {
-      // 不接受array格式，避免可能的id无法生成返回
       next = false
     }
     if (next) {
@@ -77,7 +91,7 @@ class FuncData extends SimpleData {
         if (this.data.has(data.id) && !data.repalce) {
           this.printInfo(`存在当前值:${data.id}`)
         } else {
-          this.setDataByIndex(data)
+          this.pushData(data)
           if (data.immediate) {
             this.emit(data.id)
           }
