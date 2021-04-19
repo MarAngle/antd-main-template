@@ -98,12 +98,10 @@ class FuncData extends SimpleData {
   }
   emit(id, ...args) {
     let data = this.data.get(id)
-    if (data) {
-      if (data.func) {
-        data.func(...args)
-        if (data.once) {
-          this.off(id)
-        }
+    if (data && data.func) {
+      data.func(...args)
+      if (data.once) {
+        this.off(id)
       }
     } else {
       this.printInfo(`不存在当前值(${id})`)

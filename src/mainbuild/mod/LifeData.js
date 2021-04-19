@@ -35,15 +35,16 @@ class LifeData extends SimpleData {
     }
     for (let n in data) {
       let item = data[n]
-      let type = _func.getType(item)
-      if (type == 'array') {
-        for (let i = 0; i < item.length; i++) {
-          let itemData = item[i]
-          this.on(n, itemData, 'init')
-        }
-      } else {
-        this.on(n, item, 'init')
-      }
+      this.on(n, item)
+      // let type = _func.getType(item)
+      // if (type == 'array') {
+      //   for (let i = 0; i < item.length; i++) {
+      //     let itemData = item[i]
+      //     this.on(n, itemData, 'init')
+      //   }
+      // } else {
+      //   this.on(n, item, 'init')
+      // }
     }
   }
   // 创建对应的生命周期 auto = true
@@ -61,43 +62,37 @@ class LifeData extends SimpleData {
   }
   // 设置生命周期回调
   on (name, data) {
-    let lifeItem = this.get(name)
-    return lifeItem.build(data)
+    let funcItem = this.get(name, true)
+    return funcItem.build(data)
   }
   // 触发生命周期指定函数
   emit (name, id, ...args) {
-    let lifeItem = this.get(name)
-    if (lifeItem) {
-      lifeItem.emit(id, ...args)
-    } else {
-      this.printInfo(`不存在当前生命周期[${name}]`)
-    }
+    let funcItem = this.get(name, true)
+    funcItem.emit(id, ...args)
   }
   // 触发生命周期
   trigger (name, ...args) {
-    let lifeItem = this.get(name)
-    if (lifeItem) {
-      lifeItem.trigger(...args)
-    }
+    let funcItem = this.get(name, true)
+    funcItem.trigger(...args)
   }
   // 删除生命周期指定函数
   off (name, id) {
-    let lifeItem = this.get(name)
-    if (lifeItem) {
-      return lifeItem.off(id)
+    let funcItem = this.get(name, false)
+    if (funcItem) {
+      return funcItem.off(id)
     }
   }
   // 清除生命周期
   clear (name) {
-    let lifeItem = this.get(name)
-    if (lifeItem) {
-      lifeItem.clear()
+    let funcItem = this.get(name, false)
+    if (funcItem) {
+      funcItem.clear()
     }
   }
   // 重置
   reset () {
-    for (let n in this.data) {
-      this.clear(n)
+    for (let name in this.data) {
+      this.clear(name)
     }
   }
   // 销毁
