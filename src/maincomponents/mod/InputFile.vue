@@ -70,7 +70,7 @@ export default {
       if (accept) {
         let fileType = file.type
         let namelist = file.name.split('.')
-        let fileName = '.' + namelist[namelist.length - 1]
+        let fileName = ('.' + namelist[namelist.length - 1]).toLowerCase()
         let acceptList = accept.split(',')
         for (let n in acceptList) {
           let acceptItem = acceptList[n]
