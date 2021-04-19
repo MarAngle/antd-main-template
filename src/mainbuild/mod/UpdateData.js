@@ -109,7 +109,7 @@ class UpdateData extends DefaultData {
   install (target) {
     target.onLife('reseted', {
       id: this.$getModuleName('Reseted'),
-      func: () => {
+      data: () => {
         this.reset()
       }
     })

@@ -136,7 +136,7 @@ export default {
     pageLoad () {
       this.maindata.onLife('buildCancel', {
         index: 0,
-        func: () => {
+        data: () => {
           this.menu.main.title = '生命周期回调'
         }
       })

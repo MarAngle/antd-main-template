@@ -24,7 +24,7 @@ class ComplexData extends BaseData {
   _initComplexDataLife() {
     this.onLife('reseted', {
       id: 'AutoComplexDataReseted',
-      func: () => {
+      data: () => {
         this.resetDataList()
         this.resetDataCurrent()
       }

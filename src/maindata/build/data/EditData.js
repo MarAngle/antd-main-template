@@ -263,19 +263,19 @@ class EditData extends BaseData {
         // 通过生命周期触发对应的状态操作
         this.onLife('beforeLoad', {
           id: 'autoSearchBeforeLoad',
-          func: () => {
+          data: () => {
             this.func.autoSearch('loading')
           }
         })
         this.onLife('loaded', {
           id: 'autoSearchLoaded',
-          func: () => {
+          data: () => {
             this.func.autoSearch('loaded')
           }
         })
         this.onLife('loadFail', {
           id: 'autoSearchLoadFail',
-          func: () => {
+          data: () => {
             this.func.clearData()
             this.func.autoSearch('loaded')
           }

@@ -435,7 +435,12 @@ let maindata = new ListData({
   pagination: true
 })
 
-// maindata.onLife('created', () => {})
+maindata.onLife('loaded', {
+  once: true,
+  data: () => {
+    console.log('loaded')
+  }
+})
 
 // console.log(maindata.data)
 

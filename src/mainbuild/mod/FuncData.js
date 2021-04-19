@@ -78,13 +78,13 @@ class FuncData extends SimpleData {
     let next = true
     if (dataType == 'function') {
       data = {
-        func: data
+        data: data
       }
     } else if (dataType != 'object') {
       next = false
     }
     if (next) {
-      if (data.func) {
+      if (data.data) {
         if (!data.id) {
           data.id = this.buildId()
         }
@@ -112,8 +112,8 @@ class FuncData extends SimpleData {
   }
   emit(id, ...args) {
     let data = this.data.get(id)
-    if (data && data.func) {
-      data.func(...args)
+    if (data && data.data) {
+      data.data(...args)
       if (data.once) {
         this.off(id)
       }

@@ -426,7 +426,7 @@ class DictionaryList extends DefaultData {
   install (target) {
     this.onLife('updated', {
       id: target.$getModuleName('dictionaryListUpdated'),
-      func: (...args) => {
+      data: (...args) => {
         target.triggerLife('dictionaryListUpdated', ...args)
       }
     })
