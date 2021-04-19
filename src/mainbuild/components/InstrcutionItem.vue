@@ -9,10 +9,8 @@
   }
   .InstrcutionItemInfo{
     .InstrcutionItemInfoItem{
-      // padding: 0 10px;
       margin: 5px 0;
-      border-radius: 4px;
-      border-bottom: 1px #ccc solid;
+      border-bottom: 1px #fff solid;
       display: flex;
       flex-direction: row;
       justify-content: flex-start;
@@ -25,10 +23,7 @@
         width: 100%;
         flex: auto;
         .InstrcutionItemInfoItemDataItem{
-          padding: 0 10px;
           margin: 5px 0;
-          border-radius: 4px;
-          border: 1px #ccc solid;
         }
       }
       &:last-child{
