@@ -133,16 +133,33 @@ class FuncData extends SimpleData {
         describe: '生命周期数据格式',
         build: [
           {
-            prop: 'data',
+            prop: 'initdata',
             type: 'object',
-            describe: '生命周期设置数据(key=>value)'
+            describe: '生命周期设置数据(key=>value)',
+            data: [
+              {
+                prop: 'name',
+                type: 'string',
+                describe: '文字标识'
+              },
+              {
+                prop: 'data',
+                type: 'function/object',
+                describe: '函数对象参数'
+              }
+            ]
           }
         ],
         data: [
           {
+            prop: 'name',
+            type: 'string',
+            describe: '文字标识'
+          },
+          {
             prop: 'data',
-            type: 'object',
-            describe: '生命周期数据保存位置'
+            type: 'map',
+            describe: '函数保存位置'
           }
         ],
         method: []

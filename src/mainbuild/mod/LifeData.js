@@ -121,7 +121,7 @@ class LifeData extends SimpleData {
           {
             prop: 'data',
             type: 'object',
-            describe: '生命周期数据保存位置'
+            describe: '函数数据保存位置'
           }
         ],
         method: []
