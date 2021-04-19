@@ -111,45 +111,5 @@ class SearchData extends ComplexData {
   uninstall(target) {
     target.offLife('reseted', this.$getModuleName('Reseted'))
   }
-  // install(target) {
-  //   let dict = [
-  //     {
-  //       prop: 'setSearch',
-  //       originProp: 'setData'
-  //     },
-  //     {
-  //       prop: 'getSearch',
-  //       originProp: 'getData'
-  //     },
-  //     {
-  //       prop: 'resetSearch',
-  //       func: (...args) => {
-  //         this.resetFormData('reset', ...args)
-  //       }
-  //     }
-  //   ]
-  //   for (let n = 0; n < dict.length; n++) {
-  //     let dictData = dict[n]
-  //     if (!target[dictData.prop]) {
-  //       if (dictData.func) {
-  //         target[dictData.prop] = (...args) => {
-  //           return dictData.func(...args)
-  //         }
-  //       } else {
-  //         target[dictData.prop] = (...args) => {
-  //           return this[dictData.originProp](...args)
-  //         }
-  //       }
-  //     } else {
-  //       target.printInfo(`存在${dictData.prop}方法,${this.selfName()}install=>${dictData.originProp}失败`)
-  //     }
-  //   }
-  //   target.setLifeData({
-  //     type: 'reseted',
-  //     func: () => {
-  //       this.reset()
-  //     }
-  //   })
-  // }
 }
 export default SearchData
