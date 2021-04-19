@@ -28,7 +28,7 @@ class ModuleData extends SimpleData {
       }
     }
     this.data[prop] = data
-    if (data.install) {
+    if (data && data.install) {
       data.install(this.getParent())
     }
   }

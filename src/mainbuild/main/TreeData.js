@@ -1,19 +1,10 @@
 import _func from '@/maindata/func/index'
-import ComplexDataWithSearch from './../data/ComplexDataWithSearch'
-import ChoiceData from './../mod/ChoiceData'
+import ListData from './ListData'
 
-class TreeData extends ComplexDataWithSearch {
+class TreeData extends ListData {
   constructor (initdata = {}) {
     super(initdata)
-    this._initTreeData(initdata)
     this.triggerCreateLife('TreeData')
-  }
-  _initTreeData ({ option }) {
-    this._initTreeDataOption(option)
-  }
-  // 加载设置项
-  _initTreeDataOption (option) {
-    if (option) {}
   }
   analyzeDictionaryData(dictionaryData) {
     if (dictionaryData) {
@@ -25,21 +16,6 @@ class TreeData extends ComplexDataWithSearch {
       }
     }
     return dictionaryData
-  }
-  // 格式化列表数据
-  formatData (datalist = [], type, option) {
-    this.formatTreeData(this.data.list, datalist, type, option)
-  }
-  // 数据重新拉取
-  reloadData (force, ...args) {
-    return new Promise((resolve, reject) => {
-      this.loadData(force, ...args).then(res => {
-        resolve(res)
-      }, err => {
-        console.error(err)
-        reject(err)
-      })
-    })
   }
   // --数据相关--*/
   // 获取对象
@@ -72,6 +48,21 @@ class TreeData extends ComplexDataWithSearch {
     }
     return false
   }
+  static initInstrcution() {
+    if (this.instrcutionShow()) {
+      const instrcutionData = {
+        extend: 'ListData',
+        describe: '树形数据',
+        build: [],
+        data: [],
+        method: []
+      }
+      instrcutionData.prop = this.name
+      this.buildInstrcution(instrcutionData)
+    }
+  }
 }
+
+TreeData.initInstrcution()
 
 export default TreeData

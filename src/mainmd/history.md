@@ -33,7 +33,7 @@
   =>说明类的实现
 - ListData
 - TreeData
-  =>列表实现属性结构的展示
+  =>继承于ListData
 - InfoData
 ### 组件
 - 通过JSX重构ant-d相关组件
