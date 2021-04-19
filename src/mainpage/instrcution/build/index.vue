@@ -8,9 +8,9 @@
 </template>
 
 <script>
-import { ComplexData } from '@/mainbuild/index'
+import { ListData } from '@/mainbuild/index'
 import InstrcutionView from '@/mainbuild/components/InstrcutionView'
-let maindata = ComplexData.getInstrcution('build')
+let maindata = ListData.getInstrcution('build')
 
 export default {
   name: `mainlist`,
