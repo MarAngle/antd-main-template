@@ -174,6 +174,22 @@ class ComplexData extends BaseData {
                 describe: '字典列表数据'
               }
             ]
+          },
+          {
+            prop: 'data',
+            extend: true,
+            data: [
+              {
+                prop: 'list',
+                type: 'array',
+                describe: '数组'
+              },
+              {
+                prop: 'current',
+                type: 'object',
+                describe: '对象'
+              }
+            ]
           }
         ],
         method: []
