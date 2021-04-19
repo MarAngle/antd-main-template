@@ -49,9 +49,9 @@ class LifeData extends SimpleData {
   // 创建对应的生命周期 auto = true
   build(name, auto = true) {
     if (!this.data[name] && auto) {
-      this.data[name] = {
-        data: new FuncData()
-      }
+      this.data[name] = new FuncData({
+        name: name
+      })
     }
   }
   // 获取对应生命周期对象

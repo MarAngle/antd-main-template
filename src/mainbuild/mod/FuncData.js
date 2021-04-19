@@ -13,18 +13,19 @@ let lifeId = new IdData({
 })
 
 class FuncData extends SimpleData {
-  constructor (data) {
+  constructor (initdata = {}) {
     super()
     this.data = new Map()
-    // if (data) {
-    //   this.initData(data)
-    // }
+    this.setName(initdata.name)
+    if (initdata.data) {
+      this.initData(initdata.data)
+    }
   }
-  // initData(data) {
-
-  // }
-  setName() {
-
+  initData(data) {
+    this.build(data)
+  }
+  setName(name = '') {
+    this.name = name
   }
   // 计算ID
   buildId () {
@@ -65,6 +66,7 @@ class FuncData extends SimpleData {
         func: data
       }
     } else if (dataType != 'object') {
+      // 不接受array格式，避免可能的id无法生成返回
       next = false
     }
     if (next) {
@@ -73,7 +75,7 @@ class FuncData extends SimpleData {
           data.id = this.buildId()
         }
         if (this.data.has(data.id) && !data.repalce) {
-          // this.printInfo(`生命周期[${name}]存在当前值:${data.id}`)
+          this.printInfo(`存在当前值:${data.id}`)
         } else {
           this.setDataByIndex(data)
           if (data.immediate) {
@@ -82,10 +84,10 @@ class FuncData extends SimpleData {
           return data.id
         }
       } else {
-        // this.printInfo(`生命周期[${name}]设置(${data.id || '-'})未定义func`)
+        this.printInfo(`设置(${data.id || '-'})未定义func`)
       }
     } else {
-      // this.printInfo(`生命周期${name}设置data参数需要object或者function`)
+      this.printInfo(`设置data参数需要object或者function`)
     }
     return false
   }
@@ -104,7 +106,7 @@ class FuncData extends SimpleData {
         }
       }
     } else {
-      // this.printInfo(`生命周期[${name}]不存在当前值(${id})`)
+      this.printInfo(`不存在当前值(${id})`)
     }
   }
   // 删除生命周期指定函数
@@ -120,6 +122,9 @@ class FuncData extends SimpleData {
   }
   destroy() {
     this.reset()
+  }
+  selfName () {
+    return `${super.selfName()}[生命周期:${this.name}]`
   }
   static initInstrcution() {
     if (this.instrcutionShow()) {
