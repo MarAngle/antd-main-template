@@ -436,7 +436,7 @@ let maindata = new ListData({
 })
 
 maindata.onLife('loaded', {
-  once: true,
+  immediate: true,
   data: () => {
     console.log('loaded')
   }
