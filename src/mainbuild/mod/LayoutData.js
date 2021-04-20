@@ -75,12 +75,12 @@ class LayoutData extends SimpleData {
             describe: 'key=>取值value值',
             data: [
               {
-                prop: 'key',
+                prop: '[key]',
                 type: 'any',
                 describe: 'key的布局'
               },
               {
-                prop: 'value',
+                prop: '[value]',
                 type: 'object',
                 describe: '布局数据',
                 data: [

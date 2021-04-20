@@ -36,15 +36,6 @@ class LifeData extends SimpleData {
     for (let n in data) {
       let item = data[n]
       this.on(n, item)
-      // let type = _func.getType(item)
-      // if (type == 'array') {
-      //   for (let i = 0; i < item.length; i++) {
-      //     let itemData = item[i]
-      //     this.on(n, itemData, 'init')
-      //   }
-      // } else {
-      //   this.on(n, item, 'init')
-      // }
     }
   }
   // 创建对应的生命周期 auto = true
@@ -109,7 +100,19 @@ class LifeData extends SimpleData {
           {
             prop: 'data',
             type: 'object',
-            describe: '生命周期设置数据(key=>value)'
+            describe: '生命周期设置数据',
+            data: [
+              {
+                prop: '[key]',
+                type: 'string',
+                describe: '生命周期名称'
+              },
+              {
+                prop: '[value]',
+                type: 'object/function',
+                describe: '函数回调对象/函数'
+              }
+            ]
           }
         ],
         data: [

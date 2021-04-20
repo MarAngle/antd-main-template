@@ -460,7 +460,7 @@ class DictionaryList extends DefaultData {
                 describe: '字典构建数据',
                 data: [
                   {
-                    prop: '...',
+                    prop: '[value]',
                     type: 'object',
                     class: 'DictionaryData'
                   }
@@ -551,7 +551,7 @@ class DictionaryList extends DefaultData {
             describe: '字典保存位置',
             data: [
               {
-                prop: '...',
+                prop: '[value]',
                 type: 'object',
                 class: 'DictionaryData'
               }

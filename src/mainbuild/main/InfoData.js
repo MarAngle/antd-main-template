@@ -4,15 +4,7 @@ import ComplexDataWithSearch from './../data/ComplexDataWithSearch'
 class InfoData extends ComplexDataWithSearch {
   constructor (initdata = {}) {
     super(initdata)
-    this._initInfoData(initdata)
     this.triggerCreateLife('InfoData')
-  }
-  _initInfoData ({ option }) {
-    this._initInfoDataOption(option)
-  }
-  // 加载设置项
-  _initInfoDataOption (option) {
-    if (option) {}
   }
   // 格式化信息数据
   formatData (origindata = {}, type = 'list', option = {}) {
@@ -41,6 +33,21 @@ class InfoData extends ComplexDataWithSearch {
       return this.data.current
     }
   }
+  static initInstrcution() {
+    if (this.instrcutionShow()) {
+      const instrcutionData = {
+        extend: 'ComplexDataWithSearch',
+        describe: '信息模块',
+        build: [],
+        data: [],
+        method: []
+      }
+      instrcutionData.prop = this.name
+      this.buildInstrcution(instrcutionData)
+    }
+  }
 }
+
+InfoData.initInstrcution()
 
 export default InfoData

@@ -142,7 +142,7 @@ class SearchData extends ComplexData {
                     describe: '按钮列表数据',
                     data: [
                       {
-                        prop: 'item',
+                        prop: '[value]',
                         data: [
                           {
                             prop: 'type'
@@ -157,7 +157,7 @@ class SearchData extends ComplexData {
                             prop: 'act'
                           },
                           {
-                            prop: '...'
+                            prop: '[...]'
                           }
                         ]
                       }
@@ -197,7 +197,7 @@ class SearchData extends ComplexData {
             describe: 'menu列表',
             data: [
               {
-                prop: 'item',
+                prop: '[value]',
                 data: [
                   {
                     prop: 'type'
@@ -212,7 +212,7 @@ class SearchData extends ComplexData {
                     prop: 'act'
                   },
                   {
-                    prop: '...'
+                    prop: '[...]'
                   }
                 ]
               }

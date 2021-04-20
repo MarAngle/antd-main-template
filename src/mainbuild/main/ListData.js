@@ -125,13 +125,13 @@ class ListData extends ComplexDataWithSearch {
               {
                 prop: 'choice',
                 type: 'object',
-                required: false,
+                class: 'ChoiceData',
                 describe: 'choice加载数据'
               },
               {
                 prop: 'pagination',
                 type: 'object/boolean',
-                required: false,
+                class: 'PaginationData',
                 describe: 'pagination加载数据'
               }
             ]

@@ -292,13 +292,13 @@ class BaseData extends DefaultData {
               {
                 prop: 'status',
                 type: 'object',
-                required: false,
+                class: 'StatusData',
                 describe: 'status加载数据'
               },
               {
                 prop: 'update',
                 type: 'object',
-                required: false,
+                class: 'UpdateData',
                 describe: 'update加载数据'
               }
             ]

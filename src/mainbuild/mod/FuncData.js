@@ -147,7 +147,7 @@ class FuncData extends SimpleData {
           {
             prop: 'initdata',
             type: 'object',
-            describe: '生命周期设置数据(key=>value)',
+            describe: '生命周期设置数据',
             data: [
               {
                 prop: 'name',

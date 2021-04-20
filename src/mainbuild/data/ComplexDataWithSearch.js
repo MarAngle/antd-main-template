@@ -35,7 +35,7 @@ class ComplexDataWithSearch extends ComplexData {
               {
                 prop: 'search',
                 type: 'object',
-                required: false,
+                class: 'SearchData',
                 describe: 'search加载数据'
               }
             ]

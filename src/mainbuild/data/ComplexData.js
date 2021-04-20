@@ -146,7 +146,6 @@ class ComplexData extends BaseData {
               {
                 prop: 'option',
                 type: 'object',
-                required: false,
                 describe: 'option设置（暂无）'
               },
               {
@@ -157,7 +156,7 @@ class ComplexData extends BaseData {
               {
                 prop: 'dictionary',
                 type: 'object',
-                required: false,
+                class: 'DictionaryList',
                 describe: 'dictionary加载数据'
               }
             ]

@@ -76,7 +76,7 @@ class InterfaceData extends SimpleData {
                 describe: '默认值'
               },
               {
-                prop: '...',
+                prop: '[...]',
                 type: 'any',
                 describe: '其他对应值'
               }

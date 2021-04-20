@@ -100,12 +100,12 @@ class StatusData extends SimpleData {
                 describe: '单独状态数据',
                 data: [
                   {
-                    prop: 'prop',
+                    prop: '[key]',
                     type: 'string',
                     describe: '属性值'
                   },
                   {
-                    prop: 'data',
+                    prop: '[value]',
                     type: 'object',
                     describe: 'StatusDataItem初始化参数'
                   }
