@@ -247,10 +247,10 @@ export default {
             this.onLoading(false)
             this.setData(res, 'upload')
           }, err => {
+            console.error(err)
             this.onLoading(false)
             this.clearData()
             this.emitData()
-            console.error(err)
           })
         } else {
           this._func.showmsg('未定义上传文件函数，请检查代码!', 'error')
