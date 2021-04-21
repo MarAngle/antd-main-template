@@ -469,6 +469,24 @@ utils.formatTreeNext = function (temp, oitem, idprop, parentidprop, childrenprop
     temp[oitem[parentidprop]] = parentTemp
   }
 }
+utils.watchProp = function({ data, prop, func }) {
+  Object.defineProperty(data, prop, {
+    get: function() {
+      return data[prop]
+    },
+    set: function(val) {
+      const oldVal = data[prop]
+      if (oldVal === val) {
+        return val
+      } else {
+        data[prop] = val
+        if (func) {
+          func(val, oldVal)
+        }
+      }
+    }
+  })
+}
 // ----- 对象相关操作 ----- END
 
 // ----- 数组相关操作 ----- START

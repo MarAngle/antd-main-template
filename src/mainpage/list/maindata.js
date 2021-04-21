@@ -136,7 +136,7 @@ let maindata = new ListData({
         name: '区域',
         originprop: 'area',
         func: {
-          format: function(data) {
+          format: function (data) {
             return areaSelect.getItem(data)
           }
         },
@@ -217,7 +217,7 @@ let maindata = new ListData({
             required: true,
             option: {
               upload: true,
-              fileUpload: function({ file }) {
+              fileUpload: function ({ file }) {
                 return new Promise((resolve) => {
                   resolve({
                     id: 1,
@@ -419,16 +419,16 @@ let maindata = new ListData({
   },
   extradata: {},
   life: {
-    dictionaryListUpdated: function(...args) {
+    dictionaryListUpdated: function (...args) {
       console.log('dictionaryListUpdated', ...args)
     },
-    created: function(target) {
+    created: function (target) {
       console.log('created', target)
     },
-    BaseDataCreated: function(target) {
+    BaseDataCreated: function (target) {
       console.log('BaseDataCreated', target)
     },
-    ComplexDataCreated: function(target) {
+    ComplexDataCreated: function (target) {
       console.log('ComplexDataCreated', target)
     }
   },
@@ -441,6 +441,59 @@ maindata.onLife('loaded', {
     console.log('loaded')
   }
 })
+
+maindata.watchName = 'watch'
+
+_func.watchProp({
+  data: maindata,
+  prop: 'watchName',
+  func: function(v, o) {
+    console.log(v, o)
+  }
+})
+
+// Object.defineProperty(maindata, 'watchName', {
+//   get: function () {
+//     return this._watchName
+//   },
+//   set: function (val) {
+//     this._watchName = val
+//     return true
+//   }
+// })
+
+// class watcher {
+//   constructor(opts) {
+//     this.$data = this.getBaseType(opts.data) === 'Object' ? opts.data : {}
+//     this.$watch = this.getBaseType(opts.watch) === 'Object' ? opts.watch : {}
+//     for (let key in opts.data) {
+//       this.setData(key)
+//     }
+//   }
+
+//   getBaseType(target) {
+//     const typeStr = Object.prototype.toString.apply(target)
+
+//     return typeStr.slice(8, -1)
+//   }
+
+//   setData(_key) {
+//     Object.defineProperty(this, _key, {
+//       get: function () {
+//         return this.$data[_key]
+//       },
+//       set: function (val) {
+//         const oldVal = this.$data[_key]
+//         if (oldVal === val) return val
+//         this.$data[_key] = val
+//         this.$watch[_key] && typeof this.$watch[_key] === 'function' && (
+//           this.$watch[_key].call(this, val, oldVal)
+//         )
+//         return val
+//       }
+//     })
+//   }
+// }
 
 // console.log(maindata.data)
 
