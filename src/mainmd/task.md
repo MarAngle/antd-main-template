@@ -38,6 +38,7 @@
     =>除layout布局外考虑其他布局，考虑换行
 - 事件回调考虑通过Promise函数实现顺序加载判断值
 - 实现watch功能
+- triggerMethod方法考虑接受一个promise并进行状态操作
 
 ----
 ## 未完成
