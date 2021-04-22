@@ -435,12 +435,12 @@ let maindata = new ListData({
   pagination: true
 })
 
-maindata.onLife('loaded', {
-  immediate: true,
-  data: () => {
-    console.log('loaded')
-  }
-})
+// maindata.onLife('loaded', {
+//   immediate: true,
+//   data: () => {
+//     console.log('loaded')
+//   }
+// })
 
 maindata.watchName = '111'
 
@@ -462,25 +462,30 @@ _func.watchObjectProp({
   }
 })
 
-let pf = function() {
-  return 1
+let pf = function(a, b, c) {
+  // return new Promise((resolve, reject) => {
+  //   console.log(a, b, c)
+  //   reject({ name: a })
+  // })
+  return a
 }
 
-let promise = pf(1)
+// let promise = pf(1)
 
 _func.triggerPromise({
-  // promise: pf(111),
+  func: pf,
+  args: [1, '3', 5],
   error: (code) => {
     console.log(code)
   },
   start: () => {
     console.log('start')
   },
-  success: () => {
-    console.log('success')
+  success: (res) => {
+    console.log('success', res)
   },
-  fail: () => {
-    console.log('fail')
+  fail: (res) => {
+    console.log('fail', res)
   }
 })
 

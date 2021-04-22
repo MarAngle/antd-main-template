@@ -25,61 +25,6 @@ utils.isBlob = function (data) {
 utils.isPromise = function (fn) {
   return fn && typeof fn.then === 'function' && typeof fn.catch === 'function'
 }
-
-utils.triggerPromise = function({
-  func,
-  args,
-  promise,
-  error,
-  start,
-  success,
-  fail,
-  finish
-}) {
-  let next = true
-  let code = ''
-  if (!promise) {
-    if (!func) {
-      next = false
-      code = 'noArgs'
-    } else {
-      promise = func(...args)
-    }
-  }
-  if (next) {
-    if (!this.isPromise(promise)) {
-      next = false
-      code = 'notPromise'
-    }
-  }
-  if (next) {
-    if (start) {
-      start()
-    }
-    promise.then(res => {
-      if (success) {
-        success(res)
-      }
-      if (finish) {
-        finish(res)
-      }
-    }, err => {
-      if (fail) {
-        fail(err)
-      }
-      if (finish) {
-        finish(err)
-      }
-    })
-  } else {
-    if (error) {
-      error(code)
-    } else {
-      console.error(`triggerPromise函数运行错误，code: ${code}`)
-    }
-  }
-}
-
 // 获取数据类型 undefined boolean string object number function array null reg symbol date
 utils.getType = function (data) {
   let type = typeof (data)
@@ -991,6 +936,61 @@ utils.openWindow = function (url, type = '_blank') {
 // ----- 公用函数 ----- END
 
 // ----- 复杂函数 ----- START
+// 触发函数
+utils.triggerFunc = function (func, ...args) {
+  if (func && this.getType(func) === 'function') {
+    func(...args)
+    return true
+  } else {
+    return false
+  }
+}
+// 触发Promise函数
+utils.triggerPromise = function({
+  func,
+  args,
+  promise,
+  error,
+  start,
+  success,
+  fail,
+  finish
+}) {
+  let next = true
+  let code = ''
+  if (!promise) {
+    if (!func) {
+      next = false
+      code = 'noArgs'
+    } else {
+      if (!args) {
+        args = []
+      }
+      promise = func(...args)
+    }
+  }
+  if (next) {
+    if (!this.isPromise(promise)) {
+      next = false
+      code = 'notPromise'
+    }
+  }
+  if (next) {
+    this.triggerFunc(start)
+    promise.then(res => {
+      this.triggerFunc(success, res)
+      this.triggerFunc(finish, res)
+    }, err => {
+      this.triggerFunc(fail, err)
+      this.triggerFunc(finish, err)
+    })
+  } else {
+    if (!this.triggerFunc(error, code)) {
+      console.error(`triggerPromise函数运行错误，code: ${code}`)
+    }
+  }
+}
+
 // 获取限制对象
 utils.getLimitData = function (option) {
   return new LimitData(option)
