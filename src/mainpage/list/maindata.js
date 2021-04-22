@@ -462,10 +462,35 @@ _func.watchObjectProp({
   }
 })
 
-maindata.triggerMethod(function() {
-  return new Promise((resolve, reject) => {
-    resolve({ name: 1 })
-  })
+let pf = function() {
+  return 1
+}
+
+let promise = pf(1)
+
+_func.triggerPromise({
+  // promise: pf(111),
+  error: (code) => {
+    console.log(code)
+  },
+  start: () => {
+    console.log('start')
+  },
+  success: () => {
+    console.log('success')
+  },
+  fail: () => {
+    console.log('fail')
+  }
 })
+
+// maindata.triggerMethod(function() {
+//   // return new Promise((resolve, reject) => {
+//   //   console.log(1)
+//   //   resolve({ name: 1 })
+//   // })
+//   return 1
+// }).then(res => { console.log(res) }, err => { console.error(err) })
+// maindata.triggerMethod('data').then(res => { console.log(res) }, err => { console.error(err) })
 
 export default maindata

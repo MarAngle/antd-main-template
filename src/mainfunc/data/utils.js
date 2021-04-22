@@ -25,6 +25,61 @@ utils.isBlob = function (data) {
 utils.isPromise = function (fn) {
   return fn && typeof fn.then === 'function' && typeof fn.catch === 'function'
 }
+
+utils.triggerPromise = function({
+  func,
+  args,
+  promise,
+  error,
+  start,
+  success,
+  fail,
+  finish
+}) {
+  let next = true
+  let code = ''
+  if (!promise) {
+    if (!func) {
+      next = false
+      code = 'noArgs'
+    } else {
+      promise = func(...args)
+    }
+  }
+  if (next) {
+    if (!this.isPromise(promise)) {
+      next = false
+      code = 'notPromise'
+    }
+  }
+  if (next) {
+    if (start) {
+      start()
+    }
+    promise.then(res => {
+      if (success) {
+        success(res)
+      }
+      if (finish) {
+        finish(res)
+      }
+    }, err => {
+      if (fail) {
+        fail(err)
+      }
+      if (finish) {
+        finish(err)
+      }
+    })
+  } else {
+    if (error) {
+      error(code)
+    } else {
+      console.error(`triggerPromise函数运行错误，code: ${code}`)
+    }
+  }
+}
+
 // 获取数据类型 undefined boolean string object number function array null reg symbol date
 utils.getType = function (data) {
   let type = typeof (data)

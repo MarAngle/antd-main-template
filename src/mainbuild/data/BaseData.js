@@ -211,13 +211,13 @@ class BaseData extends DefaultData {
         next.promise = target(...args)
       } else {
         next.msg = `target参数接受string/function[promise]，当前值为${target}，triggerMethod函数触发失败！`
-        next.code = 'argsErr'
+        next.code = 'errArgs'
       }
       if (next.promise) {
         if (_func.isPromise(next.promise)) {
           next.data = true
         } else {
-          next.msg = `target参数为function时需要返回promise，当前返回${target}，triggerMethod函数触发失败！`
+          next.msg = `target参数为function时需要返回promise，当前返回${next.promise}，triggerMethod函数触发失败！`
           next.code = 'notPromise'
         }
       }
