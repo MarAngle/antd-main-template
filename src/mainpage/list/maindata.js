@@ -419,18 +419,18 @@ let maindata = new ListData({
   },
   extradata: {},
   life: {
-    dictionaryListUpdated: function (...args) {
-      console.log('dictionaryListUpdated', ...args)
-    },
-    created: function (target) {
-      console.log('created', target)
-    },
-    BaseDataCreated: function (target) {
-      console.log('BaseDataCreated', target)
-    },
-    ComplexDataCreated: function (target) {
-      console.log('ComplexDataCreated', target)
-    }
+    // dictionaryListUpdated: function (...args) {
+    //   console.log('dictionaryListUpdated', ...args)
+    // },
+    // created: function (target) {
+    //   console.log('created', target)
+    // },
+    // BaseDataCreated: function (target) {
+    //   console.log('BaseDataCreated', target)
+    // },
+    // ComplexDataCreated: function (target) {
+    //   console.log('ComplexDataCreated', target)
+    // }
   },
   pagination: true
 })
@@ -442,9 +442,9 @@ maindata.onLife('loaded', {
   }
 })
 
-maindata.watchName = 'watch'
+maindata.watchName = '111'
 
-_func.watchProp({
+_func.watchObjectProp({
   data: maindata,
   prop: 'watchName',
   func: function(v, o) {
@@ -452,49 +452,14 @@ _func.watchProp({
   }
 })
 
-// Object.defineProperty(maindata, 'watchName', {
-//   get: function () {
-//     return this._watchName
-//   },
-//   set: function (val) {
-//     this._watchName = val
-//     return true
-//   }
-// })
+maindata.data.newList = []
 
-// class watcher {
-//   constructor(opts) {
-//     this.$data = this.getBaseType(opts.data) === 'Object' ? opts.data : {}
-//     this.$watch = this.getBaseType(opts.watch) === 'Object' ? opts.watch : {}
-//     for (let key in opts.data) {
-//       this.setData(key)
-//     }
-//   }
-
-//   getBaseType(target) {
-//     const typeStr = Object.prototype.toString.apply(target)
-
-//     return typeStr.slice(8, -1)
-//   }
-
-//   setData(_key) {
-//     Object.defineProperty(this, _key, {
-//       get: function () {
-//         return this.$data[_key]
-//       },
-//       set: function (val) {
-//         const oldVal = this.$data[_key]
-//         if (oldVal === val) return val
-//         this.$data[_key] = val
-//         this.$watch[_key] && typeof this.$watch[_key] === 'function' && (
-//           this.$watch[_key].call(this, val, oldVal)
-//         )
-//         return val
-//       }
-//     })
-//   }
-// }
-
-// console.log(maindata.data)
+_func.watchObjectProp({
+  data: maindata.data,
+  prop: 'newList',
+  func: function(v, o) {
+    console.log(v, o)
+  }
+})
 
 export default maindata

@@ -43,7 +43,7 @@
 </style>
 <template>
   <div class="mainpage" >
-    <p @click="maindata.watchName = 'aaa'">{{ maindata.watchName }}</p>
+    <p @click="maindata.watchName = { name: 'aaa' }">{{ maindata.watchName }}</p>
     <a-button @click="onBuild">创建</a-button>
     <a-button @click="onReset">reset</a-button>
     <div class="mainpagein">

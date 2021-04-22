@@ -1,4 +1,5 @@
 import Vue from 'vue'
+import environment from './environment'
 import LimitData from './../build/LimitData'
 
 let utils = {
@@ -469,17 +470,31 @@ utils.formatTreeNext = function (temp, oitem, idprop, parentidprop, childrenprop
     temp[oitem[parentidprop]] = parentTemp
   }
 }
-utils.watchProp = function({ data, prop, func }) {
+utils.watchObjectProp = function({ data, prop, func }) {
+  let type = this.getType(data)
+  if (type !== 'object') {
+    console.error('watchObjectProp中data只能接收object')
+    return false
+  }
+  if (!prop) {
+    console.error('watchObjectProp中需要传递prop')
+    return false
+  }
+  if (!func) {
+    console.error('watchObjectProp中需要传递func')
+    return false
+  }
+  let temp = data[prop]
   Object.defineProperty(data, prop, {
     get: function() {
-      return data[prop]
+      return temp
     },
     set: function(val) {
-      const oldVal = data[prop]
+      const oldVal = temp
       if (oldVal === val) {
         return val
       } else {
-        data[prop] = val
+        temp = val
         if (func) {
           func(val, oldVal)
         }
