@@ -239,23 +239,18 @@ class BaseData extends DefaultData {
   }
 
   // 触发目标函数并伴随对应的操作值变动--未发现对应函数时报错
-  triggerMethodByOperate (target) {
+  triggerMethodByOperate (target, ...args) {
     return new Promise((resolve, reject) => {
-      if (this[target]) {
-        let operate = this.getStatus()
-        if (operate.value == 'operated') {
-          this.triggerMethod(...arguments).then(res => {
-            resolve(res)
-          }, err => {
-            reject(err)
-          })
-        } else {
-          this.printInfo(`当前操作状态为:${operate.label}，${target}函数操作互斥，triggerMethodByOperate函数失败！`)
-          reject({ status: 'fail', code: 'clash' })
-        }
+      let operate = this.getStatus()
+      if (operate.value == 'operated') {
+        this.triggerMethod(target, ...args).then(res => {
+          resolve(res)
+        }, err => {
+          reject(err)
+        })
       } else {
-        this.printInfo(`未定义${target}函数，triggerMethodByOperate函数触发失败！`)
-        reject({ status: 'fail', code: 'noMethod' })
+        this.printInfo(`当前操作状态为:${operate.label}，${target}函数操作互斥，triggerMethodByOperate函数失败！`)
+        reject({ status: 'fail', code: 'clash' })
       }
     })
   }
