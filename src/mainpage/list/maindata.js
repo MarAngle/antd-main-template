@@ -462,4 +462,10 @@ _func.watchObjectProp({
   }
 })
 
+maindata.triggerMethod(function() {
+  return new Promise((resolve, reject) => {
+    resolve({ name: 1 })
+  })
+})
+
 export default maindata

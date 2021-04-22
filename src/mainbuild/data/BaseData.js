@@ -1,3 +1,4 @@
+import _func from '@/maindata/func/index'
 import DefaultData from './DefaultData'
 import OptionData from './../mod/OptionData'
 import StatusData from './../mod/StatusData'
@@ -154,8 +155,8 @@ class BaseData extends DefaultData {
         errmsg: this.getPrintInfo(`promise模块无load数据(load状态:${loadStatus.value})`)
       }).then(res => {
         resolve(res)
-      }, res => {
-        reject(res)
+      }, err => {
+        reject(err)
       })
     })
   }
@@ -178,8 +179,8 @@ class BaseData extends DefaultData {
         errmsg: this.getPrintInfo(`promise模块无update数据(update状态:${updateStatus.value})`)
       }).then(res => {
         resolve(res)
-      }, res => {
-        reject(res)
+      }, err => {
+        reject(err)
       })
     })
   }
@@ -187,19 +188,52 @@ class BaseData extends DefaultData {
   // 触发目标函数并伴随对应的操作值变动--未发现对应函数时报错
   triggerMethod (target, ...args) {
     return new Promise((resolve, reject) => {
-      if (this[target]) {
+      let next = {
+        data: false,
+        promise: null,
+        msg: '',
+        code: ''
+      }
+      let type = _func.getType(target)
+      if (type === 'string') {
+        if (this[target]) {
+          if (_func.getType(this[target]) === 'function') {
+            next.promise = this[target](...args)
+          } else {
+            next.msg = `${target}属性非函数类型，triggerMethod函数触发失败！`
+            next.code = 'errMethod'
+          }
+        } else {
+          next.msg = `未定义${target}函数，triggerMethod函数触发失败！`
+          next.code = 'noMethod'
+        }
+      } else if (type === 'function') {
+        next.promise = target(...args)
+      } else {
+        next.msg = `target参数接受string/function[promise]，当前值为${target}，triggerMethod函数触发失败！`
+        next.code = 'argsErr'
+      }
+      if (next.promise) {
+        if (_func.isPromise(next.promise)) {
+          next.data = true
+        } else {
+          next.msg = `target参数为function时需要返回promise，当前返回${target}，triggerMethod函数触发失败！`
+          next.code = 'notPromise'
+        }
+      }
+      if (next.data) {
         this.setStatus('operating')
-        this[target](...args).then(res => {
+        next.promise.then(res => {
           this.setStatus('operated')
           resolve(res)
-        }, res => {
+        }, err => {
           this.setStatus('operated')
-          console.error(res)
-          reject(res)
+          console.error(err)
+          reject(err)
         })
       } else {
-        this.printInfo(`未定义${target}函数，triggerMethod函数触发失败！`)
-        reject({ status: 'fail', code: 'noMethod' })
+        this.printInfo(next.msg)
+        reject({ status: 'fail', code: next.code })
       }
     })
   }
@@ -212,8 +246,8 @@ class BaseData extends DefaultData {
         if (operate.value == 'operated') {
           this.triggerMethod(...arguments).then(res => {
             resolve(res)
-          }, res => {
-            reject(res)
+          }, err => {
+            reject(err)
           })
         } else {
           this.printInfo(`当前操作状态为:${operate.label}，${target}函数操作互斥，triggerMethodByOperate函数失败！`)
@@ -238,11 +272,11 @@ class BaseData extends DefaultData {
         // 触发生命周期加载完成事件
         this.triggerLife('loaded', ...args)
         resolve(res)
-      }, res => {
+      }, err => {
         this.setStatus('unload', 'load')
         // 触发生命周期加载失败事件
         this.triggerLife('loadFail', ...args)
-        reject(res)
+        reject(err)
       })
     }))
   }
@@ -258,11 +292,11 @@ class BaseData extends DefaultData {
         // 触发生命周期更新完成事件
         this.triggerLife('updated', ...args)
         resolve(res)
-      }, res => {
+      }, err => {
         this.setStatus('updated', 'update')
         // 触发生命周期加载失败事件
         this.triggerLife('updateFail', ...args)
-        reject(res)
+        reject(err)
       })
     }))
   }

@@ -37,7 +37,6 @@
 - 详情界面布局
     =>除layout布局外考虑其他布局，考虑换行
 - 事件回调考虑通过Promise函数实现顺序加载判断值
-- 实现watch功能
 - triggerMethod方法考虑接受一个promise并进行状态操作
 
 ----
@@ -57,6 +56,10 @@
 
 - 全数据data/build说明编写
 - 全数据method说明编写
+- 实现watch功能
+    =>实现最基本的watchObjectProp功能
+    =>鉴于Proxy的兼容性和操作与Object.defineProperty的差异性，对于简单的监控不考虑实现Proxy实现
+    =>重写数组的可能存在与Vue的重写冲突问题，暂不考虑
 
 ----
 ## 已完成
