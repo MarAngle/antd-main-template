@@ -3,7 +3,6 @@ import DefaultData from './data/DefaultData'
 import BaseData from './data/BaseData'
 import ComplexData from './data/ComplexData'
 import ComplexDataWithSearch from './data/ComplexDataWithSearch'
-import DataPool from './data/DataPool'
 import SelectList from './data/SelectList'
 
 import ChoiceData from './mod/ChoiceData'
@@ -70,7 +69,6 @@ export {
   BaseData,
   ComplexData,
   ComplexDataWithSearch,
-  DataPool,
   SelectList,
   ChoiceData,
   DictionaryData,
