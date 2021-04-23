@@ -1,5 +1,5 @@
 import _func from '@/maindata/func/index'
-import BaseData from './BaseData'
+import BaseData from './../data/BaseData'
 
 // formatItem => 格式化为保存数据
 
