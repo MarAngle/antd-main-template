@@ -72,11 +72,11 @@ let maindata = new ListData({
       },
       {
         prop: 'name',
-        name: '名称',
+        name: '名称(字符串)',
         originprop: 'name',
         mod: {
           list: {
-            width: 120
+            width: 160
           },
           info: {},
           edit: {
@@ -103,11 +103,11 @@ let maindata = new ListData({
       },
       {
         prop: 'age',
-        name: '年龄',
+        name: '年龄(数字)',
         originprop: 'age',
         mod: {
           list: {
-            width: 120
+            width: 140
           },
           info: {},
           edit: {
@@ -127,13 +127,73 @@ let maindata = new ListData({
         }
       },
       {
+        prop: 'switch',
+        name: '开关(SWITCH)',
+        originprop: 'switch',
+        mod: {
+          list: {
+            width: 150
+          },
+          info: {},
+          edit: {
+            type: 'switch',
+            required: false
+          },
+          build: {
+            type: 'edit'
+          },
+          change: {
+            type: 'edit'
+          }
+        }
+      },
+      {
+        prop: 'complex',
+        showprop: 'name',
+        // showprop: 'name.localinname',
+        name: '字典递归(对象)',
+        originprop: 'complex',
+        dictionary: {
+          list: [
+            {
+              prop: 'name',
+              name: 'complex-name',
+              originprop: 'name',
+              mod: {},
+              dictionary: {
+                list: [
+                  {
+                    prop: 'localinname',
+                    name: 'complex-name-inname',
+                    originprop: 'inname',
+                    mod: {}
+                  },
+                  {
+                    prop: 'localincode',
+                    name: 'complex-name-incode',
+                    originprop: 'incode',
+                    mod: {}
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        mod: {
+          list: {
+            width: 160
+          },
+          info: {}
+        }
+      },
+      {
         prop: 'area',
         showprop: {
           default: 'label',
           build: 'value',
           change: 'value'
         },
-        name: '区域',
+        name: '区域(对象:选择器)',
         originprop: 'area',
         func: {
           format: function (data) {
@@ -142,7 +202,7 @@ let maindata = new ListData({
         },
         mod: {
           list: {
-            width: 120
+            width: 160
           },
           info: {},
           edit: {
@@ -162,7 +222,7 @@ let maindata = new ListData({
       },
       {
         prop: 'selectSearch',
-        name: '检索下拉',
+        name: '(检索下拉:分页)',
         originprop: 'selectSearch',
         mod: {
           info: {},
@@ -206,7 +266,7 @@ let maindata = new ListData({
       },
       {
         prop: 'file',
-        name: '文件',
+        name: '文件(UPLOAD)',
         originprop: 'file',
         mod: {
           list: {
@@ -233,7 +293,7 @@ let maindata = new ListData({
       },
       {
         prop: 'outSlot',
-        name: 'INPUT插槽',
+        name: 'INPUT(V-MODEL插槽)',
         originprop: 'outSlot',
         mod: {
           list: {
@@ -250,29 +310,8 @@ let maindata = new ListData({
         }
       },
       {
-        prop: 'switch',
-        name: '开关',
-        originprop: 'switch',
-        mod: {
-          list: {
-            width: 150
-          },
-          info: {},
-          edit: {
-            type: 'switch',
-            required: false
-          },
-          build: {
-            type: 'edit'
-          },
-          change: {
-            type: 'edit'
-          }
-        }
-      },
-      {
         prop: 'date',
-        name: '日期',
+        name: '(日期)',
         originprop: 'date',
         mod: {
           list: {
@@ -300,7 +339,7 @@ let maindata = new ListData({
       },
       {
         prop: 'dateRange',
-        name: '日期范围',
+        name: '(日期范围)',
         originprop: 'dateRange',
         mod: {
           list: {
@@ -328,7 +367,7 @@ let maindata = new ListData({
       },
       {
         prop: 'button',
-        name: '按钮',
+        name: '(按钮)',
         originprop: 'button',
         mod: {
           list: {
