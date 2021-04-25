@@ -528,6 +528,8 @@ _func.triggerPromise({
   }
 })
 
+// console.log(maindata.module)
+
 // maindata.triggerMethod(function() {
 //   // return new Promise((resolve, reject) => {
 //   //   console.log(1)

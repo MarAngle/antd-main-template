@@ -183,11 +183,11 @@ class DictionaryList extends DefaultData {
         initdata.option.build = this.getBuildOption()
       }
       initdata.parent = ditem
-      ditem.dictionaryList = new DictionaryList(initdata, {
+      ditem.dictionary = new DictionaryList(initdata, {
         layout: this.getLayout()
       })
     } else if (type == 'self') {
-      ditem.dictionaryList = this
+      ditem.dictionary = this
     }
   }
   // 重新创建字典列表
