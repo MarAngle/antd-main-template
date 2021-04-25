@@ -1,5 +1,4 @@
 import Vue from 'vue'
-import environment from './environment'
 import LimitData from './../build/LimitData'
 
 let utils = {
