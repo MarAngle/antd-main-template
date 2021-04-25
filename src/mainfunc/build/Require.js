@@ -149,6 +149,9 @@ class Require {
     if (!optionData.responseType) {
       optionData.responseType = 'json'
     }
+    if (optionData.responseFormat === undefined) {
+      optionData.responseFormat = true
+    }
     // RULE NEXT
     if (check.next) {
       let ruleCheck = ruleItem.format(optionData)
@@ -190,7 +193,7 @@ class Require {
   requireNext (optionData, check) {
     return new Promise((resolve, reject) => {
       this.ajax(optionData).then(response => {
-        if (optionData.responseType == 'json') {
+        if (optionData.responseFormat && optionData.responseType == 'json') {
           let nextdata = check.ruleItem.check(response, optionData)
           if (nextdata.status == 'success') {
             resolve(nextdata)
@@ -201,6 +204,12 @@ class Require {
             this.showFailMsg(optionData.failMsg, nextdata.msg, 'error')
             reject(nextdata)
           }
+        } else if (!optionData.responseFormat) {
+          resolve({
+            status: 'success',
+            code: 'unFormat',
+            data: response
+          })
         } else {
           resolve({
             status: 'success',
