@@ -221,18 +221,12 @@ class DictionaryList extends DefaultData {
   }
   // 根据源数据格式化对象
   formatItem (originitem, type = 'list', option, depth) {
-    if (!option) {
-      option = this.getBuildOption()
-    }
     let targetitem = {}
     this.updateItem(targetitem, originitem, type, option, depth)
     return targetitem
   }
   // 根据源数据更新数据
   updateItem (targetitem, originitem, type = 'info', option, depth) {
-    if (!option) {
-      option = this.getBuildOption()
-    }
     this.formatData(targetitem, originitem, type, option, depth)
     return targetitem
   }
@@ -240,9 +234,6 @@ class DictionaryList extends DefaultData {
   formatListData (targetlist, originlist, type = 'list', option = {}, depth) {
     if (option.clearType === undefined || option.clearType) {
       _func.clearArray(targetlist)
-    }
-    if (!option.build) {
-      option.build = this.getBuildOption()
     }
     for (let n in originlist) {
       let item = this.formatItem(originlist[n], type, option.build, depth)
@@ -254,9 +245,6 @@ class DictionaryList extends DefaultData {
     if (option.clearType === undefined || option.clearType) {
       _func.clearArray(targetlist)
     }
-    if (!option.build) {
-      option.build = this.getBuildOption()
-    }
     for (let n in originlist) {
       let item = this.formatItem(originlist[n], type, option.build)
       targetlist.push(item)
@@ -265,6 +253,12 @@ class DictionaryList extends DefaultData {
 
   // 根据字典格式化数据
   formatData (targetitem, originitem = {}, type, option, depth) {
+    if (!option) {
+      option = this.getBuildOption()
+    }
+    if (!option.getLimit) {
+      option = _func.getLimitData(option)
+    }
     for (let ditem of this.data.values()) {
       this.formatDataNext(ditem, targetitem, originitem, type, option, depth)
     }
