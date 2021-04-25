@@ -5,8 +5,9 @@ import OptionData from './OptionData'
 import LayoutData from './LayoutData'
 
 class DictionaryList extends DefaultData {
-  constructor (initdata, payload) {
+  constructor (initdata, payload = {}) {
     super(initdata)
+    this.triggerCreateLife('DictionaryList', 'beforeCreate', initdata, payload)
     this.option = new OptionData({
       isChildren: false,
       build: _func.getLimitData(),
@@ -33,6 +34,7 @@ class DictionaryList extends DefaultData {
     if (initdata) {
       this.initMain(initdata, payload)
     }
+    this.triggerCreateLife('DictionaryList', 'beforeCreate', initdata)
   }
   initMain (initdata, payload = {}) {
     payload.type = payload.type || 'init'

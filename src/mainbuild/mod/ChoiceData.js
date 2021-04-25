@@ -10,6 +10,7 @@ class ChoiceData extends DefaultData {
       list: []
     })
     super(initdata)
+    this.triggerCreateLife('ChoiceData', 'beforeCreate', initdata)
     this.status = {
       show: false
     }
@@ -28,6 +29,7 @@ class ChoiceData extends DefaultData {
     }
     this.option = {}
     this.checkInit(initdata)
+    this.triggerCreateLife('ChoiceData', 'created')
   }
   checkInit(initdata = {}) {
     if (initdata.show) {

@@ -7,6 +7,7 @@ import DefaultData from './../data/DefaultData'
 class UpdateData extends DefaultData {
   constructor (initdata = {}) {
     super(initdata)
+    this.triggerCreateLife('UpdateData', 'beforeCreate', initdata)
     this.current = {
       num: 0
     }
@@ -16,6 +17,7 @@ class UpdateData extends DefaultData {
       data: 1000
     }
     this._initMain(initdata)
+    this.triggerCreateLife('UpdateData', 'created')
   }
   _initMain (initdata = {}) {
     this.setOffset(initdata.offset)

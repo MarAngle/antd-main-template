@@ -10,6 +10,7 @@ class SelectList extends DefaultData {
       list: []
     })
     super(initdata)
+    this.triggerCreateLife('SelectList', 'beforeCreate', initdata)
     this.option = new OptionData({
       prop: {
         value: 'value',
@@ -35,6 +36,7 @@ class SelectList extends DefaultData {
       type: false
     }
     this._initSelectList(initdata)
+    this.triggerCreateLife('SelectList', 'created')
   }
   _initSelectList({
     list,

@@ -5,11 +5,13 @@ import LayoutData from './LayoutData'
 import option from './../option'
 
 class DictionaryData extends DefaultData {
-  constructor (initdata, payload) {
+  constructor (initdata, payload = {}) {
     super(initdata)
+    this.triggerCreateLife('DictionaryData', 'beforeCreate', initdata, payload)
     this.interface = {}
     this.mod = {}
     this._initDictionary(initdata, payload)
+    this.triggerCreateLife('DictionaryData', 'created')
   }
   _initDictionary (initdata, payload = {}) {
     this.initMain(initdata)
