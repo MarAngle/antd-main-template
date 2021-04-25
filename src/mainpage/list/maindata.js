@@ -444,7 +444,7 @@ let maindata = new ListData({
 
 maindata.watchName = '111'
 
-_func.watchObjectProp({
+_func.buildWatch({
   data: maindata,
   prop: 'watchName',
   func: function(v, o) {
@@ -454,7 +454,7 @@ _func.watchObjectProp({
 
 maindata.data.newList = []
 
-_func.watchObjectProp({
+_func.buildWatch({
   data: maindata.data,
   prop: 'newList',
   func: function(v, o) {

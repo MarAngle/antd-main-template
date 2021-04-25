@@ -470,33 +470,50 @@ utils.formatTreeNext = function (temp, oitem, idprop, parentidprop, childrenprop
     temp[oitem[parentidprop]] = parentTemp
   }
 }
-utils.watchObjectProp = function({ data, prop, func }) {
+utils.buildWatch = function({ data, prop, func }) {
   let type = this.getType(data)
   if (type !== 'object') {
-    console.error('watchObjectProp中data只能接收object')
+    console.error('buildWatch中data只能接收object')
     return false
   }
   if (!prop) {
-    console.error('watchObjectProp中需要传递prop')
+    console.error('buildWatch中需要传递prop')
     return false
   }
   if (!func) {
-    console.error('watchObjectProp中需要传递func')
+    console.error('buildWatch中需要传递func')
     return false
   }
-  let temp = data[prop]
+  const property = Object.getOwnPropertyDescriptor(data, prop)
+  if (property && property.configurable === false) {
+    console.error('data配置中configurable为false')
+    return false
+  }
+  const getter = property && property.get
+  const setter = property && property.set
+  if ((getter && !setter) || (!getter && setter)) {
+    console.error('data配置中getter和setter仅存在一项，需要同时配置')
+    return false
+  }
+  let val
+  if ((!getter)) {
+    val = data[prop]
+  }
   Object.defineProperty(data, prop, {
     get: function() {
-      return temp
+      const value = getter ? getter.call(data) : val
+      return value
     },
-    set: function(val) {
-      const oldVal = temp
-      if (oldVal === val) {
-        return val
-      } else {
-        temp = val
+    set: function(newVal) {
+      const value = getter ? getter.call(data) : val
+      if (newVal !== value) {
+        if (setter) {
+          setter.call(data, newVal)
+        } else {
+          val = newVal
+        }
         if (func) {
-          func(val, oldVal)
+          func(newVal, value)
         }
       }
     }
