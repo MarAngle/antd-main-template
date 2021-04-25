@@ -8,15 +8,16 @@ import LifeData from './../mod/LifeData'
 class DefaultData extends SimpleData {
   constructor (initdata = {}) {
     super()
-    // 创建生命周期的名称列表-自动
-    this.$LocalTempData.AutoCreateLifeNameList = []
     this.module = new ModuleData({
       life: new LifeData(),
       parent: new ParentData(),
       extra: new ExtraData()
     }, this)
+    // 创建生命周期的名称列表-自动
+    this.$LocalTempData.AutoCreateLifeNameList = []
+    this.triggerCreateLife('DefaultData', 'beforeCreate', initdata)
     this.initDefaultData(initdata)
-    this.triggerCreateLife('DefaultData')
+    this.triggerCreateLife('DefaultData', 'created')
   }
   initDefaultData ({ name, prop, data, life, parent, extra, func, methods }) {
     this.name = name || ''
@@ -75,7 +76,7 @@ class DefaultData extends SimpleData {
   }
   onLife (name, data) {
     if (this.$LocalTempData.AutoCreateLifeNameList.indexOf(name) > -1) {
-      this.printInfo(`正在创建一个属于创建生命周期的回调函数${name}，如此函数不是创建生命周期回调请修改函数名，否则请检查代码，理论上当你在设置这个触发函数时创建已经完成，此函数可能永远不会被触发！`)
+      this.printInfo(`正在创建一个属于创建生命周期相关的回调函数${name}，如此函数不是创建生命周期回调请修改函数名，否则请检查代码，理论上当你在设置这个触发函数时创建已经完成，此函数可能永远不会被触发！`)
     }
     return this.getModule('life').on(name, data)
   }
@@ -88,18 +89,15 @@ class DefaultData extends SimpleData {
     this.getModule('life').off(name, id)
   }
   // 触发生命周期
-  triggerCreateLife (env) {
+  triggerCreateLife (env, lifeName, ...args) {
     if (!env) {
       this.printInfo('triggerCreateLife函数需要传递env参数')
     }
-    let lifeName
-    if (env == this.constructor.name) {
-      lifeName = 'created'
-    } else {
-      lifeName = env + 'Created'
+    if (env != this.constructor.name) {
+      lifeName = env + lifeName.charAt(0).toUpperCase() + lifeName.slice(1)
     }
     this.$LocalTempData.AutoCreateLifeNameList.push(lifeName)
-    this.triggerLife(lifeName, this)
+    this.triggerLife(lifeName, this, ...args)
   }
   // 触发生命周期
   triggerLife (name, ...args) {

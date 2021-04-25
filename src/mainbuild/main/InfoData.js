@@ -4,7 +4,8 @@ import ComplexDataWithSearch from './../data/ComplexDataWithSearch'
 class InfoData extends ComplexDataWithSearch {
   constructor (initdata = {}) {
     super(initdata)
-    this.triggerCreateLife('InfoData')
+    this.triggerCreateLife('InfoData', 'beforeCreate', initdata)
+    this.triggerCreateLife('InfoData', 'created')
   }
   // 格式化信息数据
   formatData (origindata = {}, type = 'list', option = {}) {

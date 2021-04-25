@@ -10,6 +10,7 @@ class ComplexData extends BaseData {
       current: {}
     })
     super(initdata)
+    this.triggerCreateLife('ComplexData', 'beforeCreate', initdata)
     /*
     build: {
       limit: [] // 存在值则对应的模块在非对象模块时不参与构建整个数据
@@ -18,7 +19,7 @@ class ComplexData extends BaseData {
     this.setModule('dictionary', new DictionaryList())
     this._initComplexData(initdata)
     this._initComplexDataLife()
-    this.triggerCreateLife('ComplexData')
+    this.triggerCreateLife('ComplexData', 'created')
   }
   // 加载生命周期函数
   _initComplexDataLife() {

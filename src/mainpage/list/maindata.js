@@ -464,9 +464,12 @@ let maindata = new ListData({
     // created: function (target) {
     //   console.log('created', target)
     // },
-    // BaseDataCreated: function (target) {
-    //   console.log('BaseDataCreated', target)
-    // },
+    BaseDataBeforeCreate: function (target, initdata) {
+      console.log('BaseDataBeforeCreate', target, initdata)
+    },
+    BaseDataCreated: function (target) {
+      console.log('BaseDataCreated', target)
+    }
     // ComplexDataCreated: function (target) {
     //   console.log('ComplexDataCreated', target)
     // }

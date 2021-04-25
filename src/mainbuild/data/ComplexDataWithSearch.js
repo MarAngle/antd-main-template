@@ -4,8 +4,9 @@ import SearchData from './../mod/SearchData'
 class ComplexDataWithSearch extends ComplexData {
   constructor (initdata = {}) {
     super(initdata)
+    this.triggerCreateLife('ComplexDataWithSearch', 'beforeCreate', initdata)
     this._initComplexDataWithSearch(initdata)
-    this.triggerCreateLife('ComplexDataWithSearch')
+    this.triggerCreateLife('ComplexDataWithSearch', 'created')
   }
   _initComplexDataWithSearch ({ search }) {
     if (search) {

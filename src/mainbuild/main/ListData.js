@@ -6,9 +6,10 @@ import ChoiceData from './../mod/ChoiceData'
 class ListData extends ComplexDataWithSearch {
   constructor (initdata = {}) {
     super(initdata)
+    this.triggerCreateLife('ListData', 'beforeCreate', initdata)
     this.setModule('choice', new ChoiceData(initdata.choice))
     this._initListData(initdata)
-    this.triggerCreateLife('ListData')
+    this.triggerCreateLife('ListData', 'created')
   }
   _initListData ({ pagination }) {
     this._initPagination(pagination)

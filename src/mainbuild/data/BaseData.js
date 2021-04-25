@@ -8,9 +8,10 @@ import PromiseData from './../mod/PromiseData'
 class BaseData extends DefaultData {
   constructor (initdata = {}) {
     super(initdata)
+    this.triggerCreateLife('BaseData', 'beforeCreate', initdata)
     this.setModule('option', new OptionData())
     this._initBaseData(initdata)
-    this.triggerCreateLife('BaseData')
+    this.triggerCreateLife('BaseData', 'created')
   }
   _initBaseData ({
     status,

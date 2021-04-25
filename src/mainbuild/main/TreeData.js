@@ -4,7 +4,8 @@ import ListData from './ListData'
 class TreeData extends ListData {
   constructor (initdata = {}) {
     super(initdata)
-    this.triggerCreateLife('TreeData')
+    this.triggerCreateLife('TreeData', 'beforeCreate', initdata)
+    this.triggerCreateLife('TreeData', 'created')
   }
   analyzeDictionaryData(dictionaryData) {
     if (dictionaryData) {

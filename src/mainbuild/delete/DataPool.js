@@ -6,6 +6,7 @@ import BaseData from './../data/BaseData'
 class DataPool extends BaseData {
   constructor (initdata = {}) {
     super(initdata)
+    this.triggerCreateLife('DataPool', 'beforeCreate', initdata)
     this.data = {
       list: [],
       current: {}
@@ -14,7 +15,7 @@ class DataPool extends BaseData {
     if (!this.check) {
       this.printInfo('需要传递check函数作为相同对象判断!')
     }
-    this.triggerCreateLife('DataPool')
+    this.triggerCreateLife('DataPool', 'created')
   }
   _initDataPool ({
     option

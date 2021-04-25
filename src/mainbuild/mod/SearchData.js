@@ -20,6 +20,7 @@ const defaultMenu = [
 class SearchData extends ComplexData {
   constructor (initdata) {
     super(initdata)
+    this.triggerCreateLife('SearchData', 'beforeCreate', initdata)
     this.show = false
     this.title = {
       show: false,
@@ -32,7 +33,7 @@ class SearchData extends ComplexData {
       this.initSearchData(initdata)
       this.initFormData()
     }
-    this.triggerCreateLife('SearchData')
+    this.triggerCreateLife('SearchData', 'created')
   }
 
   initSearchData({
