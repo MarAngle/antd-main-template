@@ -87,15 +87,16 @@ class DictionaryList extends DefaultData {
       this.data.clear()
     }
     if (initdata) {
-      this.setParent(initdata.parent)
       initdata = this.analyzeInitData(initdata)
+      // 触发update生命周期
+      this.triggerLife('beforeUpdate', this, initdata, payload)
+      this.setParent(initdata.parent)
       this.setLayout(initdata.layout)
-      let parentData = this.getParent()
       let isChildren = this.option.getData('isChildren')
       for (let n in initdata.list) {
         let ditemOption = initdata.list[n]
         // 判断是否为一级，不为一级需要将一级的默认属性添加
-        this.analyzeOptionFromParent(ditemOption, parentData, isChildren)
+        this.analyzeOptionFromParent(ditemOption, initdata.parent, isChildren)
         let ditem = this.getItem(ditemOption.prop)
         let act = {
           build: true,
