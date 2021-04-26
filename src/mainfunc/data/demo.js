@@ -15,6 +15,7 @@ utils.updateData = function (targetdata, origindata, option = {}) {
   }
   return this.deepCloneData(origindata, targetdata, option)
 }
+
 utils.deepCloneData = function(origindata, targetdata, option = {}) {
   // 初始化设置项
   if (option === true) {
@@ -94,5 +95,3 @@ utils.deepCloneDataNext = function(origindata, targetdata, option = {}, currentn
   }
   return targetdata
 }
-
-
