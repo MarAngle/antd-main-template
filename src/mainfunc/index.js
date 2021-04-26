@@ -4,6 +4,8 @@ import _rule from './data/rule'
 import _utils from './data/utils'
 import _notice from '@/mainnotice/index'
 
+import './test/deepClone'
+
 let mainfunc = {
   BASEDATA: {}
 }

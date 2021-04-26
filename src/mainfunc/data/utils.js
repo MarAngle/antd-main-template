@@ -89,7 +89,8 @@ utils.deepCloneData = function(origindata, targetdata, option = {}) {
   if (!option.depth) {
     option.depth = true
   }
-  this.deepCloneDataNext(origindata, targetdata, option = {})
+  targetdata = this.deepCloneDataNext(origindata, targetdata, option = {})
+  return targetdata
 }
 utils.deepCloneDataNext = function (origindata, targetdata, option = {}, currentnum = 1, currentprop = '') {
   let type = this.getType(origindata)
@@ -98,18 +99,18 @@ utils.deepCloneDataNext = function (origindata, targetdata, option = {}, current
     let unDeep = true
     // 检查当前depth
     if (option.depth === true || currentnum <= option.depth + 1) {
+      // 此时进行递归操作
+      unDeep = false
       // 初始化目标值
       let targetType = this.getType(targetdata)
-      // 类型判断，类型不一致的情况下,直接进行赋值操作即可
-      if (targetType == type) {
-        if (option.type == 'total') {
-          // 全复制情况=>直接赋值即可
-          // 为避免原型链导致的数据问题，此时重置targetdata为null
-          targetdata = null
-        } else {
-          // 此时进行递归操作
-          unDeep = false
-        }
+      let resetTarget = false
+      if (option.type == 'total') {
+        resetTarget = true
+      } else if (targetType != type) {
+        resetTarget = true
+      }
+      if (resetTarget) {
+        targetdata = type == 'object' ? {} : []
       }
     }
     if (unDeep) {
