@@ -98,6 +98,8 @@ class Require {
   // token,
   // requestDataType = 'json',
   // requestCurrentDataType = 'json'
+  // responseFormat = true
+  // responseType = 'json'
 
   check (optionData) {
     let check = {
