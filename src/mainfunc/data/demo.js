@@ -61,9 +61,9 @@ utils.deepCloneDataNext = function (origindata, targetdata, option, currentnum =
       // 当前深度递增
       currentnum++
       // 已操作字段缓存
-      let savePropList
+      let propList
       if (option.type == 'total') {
-        savePropList = []
+        propList = []
         if (type == 'array' && targetdata.length > origindata.length) {
           // 数组全复制情况下直接将长度重置，避免原数据过长导致判断增多
           targetdata.splice(0, origindata.length)
@@ -74,17 +74,17 @@ utils.deepCloneDataNext = function (origindata, targetdata, option, currentnum =
         // 判断下一级的属性是否存在赋值限制，被限制的不进行赋值操作
         if (!option.limitData.getLimit(nextprop)) {
           targetdata[i] = this.deepCloneDataNext(origindata[i], targetdata[i], option, currentnum, nextprop)
-          if (savePropList) {
-            savePropList.push(i)
+          if (propList) {
+            propList.push(i)
           }
         } else if (option.limitType !== 'clear') {
-          savePropList.push(i)
+          propList.push(i)
         }
       }
-      if (option.type == 'total' && savePropList.length > 0) {
+      if (option.type == 'total' && propList.length > 0) {
+        // 循环目标数据，全复制情况下不在propList数组中的属性执行删除操作
         for (let n in targetdata) {
-          if (savePropList.indexOf(n) < 0) {
-            // 原数据自有字段删除
+          if (propList.indexOf(n) < 0) {
             delete targetdata[n]
           }
         }
