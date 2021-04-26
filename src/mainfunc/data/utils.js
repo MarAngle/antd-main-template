@@ -89,8 +89,7 @@ utils.deepCloneData = function(origindata, targetdata, option = {}) {
   if (!option.depth) {
     option.depth = true
   }
-  targetdata = this.deepCloneDataNext(origindata, targetdata, option = {})
-  return targetdata
+  return this.deepCloneDataNext(origindata, targetdata, option)
 }
 utils.deepCloneDataNext = function (origindata, targetdata, option = {}, currentnum = 1, currentprop = '') {
   let type = this.getType(origindata)
@@ -122,6 +121,7 @@ utils.deepCloneDataNext = function (origindata, targetdata, option = {}, current
         let nextprop = currentprop ? currentprop + '.' + i : i
         // 判断下一级的属性是否存在赋值限制，被限制的不进行赋值操作
         if (!option.limitData.getLimit(nextprop)) {
+          console.log(nextprop, this.deepCloneDataNext(origindata[i], targetdata[i], option, currentnum, nextprop))
           targetdata[i] = this.deepCloneDataNext(origindata[i], targetdata[i], option, currentnum, nextprop)
         }
       }
@@ -140,7 +140,8 @@ utils.updateData = function (targetdata, origindata, option = {}) {
   if (!option.type) {
     option.type = 'add'
   }
-  return this.deepCloneData(origindata, targetdata, option)
+  targetdata = this.deepCloneData(origindata, targetdata, option)
+  return targetdata
 }
 /**
  * 基于originlist更新targetlist列表数据
