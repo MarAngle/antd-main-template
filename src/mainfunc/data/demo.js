@@ -48,11 +48,16 @@ utils.deepCloneDataNext = function (origindata, targetdata, option, currentnum =
     if (option.depth === true || currentnum <= option.depth + 1) {
       // 初始化目标值
       let targetType = this.getType(targetdata)
+      // 类型判断，类型不一致的情况下,直接进行赋值操作即可
       if (targetType == type) {
-        unDeep = false
-      } else {
-        // 类型不一致的情况下,直接进行赋值操作即可
-        // targetdata = type == 'object' ? {} : []
+        if (option.type == 'total') {
+          // 全复制情况=>直接赋值即可
+          // 为避免原型链导致的数据问题，此时重置targetdata为null
+          targetdata = null
+        } else {
+          // 此时进行递归操作
+          unDeep = false
+        }
       }
     }
     if (unDeep) {
@@ -60,33 +65,11 @@ utils.deepCloneDataNext = function (origindata, targetdata, option, currentnum =
     } else {
       // 当前深度递增
       currentnum++
-      // 已操作字段缓存
-      let propList
-      if (option.type == 'total') {
-        propList = []
-        if (type == 'array' && targetdata.length > origindata.length) {
-          // 数组全复制情况下直接将长度重置，避免原数据过长导致判断增多
-          targetdata.splice(0, origindata.length)
-        }
-      }
       for (let i in origindata) {
         let nextprop = currentprop ? currentprop + '.' + i : i
         // 判断下一级的属性是否存在赋值限制，被限制的不进行赋值操作
         if (!option.limitData.getLimit(nextprop)) {
           targetdata[i] = this.deepCloneDataNext(origindata[i], targetdata[i], option, currentnum, nextprop)
-          if (propList) {
-            propList.push(i)
-          }
-        } else if (option.limitType !== 'clear') {
-          propList.push(i)
-        }
-      }
-      if (option.type == 'total' && propList.length > 0) {
-        // 循环目标数据，全复制情况下不在propList数组中的属性执行删除操作
-        for (let n in targetdata) {
-          if (propList.indexOf(n) < 0) {
-            delete targetdata[n]
-          }
         }
       }
     }
