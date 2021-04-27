@@ -121,7 +121,6 @@ utils.deepCloneDataNext = function (origindata, targetdata, option = {}, current
         let nextprop = currentprop ? currentprop + '.' + i : i
         // 判断下一级的属性是否存在赋值限制，被限制的不进行赋值操作
         if (!option.limitData.getLimit(nextprop)) {
-          console.log(nextprop, this.deepCloneDataNext(origindata[i], targetdata[i], option, currentnum, nextprop))
           targetdata[i] = this.deepCloneDataNext(origindata[i], targetdata[i], option, currentnum, nextprop)
         }
       }

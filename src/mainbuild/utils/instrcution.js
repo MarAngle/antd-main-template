@@ -41,6 +41,4 @@ instrcution.get = function(prop, type) {
 
 instrcution.init()
 
-console.log(instrcution)
-
 export default instrcution
