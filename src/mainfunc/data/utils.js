@@ -659,6 +659,27 @@ utils.getRandomLetter = function (letter) {
   }
   return this.getRandomInList(list)
 }
+// 查找target在目标字符串中的次数和位置
+utils.findTargetInStr = function(str, target, option = {}) {
+  str = str.toString()
+  let limitNum = option.limit || false
+  if (option.case) {
+    str = str.toUpperCase()
+    target = target.toUpperCase()
+  }
+  return this.findTargetInStrNext(str, target, limitNum)
+}
+
+utils.findTargetInStrNext = function(str, target, limitNum, list = [], index = 0) {
+  let data = str.indexOf(target, index)
+  if (data > -1) {
+    list.push(data)
+    if (limitNum === false || limitNum > list.length) {
+      list = this.findTargetInStrNext(str, target, limitNum, list, data + 1)
+    }
+  }
+  return list
+}
 // ----- 字符串相关 ----- END
 
 // ----- 日期相关 ----- START
