@@ -661,13 +661,19 @@ utils.getRandomLetter = function (letter) {
 }
 // 查找target在目标字符串中的次数和位置
 utils.findTargetInStr = function(str, target, option = {}) {
-  str = str.toString()
-  let limitNum = option.limit || false
-  if (option.case) {
-    str = str.toUpperCase()
-    target = target.toUpperCase()
+  if (str && target) {
+    str = str.toString()
+    target = target.toString()
+    let limitNum = option.limit || false
+    if (option.case) {
+      str = str.toUpperCase()
+      target = target.toUpperCase()
+    }
+    return this.findTargetInStrNext(str, target, limitNum)
+  } else {
+    console.error('str/target参数不存在')
+    return []
   }
-  return this.findTargetInStrNext(str, target, limitNum)
 }
 
 utils.findTargetInStrNext = function(str, target, limitNum, list = [], index = 0) {
@@ -675,7 +681,7 @@ utils.findTargetInStrNext = function(str, target, limitNum, list = [], index = 0
   if (data > -1) {
     list.push(data)
     if (limitNum === false || limitNum > list.length) {
-      list = this.findTargetInStrNext(str, target, limitNum, list, data + 1)
+      list = this.findTargetInStrNext(str, target, limitNum, list, data + target.length)
     }
   }
   return list
