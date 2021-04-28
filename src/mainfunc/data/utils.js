@@ -664,7 +664,7 @@ utils.findTargetInStr = function(str, target, option = {}) {
   if (str && target) {
     str = str.toString()
     target = target.toString()
-    let limitNum = option.limit || false
+    let limitNum = option.limitNum || false
     if (option.case) {
       str = str.toUpperCase()
       target = target.toUpperCase()
