@@ -1,6 +1,4 @@
 import Require from './build/Require'
-import environment from './data/environment'
-import rule from './data/rule'
 import utils from './data/utils'
 import notice from '@/mainnotice/index'
 
@@ -101,17 +99,6 @@ mainfunc.initRequire = function (require) {
   this._initMod(requiredata, ['ajax', 'require', 'get', 'post', 'postform', 'postfile', 'setToken', 'getToken', 'removeToken'])
 }
 
-mainfunc._initMod(rule, [
-  {
-    originprop: 'check',
-    prop: 'checkRule'
-  },
-  {
-    originprop: 'build',
-    prop: 'buildRule'
-  }
-])
-mainfunc._initMod(environment)
 mainfunc._initMod(utils)
 mainfunc._initMod(notice)
 

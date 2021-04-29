@@ -1,6 +1,8 @@
 import Vue from 'vue'
-import mainfunc from '@/complex-func/index'
+import mainfunc, { notice } from '@/complex-func/index'
 import _page from './data/page'
+
+console.log(notice)
 
 Vue.use(mainfunc, {
   root: {
