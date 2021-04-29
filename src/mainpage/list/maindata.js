@@ -24,8 +24,6 @@ let areaSelect = new SelectList({
   ]
 })
 
-console.log(areaSelect.getList('a'))
-
 let maindata = new ListData({
   name: '终端信息管理',
   prop: 'terminalinfolist',
