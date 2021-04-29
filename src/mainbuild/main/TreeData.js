@@ -1,4 +1,4 @@
-import _func from '@/complexFunc/index'
+import _func from '@/complex-func/index'
 import ListData from './ListData'
 
 class TreeData extends ListData {

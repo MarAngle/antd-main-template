@@ -1,5 +1,5 @@
 import Vue from 'vue'
-import _func from '@/complexFunc/index'
+import _func from '@/complex-func/index'
 import ComplexData from './../data/ComplexData'
 
 const defaultMenu = [

@@ -1,4 +1,4 @@
-import _func from '@/complexFunc/index'
+import _func from '@/complex-func/index'
 import ComplexDataWithSearch from './../data/ComplexDataWithSearch'
 import PaginationData from './../mod/PaginationData'
 import ChoiceData from './../mod/ChoiceData'

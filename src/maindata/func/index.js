@@ -1,5 +1,5 @@
 import Vue from 'vue'
-import mainfunc from '@/complexFunc/index'
+import mainfunc from '@/complex-func/index'
 import _page from './data/page'
 
 Vue.use(mainfunc, {

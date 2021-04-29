@@ -9,7 +9,7 @@ let mainfunc = {
 }
 
 mainfunc.printInfo = function(content = '', type = 'error') {
-  let preContent = `[complexFunc]`
+  let preContent = `[complex-func]`
   console[type](preContent + content)
 }
 
