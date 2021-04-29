@@ -68,7 +68,8 @@ mainfunc.init = function({
   data, // 数据
   root, // 根对象
   methods, // 方法
-  require // 请求
+  require, // 请求
+  notice // 提示
 }) {
   if (data) {
     for (let n in data) {
@@ -92,14 +93,21 @@ mainfunc.init = function({
   if (require) {
     this.initRequire(require)
   }
+  if (notice) {
+    this.initNotice(notice)
+  }
 }
 
-mainfunc.initRequire = function (require) {
-  let requiredata = new Require(require)
+mainfunc.initRequire = function (requireInitData) {
+  let requiredata = new Require(requireInitData)
   this._initMod(requiredata, ['ajax', 'require', 'get', 'post', 'postform', 'postfile', 'setToken', 'getToken', 'removeToken'])
 }
 
+mainfunc.initNotice = function(noticeInitData) {
+  notice.init(noticeInitData)
+  mainfunc._initMod(notice)
+}
+
 mainfunc._initMod(utils)
-mainfunc._initMod(notice)
 
 export default mainfunc

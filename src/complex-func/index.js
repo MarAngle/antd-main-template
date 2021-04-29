@@ -2,7 +2,7 @@ import mainfunc from './main'
 import rule from './data/rule'
 import environment from './data/environment'
 import setData from './option/setData'
-import noticeData from './option/noticeData'
+import notice from './option/noticeData'
 
 mainfunc._initMod(rule, [
   {
@@ -23,8 +23,6 @@ mainfunc.install = function(Vue, options = {}) {
   Vue.prototype._func = this
 }
 
-export { rule }
-export { environment }
-export { noticeData as notice }
+export { rule, environment, notice }
 
 export default mainfunc
