@@ -1,7 +1,7 @@
 import axios from 'axios'
 import RequireRule from './RequireRule'
-import _utils from './../data/utils'
-import _notice from '@/mainnotice/index'
+import utils from './../data/utils'
+import noticeData from './../option/noticeData'
 
 /*
 option:
@@ -176,7 +176,7 @@ class Require {
         if (optionData.requestDataType == 'formdata') {
           optionData.headers['Content-Type'] = 'multipart/form-data'
           if (optionData.requestCurrentDataType == 'json') {
-            optionData.data = _utils.jsonToForm(optionData.data)
+            optionData.data = utils.jsonToForm(optionData.data)
           }
         } else if (optionData.requestDataType == 'json') {
           optionData.data = JSON.stringify(optionData.data)
@@ -282,7 +282,7 @@ class Require {
         title = msgOption.title
       }
       if (content) {
-        _notice.showmsg(content, type, title)
+        noticeData.showmsg(content, type, title)
       }
     }
   }
