@@ -3,7 +3,7 @@ import mainfunc from '@/complexFunc/index'
 import _page from './data/page'
 
 Vue.use(mainfunc, {
-  module: {
+  root: {
     page: _page
   },
   methods: {
@@ -151,8 +151,6 @@ Vue.use(mainfunc, {
     ]
   }
 })
-
-console.log(mainfunc)
 
 mainfunc.autoPage()
 

@@ -69,8 +69,8 @@ mainfunc._appendMethod = function (methodName, methodData, target) {
 mainfunc.init = function({
   data, // 数据
   root, // 根对象
-  methods,
-  require
+  methods, // 方法
+  require // 请求
 }) {
   if (data) {
     for (let n in data) {
