@@ -1,11 +1,11 @@
 import Require from './build/Require'
-import _environment from './data/environment'
-import _rule from './data/rule'
-import _utils from './data/utils'
-import _notice from '@/mainnotice/index'
+import environment from './data/environment'
+import rule from './data/rule'
+import utils from './data/utils'
+import notice from '@/mainnotice/index'
 
 let mainfunc = {
-  BASEDATA: {}
+  data: {}
 }
 
 mainfunc._initMod = function (mod, methodList) {
@@ -15,10 +15,11 @@ mainfunc._initMod = function (mod, methodList) {
       if (typeof methodData != 'object') {
         methodData = {
           originprop: methodData,
-          prop: methodData
+          prop: methodData,
+          replace: false
         }
       }
-      this._appendMethod(methodData.prop, mod[methodData.originprop], mod)
+      this._appendMethod(methodData.prop, mod[methodData.originprop], mod, methodData.replace)
     }
   } else {
     for (let n in mod) {
@@ -29,15 +30,26 @@ mainfunc._initMod = function (mod, methodList) {
   }
 }
 
-mainfunc._appendMethod = function (methodName, methodData, target) {
+mainfunc._appendMethod = function (methodName, methodData, target, replace = false) {
+  let append = false
   if (!this[methodName]) {
-    if (methodData) {
-      this[methodName] = methodData.bind(target)
-    } else {
-      console.error(`func appendMethod error: ${methodName} is not defined`)
-    }
+    append = true
+  } else if (replace) {
+    append = true
+    console.warn(`func appendMethod warn: ${methodName} is replace`)
   } else {
     console.error(`func appendMethod error: ${methodName} is defined`)
+  }
+  if (append) {
+    if (methodData) {
+      if (target) {
+        this[methodName] = methodData.bind(target)
+      } else {
+        this[methodName] = methodData
+      }
+    } else {
+      console.error(`func appendMethod error: ${methodName} data is not defined`)
+    }
   }
 }
 
@@ -46,8 +58,8 @@ mainfunc.initRequire = function (require) {
   this._initMod(requiredata, ['ajax', 'require', 'get', 'post', 'postform', 'postfile', 'setToken', 'getToken', 'removeToken'])
 }
 
-mainfunc._initMod(_environment)
-mainfunc._initMod(_rule, [
+mainfunc._initMod(environment)
+mainfunc._initMod(rule, [
   {
     originprop: 'check',
     prop: 'checkRule'
@@ -57,7 +69,7 @@ mainfunc._initMod(_rule, [
     prop: 'buildRule'
   }
 ])
-mainfunc._initMod(_utils)
-mainfunc._initMod(_notice)
+mainfunc._initMod(utils)
+mainfunc._initMod(notice)
 
 export default mainfunc
