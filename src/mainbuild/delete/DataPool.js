@@ -1,4 +1,4 @@
-import _func from '@/maindata/func/index'
+import _func from '@/complexFunc/index'
 import BaseData from './../data/BaseData'
 
 // formatItem => 格式化为保存数据

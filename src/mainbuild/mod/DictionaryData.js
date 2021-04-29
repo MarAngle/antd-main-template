@@ -1,4 +1,4 @@
-import _func from '@/maindata/func/index'
+import _func from '@/complexFunc/index'
 import DefaultData from './../data/DefaultData'
 import InterfaceData from './InterfaceData'
 import LayoutData from './LayoutData'

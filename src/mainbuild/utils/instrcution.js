@@ -1,4 +1,4 @@
-import _func from '@/mainfunc/index'
+import _func from '@/complexFunc/index'
 import InstrcutionData from './../mod/InstrcutionData'
 
 let instrcution = {

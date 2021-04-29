@@ -1,4 +1,4 @@
-import _func from '@/maindata/func/index'
+import _func from '@/complexFunc/index'
 
 let ProxyCanUse = _func.getCanUse('Proxy')
 let proxyOption = {

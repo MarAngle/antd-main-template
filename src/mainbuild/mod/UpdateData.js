@@ -1,4 +1,4 @@
-import _func from '@/maindata/func/index'
+import _func from '@/complexFunc/index'
 import DefaultData from './../data/DefaultData'
 /**
  * 需要设置methods: trigger

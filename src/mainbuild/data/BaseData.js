@@ -1,4 +1,4 @@
-import _func from '@/maindata/func/index'
+import _func from '@/complexFunc/index'
 import DefaultData from './DefaultData'
 import OptionData from './../mod/OptionData'
 import StatusData from './../mod/StatusData'
