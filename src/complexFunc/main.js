@@ -41,7 +41,7 @@ mainfunc._appendMethod = function (methodName, methodData, target) {
   }
 }
 
-mainfunc.init = function ({ require }) {
+mainfunc.initRequire = function (require) {
   let requiredata = new Require(require)
   this._initMod(requiredata, ['ajax', 'require', 'get', 'post', 'postform', 'postfile', 'setToken', 'getToken', 'removeToken'])
 }
