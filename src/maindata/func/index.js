@@ -15,142 +15,140 @@ Vue.use(mainfunc, {
     }
   },
   require: {
-    require: {
-      api: {
-        baseURL: 'https://gateway-dev.wuzheng.com.cn/'
-      },
-      option: {
-        headers: {}
-      },
-      rule: [
-        {
-          name: '五征',
-          prop: 'wuzheng',
-          token: {
-            check: true,
-            fail: function (tokenName, ruleItem) {
-              console.log(tokenName, ruleItem)
-            },
-            data: {
-              sign: {
-                require: true,
-                data: 'sign',
-                location: 'params'
-              },
-              timestamp: {
-                require: true,
-                location: 'params',
-                getData: function () {
-                  return Date.now()
-                }
-              },
-              Authorization: {
-                require: true,
-                location: 'header'
-              },
-              'X-Token-Issuer': {
-                require: true,
-                location: 'header'
-              },
-              'X-Request-Id': {
-                require: true,
-                location: 'header',
-                getData: function () {
-                  return Date.now()
-                }
-              }
-            }
+    api: {
+      baseURL: 'https://gateway-dev.wuzheng.com.cn/'
+    },
+    option: {
+      headers: {}
+    },
+    rule: [
+      {
+        name: '五征',
+        prop: 'wuzheng',
+        token: {
+          check: true,
+          fail: function (tokenName, ruleItem) {
+            console.log(tokenName, ruleItem)
           },
-          methods: {
-            checkUrl (url) {
-              if (url.indexOf('wuzheng.com.cn') > -1) {
-                return true
-              } else {
-                return false
+          data: {
+            sign: {
+              require: true,
+              data: 'sign',
+              location: 'params'
+            },
+            timestamp: {
+              require: true,
+              location: 'params',
+              getData: function () {
+                return Date.now()
               }
             },
-            check (response) {
-              let res = {
-                status: 'fail'
-              }
-              if (response.data) {
-                res.data = response.data
-                if (response.data.result == 'SUCCEED') {
-                  res.status = 'success'
-                  res.msg = response.data.errorMessage
-                } else if (response.data.result == 'LOGIN') {
-                  res.status = 'login'
-                  res.code = response.data.errorCode
-                  res.msg = response.data.errorMessage
-                } else {
-                  res.code = response.data.errorCode
-                  res.msg = response.data.errorMessage
-                }
-              }
-              return res
+            Authorization: {
+              require: true,
+              location: 'header'
             },
-            failMsg (errRes) {
-              if (errRes.error.response) {
-                if (errRes.error.response.data && errRes.error.response.data.message) {
-                  // return errRes.error.response.data.message
-                }
+            'X-Token-Issuer': {
+              require: true,
+              location: 'header'
+            },
+            'X-Request-Id': {
+              require: true,
+              location: 'header',
+              getData: function () {
+                return Date.now()
               }
             }
           }
         },
-        {
-          name: 'local',
-          prop: 'default',
-          token: {
-            check: true,
-            fail: function (tokenName, ruleItem) {
-              console.log(tokenName, ruleItem)
-            },
-            data: {}
+        methods: {
+          checkUrl (url) {
+            if (url.indexOf('wuzheng.com.cn') > -1) {
+              return true
+            } else {
+              return false
+            }
           },
-          methods: {
-            checkUrl (url) {
-              if (url.indexOf('http://$local') > -1) {
-                return true
+          check (response) {
+            let res = {
+              status: 'fail'
+            }
+            if (response.data) {
+              res.data = response.data
+              if (response.data.result == 'SUCCEED') {
+                res.status = 'success'
+                res.msg = response.data.errorMessage
+              } else if (response.data.result == 'LOGIN') {
+                res.status = 'login'
+                res.code = response.data.errorCode
+                res.msg = response.data.errorMessage
               } else {
-                return false
+                res.code = response.data.errorCode
+                res.msg = response.data.errorMessage
               }
-            },
-            formatUrl (url) {
-              url = url.replace(/http:\/\/\$local/, '')
-              return url
-            },
-            check (response) {
-              let res = {
-                status: 'fail'
-              }
-              if (response.data) {
-                res.data = response.data.result
-                if (response.data.result.result == 'SUCCEED') {
-                  res.status = 'success'
-                  res.msg = response.data.errorMessage
-                } else if (response.data.result.result == 'LOGIN') {
-                  res.status = 'login'
-                  res.code = response.data.errorCode
-                  res.msg = response.data.errorMessage
-                } else {
-                  res.code = response.data.errorCode
-                  res.msg = response.data.errorMessage
-                }
-              }
-              return res
-            },
-            failMsg (errRes) {
-              if (errRes.error.response) {
-                if (errRes.error.response.data && errRes.error.response.data.message) {
-                  // return errRes.error.response.data.message
-                }
+            }
+            return res
+          },
+          failMsg (errRes) {
+            if (errRes.error.response) {
+              if (errRes.error.response.data && errRes.error.response.data.message) {
+                // return errRes.error.response.data.message
               }
             }
           }
         }
-      ]
-    }
+      },
+      {
+        name: 'local',
+        prop: 'default',
+        token: {
+          check: true,
+          fail: function (tokenName, ruleItem) {
+            console.log(tokenName, ruleItem)
+          },
+          data: {}
+        },
+        methods: {
+          checkUrl (url) {
+            if (url.indexOf('http://$local') > -1) {
+              return true
+            } else {
+              return false
+            }
+          },
+          formatUrl (url) {
+            url = url.replace(/http:\/\/\$local/, '')
+            return url
+          },
+          check (response) {
+            let res = {
+              status: 'fail'
+            }
+            if (response.data) {
+              res.data = response.data.result
+              if (response.data.result.result == 'SUCCEED') {
+                res.status = 'success'
+                res.msg = response.data.errorMessage
+              } else if (response.data.result.result == 'LOGIN') {
+                res.status = 'login'
+                res.code = response.data.errorCode
+                res.msg = response.data.errorMessage
+              } else {
+                res.code = response.data.errorCode
+                res.msg = response.data.errorMessage
+              }
+            }
+            return res
+          },
+          failMsg (errRes) {
+            if (errRes.error.response) {
+              if (errRes.error.response.data && errRes.error.response.data.message) {
+                // return errRes.error.response.data.message
+              }
+            }
+          }
+        }
+      }
+    ]
   }
 })
 

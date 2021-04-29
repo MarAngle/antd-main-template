@@ -18,4 +18,4 @@ mainfunc.install = function(Vue, options = {}) {
   }
 }
 
-module.exports = mainfunc
+export default mainfunc
