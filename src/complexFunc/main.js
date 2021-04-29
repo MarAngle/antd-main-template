@@ -8,6 +8,11 @@ let mainfunc = {
   data: {}
 }
 
+mainfunc.printInfo = function(content = '', type = 'error') {
+  let preContent = `[complexFunc]`
+  console[type](preContent + content)
+}
+
 mainfunc._initMod = function (mod, methodList) {
   if (methodList) {
     for (let i in methodList) {
@@ -47,9 +52,9 @@ mainfunc._appendMethod = function (methodName, methodData, target) {
       append = true
     } else if (methodData.replace) {
       append = true
-      console.warn(`func appendMethod warn: ${methodName} is replace`)
+      this.printInfo(`appendMethod warn: ${methodName} is replace`, 'warn')
     } else {
-      console.error(`func appendMethod error: ${methodName} is defined`)
+      this.printInfo(`appendMethod error: ${methodName} is defined`)
     }
     if (append) {
       if (target) {
@@ -75,7 +80,7 @@ mainfunc.init = function({
   if (root) {
     for (let n in root) {
       if (this[n]) {
-        console.error(`complexFunc root属性${n}设置冲突，请检查!`)
+        this.printInfo(`root属性${n}设置冲突，请检查!`)
       } else {
         this[n] = root[n]
       }
