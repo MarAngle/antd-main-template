@@ -15,11 +15,10 @@ mainfunc._initMod = function (mod, methodList) {
       if (typeof methodData != 'object') {
         methodData = {
           originprop: methodData,
-          prop: methodData,
-          replace: false
+          prop: methodData
         }
       }
-      this._appendMethod(methodData.prop, mod[methodData.originprop], mod, methodData.replace)
+      this._appendMethod(methodData.prop, mod[methodData.originprop], mod)
     }
   } else {
     for (let n in mod) {
@@ -30,26 +29,65 @@ mainfunc._initMod = function (mod, methodList) {
   }
 }
 
-mainfunc._appendMethod = function (methodName, methodData, target, replace = false) {
+mainfunc._appendMethod = function (methodName, methodData, target) {
   let append = false
-  if (!this[methodName]) {
-    append = true
-  } else if (replace) {
-    append = true
-    console.warn(`func appendMethod warn: ${methodName} is replace`)
-  } else {
-    console.error(`func appendMethod error: ${methodName} is defined`)
+  if (methodData) {
+    let methodType = typeof methodData
+    if (methodType == 'function') {
+      methodData = {
+        data: methodData
+      }
+      append = true
+    } else if (methodType == 'object') {
+      append = true
+    }
   }
   if (append) {
-    if (methodData) {
-      if (target) {
-        this[methodName] = methodData.bind(target)
-      } else {
-        this[methodName] = methodData
-      }
+    if (!this[methodName]) {
+      append = true
+    } else if (methodData.replace) {
+      append = true
+      console.warn(`func appendMethod warn: ${methodName} is replace`)
     } else {
-      console.error(`func appendMethod error: ${methodName} data is not defined`)
+      console.error(`func appendMethod error: ${methodName} is defined`)
     }
+    if (append) {
+      if (target) {
+        this[methodName] = methodData.data.bind(target)
+      } else {
+        this[methodName] = methodData.data
+      }
+    }
+  }
+}
+
+mainfunc.init = function({
+  data, // 数据
+  root, // 根对象
+  methods,
+  require
+}) {
+  if (data) {
+    for (let n in data) {
+      this.data[n] = data[n]
+    }
+  }
+  if (root) {
+    for (let n in root) {
+      if (this[n]) {
+        console.error(`complexFunc root属性${n}设置冲突，请检查!`)
+      } else {
+        this[n] = root[n]
+      }
+    }
+  }
+  if (methods) {
+    for (let n in methods) {
+      this._appendMethod(n, methods[n])
+    }
+  }
+  if (require) {
+    this.initRequire(require)
   }
 }
 
@@ -58,7 +96,6 @@ mainfunc.initRequire = function (require) {
   this._initMod(requiredata, ['ajax', 'require', 'get', 'post', 'postform', 'postfile', 'setToken', 'getToken', 'removeToken'])
 }
 
-mainfunc._initMod(environment)
 mainfunc._initMod(rule, [
   {
     originprop: 'check',
@@ -69,6 +106,7 @@ mainfunc._initMod(rule, [
     prop: 'buildRule'
   }
 ])
+mainfunc._initMod(environment)
 mainfunc._initMod(utils)
 mainfunc._initMod(notice)
 
