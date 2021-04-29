@@ -1,4 +1,4 @@
-import dataSet from './dataSet'
+import setData from './../option/setData'
 import LimitData from './../build/LimitData'
 
 let utils = {
@@ -304,7 +304,7 @@ utils.getPropByList = function (targetdata, propList) {
   return res
 }
 // 根据属性列表设置属性
-utils.setPropByList = function (targetdata, propList, propData, useDataSet) {
+utils.setPropByList = function (targetdata, propList, propData, useSetData) {
   let res = targetdata
   for (let n = 0; n < propList.length; n++) {
     if (n < propList.length - 1) {
@@ -313,10 +313,10 @@ utils.setPropByList = function (targetdata, propList, propData, useDataSet) {
       }
       res = res[propList[n]]
     } else {
-      if (!useDataSet) {
+      if (!useSetData) {
         res[propList[n]] = propData
       } else {
-        dataSet.set(res, propList[n], propData)
+        setData.set(res, propList[n], propData)
       }
     }
   }
@@ -334,12 +334,12 @@ utils.getPropByStr = function (targetdata, strProp) {
   }
 }
 // 根据a.b字符串设置属性
-utils.setPropByStr = function (targetdata, strProp, propData, useDataSet) {
+utils.setPropByStr = function (targetdata, strProp, propData, useSetData) {
   if (!targetdata || !strProp) {
     return false
   } else {
     let list = strProp.split('.')
-    this.setPropByList(targetdata, list, propData, useDataSet)
+    this.setPropByList(targetdata, list, propData, useSetData)
   }
 }
 // 格式化对象
@@ -360,9 +360,9 @@ utils.formatDataByType = function (data, type = 'string') {
 }
 
 // 根据type设置对象属性值
-utils.setStrPropByType = function (item, prop, data, type = 'string', useDataSet) {
+utils.setStrPropByType = function (item, prop, data, type = 'string', useSetData) {
   let targetdata = this.formatDataByType(data, type)
-  this.setPropByStr(item, prop, targetdata, useDataSet)
+  this.setPropByStr(item, prop, targetdata, useSetData)
 }
 // 根据item[prop]不存在时赋值默认值defaultdata
 utils.reBuildProp = function (item, prop, defaultdata) {

@@ -1,8 +1,8 @@
-let data = {
+let setData = {
   Vue: null
 }
 
-data.set = function(target, prop, data) {
+setData.set = function(target, prop, data) {
   if (this.Vue) {
     this.Vue.set(target, prop, data)
   } else {
@@ -10,8 +10,8 @@ data.set = function(target, prop, data) {
   }
 }
 
-data.setVue = function(Vue) {
+setData.setVue = function(Vue) {
   this.Vue = Vue
 }
 
-export default data
+export default setData

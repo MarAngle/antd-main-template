@@ -1,8 +1,8 @@
 import mainfunc from './main'
-import dataSet from './data/dataSet'
+import setData from './option/setData'
 
 mainfunc.install = function(Vue, options = {}) {
-  dataSet.setVue(Vue)
+  setData.setVue(Vue)
   if (options.module) {
     for (let n in options.module) {
       mainfunc[n] = options.module[n]
