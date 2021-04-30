@@ -1,8 +1,7 @@
 import Vue from 'vue'
+import { Modal, notification } from 'ant-design-vue'
 import mainfunc, { notice } from '@/complex-func/index'
 import _page from './data/page'
-
-console.log(notice)
 
 Vue.use(mainfunc, {
   root: {
@@ -14,6 +13,64 @@ Vue.use(mainfunc, {
       window.onresize = this.throttle(function () {
         this.page.initBodyPage()
       }, 200, 2)
+    }
+  },
+  notice: {
+    data: {},
+    methods: {
+      showmsg: function (content, type = 'open', title = '通知', duration = 3) {
+        this.setmsg({
+          message: title,
+          description: content,
+          duration: duration
+        }, type)
+      },
+      setmsg: function (option, type = 'open') {
+        if (notification[type]) {
+          notification[type](option)
+        } else {
+          console.error('notification type is not defined, type reset open')
+          notification.open(option)
+        }
+      },
+      alert: function (content, title, next, type = 'error', okText = '确认') {
+        this.setmodal({
+          title: title,
+          content: content,
+          okText: okText,
+          onOk: function () {
+            if (next) {
+              next('ok')
+            }
+          }
+        }, type)
+      },
+      confirm: function (content, title, next, okText = '确认', cancelText = '取消') {
+        this.setmodal({
+          title: title,
+          content: content,
+          okText: okText,
+          cancelText: cancelText,
+          onCancel: function () {
+            if (next) {
+              next('cancel')
+            }
+          },
+          onOk: function () {
+            if (next) {
+              next('ok')
+            }
+          }
+        }, 'confirm')
+      },
+      setmodal: function (option, type = 'info') {
+        if (Modal[type]) {
+          Modal[type](option)
+        } else {
+          console.error('modal type is not defined, type reset info')
+          Modal.info(option)
+        }
+      }
     }
   },
   require: {

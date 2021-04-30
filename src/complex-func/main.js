@@ -1,6 +1,6 @@
 import Require from './build/Require'
 import utils from './data/utils'
-import notice from '@/mainnotice/index'
+import notice from './option/noticeData'
 
 let mainfunc = {
   data: {}
@@ -50,9 +50,9 @@ mainfunc._appendMethod = function (methodName, methodData, target) {
       append = true
     } else if (methodData.replace) {
       append = true
-      this.printInfo(`appendMethod warn: ${methodName} is replace`, 'warn')
+      this.printInfo(`appendMethod: ${methodName} is replace`, 'warn')
     } else {
-      this.printInfo(`appendMethod error: ${methodName} is defined`)
+      this.printInfo(`appendMethod: ${methodName} is defined`)
     }
     if (append) {
       if (target) {
@@ -103,8 +103,11 @@ mainfunc.initRequire = function (requireInitData) {
   this._initMod(requiredata, ['ajax', 'require', 'get', 'post', 'postform', 'postfile', 'setToken', 'getToken', 'removeToken'])
 }
 
-mainfunc.initNotice = function(noticeInitData) {
-  notice.init(noticeInitData)
+mainfunc.initNotice = function(noticeInitData = {}) {
+  notice.data = noticeInitData.data || {}
+  for (let n in noticeInitData.methods) {
+    notice[n] = noticeInitData.methods[n]
+  }
   mainfunc._initMod(notice)
 }
 
