@@ -1,4 +1,4 @@
-import _func from '@/complex-func/index'
+import _func from 'complex-func'
 import SimpleData from './../data/SimpleData'
 
 class InterfaceData extends SimpleData {

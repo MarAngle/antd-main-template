@@ -1,4 +1,4 @@
-import _func from '@/complex-func/index'
+import _func from 'complex-func'
 import utils from './../utils/index'
 import BaseData from './BaseData'
 import DictionaryList from './../mod/DictionaryList'

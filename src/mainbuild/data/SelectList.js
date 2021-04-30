@@ -1,4 +1,4 @@
-import _func from '@/complex-func/index'
+import _func from 'complex-func'
 import utils from './../utils/index'
 import DefaultData from './DefaultData'
 import OptionData from './../mod/OptionData'

@@ -1,7 +1,9 @@
 import Vue from 'vue'
 import { Modal, notification } from 'ant-design-vue'
-import mainfunc, { notice } from '@/complex-func/index'
+import mainfunc from 'complex-func'
 import _page from './data/page'
+
+console.log(mainfunc)
 
 Vue.use(mainfunc, {
   root: {

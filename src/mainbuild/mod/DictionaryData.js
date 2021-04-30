@@ -1,4 +1,4 @@
-import _func from '@/complex-func/index'
+import _func from 'complex-func'
 import DefaultData from './../data/DefaultData'
 import InterfaceData from './InterfaceData'
 import LayoutData from './LayoutData'

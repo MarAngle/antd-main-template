@@ -1,4 +1,4 @@
-import _func from '@/complex-func/index'
+import _func from 'complex-func'
 import SimpleData from './../data/SimpleData'
 import IdData from './IdData'
 let lifeId = new IdData({

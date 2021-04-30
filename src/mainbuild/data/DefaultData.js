@@ -1,4 +1,4 @@
-import _func from '@/complex-func/index'
+import _func from 'complex-func'
 import SimpleData from './SimpleData'
 import ModuleData from './../mod/ModuleData'
 import ExtraData from './../mod/ExtraData'
