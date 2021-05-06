@@ -3,8 +3,6 @@ import { Modal, notification } from 'ant-design-vue'
 import mainfunc from 'complex-func'
 import _page from './data/page'
 
-console.log(mainfunc)
-
 Vue.use(mainfunc, {
   root: {
     page: _page
@@ -221,5 +219,3 @@ mainfunc.setToken('Authorization', 'eyJhbGciOiJSUzI1NiJ9.eyJYLVVzZXItUm9sZXMiOlt
 mainfunc.setToken('X-Token-Issuer', 'vehicle-new')
 // mainfunc.removeToken('X-Token-Issuer')
 // -- END
-
-export default mainfunc

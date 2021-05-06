@@ -1,4 +1,4 @@
-import _func from '@/maindata/func/index'
+import _func from 'complex-func'
 import moment from 'moment'
 import PaginationView from './../mod/PaginationView'
 import UploadFile from './../mod/UploadFile'
