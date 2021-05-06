@@ -12,7 +12,7 @@ Vue.use(mainfunc, {
   methods: {
     autoPage() {
       this.page.initBodyPage()
-      window.onresize = this.throttle(function () {
+      window.onresize = this.throttle(() => {
         this.page.initBodyPage()
       }, 200, 2)
     }
