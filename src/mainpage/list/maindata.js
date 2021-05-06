@@ -274,7 +274,7 @@ let maindata = new ListData({
             type: 'file',
             required: true,
             option: {
-              upload: true,
+              upload: false,
               fileUpload: function ({ file }) {
                 return new Promise((resolve) => {
                   resolve({

@@ -140,6 +140,10 @@ export default {
         //     console.log(postdata)
         //   }
         // })
+        // this._func.postform({
+        //   url: 'http://$local/upload',
+        //   data: this.form.data
+        // })
         this.maindata.triggerLife('buildCancel')
       } else {
       }
