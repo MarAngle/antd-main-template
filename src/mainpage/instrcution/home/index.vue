@@ -9,7 +9,7 @@
 
 <script>
 import { ListData } from 'complex-data'
-import InstrcutionView from 'complex-data/src/components/InstrcutionView'
+import InstrcutionView from 'complex-data-option-antd/src/components/InstrcutionView'
 let maindata = ListData.getInstrcution('data')
 
 console.log(maindata)
