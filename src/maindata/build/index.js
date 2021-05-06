@@ -1,4 +1,4 @@
-import { option } from '@/mainbuild/index'
+import { option } from 'complex-data'
 import EditData from './data/EditData'
 import _func from '@/maindata/func/index'
 

@@ -8,8 +8,8 @@
 </template>
 
 <script>
-import { ListData } from '@/mainbuild/index'
-import InstrcutionView from '@/mainbuild/components/InstrcutionView'
+import { ListData } from 'complex-data'
+import InstrcutionView from 'complex-data/src/components/InstrcutionView'
 let maindata = ListData.getInstrcution('build')
 
 export default {

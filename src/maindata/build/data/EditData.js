@@ -1,5 +1,5 @@
 import _func from '@/maindata/func/index'
-import { BaseData, PaginationData, InterfaceData } from '@/mainbuild/index'
+import { BaseData, PaginationData, InterfaceData } from 'complex-data'
 import editTypeData from './data/editTypeData'
 
 class EditData extends BaseData {

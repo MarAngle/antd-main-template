@@ -1,5 +1,5 @@
 import _func from '@/maindata/func/index'
-import { ListData, SelectList } from '@/mainbuild/index'
+import { ListData, SelectList } from 'complex-data'
 
 let preurl = 'http://$local'
 
