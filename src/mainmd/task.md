@@ -61,8 +61,7 @@
 - 日期范围选择器的范围限制属性设置
 - SearchData重置
 - printInfo函数提取到func中全局统一逻辑
-- 通过throw err方式报错测试
-- reset方法通过传值判断对应模块的reset
+- 插件相关通过关联形式实现在此项目中的快速调试，减少难度
 
 ----
 ## 进行中
@@ -75,6 +74,8 @@
 
 ----
 ## 已完成
+- 通过throw err方式报错测试
+- reset方法通过传值判断对应模块的reset
 - DL添加beforeCreate生命周期
 - beforeCreate 生命周期触发操作，实现对参数和this的调整
 - axios考虑添加特殊值实现拦截器的跳过判断
