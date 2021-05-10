@@ -1,0 +1,5 @@
+{
+  "func": "./../../src/MainPlugin/complex-func/src/index.js",
+  "data": "./../../src/MainPlugin/complex-data/src/index.js",
+  "option": "./../../src/MainPlugin/complex-data-option-antd/src/index.js"
+}
