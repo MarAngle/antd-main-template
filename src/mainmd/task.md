@@ -61,6 +61,8 @@
 - 日期范围选择器的范围限制属性设置
 - SearchData重置
 - printInfo函数提取到func中全局统一逻辑
+- 通过throw err方式报错测试
+- reset方法通过传值判断对应模块的reset
 
 ----
 ## 进行中

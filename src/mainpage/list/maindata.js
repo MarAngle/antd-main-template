@@ -529,6 +529,8 @@ _func.triggerPromise({
   }
 })
 
+// maindata.printInfo('12133')
+
 // console.log(maindata.module)
 
 // maindata.triggerMethod(function() {

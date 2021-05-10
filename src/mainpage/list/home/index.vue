@@ -207,7 +207,12 @@ export default {
       this.setMenu('main', 'build', 'build', '创建', 0, null)
     },
     onReset() {
-      this.maindata.reset()
+      this.maindata.reset({
+        pagination: false,
+        data: {
+          list: true
+        }
+      })
     }
   }
 }
