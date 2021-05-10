@@ -208,11 +208,12 @@ export default {
     },
     onReset() {
       this.maindata.reset({
-        pagination: false,
+        // status: false,
         data: {
-          list: true
+          list: false
         }
       })
+      console.log(this.maindata)
     }
   }
 }
