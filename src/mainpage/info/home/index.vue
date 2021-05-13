@@ -31,7 +31,7 @@
     <div class="mainpagein">
       <a-spin :spinning="loadStatus == 'loading'">
         <LocalFormView
-          v-if="maindata.getModule('search').show"
+          v-if="maindata.getSearchInit()"
           :form="maindata.getModule('search').form.build.form"
           :mainlist="maindata.getModule('search').form.build.mainlist"
           :layout="'inline'"

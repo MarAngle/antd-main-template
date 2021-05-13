@@ -400,60 +400,7 @@ let maindata = new ListData({
       })
     }
   },
-  search: {
-    dictionary: {
-      list: [
-        {
-          prop: 'name',
-          name: '名称',
-          originprop: 'name',
-          mod: {
-            info: {},
-            edit: {
-              type: 'input',
-              required: true,
-              option: {
-                type: 'text',
-                innerWidth: '160px'
-              },
-              on: {
-                change(value) {
-                  console.log(value)
-                }
-              }
-            },
-            build: {
-              type: 'edit'
-            }
-          }
-        },
-        {
-          prop: 'id',
-          name: 'ID',
-          originprop: 'id',
-          mod: {
-            info: {},
-            edit: {
-              type: 'input',
-              required: true,
-              option: {
-                type: 'text',
-                innerWidth: '160px'
-              },
-              on: {
-                change(value) {
-                  console.log(value)
-                }
-              }
-            },
-            build: {
-              type: 'edit'
-            }
-          }
-        }
-      ]
-    }
-  },
+  search: false,
   extradata: {},
   life: {
     // dictionaryListUpdated: function (...args) {

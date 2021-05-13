@@ -50,7 +50,7 @@
       <a-spin :spinning="loadStatus == 'loading'">
         <LocalModAutoSearchMenu :height="59" :defaultOpen="true" :menuStyle="{ lineHeight: '40px' }" >
           <LocalFormView
-            v-if="maindata.getModule('search').show"
+            v-if="maindata.getSearchInit()"
             :form="maindata.getModule('search').form.build.form"
             :mainlist="maindata.getModule('search').form.build.mainlist"
             :layout="'inline'"
