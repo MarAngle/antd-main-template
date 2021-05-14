@@ -44,7 +44,7 @@
 <template>
   <div class="mainpage" >
     <div style="width: 100px">
-      <ComplexModAutoTextHeight :auto="true" :text="'asdfasasdasdasdasdasdasdasdasdfasasdasdasdasdasdasdasdasdfasasdasdasdasdasdasdasdasdfasasda'" />
+      <ComplexModAutoTextHeight :auto="true" :text="'1222222122222212222221222222'" />
     </div>
     <p @click="maindata.watchName = { name: 'aaa' }">{{ maindata.watchName }}</p>
     <a-button @click="onBuild">创建</a-button>
