@@ -46,7 +46,7 @@
     <a-button @click="onBuild">创建</a-button>
     <div class="mainpagein">
       <a-spin :spinning="loadStatus == 'loading'">
-        <LocalFormView
+        <ComplexFormView
           v-if="maindata.getSearchInit()"
           :form="maindata.getModule('search').form.build.form"
           :mainlist="maindata.getModule('search').form.build.mainlist"
@@ -54,8 +54,8 @@
           :type="'build'"
           :footMenu="maindata.getModule('search').menu"
           @menu="onSearchMenu"
-        ></LocalFormView>
-        <LocalTreeSelect :data="maindata.data.list"></LocalTreeSelect>
+        ></ComplexFormView>
+        <ComplexTreeSelect :data="maindata.data.list"></ComplexTreeSelect>
       </a-spin>
     </div>
     <DefaultEdit

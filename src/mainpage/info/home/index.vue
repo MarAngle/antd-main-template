@@ -30,7 +30,7 @@
     <a-button @click="onchange">创建</a-button>
     <div class="mainpagein">
       <a-spin :spinning="loadStatus == 'loading'">
-        <LocalFormView
+        <ComplexFormView
           v-if="maindata.getSearchInit()"
           :form="maindata.getModule('search').form.build.form"
           :mainlist="maindata.getModule('search').form.build.mainlist"
@@ -38,8 +38,8 @@
           :type="'build'"
           :footMenu="maindata.getModule('search').menu"
           @menu="onSearchMenu"
-        ></LocalFormView>
-        <LocalInfoView :maindata="maindata" type="info" :data="maindata.data.current" ></LocalInfoView>
+        ></ComplexFormView>
+        <ComplexInfoView :maindata="maindata" type="info" :data="maindata.data.current" ></ComplexInfoView>
       </a-spin>
     </div>
     <DefaultEdit

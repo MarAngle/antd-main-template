@@ -47,8 +47,8 @@
     <a-button @click="onReset">reset</a-button>
     <div class="mainpagein">
       <a-spin :spinning="loadStatus == 'loading'">
-        <LocalModAutoSearchMenu :height="59" :defaultOpen="true" :menuStyle="{ lineHeight: '40px' }" >
-          <LocalFormView
+        <ComplexModAutoSearchMenu :height="59" :defaultOpen="true" :menuStyle="{ lineHeight: '40px' }" >
+          <ComplexFormView
             v-if="maindata.getSearchInit()"
             :form="maindata.getModule('search').form.build.form"
             :mainlist="maindata.getModule('search').form.build.mainlist"
@@ -56,11 +56,11 @@
             :type="'build'"
             :footMenu="maindata.getModule('search').menu"
             @menu="onSearchMenu"
-          ></LocalFormView>
-        </LocalModAutoSearchMenu>
-        <LocalTableView :maindata="maindata" :columnList="mainlist" >
+          ></ComplexFormView>
+        </ComplexModAutoSearchMenu>
+        <ComplexTableView :maindata="maindata" :columnList="mainlist" >
           <template slot="_index" slot-scope="slotProps">
-            <LocalModAutoIndex :index="slotProps.index" :maindata="maindata" :style="{ color: 'red' }" />
+            <ComplexModAutoIndex :index="slotProps.index" :maindata="maindata" :style="{ color: 'red' }" />
           </template>
           <!-- <span slot="name-title" >
             <span>自定义标题</span>
@@ -75,7 +75,7 @@
               已选择: {{ maindata.getChoiceData('id').length }}
             </span>
           </template>
-        </LocalTableView>
+        </ComplexTableView>
       </a-spin>
     </div>
     <DefaultEdit
