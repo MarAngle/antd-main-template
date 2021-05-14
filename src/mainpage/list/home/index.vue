@@ -43,6 +43,9 @@
 </style>
 <template>
   <div class="mainpage" >
+    <div style="width: 100px">
+      <LocalModAutoTextHeight :auto="true" :text="'asdfasasdasdasdasdasdasdasdasdfasasdasdasdasdasdasdasdasdfasasdasdasdasdasdasdasdasdfasasdasdasdasdasdasdasdasdfasasdasdasdasdasdasdasdasdfasasdasdasdasdasdasdasdasdfasasdasdasdasdasdasdasdasdfasasdasdasdasdasdasdasdasdfasasdasdasdasdasdasdasdasdfasasdasdasdasdasdasdasdasdfasasdasdasdasdasdasdasdasdfasasdasdasdasdasdasdasdasdfasasdasdasdasdasdasdasdasdfasasdasdasdasdasdasdasdasdfasasdasdasdasdasdasdasdasdfasasdasdasdasdasdasdasdasdfasasdasdasdasdasdasdasdasdfasasdasdasdasdasdasdasdasdfasasdasdasdasdasdasdasdasdfasasdasdasdasdasdasdasdasdfasasdasdasdasdasdasdasdasdfasasdasdasdasdasdasdasdasdfasasdasdasdasdasdasdasdasdfasasdasdasdasdasdasdasd'" />
+    </div>
     <p @click="maindata.watchName = { name: 'aaa' }">{{ maindata.watchName }}</p>
     <a-button @click="onBuild">创建</a-button>
     <a-button @click="onReset">reset</a-button>
