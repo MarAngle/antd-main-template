@@ -219,8 +219,3 @@ _func.setToken('Authorization', 'eyJhbGciOiJSUzI1NiJ9.eyJYLVVzZXItUm9sZXMiOlt7In
 _func.setToken('X-Token-Issuer', 'vehicle-new')
 // _func.removeToken('X-Token-Issuer')
 // -- END
-
-_func.setLocalData('asd', 'asd')
-setTimeout(() => {
-  console.log(_func.getLocalData('asd', 4))
-}, 2000)
