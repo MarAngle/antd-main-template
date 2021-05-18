@@ -8,3 +8,6 @@ import 'complex-component-antd'
 import './build/index'
 // 功能插件
 import './func/index'
+
+import './../MainPlugin/complex-data/instruction'
+console.log('引用说明相关数据')
