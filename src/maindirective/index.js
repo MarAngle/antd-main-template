@@ -1,6 +1,6 @@
 import Vue from 'vue'
 
-const _datas = require.context('./data', false, /(\.js)$/)
+const _data = require.context('./data', false, /(\.js)$/)
 
 function LoadData (_data) {
   let datalist = _data.keys()
@@ -11,4 +11,4 @@ function LoadData (_data) {
   })
 }
 
-LoadData(_datas)
+LoadData(_data)
