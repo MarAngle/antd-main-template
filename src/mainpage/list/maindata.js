@@ -484,20 +484,20 @@ let maindata = new ListData({
 
 maindata.watchName = '111'
 
-_func.buildWatch({
+_func.defineWatch({
   data: maindata,
-  prop: 'watchName',
-  func: function(v, o) {
+  key: 'watchName',
+  set: function(v, o) {
     console.log(v, o)
   }
 })
 
 maindata.data.newList = []
 
-_func.buildWatch({
+_func.defineWatch({
   data: maindata.data,
-  prop: 'newList',
-  func: function(v, o) {
+  key: 'newList',
+  set: function(v, o) {
     console.log(v, o)
   }
 })
@@ -509,8 +509,6 @@ let pf = function(a, b, c) {
   // })
   return a
 }
-
-// let promise = pf(1)
 
 _func.triggerPromise({
   func: pf,
@@ -528,18 +526,5 @@ _func.triggerPromise({
     console.log('fail', res)
   }
 })
-
-// maindata.printInfo('12133')
-
-// console.log(maindata.module)
-
-// maindata.triggerMethod(function() {
-//   // return new Promise((resolve, reject) => {
-//   //   console.log(1)
-//   //   resolve({ name: 1 })
-//   // })
-//   return 1
-// }).then(res => { console.log(res) }, err => { console.error(err) })
-// maindata.triggerMethod('data').then(res => { console.log(res) }, err => { console.error(err) })
 
 export default maindata
