@@ -490,24 +490,26 @@ _func.defineWatch(maindata, 'watchName', {
   }
 })
 
-let a = {
-  data: {
-    name: 'name',
-    status: {
-      value: 2
-    }
-  }
-}
+// let a = {
+//   data: {
+//     name: 'name',
+//     status: {
+//       value: 2
+//     }
+//   }
+// }
 
-_func.defineDeepWatch(a, 'data', {
-  deep: true,
-  set: function(...args) {
-    console.log(...args)
-  }
-})
+// _func.defineDeepWatch(a, 'data', {
+//   deep: true,
+//   set: function(...args) {
+//     console.log(...args)
+//   }
+// })
 
-// a.data.name = 'name1'
-a.data.status.value = '3'
+// // a.data.name = 'name1'
+// a.data.status.value = '3'
+
+console.log(_func.fillString('asd', 10, '+-/', 'end', false))
 
 let pf = function(a, b, c) {
   // return new Promise((resolve, reject) => {
