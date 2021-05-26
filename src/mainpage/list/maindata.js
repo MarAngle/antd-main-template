@@ -462,12 +462,12 @@ let maindata = new ListData({
     // created: function (target) {
     //   console.log('created', target)
     // },
-    BaseDataBeforeCreate: function (target, initdata) {
-      console.log('BaseDataBeforeCreate', target, initdata)
-    },
-    BaseDataCreated: function (target) {
-      console.log('BaseDataCreated', target)
-    }
+    // BaseDataBeforeCreate: function (target, initdata) {
+    //   console.log('BaseDataBeforeCreate', target, initdata)
+    // },
+    // BaseDataCreated: function (target) {
+    //   console.log('BaseDataCreated', target)
+    // }
     // ComplexDataCreated: function (target) {
     //   console.log('ComplexDataCreated', target)
     // }
@@ -484,23 +484,30 @@ let maindata = new ListData({
 
 maindata.watchName = '111'
 
-_func.defineWatch({
-  data: maindata,
-  key: 'watchName',
+_func.defineWatch(maindata, 'watchName', {
   set: function(v, o) {
     console.log(v, o)
   }
 })
 
-maindata.data.newList = []
+let a = {
+  data: {
+    name: 'name',
+    status: {
+      value: 2
+    }
+  }
+}
 
-_func.defineWatch({
-  data: maindata.data,
-  key: 'newList',
-  set: function(v, o) {
-    console.log(v, o)
+_func.defineDeepWatch(a, 'data', {
+  deep: true,
+  set: function(...args) {
+    console.log(...args)
   }
 })
+
+// a.data.name = 'name1'
+a.data.status.value = '3'
 
 let pf = function(a, b, c) {
   // return new Promise((resolve, reject) => {
