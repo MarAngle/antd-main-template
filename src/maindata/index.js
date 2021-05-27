@@ -10,4 +10,6 @@ import './build/index'
 import './func/index'
 
 import './../MainPlugin/complex-data/instruction'
+// 测试功能插件
+import './func/test/index'
 console.log('引用说明相关数据')
