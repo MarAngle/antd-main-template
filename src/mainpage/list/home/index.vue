@@ -168,6 +168,10 @@ export default {
       this.buildMainList()
       this.maindata.loadData(this.initType).then(res => {
         this.maindata.startUpdate()
+        this.maindata.triggerModuleMethod('update1', 'setaOffset')
+        setTimeout(() => {
+          this.maindata.clearUpdate()
+        }, 5000);
       }, res => {
         console.error(res)
       })
