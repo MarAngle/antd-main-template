@@ -382,6 +382,23 @@ let maindata = new ListData({
       }
     ]
   },
+  update: {
+    offset: 2000,
+    methods: {
+      trigger(next, num) {
+        console.log(num)
+        maindata.loadData(true).then(() => {
+          if (num >= 3) {
+            next(false)
+          } else {
+            next()
+          }
+        }, () => {
+          next()
+        })
+      }
+    }
+  },
   methods: {
     getData: function () {
       return new Promise((resolve, reject) => {
@@ -508,8 +525,6 @@ _func.defineWatch(maindata, 'watchName', {
 
 // // a.data.name = 'name1'
 // a.data.status.value = '3'
-
-console.log(_func.fillString('asd', 10, '+-/', 'end', false))
 
 let pf = function(a, b, c) {
   // return new Promise((resolve, reject) => {

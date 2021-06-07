@@ -166,7 +166,9 @@ export default {
         }
       })
       this.buildMainList()
-      this.maindata.loadData(this.initType).then(res => {}, res => {
+      this.maindata.loadData(this.initType).then(res => {
+        this.maindata.startUpdate()
+      }, res => {
         console.error(res)
       })
     },
