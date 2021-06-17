@@ -44,3 +44,16 @@ _func.triggerPromise({
 _func.runFunction(pf, [1, '3'], function(res) {
   console.log(res)
 })
+
+// function Car() {
+//   this.name = 'Car'
+// }
+
+// Car.prototype.speed = 10
+
+// let car = new Car()
+// console.log(car)
+// for (let n in car) {
+//   console.log(n)
+// }
+// console.log(Object.keys(car))
