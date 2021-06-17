@@ -33,7 +33,7 @@ Vue.use(_func, {
           notification.open(option)
         }
       },
-      alert: function (content, title, next, type = 'error', okText = '确认') {
+      alert: function (content, title, next, okText = '确认') {
         this.setmodal({
           title: title,
           content: content,
@@ -43,7 +43,7 @@ Vue.use(_func, {
               next('ok')
             }
           }
-        }, type)
+        }, 'error')
       },
       confirm: function (content, title, next, okText = '确认', cancelText = '取消') {
         this.setmodal({
