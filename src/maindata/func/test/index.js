@@ -1,4 +1,6 @@
-import _func from 'complex-func'
+import _func, { requiredata } from 'complex-func'
+
+console.log(requiredata)
 
 _func.setWorker({
   func: function(list) {
