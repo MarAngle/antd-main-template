@@ -1,14 +1,9 @@
 import Vue from 'vue'
+import _func from 'complex-func'
 
-const _data = require.context('./data', false, /(\.js)$/)
+const contents = require.context('./data', false, /(\.js)$/)
 
-function LoadData (_data) {
-  let datalist = _data.keys()
-  datalist.forEach(dataitem => {
-    let item = _data(dataitem)
-    let targetdata = item.default || item
-    Vue.directive(targetdata.name, targetdata.data)
-  })
-}
-
-LoadData(_data)
+_func.LoadContents(contents, function(item) {
+  let data = item.default || item
+  Vue.directive(data.name, data.data)
+})

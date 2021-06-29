@@ -1,13 +1,9 @@
 import Vue from 'vue'
+import _func from 'complex-func'
 
-const _mainviews = require.context('./current', false, /(\.vue)|(\.js)$/)
-function LoadViews (_views, mod = '') {
-  let viewlist = _views.keys()
-  viewlist.forEach(item => {
-    let viewitem = _views(item)
-    let viewdata = viewitem.default || viewitem
-    Vue.component(`Local${mod}${viewdata.name}`, viewdata)
-  })
-}
+const contents = require.context('./current', false, /(\.vue)|(\.js)$/)
 
-LoadViews(_mainviews, 'Current')
+_func.LoadContents(contents, function(item) {
+  let data = item.default || item
+  Vue.component(`LocalCurrent${data.name}`, data)
+})
