@@ -1,6 +1,6 @@
 {
   "func": "./../../src/MainPlugin/complex-func/index.js",
-  "data": "./../../src/MainPlugin/complex-data/src/index.js",
-  "option": "./../../src/MainPlugin/complex-data-option-antd/src/index.js",
-  "component": "./../../src/MainPlugin/complex-component-antd/src/index.js"
+  "data": "./../../src/MainPlugin/complex-data/index.js",
+  "option": "./../../src/MainPlugin/complex-data-option-antd/index.js",
+  "component": "./../../src/MainPlugin/complex-component-antd/index.js"
 }
