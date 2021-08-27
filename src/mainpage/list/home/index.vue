@@ -71,8 +71,7 @@
           :columnList="mainlist"
           :scrollOption="{
             recount: _func.page.recount.main,
-            width: 'auto',
-            height: 500
+            width: 'auto'
           }"
           :tableOption="{
             props: {
