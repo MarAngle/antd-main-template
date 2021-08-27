@@ -50,9 +50,17 @@ const constantRouterComponents = {
   SecuritySettings: () => import('@/views/account/settings/Security'),
   CustomSettings: () => import('@/views/account/settings/Custom'),
   BindingSettings: () => import('@/views/account/settings/Binding'),
-  NotificationSettings: () => import('@/views/account/settings/Notification')
+  NotificationSettings: () => import('@/views/account/settings/Notification'),
 
   // 'TestWork': () => import(/* webpackChunkName: "TestWork" */ '@/views/dashboard/TestWork')
+
+  // page
+  PageList: () => import('@/mainpage/list/home/index'),
+  PageInfo: () => import('@/mainpage/info/home/index'),
+  PageTree: () => import('@/mainpage/tree/home/index'),
+  PageTreeList: () => import('@/mainpage/treelist/home/index'),
+  PageInstrcution: () => import('@/mainpage/instrcution/home/index')
+
 }
 
 // 前端未找到页面路由（固定不用改）
@@ -93,10 +101,10 @@ export const generatorDynamicRouter = token => {
         listToTree(result, childrenNav, 0)
         rootRouter.children = childrenNav
         menuNav.push(rootRouter)
-        console.log('menuNav', menuNav)
+        // console.log('menuNav', menuNav)
         const routers = generator(menuNav)
         routers.push(notFoundRouter)
-        console.log('routers', routers)
+        // console.log('routers', routers)
         resolve(routers)
       })
       .catch(err => {

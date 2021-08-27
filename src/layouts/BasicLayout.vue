@@ -141,6 +141,9 @@ export default {
     if (process.env.NODE_ENV !== 'production' || process.env.VUE_APP_PREVIEW === 'true') {
       updateTheme(this.settings.primaryColor)
     }
+    this.$nextTick(() => {
+      this._func.page.upCount('sider')
+    })
   },
   methods: {
     i18nRender,

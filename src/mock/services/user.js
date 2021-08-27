@@ -513,6 +513,112 @@ const userNav = options => {
       path: '/dashboard/analysis'
     },
 
+    // List
+    {
+      name: 'List',
+      parentId: 0,
+      id: 100,
+      meta: {
+        icon: 'form',
+        title: '列表管理'
+      },
+      redirect: '/list/home',
+      component: 'RouteView'
+    },
+    {
+      name: 'ListHome',
+      parentId: 100,
+      id: 101,
+      meta: {
+        title: '列表'
+      },
+      component: 'PageList'
+    },
+    // Info
+    {
+      name: 'Info',
+      parentId: 0,
+      id: 200,
+      meta: {
+        icon: 'form',
+        title: '信息管理'
+      },
+      redirect: '/info/home',
+      component: 'RouteView'
+    },
+    {
+      name: 'InfoHome',
+      parentId: 200,
+      id: 201,
+      meta: {
+        title: '信息'
+      },
+      component: 'PageInfo'
+    },
+    // Tree
+    {
+      name: 'Tree',
+      parentId: 0,
+      id: 300,
+      meta: {
+        icon: 'form',
+        title: '树管理'
+      },
+      redirect: '/tree/home',
+      component: 'RouteView'
+    },
+    {
+      name: 'TreeHome',
+      parentId: 300,
+      id: 301,
+      meta: {
+        title: '树'
+      },
+      component: 'PageTree'
+    },
+    // TreeList
+    {
+      name: 'TreeList',
+      parentId: 0,
+      id: 400,
+      meta: {
+        icon: 'form',
+        title: '树列表管理'
+      },
+      redirect: '/treeList/home',
+      component: 'RouteView'
+    },
+    {
+      name: 'TreeListHome',
+      parentId: 400,
+      id: 401,
+      meta: {
+        title: '树列表'
+      },
+      component: 'PageTreeList'
+    },
+    // Instrcution
+    {
+      name: 'Instrcution',
+      parentId: 0,
+      id: 500,
+      meta: {
+        icon: 'form',
+        title: '说明管理'
+      },
+      redirect: '/instrcution/home',
+      component: 'RouteView'
+    },
+    {
+      name: 'InstrcutionHome',
+      parentId: 500,
+      id: 501,
+      meta: {
+        title: '说明'
+      },
+      component: 'PageInstrcution'
+    },
+
     // form
     {
       name: 'form',

@@ -8,10 +8,16 @@ module.exports = {
     '@vue/standard'
   ],
   rules: {
+    'no-unused-vars': 0,
+    'space-before-function-paren': 0,
+    'vue/require-default-prop': 0,
+    'prefer-promise-reject-errors': 0,
+    'eqeqeq': 0,
     'no-console': 'off',
     'no-debugger': process.env.NODE_ENV === 'production' ? 'error' : 'off',
     'generator-star-spacing': 'off',
     'no-mixed-operators': 0,
+    'vue/require-prop-types': 0,
     'vue/max-attributes-per-line': [
       2,
       {
@@ -42,7 +48,7 @@ module.exports = {
       }
     ],
     'semi': [
-      2,
+      0,
       'never',
       {
         'beforeStatementContinuationChars': 'never'
@@ -50,7 +56,7 @@ module.exports = {
     ],
     'no-delete-var': 2,
     'prefer-const': [
-      2,
+      0,
       {
         'ignoreReadBeforeAssign': false
       }
