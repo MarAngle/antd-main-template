@@ -173,12 +173,12 @@ export default {
       })
       this.buildMainList()
       this.maindata.loadData(this.initType).then(res => {
-        this.maindata.startUpdate()
-        this.maindata.triggerModuleMethod('update1', 'setaOffset')
-        setTimeout(() => {
-          console.log('延时5s触发停止更新')
-          this.maindata.clearUpdate()
-        }, 5000);
+        // this.maindata.startUpdate()
+        // this.maindata.triggerModuleMethod('update1', 'setaOffset')
+        // setTimeout(() => {
+        //   console.log('延时5s触发停止更新')
+        //   this.maindata.clearUpdate()
+        // }, 5000);
       }, res => {
         console.error(res)
       })
