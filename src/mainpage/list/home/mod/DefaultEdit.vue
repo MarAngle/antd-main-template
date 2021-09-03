@@ -124,14 +124,9 @@ export default {
     initData() {
       this.initMainList()
       if (this.edit == 'change') {
-        // let targetitem = this.maindata.getItem(this.index)
-        this.maindata.buildDictionaryFormData(this.modlist, this.type, this.data).then(res => {
-          this.form.data = res.data
-        })
+        this.form.data = this.maindata.buildDictionaryFormData(this.modlist, this.type, this.data)
       } else if (this.edit == 'build') {
-        this.maindata.buildDictionaryFormData(this.modlist, this.type).then(res => {
-          this.form.data = res.data
-        })
+        this.form.data = this.maindata.buildDictionaryFormData(this.modlist, this.type)
       }
     },
     onMenu(act) {

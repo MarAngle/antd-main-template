@@ -64,7 +64,8 @@ let maindata = new ListData({
         originfrom: 'local',
         mod: {
           list: {
-            width: 70
+            width: 70,
+            fixed: 'left'
           }
         }
       },
@@ -229,6 +230,11 @@ let maindata = new ListData({
         prop: 'selectSearch',
         name: '(检索下拉:分页)',
         originprop: 'selectSearch',
+        func: {
+          edit() {
+            return '10'
+          }
+        },
         mod: {
           info: {},
           edit: {
@@ -243,20 +249,22 @@ let maindata = new ListData({
             methods: {
               getData(value) {
                 return new Promise((resolve, reject) => {
-                  let pageCurrent = this.pagination.getPage()
-                  let pageSizeCurrent = this.pagination.getSize()
-                  let list = []
-                  for (let n = pageCurrent * pageSizeCurrent; n < (pageCurrent + 1) * pageSizeCurrent; n++) {
-                    let item = {
-                      value: `page${pageCurrent}size${pageSizeCurrent}id${n}value${value}`,
-                      label: `page${pageCurrent}size${pageSizeCurrent}id${n}label${value}`
+                  setTimeout(() => {
+                    let pageCurrent = this.pagination.getPage()
+                    let pageSizeCurrent = this.pagination.getSize()
+                    let list = []
+                    for (let n = pageCurrent * pageSizeCurrent; n < (pageCurrent + 1) * pageSizeCurrent; n++) {
+                      let item = {
+                        value: `${n}`,
+                        label: `page${pageCurrent}size${pageSizeCurrent}id${n}label${value}`
+                      }
+                      list.push(item)
                     }
-                    list.push(item)
-                  }
-                  this.option.list = []
-                  this.option.list = list
-                  this.pagination.setTotal(100)
-                  resolve()
+                    this.option.list = []
+                    this.option.list = list
+                    this.pagination.setTotal(100)
+                    resolve()
+                  }, 3000)
                 })
               }
             }
@@ -385,7 +393,8 @@ let maindata = new ListData({
         originprop: 'button',
         mod: {
           list: {
-            width: 120
+            width: 120,
+            fixed: 'right'
           },
           build: {
             type: 'button',
