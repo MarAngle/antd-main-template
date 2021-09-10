@@ -88,7 +88,7 @@ let maindata = new ListData({
             required: true,
             option: {
               type: 'text',
-              innerWidth: '100px'
+              width: '100px'
             },
             on: {
               change(value, { formData }) {
@@ -454,9 +454,9 @@ let maindata = new ListData({
             edit: {
               type: 'input',
               required: true,
+              width: '160px',
               option: {
-                type: 'text',
-                innerWidth: '160px'
+                type: 'text'
               }
             },
             build: {
@@ -476,9 +476,9 @@ let maindata = new ListData({
             edit: {
               type: 'input',
               required: true,
+              width: '160px',
               option: {
-                type: 'text',
-                innerWidth: '160px'
+                type: 'text'
               },
               on: {
                 change(value) {
@@ -499,10 +499,10 @@ let maindata = new ListData({
             info: {},
             edit: {
               type: 'input',
+              width: '160px',
               required: true,
               option: {
-                type: 'text',
-                innerWidth: '160px'
+                type: 'text'
               },
               on: {
                 change(value) {

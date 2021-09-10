@@ -73,6 +73,16 @@
             recount: _func.page.recount.main,
             width: 'auto'
           }"
+          :auto="{
+            pagination: {
+              default: {
+                type: 'choice',
+                option: {
+                  menu: true
+                }
+              }
+            }
+          }"
           :tableOption="{
             props: {
               expandedRowKeys: expandList,
@@ -91,11 +101,11 @@
               <a>修改</a>
             </span>
           </template>
-          <template slot="pagination_default">
+          <!-- <template slot="pagination_default">
             <span style="padding-right: 10px;">
               已选择: {{ maindata.getChoiceData('id').length }}
             </span>
-          </template>
+          </template> -->
           <template slot="expandedRowRender">
             <span style="padding-right: 10px;">
               额外展开行
