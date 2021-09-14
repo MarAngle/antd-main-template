@@ -61,6 +61,11 @@
             :layout="'inline'"
             :type="'build'"
             :footMenu="maindata.getModule('search').menu"
+            :auto="{
+              foot: {
+                loading: operateStatus == 'operating'
+              }
+            }"
             @menu="onSearchMenu"
           ></ComplexFormView>
         </ComplexModAutoSearchMenu>
@@ -193,6 +198,7 @@ export default {
       })
     },
     onSearchMenu(act) {
+      console.log(act)
       if (act == 'search') {
         this.onDefaultMenuBySearch()
       } else if (act == 'reset') {

@@ -103,13 +103,13 @@ export default {
   },
   methods: {
     onFormMenu(...args) {
-      // console.log('menu', ...args)
+      console.log('menu', ...args)
     },
     onFormEventEnd(...args) {
-      // console.log('end', ...args)
+      console.log('end', ...args)
     },
     onFormEvent(...args) {
-      // console.log('start', ...args)
+      console.log('start', ...args)
     },
     showData(data) {
       console.log(data)
