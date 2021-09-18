@@ -514,6 +514,65 @@ let maindata = new ListData({
               type: 'edit'
             }
           }
+        },
+        {
+          prop: 'cascader',
+          name: 'cascader',
+          originprop: 'cascader',
+          mod: {
+            info: {},
+            edit: {
+              type: 'cascader',
+              width: '160px',
+              required: true,
+              option: {
+                options: [],
+                // changeOnSelect: true,
+                loadData: function(selectedOptions) {
+                  const targetOption = selectedOptions[selectedOptions.length - 1]
+                  targetOption.loading = true;
+                  setTimeout(() => {
+                    targetOption.loading = false
+                    targetOption.children = [
+                      {
+                        label: `${targetOption.label} Dynamic 1`,
+                        value: 'dynamic1'
+                      },
+                      {
+                        label: `${targetOption.label} Dynamic 2`,
+                        value: 'dynamic2'
+                      }
+                    ]
+                    this.option.options = [...this.option.options]
+                  }, 1000);
+                }
+              },
+              on: {
+              },
+              methods: {
+                getData(value) {
+                  return new Promise((resolve) => {
+                    this.option.options = [
+                      {
+                        value: 'zhejiang',
+                        label: 'Zhejiang',
+                        isLeaf: false
+                      },
+                      {
+                        value: 'jiangsu',
+                        label: 'Jiangsu',
+                        isLeaf: false
+                      }
+                    ]
+                    resolve()
+                  })
+                }
+              }
+            },
+            build: {
+              type: 'edit'
+            }
+          }
         }
       ]
     }
