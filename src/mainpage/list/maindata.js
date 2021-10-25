@@ -164,20 +164,28 @@ let maindata = new ListData({
               prop: 'name',
               name: 'complex-name',
               originprop: 'name',
-              mod: {},
+              mod: {
+                list: {
+                  childrenTree: true
+                }
+              },
               dictionary: {
                 list: [
                   {
                     prop: 'localinname',
                     name: 'complex-name-inname',
                     originprop: 'inname',
-                    mod: {}
+                    mod: {
+                      list: {}
+                    }
                   },
                   {
                     prop: 'localincode',
                     name: 'complex-name-incode',
                     originprop: 'incode',
-                    mod: {}
+                    mod: {
+                      list: {}
+                    }
                   }
                 ]
               }
@@ -186,8 +194,8 @@ let maindata = new ListData({
         },
         mod: {
           list: {
-            width: '',
-            scrollWidth: 120
+            width: 400,
+            childrenTree: true
           },
           info: {}
         }
