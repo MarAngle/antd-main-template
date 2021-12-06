@@ -37,7 +37,7 @@ const app = {
     [SIDEBAR_TYPE]: (state, type) => {
       state.sideCollapsed = type
       storage.set(SIDEBAR_TYPE, type)
-      _func.page.setSiderType(type ? 'mini' : 'default')
+      _func.page.triggerChange('left', type ? 'mini' : 'default')
     },
     [TOGGLE_MOBILE_TYPE]: (state, isMobile) => {
       state.isMobile = isMobile

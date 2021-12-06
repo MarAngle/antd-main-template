@@ -1,20 +1,22 @@
 import Vue from 'vue'
 import { Modal, notification } from 'ant-design-vue'
 import _func, { requiredata } from 'complex-func'
-import _page from './data/page'
+
+_func.page.initBody()
+
+_func.page.installMod('left', {
+  width: 100,
+  change(type) {
+    // this.width = width
+    this.width = type == 'mini' ? 80 : 256
+  },
+  recount(extra) {
+    extra.width = extra.width + this.width
+    return extra
+  }
+})
 
 Vue.use(_func, {
-  root: {
-    page: _page
-  },
-  methods: {
-    autoPage() {
-      this.page.initBodyPage()
-      window.onresize = this.throttle(() => {
-        this.page.initBodyPage()
-      }, 200, 2)
-    }
-  },
   notice: {
     data: {},
     methods: {
@@ -210,8 +212,6 @@ Vue.use(_func, {
     ]
   }
 })
-
-_func.autoPage()
 
 // 设置token
 console.error('设置TOKEN')
