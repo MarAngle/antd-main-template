@@ -7,7 +7,7 @@ _func.page.installMod('sider', {
   width: 256,
   change(type) {
     this.type = type
-    this.width = type == 'mini' ? 64 : 256
+    this.width = type == 'mini' ? 80 : 256
   },
   recount(extra) {
     extra.width = extra.width + this.width
@@ -15,7 +15,7 @@ _func.page.installMod('sider', {
   }
 })
 _func.page.installMod('header', {
-  height: 60,
+  height: 64,
   recount(extra) {
     extra.height = extra.height + this.height
     return extra
