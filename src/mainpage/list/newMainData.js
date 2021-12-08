@@ -5,6 +5,26 @@ let maindata = new ListData({
   module: {
     status: true,
     promise: true,
+    search: {
+      module: {
+        dictionary: {
+          list: [
+            {
+              prop: 'name',
+              name: '名称',
+              originProp: 'name',
+              originFrom: 'local',
+              mod: {
+                edit: {
+                  width: 70,
+                  fixed: 'left'
+                }
+              }
+            }
+          ]
+        }
+      }
+    },
     dictionary: {
       layout: {
         default: {
