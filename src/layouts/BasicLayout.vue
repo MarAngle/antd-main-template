@@ -134,8 +134,6 @@ export default {
           this.collapsed = !this.collapsed
         }, 16)
       })
-    } else {
-      this._func.page.triggerChange('left', this.collapsed ? 'mini' : 'default')
     }
 
     // first update color

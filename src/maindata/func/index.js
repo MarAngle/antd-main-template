@@ -2,19 +2,26 @@ import Vue from 'vue'
 import { Modal, notification } from 'ant-design-vue'
 import _func, { requiredata } from 'complex-func'
 
-_func.page.initBody()
-
-_func.page.installMod('left', {
-  width: 100,
+_func.page.installMod('sider', {
+  type: 'default',
+  width: 256,
   change(type) {
-    // this.width = width
-    this.width = type == 'mini' ? 80 : 256
+    this.type = type
+    this.width = type == 'mini' ? 64 : 256
   },
   recount(extra) {
     extra.width = extra.width + this.width
     return extra
   }
 })
+_func.page.installMod('header', {
+  height: 60,
+  recount(extra) {
+    extra.height = extra.height + this.height
+    return extra
+  }
+})
+_func.page.init()
 
 Vue.use(_func, {
   notice: {
