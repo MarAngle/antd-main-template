@@ -86,10 +86,10 @@ let maindata = new ListData({
               }
             },
             build: {
-              type: 'edit'
+              $target: 'edit'
             },
             change: {
-              type: 'edit'
+              $target: 'edit'
             }
           }
         },
@@ -111,10 +111,10 @@ let maindata = new ListData({
               }
             },
             build: {
-              type: 'edit'
+              $target: 'edit'
             },
             change: {
-              type: 'edit'
+              $target: 'edit'
             }
           }
         },
@@ -133,10 +133,10 @@ let maindata = new ListData({
               required: false
             },
             build: {
-              type: 'edit'
+              $target: 'edit'
             },
             change: {
-              type: 'edit'
+              $target: 'edit'
             }
           }
         },
@@ -234,10 +234,10 @@ let maindata = new ListData({
               }
             },
             build: {
-              type: 'edit'
+              $target: 'edit'
             },
             change: {
-              type: 'edit'
+              $target: 'edit'
             }
           }
         },
@@ -285,10 +285,10 @@ let maindata = new ListData({
               }
             },
             build: {
-              type: 'edit'
+              $target: 'edit'
             },
             change: {
-              type: 'edit'
+              $target: 'edit'
             }
           }
         },
@@ -358,10 +358,10 @@ let maindata = new ListData({
               }
             },
             build: {
-              type: 'edit'
+              $target: 'edit'
             },
             change: {
-              type: 'edit'
+              $target: 'edit'
             }
           }
         },
@@ -395,10 +395,10 @@ let maindata = new ListData({
               }
             },
             build: {
-              type: 'edit'
+              $target: 'edit'
             },
             change: {
-              type: 'edit'
+              $target: 'edit'
             }
           }
         },
@@ -424,5 +424,7 @@ let maindata = new ListData({
     }
   }
 })
+
+console.log(_func.deepCloneData(maindata))
 
 export default maindata

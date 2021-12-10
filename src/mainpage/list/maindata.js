@@ -1,8 +1,5 @@
 import _func from 'complex-func'
 import { ListData, SelectList, SelectData } from 'complex-data'
-import newMainData from './newMainData'
-
-console.log(newMainData)
 
 let preurl = 'http://$local'
 
