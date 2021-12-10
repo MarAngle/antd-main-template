@@ -55,6 +55,7 @@ const constantRouterComponents = {
   // 'TestWork': () => import(/* webpackChunkName: "TestWork" */ '@/views/dashboard/TestWork')
 
   // page
+  PageNewList: () => import('@/mainpage/newList/home/index'),
   PageList: () => import('@/mainpage/list/home/index'),
   PageInfo: () => import('@/mainpage/info/home/index'),
   PageTree: () => import('@/mainpage/tree/home/index'),
