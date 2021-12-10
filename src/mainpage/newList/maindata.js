@@ -1,7 +1,11 @@
 import _func from 'complex-func'
 import { ListData } from './../../MainPlugin/complex-data-next/index'
 
+let preurl = 'http://$local'
+
 let maindata = new ListData({
+  name: '新版本列表',
+  prop: 'NEWLIST',
   module: {
     status: true,
     promise: true,
@@ -421,10 +425,30 @@ let maindata = new ListData({
           }
         }
       ]
+    },
+    pagination: true
+  },
+  methods: {
+    $getData: function () {
+      return new Promise((resolve, reject) => {
+        let postdata = this.getSearch()
+        postdata.pageSize = this.getPageData('size')
+        postdata.pageNo = this.getPageData('page')
+        console.log(postdata)
+        _func.get({
+          url: preurl + '/list/getdata',
+          params: postdata
+        }).then(res => {
+          this.formatData(res.data.data, res.data.totalCount)
+          resolve(res)
+        }, res => {
+          reject(res)
+        })
+      })
     }
   }
 })
 
-console.log(_func.deepCloneData(maindata))
+console.log(maindata)
 
 export default maindata

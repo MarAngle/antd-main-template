@@ -46,30 +46,30 @@
 <template>
   <div class="mainpage" >
     <div style="width: 100px">
-      <ComplexModAutoTextHeight :auto="true" :text="'1222222122222212222221222222'" />
+      <NextComplexModAutoTextHeight :auto="true" :text="'1222222122222212222221222222'" />
     </div>
     <a-button @click="onBuild">创建</a-button>
     <a-button @click="onReset">reset</a-button>
     <div class="mainpagein">
       <a-spin :spinning="loadStatus == 'loading'">
-        <ComplexModAutoMenu style="margin-top: 19px;" :height="59" :defaultOpen="true" :menuStyle="{ lineHeight: '40px' }" >
-          <ComplexFormView
-            v-if="maindata.getSearchInit()"
+        <NextComplexModAutoMenu style="margin-top: 19px;" :height="59" :defaultOpen="true" :menuStyle="{ lineHeight: '40px' }" >
+          <NextComplexFormView
+            v-if="maindata.$module.search"
             :class="{ local: true }"
-            :form="maindata.getModule('search').form.build.form"
-            :mainlist="maindata.getModule('search').form.build.mainlist"
+            :form="maindata.$module.search.$form.data"
+            :mainlist="maindata.$module.search.$form.mainlist"
             :layout="'inline'"
             :type="'build'"
-            :footMenu="maindata.getModule('search').menu"
+            :footMenu="maindata.$module.search.$menu"
             :auto="{
               foot: {
                 loading: operateStatus == 'operating'
               }
             }"
             @menu="onSearchMenu"
-          ></ComplexFormView>
-        </ComplexModAutoMenu>
-        <ComplexTableView
+          ></NextComplexFormView>
+        </NextComplexModAutoMenu>
+        <NextComplexTableView
           :class="'local-table'"
           :maindata="maindata"
           :columnList="mainlist"
@@ -115,7 +115,7 @@
               额外展开行
             </span>
           </template>
-        </ComplexTableView>
+        </NextComplexTableView>
       </a-spin>
     </div>
     <DefaultEdit
@@ -135,7 +135,7 @@ import maindata from './../maindata'
 import DefaultEdit from './mod/DefaultEdit'
 
 export default {
-  name: `main${maindata.prop}list`,
+  name: `NewListHome`,
   components: {
     DefaultEdit
   },
@@ -192,6 +192,7 @@ export default {
         //   console.log('延时5s触发停止更新')
         //   this.maindata.clearUpdate()
         // }, 5000);
+        console.log(res)
       }, res => {
         console.error(res)
       })
