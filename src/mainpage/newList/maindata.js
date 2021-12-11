@@ -146,8 +146,7 @@ let maindata = new ListData({
         },
         {
           prop: 'complex',
-          showprop: 'name',
-          // showprop: 'name.localinname',
+          showProp: 'name',
           name: '字典递归(对象)',
           originProp: 'complex',
           dictionary: {
@@ -158,7 +157,7 @@ let maindata = new ListData({
                 originProp: 'name',
                 mod: {
                   list: {
-                    childrenTree: true
+                    $children: true
                   }
                 },
                 dictionary: {
@@ -187,14 +186,14 @@ let maindata = new ListData({
           mod: {
             list: {
               width: 400,
-              childrenTree: true
+              $children: true
             },
             info: {}
           }
         },
         {
           prop: 'area',
-          showprop: {
+          showProp: {
             default: 'label',
             build: 'value',
             change: 'value'

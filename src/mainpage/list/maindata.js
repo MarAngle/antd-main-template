@@ -204,6 +204,7 @@ let maindata = new ListData({
         prop: 'area',
         showprop: {
           default: 'label',
+          edit: 'value',
           build: 'value',
           change: 'value'
         },
