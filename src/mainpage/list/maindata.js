@@ -84,7 +84,7 @@ let maindata = new ListData({
           },
           info: {},
           edit: {
-            type: 'input',
+            type: 'textArea',
             required: true,
             option: {
               type: 'text',

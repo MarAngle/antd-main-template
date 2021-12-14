@@ -5,7 +5,7 @@
   <a-modal class="mainmodal" :title="title" v-model="currentShow" @ok="onMenu('ok')" @cancel="onMenu('cancel')">
     <div v-if="currentShow">
       <a-spin :spinning="false">
-        <ComplexFormView
+        <NextComplexFormView
           :form="form"
           :mainlist="mainlist"
           :type="edit"
@@ -17,7 +17,7 @@
           <span slot="outSlot" slot-scope="itemData" >
             <a-input v-bind="itemData.option.props" v-on="itemData.option.on" ></a-input>
           </span>
-        </ComplexFormView>
+        </NextComplexFormView>
       </a-spin>
     </div>
   </a-modal>
