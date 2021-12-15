@@ -56,7 +56,7 @@
           <NextComplexFormView
             v-if="maindata.$module.search"
             :class="{ local: true }"
-            :form="maindata.$module.search.$form.data"
+            :form="maindata.$module.search.$form"
             :mainlist="maindata.$module.search.$form.mainlist"
             :layout="'inline'"
             :type="'build'"
