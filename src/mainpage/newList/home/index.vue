@@ -97,7 +97,7 @@
           }"
         >
           <span slot="name-title" >
-            <span>自定义标题</span>
+            <span>自定义标题(名称)</span>
           </span>
           <template slot="button" slot-scope="slotProps">
             <span class="menulist" @click="onMenuChange(slotProps)">
@@ -239,7 +239,7 @@ export default {
       this.menu[prop].show = true
     },
     onMenuChange({ record, index }) {
-      this.setMenu('main', 'edit', 'change', '修改', index, record)
+      this.setMenu('main', 'change', 'change', '修改', index, record)
     },
     onBuild() {
       this.setMenu('main', 'build', 'build', '创建', 0, null)

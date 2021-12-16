@@ -17,6 +17,7 @@ const getData = (options) => {
     result.push({
       id: tmpKey,
       name: Mock.mock('@integer(0, 3)'),
+      extraName: Mock.mock('@integer(0, 100)'),
       age: Mock.mock('@integer(0, 3)'),
       area: Mock.mock('@integer(1, 3)'),
       object: {

@@ -72,7 +72,43 @@ let maindata = new ListData({
           originProp: 'name',
           func: {
             format(data) {
-              return data + '1111111111111111111111111111111111111'
+              return data + 'func-format-add'
+            }
+          },
+          mod: {
+            list: {
+              width: 160
+            },
+            info: {},
+            edit: {
+              type: 'input',
+              required: true,
+              option: {
+                type: 'text',
+                width: '100px'
+              },
+              on: {
+                change(value, { formData }) {
+                  console.log(value)
+                  formData.file = undefined
+                }
+              }
+            },
+            build: {
+              $target: 'edit'
+            },
+            change: {
+              $target: 'edit'
+            }
+          }
+        },
+        {
+          prop: 'extraName',
+          name: '(文本域)',
+          originProp: 'extraName',
+          func: {
+            format(data) {
+              return data
             }
           },
           mod: {
@@ -86,12 +122,6 @@ let maindata = new ListData({
               option: {
                 type: 'text',
                 width: '100px'
-              },
-              on: {
-                change(value, { formData }) {
-                  console.log(value)
-                  formData.file = undefined
-                }
               }
             },
             build: {
@@ -338,9 +368,11 @@ let maindata = new ListData({
             build: {
               type: 'input',
               required: true,
+              slot: {
+                type: 'model'
+              },
               option: {
-                maxLength: 2,
-                slot: 'model'
+                maxLength: 2
               }
             }
           }
