@@ -20,8 +20,13 @@ let maindata = new ListData({
               originFrom: 'local',
               mod: {
                 edit: {
-                  width: 70,
-                  fixed: 'left'
+                  type: 'input'
+                },
+                build: {
+                  $target: 'edit'
+                },
+                change: {
+                  $target: 'edit'
                 }
               }
             }
@@ -448,6 +453,6 @@ let maindata = new ListData({
   }
 })
 
-console.log(maindata)
+console.log(maindata.$module.search.$module)
 
 export default maindata

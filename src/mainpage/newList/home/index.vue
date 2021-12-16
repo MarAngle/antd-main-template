@@ -55,7 +55,6 @@
         <NextComplexModAutoMenu style="margin-top: 19px;" :height="59" :defaultOpen="true" :menuStyle="{ lineHeight: '40px' }" >
           <NextComplexFormView
             v-if="maindata.$module.search"
-            :class="{ local: true }"
             :form="maindata.$module.search.$form"
             :mainlist="maindata.$module.search.$form.mainlist"
             :layout="'inline'"
