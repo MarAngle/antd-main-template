@@ -9,6 +9,9 @@
         :mainlist="mainlist"
         :type="edit"
         :footMenu="menu"
+        @menu="onFormMenu"
+        @event="onFormEvent"
+        @eventEnd="onFormEventEnd"
       >
         <span slot="outSlot" slot-scope="itemData" >
           <a-input v-bind="itemData.option.props" v-on="itemData.option.on" ></a-input>
@@ -33,7 +36,12 @@ export default {
         ref: null,
         data: {}
       },
-      menu: []
+      menu: [
+        {
+          name: '页面定义按钮',
+          act: 'pageMenu'
+        }
+      ]
     }
   },
   props: {
@@ -47,6 +55,16 @@ export default {
     }
   },
   methods: {
+    onFormMenu(...args) {
+      console.log('menu', ...args)
+      console.log(this.form.data)
+    },
+    onFormEventEnd(...args) {
+      console.log('end', ...args)
+    },
+    onFormEvent(...args) {
+      console.log('start', ...args)
+    },
     show(type, edit, data) {
       this.type = type
       this.edit = edit
