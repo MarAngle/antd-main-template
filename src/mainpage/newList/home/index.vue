@@ -48,6 +48,7 @@
     <div style="width: 100px">
       <NextComplexModAutoTextHeight :auto="true" :text="'1222222122222212222221222222'" />
     </div>
+    <Ellipsis :length="10">啊手动阀打算地擦拭的阿斯顿阿萨大啥的阿萨大啥的阿萨</Ellipsis>
     <a-button @click="onBuild">创建</a-button>
     <a-button @click="onReset">reset</a-button>
     <div class="mainpagein">
@@ -132,11 +133,13 @@
 <script>
 import maindata from './../maindata'
 import DefaultEdit from './mod/DefaultEdit'
+import Ellipsis from './../../../components/Ellipsis/index'
 
 export default {
   name: `NewListHome`,
   components: {
-    DefaultEdit
+    DefaultEdit,
+    Ellipsis
   },
   data () {
     return {

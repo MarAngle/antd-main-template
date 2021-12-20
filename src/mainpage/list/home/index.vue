@@ -52,7 +52,7 @@
     <a-button @click="onReset">reset</a-button>
     <div class="mainpagein">
       <a-spin :spinning="loadStatus == 'loading'">
-        <ComplexModAutoMenu style="margin-top: 19px;" :height="59" :defaultOpen="true" :menuStyle="{ lineHeight: '40px' }" >
+        <ComplexModAutoMenu style="margin-top: 19px;" :height="59" :defaultOpen="true" :auto="{ menu: { style: { lineHeight: '40px' } } }" >
           <ComplexFormView
             v-if="maindata.getSearchInit()"
             :class="{ local: true }"
@@ -68,6 +68,12 @@
             }"
             @menu="onSearchMenu"
           ></ComplexFormView>
+          <div slot="menu" slot-scope="slotScope">
+            <p>
+              <a-icon class="complex-auto-menu-main-icon" type="up" />
+              <span>{{ slotScope.open ? 1 : 2 }}</span>
+            </p>
+          </div>
         </ComplexModAutoMenu>
         <ComplexTableView
           :class="'local-table'"
