@@ -118,43 +118,37 @@
         </ComplexTableView>
       </a-spin>
     </div>
-    <DefaultEdit
-      :maindata="maindata"
-      :title="menu.main.title"
-      :show.sync="menu.main.show"
-      :edit="menu.main.edit"
-      :type="menu.main.type"
-      :data="menu.main.data"
-      :index="menu.main.index"
-    />
+    <ComplexModAutoModal
+      :optionProps="{
+        width: 600,
+        destroyOnClose: true
+      }"
+      :auto="{
+        ok: false
+      }"
+      :onEvent="onEditEvent"
+      ref="edit"
+    >
+      <EditView slot-scope="slotScope" :maindata="maindata" :maxHeight="slotScope.height" ref="editView" />
+    </ComplexModAutoModal>
   </div>
 </template>
 
 <script>
 import maindata from './../maindata'
-import DefaultEdit from './mod/DefaultEdit'
+import EditView from './mod/EditView'
 
 export default {
   name: `main${maindata.prop}list`,
   components: {
-    DefaultEdit
+    EditView
   },
   data () {
     return {
       initType: true,
       maindata: maindata,
       mainlist: [],
-      expandList: [],
-      menu: {
-        main: {
-          show: false,
-          type: 'build',
-          edit: 'build',
-          title: '创建',
-          index: 0,
-          data: null
-        }
-      }
+      expandList: []
     }
   },
   computed: {
@@ -229,20 +223,17 @@ export default {
     buildMainList () {
       this.mainlist = this.maindata.getDictionaryPageList('list')
     },
-    setMenu(prop, type, edit, title, index, data) {
-      this.menu[prop].type = type
-      this.menu[prop].edit = edit
-      this.menu[prop].title = title
-      this.menu[prop].index = index
-      this.menu[prop].data = null
-      this.menu[prop].data = data
-      this.menu[prop].show = true
-    },
-    onMenuChange({ record, index }) {
-      this.setMenu('main', 'edit', 'change', '修改', index, record)
-    },
     onBuild() {
-      this.setMenu('main', 'build', 'build', '创建', 0, null)
+      this.$refs.edit.show('新增项目')
+      this.$nextTick(() => {
+        this.$refs.editView.show('build', 'build', null)
+      })
+    },
+    onMenuChange({ record }) {
+      this.$refs.edit.show('编辑项目')
+      this.$nextTick(() => {
+        this.$refs.editView.show('change', 'change', record)
+      })
     },
     onReset() {
       this.maindata.reset({
@@ -252,6 +243,17 @@ export default {
         }
       })
       console.log(this.maindata)
+    },
+    onEditEvent(act) {
+      if (act == 'ok') {
+        this.$refs.editView.handle((promise) => {
+          if (promise) {
+            promise.then(res => {
+              this.$refs.edit.hide()
+            }, () => {})
+          }
+        })
+      }
     }
   }
 }
