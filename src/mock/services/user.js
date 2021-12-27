@@ -512,28 +512,6 @@ const userNav = options => {
       component: 'Analysis',
       path: '/dashboard/analysis'
     },
-
-    // NewList
-    {
-      name: 'NewList',
-      parentId: 0,
-      id: 50,
-      meta: {
-        icon: 'form',
-        title: '新列表'
-      },
-      redirect: '/Newlist/home',
-      component: 'RouteView'
-    },
-    {
-      name: 'NewListHome',
-      parentId: 50,
-      id: 51,
-      meta: {
-        title: '新列表'
-      },
-      component: 'PageNewList'
-    },
     // List
     {
       name: 'List',
