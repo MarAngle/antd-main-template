@@ -10,6 +10,7 @@ COMPONENT
   2.2.22=>AutoModal优化
   2.2.23=>添加ShowValue组件
   2.2.24=>git地址切换/同步DATA
+  2.2.25=>同步DATA
 DATA
   2.2.18=>添加文本域
   2.2.19=>重大BUG:需要更新
@@ -17,26 +18,28 @@ DATA
   2.2.21=>文本域修正
   2.2.22=>优化字典模块数据，为否不构建
   2.2.23=>git地址切换/file默认宽度从auto修改为不设置/同步FUNC
+  2.2.24=>同步FUNC
 FUNC
   2.2.8=>当前最新
   2.2.9=>git地址切换/a标签下载新建窗口优化
-
-燃油车
-COMPONENT 2.2.24
-DATA 2.2.23
-FUNC 2.2.9
-
-新能源
-COMPONENT 2.2.24
-DATA 2.2.23
-FUNC 2.2.9
-
-农装
-COMPONENT 2.2.24
-DATA 2.2.23
-FUNC 2.2.9
+  2.2.10=>formatTree错误修正/响应式数据相关不默认输出/Worker优化: url自动销毁，同步判断修正，逻辑优化/revokeObjectURL优化:推荐更新
 
 远程诊断
+COMPONENT 2.2.25
+DATA 2.2.24
+FUNC 2.2.10
+
+燃油车
+COMPONENT 2.2.25
+DATA 2.2.24
+FUNC 2.2.10
+
+农装
+COMPONENT 2.2.25
+DATA 2.2.24
+FUNC 2.2.10
+
+新能源
 COMPONENT 2.2.24
 DATA 2.2.23
 FUNC 2.2.9
