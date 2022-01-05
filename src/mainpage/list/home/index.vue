@@ -244,9 +244,9 @@ export default {
     onReset() {
       this.maindata.reset({
         // status: false,
-        data: {
-          list: false
-        }
+        // data: {
+        //   list: false
+        // }
       })
       console.log(this.maindata)
     },
