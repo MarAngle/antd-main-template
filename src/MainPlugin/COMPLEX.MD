@@ -28,9 +28,9 @@ FUNC
   2.2.11=>内部函数更新为$开头/优化相关类，继承优化，输出优化/setLocalData中对JSON.stringify进行错误catch/require扩展delete/put方法:稳定后推荐更新
 
 远程诊断
-COMPONENT 2.2.25
-DATA 2.2.24
-FUNC 2.2.10
+COMPONENT 2.2.26
+DATA 2.2.25
+FUNC 2.2.11
 
 燃油车
 COMPONENT 2.2.25
