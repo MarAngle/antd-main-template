@@ -26,6 +26,7 @@ FUNC
   2.2.9=>git地址切换/a标签下载新建窗口优化
   2.2.10=>formatTree错误修正/响应式数据相关不默认输出/Worker优化: url自动销毁，同步判断修正，逻辑优化/revokeObjectURL优化:推荐更新
   2.2.11=>内部函数更新为$开头/优化相关类，继承优化，输出优化/setLocalData中对JSON.stringify进行错误catch/require扩展delete/put方法:稳定后推荐更新
+  2.2.12=>添加同源判断，优化下载逻辑:等待验证
 
 远程诊断
 COMPONENT 2.2.26
