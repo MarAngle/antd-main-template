@@ -20,7 +20,7 @@ COMPONENT
   2.3.3/2.3.4=>2.3.4/2.3.5/数列表的index自动判断
   2.3.5=>2.3.6/TableView宽度优化
   2.3.6=>2.3.7/TableView逻辑优化/jsx文件优化/UploadFile优化Disabled判断/complex-data依赖升级
-  2.3.7=>2.3.8
+  2.3.7/2.3.8=>2.3.8/2.3.9
 DATA
   2.2.18=>添加文本域
   2.2.19=>重大BUG:需要更新
@@ -39,6 +39,7 @@ DATA
   2.3.6=>ant-option的scrollWidth判断优化
   2.3.7=>2.3.1/同步FUNC
   2.3.8=>2.3.2/同步FUNC
+  2.3.9=>2.3.3/同步FUNC/优化Layout
 FUNC
   2.2.8=>当前最新
   2.2.9=>git地址切换/a标签下载新建窗口优化
@@ -51,6 +52,7 @@ FUNC
   2.3.0=>2.3.0
   2.3.1=>require form content-type优化
   2.3.2=>getPropByList输出优化
+  2.3.3=>优化
 
 远程诊断
 COMPONENT 2.2.26
