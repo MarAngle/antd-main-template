@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import { Modal, notification } from 'ant-design-vue'
-import _func, { requiredata } from 'complex-func'
+import _func from 'complex-func'
 
 _func.page.installMod('sider', {
   type: 'default',

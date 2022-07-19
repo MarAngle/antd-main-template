@@ -72,7 +72,10 @@ let maindata = new ListData({
       {
         prop: 'name',
         name: '名称(字符串)',
-        originprop: 'name',
+        originprop: {
+          list: 'name',
+          build: 'userName'
+        },
         func: {
           format(data) {
             return data + '1111111111111111111111111111111111111'
@@ -86,6 +89,16 @@ let maindata = new ListData({
           edit: {
             type: 'textArea',
             required: true,
+            observe(list, prop, value) {
+              if (prop == 'age') {
+                console.log(list, prop, value, this.prop)
+                if (value) {
+                  list.hidden(this.prop)
+                } else {
+                  list.show(this.prop)
+                }
+              }
+            },
             option: {
               type: 'text',
               width: '100px'

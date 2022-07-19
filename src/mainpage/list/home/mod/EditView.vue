@@ -74,8 +74,11 @@ export default {
     initMainList() {
       this.modlist = this.maindata.getDictionaryModList(this.type)
       let mainlist = this.maindata.getDictionaryPageListByModList(this.type, this.modlist, {
-        mod: this.edit
+        mod: this.edit,
+        usePageList: true
       })
+      mainlist.showOrder()
+      mainlist.setOrder(['switch', 'selectSearch', 'name', 'age', 'area', 'date', 'dateRange'])
       this.mainlist = mainlist
     },
     initData() {
@@ -85,6 +88,7 @@ export default {
       } else if (this.edit == 'build') {
         this.form.data = this.maindata.buildDictionaryFormData(this.modlist, this.type)
       }
+      this.mainlist.setData(this.form.data)
     },
     handle(cb) {
       this.form.ref.validate(valid => {
